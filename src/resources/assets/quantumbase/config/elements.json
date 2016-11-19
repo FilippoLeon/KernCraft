@@ -1,0 +1,11 @@
+{
+	"H" : {
+	   "id" : "1asdasd",
+	   
+	   "pos" : [ "0", "0" ],
+	   "radioactive" : "false",
+	   "decay" : "5"
+	
+	}
+
+}
