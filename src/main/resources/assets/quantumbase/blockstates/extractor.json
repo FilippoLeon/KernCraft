@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "quantumbase:extractor"
+    },
+    "facing=south": {
+      "model": "quantumbase:extractor",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "quantumbase:extractor",
+      "y": 270
+    },
+    "facing=east": {
+      "model": "quantumbase:extractor",
+      "y": 90
+    }
+  }
+}

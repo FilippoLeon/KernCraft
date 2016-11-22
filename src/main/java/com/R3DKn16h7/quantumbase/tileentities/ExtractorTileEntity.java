@@ -1,5 +1,6 @@
 package com.R3DKn16h7.quantumbase.tileentities;
 
+import com.R3DKn16h7.quantumbase.elements.ElementBase;
 import com.R3DKn16h7.quantumbase.items.ModItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
@@ -49,6 +50,13 @@ public class ExtractorTileEntity extends TileEntity
             registerRecipe(Item.getItemFromBlock(Blocks.DIAMOND_ORE),
                     Item.getItemFromBlock(Blocks.LAPIS_BLOCK),
                     new ElementStack[]{new ElementStack(1, 1), new ElementStack(5, 5)}, 1000);
+            registerRecipe(Item.getItemFromBlock(Blocks.DIAMOND_BLOCK),
+                    null,
+                    new ElementStack[]{
+                            new ElementStack("Be", 4, 0.5f),
+                            new ElementStack("Ar", 5)
+                    },
+                    1000);
         }
     }
 
@@ -84,9 +92,9 @@ public class ExtractorTileEntity extends TileEntity
                 inventory[inputSlot].getItem() != recipe.item ||
                 inventory[inputSlot].stackSize < 1 ||
                 // Check catalyst
-                inventory[catalystSlot] == null ||
+                recipe.catalyst != null && (inventory[catalystSlot] == null ||
                 inventory[catalystSlot].getItem() != recipe.catalyst ||
-                inventory[catalystSlot].stackSize < 1
+                        inventory[catalystSlot].stackSize < 1)
             // Check canister
 //           inventory[canisterSlot] == null ||
 //           inventory[canisterSlot].getItem() != ModItems.canister
@@ -402,10 +410,26 @@ public class ExtractorTileEntity extends TileEntity
     static public class ElementStack {
         public int id;
         public int quantity;
+        public float prob = 1.0f;
 
         public ElementStack(int id_, int quantity_) {
             id = id_;
             quantity = quantity_;
+        }
+
+        public ElementStack(String name_, int quantity_) {
+            id = ElementBase.symbolToId(name_);
+            quantity = quantity_;
+        }
+
+        public ElementStack(int id_, int quantity_, float prob_) {
+            this(id_, quantity_);
+            prob = prob_;
+        }
+
+        public ElementStack(String name_, int quantity_, float prob_) {
+            this(name_, quantity_);
+            prob = prob_;
         }
     }
 

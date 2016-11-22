@@ -1,0 +1,119 @@
+id,symbol,group,period,english,german,french,spanish,italian,mass,density,radius,conductivity,sp_heat,th_conductivity,Notes,source,color,characteristics,uses,toxic,state,half_life
+1,H,1,1,hydrogen,Wasserstoff,hydrogène,hidrógeno,idrogeno,1.008,6.99E-05,0.79,,14.304,0.1815,,"Water, methane",colorless,"diatomic,dens<air at r.t.",rocket fuel,,g,Stable
+2,He,18,1,helium,Helium,hélium,helio,elio,4.003,0.000179,0.49,,5.193,0.152,,"Natural gas, air",colorless,"Inert, dens<air at r.t.","cryogenics, blimps",FALSE,g,Stable
+3,Li,1,2,lithium,Lithium,lithium,litio,litio,6.968,0.543,2.05,0.108,3.6,84.7,,Spodumene (silicate),silvery,"soft, lightest solid","batteries, lubricant",,s,Stable
+4,Be,2,2,beryllium,Beryllium,béryllium,berilio,berillio,9.012,1.85,1.4,0.313,1.82,200,,Beryl (silicate),steel gray,toxic,"Cu alloys, X-ray windows",TRUE,s,Stable
+5,B,13,2,boron,Bor,bore,boro,boro,10.81,2.34,1.17,1E-12,1.02,27,sublimes,Na and Ca borates (misc),black,B12 icosahedra; 3 forms,"borax, glass making(B2O3)",,s,Stable
+6,C,14,2,carbon,Kohlenlstoff,carbone,carbono,carbonio,12.01,2.25,0.91,0.00061,0.71,129,graphite,"Coal,Petroleum,Natural gas",black,"6 forms: graphite,diamond","fuel(coal), lubricant",,s,Stable
+7,N,15,2,nitrogen,Stickstoff,azote,nitrógeno,azoto,14.01,0.00125,0.75,,1.04,0.02598,,Air,colorless,diatomic(N2),"fertilizer, cryogenics",FALSE,g,Stable
+8,O,16,2,oxygen,Sauerstoff,oxygène,oxígeno,ossigeno,16.00,0.00143,0.65,,0.92,0.02674,,Air,colorless,"diatomic,2 forms: O2, O3","rocket fuel, steel mfr.",FALSE,g,Stable
+9,F,17,2,fluorine,Fluor,fluor,flúor,fluoro,19.00,0.0017,0.57,,0.82,0.0279,,Fluorite (misc),colorless,"diatomic(F2), corrosive","fluorocarbons, toothpaste",TRUE,g,Stable
+10,Ne,18,2,neon,Neon,néon,neón,neon,20.18,0.0009,0.51,,0.904,0.0493,,Air,colorless,"Inert, dens<air at r.t.",Neon signs,FALSE,g,Stable
+11,Na,1,3,sodium,Natrium,sodium,sodio,sodio,22.99,0.971,2.23,0.21,1.23,141,,Halite (misc),silvery,soft,"lamps, table salt",,s,Stable
+12,Mg,2,3,magnesium,Magnesium,magnésium,magnesio,magnesio,24.31,1.74,1.72,0.226,1.02,156,,"Seawater, magnesite",silvery,burns brightly,"alloys, flash bulbs",,s,Stable
+13,Al,13,3,aluminum,Aluminium,aluminium,aluminio,alluminio,26.98,2.7,1.82,0.377,0.9,237,,Bauxite (oxide),silvery,passivated: surface oxide,"Al cans & foil,reflectors",,s,Stable
+14,Si,14,3,silicon,Silizium,silicium,silicio,silicio,28.09,2.33,1.46,2.52E-12,0.71,148,,Quartz (oxide),gray-black,semimetal,"comp chip,lubricant,glass",,s,Stable
+15,P,15,3,phosphorus,Phosphor,phosphore,fósforo,fosforo,30.97,1.82,1.23,1E-17,0.77,0.235,white,Apatite (phosphate),white-yellow,"(P4) pyrophoric, 15 forms","fertilizer, detergents",TRUE,s,Stable
+16,S,16,3,sulfur,Schwefel,soufre,azufre,zolfo,32.07,2.07,1.09,5E-24,0.71,0.269,yellow,"Sulfur,pyrite,natural gas",yellow(pale),"(S8)brittle, 19 forms","rubber, batteries (H2SO4)",,s,Stable
+17,Cl,17,3,chlorine,Chlor,chlore,cloro,cloro,35.45,0.00321,0.97,,0.48,0.0089,,"Halite, brine (misc)",greenish-yellow,"diatomic(Cl2), corrosive","bleach (NaOCl), PVC pipe",TRUE,g,Stable
+18,Ar,18,3,argon,Argon,argon,argón,argo,39.95,0.00178,0.88,,0.52,0.01772,,Air,colorless,Inert,"lasers, light bulbs",FALSE,g,Stable
+19,K,1,4,potassium,Kalium,potassium,potasio,potassio,39.10,0.86,2.77,0.139,0.75,102.4,,"Sylvite, carnallite (misc)",silvery-white,soft,"fertilizer, low-Na salt",,s,Stable
+20,Ca,2,4,calcium,Kalzium,calcium,calcio,calcio,40.08,1.55,2.23,0.298,0.63,200,,Calcite (oxide),silvery-white,burns brightly,"lime, cement",,s,Stable
+21,Sc,3,4,scandium,Skandium,scandium,escandio,scandio,44.96,2.99,2.09,0.0177,0.6,15.8,,U extractn by-product,silvery-white,soft,no significant uses,,s,Stable
+22,Ti,4,4,titanium,Titan,titane,titanio,titanio,47.87,4.54,2,0.0234,0.52,21.9,,"Ilmenite, rutile(oxide)",gray,max strength/weight ratio,"steel,white pigment(TiO2)",,s,Stable
+23,V,5,4,vanadium,Vanadium,vanadium,vanadio,vanadio,50.94,6.11,1.92,0.0489,0.49,30.7,,"U, Pb vanadates (misc)",bright white,soft,"tool steel, V2O5 catalyst",TRUE,s,Stable
+24,Cr,6,4,chromium,Chrom,chrome,cromo,cromo,52.00,7.19,1.85,0.0774,0.45,93.7,,Chromite (oxide),silvery-white,hard,"CrO2 tape, paint, steel",,s,Stable
+25,Mn,7,4,manganese,Mangan,manganèse,manganeso,manganese,54.94,7.43,1.79,0.00695,0.48,7.82,,"Pyrolusite,psilomelane(oxide)",gray-white,"hard, brittle","steel, dry cells(MnO2)",,s,Stable
+26,Fe,8,4,iron,Eisen,fer,hierro,ferro,55.85,7.86,1.72,0.0993,0.44,80.2,,"Hematite,magnetite(oxide)",gray,fairly soft when pure,steel,,s,Stable
+27,Co,9,4,cobalt,Kobalt,cobalt,cobalto,cobalto,58.93,8.9,1.67,0.172,0.42,100,,Co sulfides & arsenides,bluish-white,hard,"magnets, Co glass (blue)",,s,Stable
+28,Ni,10,4,nickel,Nickel,nickel,níquel,nichelio,58.69,8.9,1.62,0.143,0.44,90.7,,"sulfides, oxide/silicates",silvery-white,"hard, takes a high polish","alloys, coins, batteries",TRUE,s,Stable
+29,Cu,11,4,copper,Kupfer,cuivre,cobre,rame,63.55,8.96,1.57,0.596,0.38,401,,"Cu pyrite,chalcocite(sulfide)",orange-red,"soft, ductile","wire, bronze, coins",,s,Stable
+30,Zn,12,4,zinc,Zink,zinc,zinc,zinco,65.38,7.13,1.53,0.166,0.39,116,,Sphalerite (sulfide),silvery,brittle,"batteries, galvanizing",,s,Stable
+31,Ga,13,4,gallium,Gallium,gallium,galio,gallio,69.72,5.9,1.81,0.0678,0.37,40.6,,Bauxite (oxide),silvery-blue,melts near r.t.wets glass,"photocells, transistors",,s,Stable
+32,Ge,14,4,germanium,Germanium,germanium,germanio,germanio,72.63,5.32,1.52,1.45E-08,0.32,59.9,,Zn smelting by-product,gray-black,"semimetal, brittle","transistor, wide-ang lens",,s,Stable
+33,As,15,4,arsenic,Arsen,arsenic,arsénico,arsenico,74.92,5.73,1.33,0.0345,0.33,50,sublimes (28 atm) ,"Arsenopyrite, enargite (misc)",gray,"semimetal,brittle,3 forms","photocells (GaAs), poisons",,s,Stable
+34,Se,16,4,selenium,Selen,sélénium,selenio,selenio,78.97,4.79,1.22,1E-12,0.32,2.04,,Cu smelting by-product,black,6 forms,"Xerography, medicines",TRUE,s,Stable
+35,Br,17,4,bromine,Brom,brome,bromo,bromo,79.90,3.12,1.12,,0.473,0.122,,"Seawater, brines",red-brown,"diatomic,corrosive,liquid","pesticides,photography",TRUE,l,Stable
+36,Kr,18,4,krypton,Krypton,krypton,criptón,kripto,83.80,0.00374,1.03,,0.248,0.00949,,Air,colorless,unreactive,"lamps, UV-laser",FALSE,g,Stable
+37,Rb,1,5,rubidium,Rubidium,rubidium,rubidio,rubidio,85.47,1.53,2.98,0.0779,0.363,58.2,,Li extractn by-product,silvery-white,soft,photocells,,s,Stable
+38,Sr,2,5,strontium,Strontium,strontium,estroncio,stronzio,87.62,2.54,2.45,0.0762,0.3,35.3,,Celestite (sulfide),silvery,tarnishes,fireworks (red flame),,s,Stable
+39,Y,3,5,yttrium,Yttrium,yttrium,itrio,ittrio,88.91,4.47,2.27,0.0166,0.3,17.2,,xenotime (phosphate),silvery,forms protective oxide,"YAG laser, TV phosphor",,s,Stable
+40,Zr,4,5,zirconium,Zirkonium,zirconium,circonio,zirconio,91.22,6.51,2.16,0.0236,0.27,22.7,,Zircon (silicate),grayish-white,"hard, relatively inert","deodorants, fuel rod clad",,s,Stable
+41,Nb,5,5,niobium,Niob,niobium,niobio,niobio,92.91,8.57,2.08,0.0693,0.26,53.7,,columbite (oxide),silvery-white,soft,"stainless steels, magnets",,s,Stable
+42,Mo,6,5,molybdenum,Molybdän,molybdène,molibdeno,molibdeno,95.95,10.2,2.01,0.187,0.25,138,,Molybdenite (sulfide),silvery-white,very hard,"catalysts, tool steel",,s,Stable
+43,Tc,7,5,technetium,Technetium,technétium,tecnecio,tecnezio,98,11.5,1.95,0.067,0.21,50.6,,Synthetic (U fission),silvery gray,"Radioactive, man made",medical imaging agents,,s,4.12*10e6 y
+44,Ru,8,5,ruthenium,Ruthenium,ruthénium,rutenio,rutenio,101.1,12.4,1.89,0.137,0.238,117,,nickel ores (sulfides),silvery-white,hard,catalysts,,s,Stable
+45,Rh,9,5,rhodium,Rhodium,rhodium,rodio,rodio,102.9,12.4,1.83,0.211,0.242,150,,nickel ores (sulfides),silvery-white,forms hard coatings,"catalysts, elec. contacts",,s,Stable
+46,Pd,10,5,palladium,Palladium,palladium,paladio,palladio,106.4,12,1.79,0.095,0.24,71.8,,nickel ores (sulfides),silvery-white,absorbs H2,"catalysts, dental crowns",,s,Stable
+47,Ag,11,5,silver,Silber,argent,plata,argento,107.9,10.5,1.75,0.63,0.235,429,,Argentite (sulfide),silvery,"soft, ductile, tarnishes","film(AgBr),coins,jewelry",,s,Stable
+48,Cd,12,5,cadmium,Kadmium,cadmium,cadmio,cadmio,112.4,8.65,1.71,0.138,0.23,96.8,,Sphalerite (sulfide),bluish-white,soft,"battery,yel. pigment(CdS)",,s,Stable
+49,In,13,5,indium,Indium,indium,indio,indio,114.8,7.31,2,0.116,0.23,81.6,,Zn/Pb smelting by-product,silvery-white,soft,"transistors, photocells",,s,Stable
+50,Sn,14,5,tin,Zinn,Étain,estaño,stagno,118.7,7.31,1.72,0.0917,0.227,66.6,,Cassiterite (oxide),silvery-white,resists corrosion;2 forms,"solder, pewter, bronze",,s,Stable
+51,Sb,15,5,antimony,Antimon,antimoine,antimonio,antimonio,121.8,6.69,1.53,0.0288,0.21,24.3,,Stibnite (sulfide),bluish-white,brittle; 5 forms,"Pb alloy(battery), dyeing",,s,Stable
+52,Te,16,5,tellurium,Tellur,tellure,teluro,tellurio,127.6,6.24,1.43,2E-06,0.2,2.35,,Zn/Pb smelting by-product,silvery,semimetal,"semiconductors, steel",TRUE,s,Stable
+53,I,17,5,iodine,Iod (Jod),iode,yodo,iodio,126.9,4.93,1.32,8E-16,0.214,0.449,,"Brines, Chilean nitrate (misc)",bluish-black,diatomic,"nutrient, antiseptic",TRUE,s,Stable
+54,Xe,18,5,xenon,Xenon,xénon,xenón,xeno,131.3,0.00589,1.24,,0.158,0.00569,,Air,colorless,unreactive,"UV-laser, hi intens lamps",FALSE,g,Stable
+55,Cs,1,6,cesium,Zäsium,césium,cesio,cesio,132.9,1.87,3.34,0.0489,0.24,59,,Li extractn by-product,yellow/silvery,softest metal,"photocells, IR lamps",,s,Stable
+56,Ba,2,6,barium,Barium,baryum,bario,bario,137.3,3.5,2.78,0.03,0.204,18.4,,Barite (sulfate),silvery-white,soft,X-ray imaging agnt(BaSO4),,s,Stable
+57,La,L,6,lanthanum,Lanthan,lanthane,lantano,lantanio,138.9,6.15,2.74,0.0126,0.19,13.5,,"Monazite(phosphate),bastnaesite",silvery-white,"soft, malleable","lighter flints, CRTs",,s,Stable
+58,Ce,L,6,cerium,Zer,cérium,cerio,cerio,140.1,6.66,2.7,0.0115,0.19,11.4,,"Monazite(phosphate),bastnaesite",silvery-white,malleable,self-cleaning ovens(CeO2),,s,Stable
+59,Pr,L,6,praseodymium,Praseodym,praséodyme,prosedimio,praseodimio,140.9,6.77,2.67,0.0148,0.19,12.5,,"Monazite(phosphate),bastnaesite",silvery-white,soft,"alloys, Welder's mask",,s,Stable
+60,Nd,L,6,neodymium,Neodym,néodyme,neodimio,neodimio,144.2,7,2.64,0.0157,0.19,16.5,,"Monazite(phosphate),bastnaesite",silvery-white,,"alloys, Welder's mask",,s,Stable
+61,Pm,L,6,promethium,Promethium,prométhium,promecio,promezio,145,7.26,2.62,,0.18,17.9,,Synthetic,silvery-white,Radioactive,nuclear battery,,s,17.73 y
+62,Sm,L,6,samarium,Samarium,samarium,samario,samario,150.4,7.52,2.59,0.00956,0.2,13.3,,"Monazite(phosphate),bastnaesite",silvery-white,,"alloys, headphones",,s,Stable
+63,Eu,L,6,europium,Europium,europium,europio,europio,152.0,5.24,2.56,0.00112,0.18,13.9,,"Monazite(phosphate),bastnaesite",silvery-white,hard,"alloys, color TV phosphor",,s,Stable
+64,Gd,L,6,gadolinium,Gadolinium,gadolinium,gadolineo,gadolinio,157.3,7.9,2.54,0.00736,0.23,10.6,,"Monazite(phosphate),bastnaesite",silvery-white,,"alloys, CD disk",,s,Stable
+65,Tb,L,6,terbium,Terbium,terbium,terbio,terbio,158.9,8.23,2.51,0.00889,0.18,11.1,,"Monazite(phosphate),bastnaesite",silvery-white,soft,alloys,,s,Stable
+66,Dy,L,6,dysprosium,Dysprosium,dysprosium,disprosio,disprosio,162.5,8.55,2.49,0.0108,0.17,10.7,,"Monazite(phosphate),bastnaesite",silvery-white,neutron absorber,"alloys, CD disk",,s,Stable
+67,Ho,L,6,holmium,Holmium,holmium,holmio,olmio,164.9,8.8,2.47,0.0124,0.16,16.2,,"Monazite(phosphate),bastnaesite",silvery-white,,alloys,,s,Stable
+68,Er,L,6,erbium,Erbium,erbium,erbio,erbio,167.3,9.07,2.45,0.0117,0.17,14.3,,"Monazite(phosphate),bastnaesite",silvery-white,,"alloys, photogr. filter",,s,Stable
+69,Tm,L,6,thulium,Thulium,thulium,tulio,tulio,168.9,9.32,2.42,0.015,0.16,16.8,,"Monazite(phosphate),bastnaesite",silvery-white,soft,alloys,,s,Stable
+70,Yb,L,6,ytterbium,Ytterbium,ytterbium,iterbio,itterbio,173.1,6.97,2.4,0.0351,0.15,34.9,,"Monazite(phosphate),bastnaesite",silvery-white,soft,alloys,,s,Stable
+71,Lu,3,6,lutetium,Lutetium,lutécium,lutecio,lutezio,175.0,9.84,2.25,0.0185,0.15,16.4,,"Monazite(phosphate),bastnaesite",silvery-white,,alloys,,s,Stable
+72,Hf,4,6,hafnium,Hafnium,hafnium,hafnio,hafnio,178.5,13.3,2.16,0.0312,0.14,23,,Zircon (silicate),silvery,hard,nuclear control rods,,s,Stable
+73,Ta,5,6,tantalum,Tantal,tantale,tántalo,tantalio,180.9,16.6,2.09,0.0761,0.14,57.5,,Tantalite (oxide),gray,"hard, inert at <100 deg.C","surg. implants,heat exch.",,s,Stable
+74,W,6,6,tungsten,Wolfram,tungstène,wolframio or tungsteno,tungsteno,183.8,19.3,2.02,0.189,0.13,174,,"Scheelite,wolframite(oxide)",bluish-gray,highest melting metal,"WC drill bits, bulb wire",,s,Stable
+75,Re,7,6,rhenium,Rhenium,rhénium,renio,renio,186.2,21,1.97,0.0542,0.13,47.9,,Molybdenite (sulfide),silvery-white,high melting point,"catalysts, thermocouples",,s,Stable
+76,Os,8,6,osmium,Osmium,osmium,osmio,osmio,190.2,22.6,1.92,0.109,0.13,87.6,,nickel ores (sulfides),bluish-white,"hard, dense, inert <100 C","hard alloys,phono needles",,s,Stable
+77,Ir,9,6,iridium,Iridium,iridium,iridio,iridio,192.2,22.4,1.87,0.197,0.13,147,,nickel ores (sulfides),white,"hard, densest el, inert",Pt/Ir sparkplugs,,s,Stable
+78,Pt,10,6,platinum,Platin,platine,platino,platino,195.1,21.4,1.83,0.0966,0.13,71.6,,nickel ores (sulfides),silvery-white,"Inert, ductile","jewelry, catalysts",,s,Stable
+79,Au,11,6,gold,Gold,or,oro,oro,197.0,19.3,1.79,0.452,0.128,317,,"Gold, gold bearing rock (misc)",golden yellow,"Inert, ductile malleable","jewelry, electronics",,s,Stable
+80,Hg,12,6,mercury,Quecksilber,mercure,mercurio,mercurio,200.6,13.5,1.76,0.0104,0.139,8.34,,Cinnabar (sulfide),silvery-white,"liquid at r.t., volatile","amalgams, Cl2, NaOH prod.",TRUE,l,Stable
+81,Tl,13,6,thallium,Thallium,thallium,talio,tallio,204.4,11.9,2.08,0.0617,0.13,46.1,,Zn/Pb smelting by-product,bluish-gray,soft,"IR detectors, photomult.",,s,Stable
+82,Pb,14,6,lead,Blei,plomb,plomo,piombo,207.2,11.4,1.81,0.0481,0.13,35.3,,Galena (sulfide),gray,soft,"batteries, solder, paints",,s,Stable
+83,Bi,15,6,bismuth,Wismut,bismuth,bismuto,bismuto,209.0,9.75,1.63,0.00867,0.12,7.87,,Pb smelting by-product,white,brittle,"antacid, fusible alloy",,s,1.9*10e19 y
+84,Po,16,6,polonium,Polonium,polonium,polonio,polonio,209,9.32,1.53,0.0219,0.12,20,,"pitchblende, synthetic",blue glow,Radioactive; 2 forms,thermoelectric power,,s,102.1 y
+85,At,17,6,astatine,Astat,astate,astato,astato,210,,1.43,,,1.7,,Synthetic(Th or U decay),,Radioactive,,,s,8.06 h
+86,Rn,18,6,radon,Radon,radon,radón,radon,222,0.00973,1.34,,0.09,0.00364,,Synthetic(Ra-226 decay),colorless,"Radioactive,air pollutant",earthquake prediction,,g,3.823495 d
+87,Fr,1,7,francium,Franzium,francium,francio,francio,223,,,0.03,,15,,Synthetic(U-235 decay),,Radioactive,,,s,21.7 m
+88,Ra,2,7,radium,Radium,radium,radio,radio,226,5,,,0.12,18.6,,pitchblende(U-238 decay),white,"Radioactive, luminescent",neutron source,,s,1.59*10e3 y
+89,Ac,A,7,actinium,Aktinium,actinium,actinio,attinio,227,10.1,,,,12,,Synthetic(U-235 decay),silvery-white,Radioactive,thermoelectric power,,s,21.7865 y
+90,Th,A,7,thorium,Thorium,thorium,torio,torio,232.0,11.7,,0.0653,0.12,54,,"Monazite(phosphate),U extractn",white,Radioactive,gas mantles (ThO2),,s,1.406*10e10 y
+91,Pa,A,7,protactinium,Protaktinium,protactinium,protactinio,protoattinio,231.0,15.4,,0.0529,0.12,47,,Synthetic(U-235 decay),silvery,Radioactive,,,s,32788 y
+92,U,A,7,uranium,Uran,uranium,uranio,uranio,238.0,19,,0.038,0.12,27.6,,Uranite (oxide),silvery,Radioactive,nuclear reactor fuel,,s,4.471*10e9 y
+93,Np,A,7,neptunium,Neptunium,neptunium,neptunio,nettunio,237,20.2,,0.00822,0.12,6.3,,Synthetic,silvery,Radioactive,,,s,2.1455*10e6 y
+94,Pu,A,7,plutonium,Plutonium,plutonium,plutonio,plutonio,244,19.8,,0.00666,0.13,6.74,,Synthetic,silvery,Radioactive,"weapon fuel, pacemakers",,s,7.93*10e7 y
+95,Am,A,7,americium,Amerizium,américium,americio,americio,243,13.7,,0.022,0.11,10,,Synthetic,silvery-white,Radioactive,smoke detector,,s,7388 y
+96,Cm,A,7,curium,Kurium,curium,curio,curio,247,13.5,,,,10,,Synthetic,silvery-white,Radioactive,"thermoelec. pwr, n source",,s,1.56*10e7 y
+97,Bk,A,7,berkelium,Berkelium,berkélium,berkelio,berkelio,247,14,,,,10,,Synthetic,silvery,Radioactive,,,s,1379 y
+98,Cf,A,7,californium,Kalifornium,californium,californio,californio,251,,,,,10,,Synthetic,,Radioactive,neutron source,,,900.6 y
+99,Es,A,7,einsteinium,Einsteinium,einsteinium,einstenio,einstenio,252,,,,,10,,Synthetic,,Radioactive,,,,1.2922 y
+100,Fm,A,7,fermium,Fermium,fermium,fermio,fermio,257,,,,,10,,Synthetic,,Radioactive,,,,100.5 d
+101,Md,A,7,mendelevium,Mendelevium,mendélévium,mendelevio,mendelevio,258,,,,,10,,Synthetic,,Radioactive,,,,51.5 d
+102,No,A,7,nobelium,Nobelium,nobélium,nobelio,nobelio,259,,,,,10,,Synthetic,,Radioactive,,,,2.78 h
+103,Lr,3,7,lawrencium,Lawrencium,lawrencium,lawrencio,laurenzio,262,,,,,10,,Synthetic,,"Radioactive,few atms made",,,,10 h
+104,Rf,4,7,rutherfordium,Rutherfordium,rutherfordium,ruterfordio,rutherfordio,267,,,,,23,,,,,,,,13.1 h
+105,Db,5,7,dubnium,Dubnium,dubnium,dubnio,dubnio,268,,,,,58,,,,,,,,5.56 h
+106,Sg,6,7,seaborgium,Seaborgium,seaborgium,seaborgio,seaborgio,271,,,,,,,,,,,,,1.94 h
+107,Bh,7,7,bohrium,Bohrium,bohrium,bohrio,bohrio,272,,,,,,,,,,,,,1.5 h
+108,Hs,8,7,hassium,Hassium,hassium,hassio,hassio,270,,,,,,,,,,,,,1.11 h
+109,Mt,9,7,meitnerium,Meitnerium ,meitnérium,meitnerio,meitnerio,276,,,,,,,,,,,,,30 m
+110,Ds,10,7,darmstadtium,Darmstadtium,darmstadtium,darmstadtio,darmstadtio,281,,,,,,,,,,,,,4 m
+111,Rg,11,7,roentgentium,Roentgentium,roentgentium,roentgentio,roentgentio,280,,,,,,,,,,,,,10 m
+112,Cn,12,7,copernicum,Kopernikum,copérnicum,copernico,copernico,285,,,,,,,,,,,,,40 m
+113,Nh,13,7,nihonium,Nihonium,nihonium,nihonio,nihonio,284,,,,,,,,,,,,,20 m
+114,Fl,14,7,flerovium,Flerovium,flerovium,flerovio,flerovio,289,,,,,,,,,,,,,1.33 m
+115,Mc,15,7,moscovium,Moscovium,moscovium,moscovio,moscovio,288,,,,,,,,,,,,,1 m
+116,Lv,16,7,livermorium,Livermorium,livermorium,livermorio,livermorio,293,,,,,,,,,,,,,120 ms
+117,Ts,17,7,tennessine,Tennessine,tennessine,tennessio,tennessio,292,,,,,,,,,,,,,50 ms
+118,Og,18,7,oganesson,Oganesson,oganesson,oganessio,oganessio,294,,,,,,,,,,,,,5 ms

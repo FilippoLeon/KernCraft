@@ -1,0 +1,6 @@
+item.portable_beacon.name=Portable Beacon
+item.canister.name=Canister
+
+tile.test_block.name=Test Block
+tile.extractor.name=Extractor
+tile.detector.name=Detector

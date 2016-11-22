@@ -1,0 +1,23 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "textures": {
+      "all": "quantumbase:blocks/test_block"
+    },
+    "model": "cube_all",
+    "uvlock": true
+  },
+  "variants": {
+    "normal": [
+      {
+      }
+    ],
+    "powered=false": [
+      {
+      }
+    ],
+    "powered=true": [
+      {}
+    ]
+  }
+}
