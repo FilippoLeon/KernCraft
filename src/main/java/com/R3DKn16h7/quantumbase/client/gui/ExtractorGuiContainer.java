@@ -1,7 +1,7 @@
 package com.R3DKn16h7.quantumbase.client.gui;
 
 import com.R3DKn16h7.quantumbase.tileentities.ExtractorTileEntity;
-import gui.R3DKn16h7.quantumbase.guicontainer.ExtractorContainer;
+import com.R3DKn16h7.quantumbase.guicontainer.ExtractorContainer;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.inventory.IInventory;

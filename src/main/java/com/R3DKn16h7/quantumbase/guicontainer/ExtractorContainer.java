@@ -1,4 +1,4 @@
-package gui.R3DKn16h7.quantumbase.guicontainer;
+package com.R3DKn16h7.quantumbase.guicontainer;
 
 import com.R3DKn16h7.quantumbase.tileentities.ExtractorTileEntity;
 import net.minecraft.entity.player.EntityPlayer;

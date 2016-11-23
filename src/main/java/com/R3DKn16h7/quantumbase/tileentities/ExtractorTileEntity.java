@@ -27,7 +27,7 @@ public class ExtractorTileEntity extends TileEntity
     static public int outputSlotSize = 4;
     static private int NumberOfSlots = 8;
     // Static register of recipes
-    static private ArrayList<ExtractorRecipe> recipes;
+    static public ArrayList<ExtractorRecipe> recipes;
     private ItemStack[] inventory;
     private String customName;
     private int progress;

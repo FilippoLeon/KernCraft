@@ -2,7 +2,7 @@ package com.R3DKn16h7.quantumbase.network;
 
 import com.R3DKn16h7.quantumbase.client.gui.ExtractorGuiContainer;
 import com.R3DKn16h7.quantumbase.tileentities.ExtractorTileEntity;
-import gui.R3DKn16h7.quantumbase.guicontainer.ExtractorContainer;
+import com.R3DKn16h7.quantumbase.guicontainer.ExtractorContainer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;

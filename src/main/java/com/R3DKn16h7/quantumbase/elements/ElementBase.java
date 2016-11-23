@@ -28,15 +28,19 @@ public class ElementBase {
         elements = new ArrayList<Element>(118);
 
         Gson gson = new Gson();
-        ResourceLocation loc = new ResourceLocation("quantumbase:config/elements.json");
-        InputStream in = null;
+        //ResourceLocation loc = new ResourceLocation("quantumbase:config/elements.json");
+        InputStreamReader in = null;
         try {
-            in = Minecraft.getMinecraft().getResourceManager().getResource(loc).getInputStream();
+            System.out.println("Reading file = .txt");
+            in = new InputStreamReader(getClass().getClassLoader()
+                    .getResourceAsStream("assets/quantumbase/config/elements.json"), "UTF-8");
+            //in = Minecraft.getMinecraft().getResourceManager().getResource(loc).getInputStream();
         } catch (IOException e1) {
             // TODO Auto-generated catch block
             e1.printStackTrace();
         }
-        BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+        //BufferedReader reader = new BufferedReader(new InputStreamReader(in))
+        BufferedReader reader = new BufferedReader(in);
 
         JsonElement je = gson.fromJson(reader, JsonElement.class);
         JsonObject json = je.getAsJsonObject();
