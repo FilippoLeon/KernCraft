@@ -11,23 +11,40 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.CapabilityInject;
+import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import net.minecraftforge.energy.EnergyStorage;
+import net.minecraftforge.energy.IEnergyStorage;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidTank;
+import net.minecraftforge.fluids.capability.IFluidHandler;
+import net.minecraftforge.fluids.capability.IFluidTankProperties;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 
 public class ExtractorTileEntity extends TileEntity
-        implements ITickable, IInventory {
+        implements ITickable, IInventory, IFluidHandler, ICapabilityProvider {
 
-    // Slot ISs
-    static public int inputSlot = 0;
-    static public int catalystSlot = 1;
-    static public int canisterSlot = 2;
-    static public int fuelSlot = 3;
-    static public int outputSlotStart = 4;
-    static public int outputSlotSize = 4;
-    static private int NumberOfSlots = 8;
+    // Slot IDs
+    static final public int inputSlot = 0;
+    static final public int catalystSlot = 1;
+    static final public int canisterSlot = 2;
+    static final public int fuelSlot = 3;
+    static final public int outputSlotStart = 4;
+    static final public int outputSlotSize = 4;
+    static final private int NumberOfSlots = 8;
     // Static register of recipes
     static public ArrayList<ExtractorRecipe> recipes;
+    @CapabilityInject(IEnergyStorage.class)
+    static Capability<IEnergyStorage> ENERGY_CAPABILITY = null;
+    @CapabilityInject(IFluidHandler.class)
+    static Capability<IFluidHandler> FLUID_CAPABILITY = null;
+    public EnergyStorage storage = new EnergyStorage(1000);
+    public FluidTank tank = new FluidTank(1000);
     private ItemStack[] inventory;
     private String customName;
     private int progress;
@@ -64,6 +81,27 @@ public class ExtractorTileEntity extends TileEntity
                                          ElementStack[] outs, int energy) {
         recipes.add(new ExtractorRecipe(item, catalyst, outs, energy));
         return true;
+    }
+
+    @Override
+    public boolean hasCapability(Capability<?> capability,
+                                 EnumFacing facing) {
+        if (capability == ENERGY_CAPABILITY
+                || capability == FLUID_CAPABILITY) {
+            return true;
+        }
+        return super.hasCapability(capability, facing);
+    }
+
+    @Override
+    public <T> T getCapability(Capability<T> capability,
+                               EnumFacing facing) {
+        if (capability == ENERGY_CAPABILITY) {
+            return (T) storage;
+        } else if (capability == FLUID_CAPABILITY) {
+            return (T) tank;
+        }
+        return super.getCapability(capability, facing);
     }
 
     public String getCustomName() {
@@ -405,6 +443,29 @@ public class ExtractorTileEntity extends TileEntity
 
         if (nbt.hasKey("CustomName", 8)) {
         }
+    }
+
+
+    @Override
+    public IFluidTankProperties[] getTankProperties() {
+        return new IFluidTankProperties[0];
+    }
+
+    @Override
+    public int fill(FluidStack resource, boolean doFill) {
+        return 0;
+    }
+
+    @Nullable
+    @Override
+    public FluidStack drain(FluidStack resource, boolean doDrain) {
+        return null;
+    }
+
+    @Nullable
+    @Override
+    public FluidStack drain(int maxDrain, boolean doDrain) {
+        return null;
     }
 
     static public class ElementStack {

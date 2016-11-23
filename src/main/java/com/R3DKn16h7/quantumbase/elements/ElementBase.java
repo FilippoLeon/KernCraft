@@ -1,15 +1,16 @@
 package com.R3DKn16h7.quantumbase.elements;
 
+import com.R3DKn16h7.quantumbase.items.ModItems;
+import com.R3DKn16h7.quantumbase.tileentities.ExtractorTileEntity;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import net.minecraft.client.Minecraft;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.text.TextFormatting;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -65,6 +66,25 @@ public class ElementBase {
 
     static public Element getElement(int id) {
         return elements.get(id - 1);
+    }
+
+    static public ItemStack getItem(ExtractorTileEntity.ElementStack stack) {
+        return getItem(stack.id, stack.quantity);
+    }
+
+    static public ItemStack getItem(int id, int qty) {
+        ItemStack is = new ItemStack(ModItems.canister);
+        NBTTagCompound nbt = is.getTagCompound();
+        if (nbt == null) {
+            nbt = new NBTTagCompound();
+        }
+
+        nbt.setInteger("Element", id);
+        nbt.setInteger("Quantity", qty);
+
+        is.setTagCompound(nbt);
+
+        return is;
     }
 
     public enum ElementState {

@@ -1,18 +1,15 @@
 package com.R3DKn16h7.quantumbase.plugins.JEI;
 
+import com.R3DKn16h7.quantumbase.elements.ElementBase;
 import com.R3DKn16h7.quantumbase.items.ModItems;
 import com.R3DKn16h7.quantumbase.tileentities.ExtractorTileEntity;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.BlankRecipeWrapper;
-import mezz.jei.api.recipe.IRecipeHandler;
-import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.client.Minecraft;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.fluids.FluidStack;
 
 import javax.annotation.Nullable;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,18 +31,16 @@ public class ExtractorJEIRecipeWrapper extends BlankRecipeWrapper {
         inputs.add(new ItemStack(recipe.item));
         if(recipe.catalyst != null) inputs.add(new ItemStack(recipe.catalyst));
 
-        ItemStack is = new ItemStack(ModItems.canister);
-        NBTTagCompound nbt = is.getTagCompound();
-        if(nbt == null) {
-            nbt = new NBTTagCompound();
-        }
 
-        nbt.setInteger("Element", recipe.outs[0].id);
-        is.setTagCompound(nbt);
-
-        inputs.add(is);
+        inputs.add(new ItemStack(ModItems.canister));
         ingredients.setInputs(ItemStack.class, inputs);
-        ingredients.setOutput(ItemStack.class, is);
+
+        ArrayList<ItemStack> outputs = new ArrayList<ItemStack>();
+
+        for (ExtractorTileEntity.ElementStack i : recipe.outs) {
+            outputs.add(ElementBase.getItem(i));
+        }
+        ingredients.setOutputs(ItemStack.class, outputs);
     }
 
     @Override
@@ -53,6 +48,20 @@ public class ExtractorJEIRecipeWrapper extends BlankRecipeWrapper {
                          int recipeWidth, int recipeHeight,
                          int mouseX, int mouseY) {
 
+        int j = 0;
+        for (ExtractorTileEntity.ElementStack i : recipe.outs) {
+            if (i.prob == 1) continue;
+            String prob_string = String.format("%d%%",
+                    (int) Math.floor(i.prob * 100));
+            int color;
+            if (i.prob < 0.9f) color = Color.red.getRGB();
+            if (0.6f < i.prob && i.prob <= 0.9f) color = Color.yellow.getRGB();
+            else color = Color.green.getRGB();
+
+            minecraft.fontRendererObj.drawStringWithShadow(prob_string,
+                    18 * (5 + j), 18 * 3 - 3, color);
+            ++j;
+        }
     }
 
     @Override

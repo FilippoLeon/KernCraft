@@ -37,7 +37,6 @@ public class ExtractorContainer extends Container {
         this.te = te;
 
         int id = -1;
-
         // Input (I) ID 0
         this.addSlotToContainer(new Slot(te, ++id, bdLeft + xSlotSize, bdTop));
         // Catalyst (C) ID 1
