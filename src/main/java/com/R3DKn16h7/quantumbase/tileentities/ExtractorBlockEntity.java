@@ -184,8 +184,6 @@ public class ExtractorBlockEntity extends BlockContainer {
         }
     }
 
-    FluidStack
-
     @Override
     public void onNeighborChange(IBlockAccess world, BlockPos pos, BlockPos neighbor) {
 //                                  if (this.world.isBlockPowered(pos)) {

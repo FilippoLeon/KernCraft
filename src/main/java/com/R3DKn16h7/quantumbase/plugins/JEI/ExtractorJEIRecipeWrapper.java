@@ -18,7 +18,7 @@ import java.util.List;
  */
 public class ExtractorJEIRecipeWrapper extends BlankRecipeWrapper {
 
-    ExtractorTileEntity.ExtractorRecipe recipe;
+    public ExtractorTileEntity.ExtractorRecipe recipe;
 
     ExtractorJEIRecipeWrapper(ExtractorTileEntity.ExtractorRecipe recipe_) {
         recipe = recipe_;

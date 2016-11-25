@@ -11,6 +11,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraftforge.common.capabilities.Capability;
@@ -22,12 +23,14 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidTankProperties;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 
 public class ExtractorTileEntity extends TileEntity
-        implements ITickable, IInventory, IFluidHandler, ICapabilityProvider {
+        implements ITickable, IInventory,
+                   IFluidHandler, ICapabilityProvider {
 
     // Slot IDs
     static final public int inputSlot = 0;
@@ -39,22 +42,37 @@ public class ExtractorTileEntity extends TileEntity
     static final private int NumberOfSlots = 8;
     // Static register of recipes
     static public ArrayList<ExtractorRecipe> recipes;
+
+    // Capabilities
     @CapabilityInject(IEnergyStorage.class)
     static Capability<IEnergyStorage> ENERGY_CAPABILITY = null;
     @CapabilityInject(IFluidHandler.class)
     static Capability<IFluidHandler> FLUID_CAPABILITY = null;
+
+    // Internal storages
     public EnergyStorage storage = new EnergyStorage(1000);
     public FluidTank tank = new FluidTank(1000);
     private ItemStack[] inventory;
-    private String customName;
-    private int progress;
-    private int progressMax = 10;
-    private float elapsed = 0f;
-    private float ticTime = 5f;
+
+    //// Static constants
+    private final static String name = "Extractor";
+    static private final float ticTime = 5f;
+    private final int consumedFuelPerTic = 1;
+    static private final int consumedEnergyPerFuelRefill = 100;
+    static private final int generatedFuelPerEnergyDrain = 100;
+
+    //// Status variables
     // Are we currently smelting
     private boolean smelting = false;
+    // Recipe Id currently smelting
     private int smeltingId = -1;
+    // Has the input changed since last check?
     private boolean inputChanged = false;
+    // Current progress oin smelting
+    private int progress;
+    private int storedFuel = 0;
+    //
+    private float elapsed = 0f;
 
     ExtractorTileEntity() {
         this.inventory = new ItemStack[this.getSizeInventory()];
@@ -63,20 +81,37 @@ public class ExtractorTileEntity extends TileEntity
             recipes = new ArrayList<ExtractorRecipe>();
             registerRecipe(Item.getItemFromBlock(Blocks.IRON_ORE),
                     Item.getItemFromBlock(Blocks.ANVIL),
-                    new ElementStack[]{new ElementStack(1, 1), new ElementStack(4, 1)}, 1000);
+                    new ElementStack[]{new ElementStack(1, 1), new ElementStack(4, 1)}, 10);
             registerRecipe(Item.getItemFromBlock(Blocks.DIAMOND_ORE),
                     Item.getItemFromBlock(Blocks.LAPIS_BLOCK),
-                    new ElementStack[]{new ElementStack(1, 1), new ElementStack(5, 5)}, 1000);
+                    new ElementStack[]{new ElementStack(1, 1), new ElementStack(5, 5)}, 10);
             registerRecipe(Item.getItemFromBlock(Blocks.DIAMOND_BLOCK),
                     null,
                     new ElementStack[]{
                             new ElementStack("Be", 4, 0.5f),
                             new ElementStack("Ar", 5)
                     },
-                    1000);
+                    10);
+            registerRecipe(Item.getItemFromBlock(Blocks.IRON_BLOCK),
+                    null,
+                    new ElementStack[]{
+                            new ElementStack("Pu", 4, 0.5f),
+                            new ElementStack("Pm", 5),
+                            new ElementStack("H", 1, 0.8f),
+                            new ElementStack("He", 2)
+                    },
+                    10);
         }
     }
 
+    /**
+     * Add new recipe
+     * @param item Principal item that will allow to extract elements.
+     * @param catalyst Additional item (optional) that acts as Catalyst
+     * @param outs A list of output Elements
+     * @param energy The required energy (TODO: change to "cost") to perform a smelting operation.
+     * @return Return false if registration failed (TODO)
+     */
     static public boolean registerRecipe(Item item, Item catalyst,
                                          ElementStack[] outs, int energy) {
         recipes.add(new ExtractorRecipe(item, catalyst, outs, energy));
@@ -104,25 +139,22 @@ public class ExtractorTileEntity extends TileEntity
         return super.getCapability(capability, facing);
     }
 
-    public String getCustomName() {
-        return this.customName;
-    }
-
-    public void setCustomName(String customName) {
-        this.customName = customName;
-    }
-
     public float getProgressPerc() {
-        return progress / (float) progressMax;
+        if(smeltingId == -1) return 0f;
+        return progress / (float) recipes.get(smeltingId).energy;
     }
 
     public boolean canSmelt() {
         return canSmelt(smeltingId);
     }
 
+    /**
+     * Return true if recipe idx can be smelted.
+     * @param idx
+     * @return
+     */
     public boolean canSmelt(int idx) {
         if (idx == -1) return false;
-        System.out.print("Hello" + idx);
         ExtractorRecipe recipe = recipes.get(idx);
         if (inventory == null ||
                 // Check input
@@ -131,40 +163,57 @@ public class ExtractorTileEntity extends TileEntity
                 inventory[inputSlot].stackSize < 1 ||
                 // Check catalyst
                 recipe.catalyst != null && (inventory[catalystSlot] == null ||
-                inventory[catalystSlot].getItem() != recipe.catalyst ||
-                        inventory[catalystSlot].stackSize < 1)
-            // Check canister
-//           inventory[canisterSlot] == null ||
-//           inventory[canisterSlot].getItem() != ModItems.canister
+                        inventory[catalystSlot].getItem() != recipe.catalyst ||
+                        inventory[catalystSlot].stackSize < 1
+                    )
                 ) {
-
-//            Minecraft.getMinecraft().thePlayer.sendChatMessage("Cant smelt no recipe" + idx);
             return false;
         }
 
-//        boolean free = false;
-//        for(int i = outputSlotStart; i < outputSlotStart + outputSlotStart; ++i) {
-//            if(inventory[i] == null) free = true;
-//        }
-//        // Check space in output slot
-//        if(!free) {
-//            Minecraft.getMinecraft().thePlayer.sendChatMessage("Cant smelt no free" + idx);
-//            return false;
-//            
-//        }
-
-//        Minecraft.getMinecraft().thePlayer.sendChatMessage("Can smelt" + idx);
         return true;
     }
 
+    /**
+     * Try and consume one unit of fuel (depending on recipe)
+     * if it fails, return false.
+     * @return
+     */
+    public boolean tryConsumeFuel() {
+
+        ExtractorRecipe recipe = recipes.get(smeltingId);
+        if (storedFuel < consumedFuelPerTic) {
+            ItemStack fuelItem = inventory[fuelSlot];
+            int fuel = TileEntityFurnace.getItemBurnTime(fuelItem); //GameRegistry.getFuelValue(fuelItem);
+            if (storage.getEnergyStored() > consumedEnergyPerFuelRefill) {
+                storage.extractEnergy(consumedEnergyPerFuelRefill, false);
+                storedFuel += generatedFuelPerEnergyDrain;
+            } else if (fuelItem != null &&
+                    fuelItem.stackSize >= 1 &&
+                    fuel > 0) {
+                fuelItem.stackSize -= 1;
+                if(fuelItem.stackSize == 0) fuelItem = null;
+                storedFuel += fuel;
+            } else {
+                return false;
+            }
+        }
+        storedFuel -= consumedFuelPerTic;
+        return true;
+    }
+
+    /**
+     * Do "one tick" of smelting, check if recipe changed, and if it
+     * is possible to continue smelting.
+     */
     public void progressSmelting() {
         if (inputChanged) {
             findRecipe();
             inputChanged = false;
         }
         if (canSmelt()) {
-            progress++;
-            if (progress >= progressMax) {
+            if( !tryConsumeFuel() ) return;
+            ++progress;
+            if (progress >= recipes.get(smeltingId).energy) {
                 progress = 0;
                 doneSmelting();
             }
@@ -181,8 +230,11 @@ public class ExtractorTileEntity extends TileEntity
                     inventory[catalystSlot].stackSize - 1);
         }
 
+        // For each Element output, flag telling if this has already been produced
         boolean[] done_out = new boolean[recipes.get(smeltingId).outs.length];
 
+        // Place outputs in canisters, only if output can be placed (i.e. there isn't another element inside.
+        // Try each output slot
         for (int rec_slot = outputSlotStart; rec_slot < outputSlotStart + outputSlotSize; ++rec_slot) {
 
             if (inventory[rec_slot] == null) {
@@ -196,7 +248,7 @@ public class ExtractorTileEntity extends TileEntity
                 nbt = new NBTTagCompound();
             }
 
-            Minecraft.getMinecraft().thePlayer.sendChatMessage("enasdasdti " + recipes.get(smeltingId).outs.length);
+            // Try each generated element
             int i = 0;
             for (ElementStack rec_out : recipes.get(smeltingId).outs) {
                 if (done_out[i]) {
@@ -224,12 +276,18 @@ public class ExtractorTileEntity extends TileEntity
             }
         }
 
+        // If there is a canister in canister slot, pull if to the output slot and
+        // fill it with element
+        // Try each output slot
         for (int rec_slot = outputSlotStart; rec_slot < outputSlotStart + outputSlotSize; ++rec_slot) {
 
             if (inventory[rec_slot] == null) {
+                // Try each element
                 int i = 0;
                 for (ElementStack rec_out : recipes.get(smeltingId).outs) {
 
+                    // If Element has not been produced and there is a canister in
+                    // the slot
                     if (done_out[i] == false && inventory[canisterSlot] != null &&
                             inventory[canisterSlot].stackSize > 0 &&
                             inventory[canisterSlot].getItem() == ModItems.canister) {
@@ -241,19 +299,27 @@ public class ExtractorTileEntity extends TileEntity
                         nbt.setInteger("Element", rec_out.id);
                         nbt.setInteger("Quantity", rec_out.quantity);
                         inventory[rec_slot].setTagCompound(nbt);
+                        break;
                     }
 
                     ++i;
                 }
             }
         }
+        this.markDirty();
     }
 
+    /**
+     *
+     */
     public void abortSmelting() {
         smelting = false;
         smeltingId = -1;
     }
 
+    /**
+     * Find recipe that matches the input/catalyst slots
+     */
     public void findRecipe() {
         int idx = 0;
         for (ExtractorRecipe recipe : recipes) {
@@ -265,12 +331,12 @@ public class ExtractorTileEntity extends TileEntity
 
             ++idx;
         }
-        smeltingId = -1;
-        smelting = false;
-
+        abortSmelting();
     }
 
-
+    /**
+     * Update entity: check if needs to smelt item
+     */
     @Override
     public void update() {
         if (elapsed > ticTime) {
@@ -279,17 +345,16 @@ public class ExtractorTileEntity extends TileEntity
         } else {
             elapsed += 1;
         }
-//    	Minecraft.getMinecraft().thePlayer.sendChatMessage("Lol what a noob2");
     }
 
     @Override
     public String getName() {
-        return this.hasCustomName() ? "Name" : "container.tutorial_tile_entity";
+        return this.name;
     }
 
     @Override
     public boolean hasCustomName() {
-        return "Name" != null && !"Name".equals("");
+        return false;
     }
 
     @Override
@@ -494,6 +559,9 @@ public class ExtractorTileEntity extends TileEntity
         }
     }
 
+    /**
+     * Represents the recipe for the extractor.
+     */
     static public class ExtractorRecipe {
         public Item item;
         public Item catalyst;

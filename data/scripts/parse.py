@@ -7,7 +7,7 @@ import json
 dict = collections.OrderedDict()
 
 fname = "elements_table.csv"
-with open(fname, 'r') as csvfile:
+with open(fname, 'r', encoding="iso-8859-1") as csvfile:
     rd = csv.reader(csvfile, dialect='excel')
     for i, row in enumerate(rd):
         if i == 0:
@@ -23,6 +23,6 @@ with open(fname, 'r') as csvfile:
 
 J = json.dumps(dict, indent=4, separators=(', ', ': '))
 
-obj = open('elements.json', 'w')
+obj = open('elements.json', 'w',encoding="utf-8")
 obj.write(J)
 obj.close

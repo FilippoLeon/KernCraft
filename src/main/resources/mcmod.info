@@ -1,0 +1,16 @@
+[
+{
+  "modid": "quantumbase",
+  "name": "QuantumBase",
+  "description": "A simple elementary mod.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["R3DKn16h7"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]

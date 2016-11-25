@@ -102,7 +102,7 @@ public class ExtractorJEIRecipeCategory implements IRecipeCategory {
 
         int i = -1;
         guiItemStacks.set(inputSlot, ingredients.getInputs(ItemStack.class).get(++i));
-        if(ingredients.getInputs(ItemStack.class).size() > 1)
+        if(((ExtractorJEIRecipeWrapper) recipeWrapper).recipe.catalyst != null)
             guiItemStacks.set(catalystSlot, ingredients.getInputs(ItemStack.class).get(++i));
         guiItemStacks.set(canisterSlot, new ItemStack(ModItems.canister));
 

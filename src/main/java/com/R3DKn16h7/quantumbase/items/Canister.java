@@ -18,6 +18,7 @@ import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
+import net.minecraftforge.fluids.UniversalBucket;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import org.lwjgl.input.Keyboard;
 
@@ -52,12 +53,40 @@ public class Canister extends Item {
     public void onUpdate(ItemStack stack, World worldIn,
                          Entity entityIn, int itemSlot, boolean isSelected) {
         if (entityIn != null && entityIn instanceof EntityPlayer) {
+            EntityPlayer entity = (EntityPlayer) entityIn;
 
             ElementBase.Element elem = Canister.getElement(stack);
-            if (elem != null && elem.toxic) {
-                if (((EntityPlayer) entityIn).getActivePotionEffect(Potion.getPotionFromResourceLocation("poison")) == null)
-                    ((EntityPlayer) entityIn).addPotionEffect(new PotionEffect(Potion.getPotionById(1), 5));
+
+            if(elem == null) return;
+
+            int qty = 0;
+
+            NBTTagCompound nbt = null;
+            if (stack.hasTagCompound()) {
+                nbt = stack.getTagCompound();
+                if (nbt.hasKey("Quantity")) {
+                    qty = nbt.getInteger("Quantity");
+                }
             }
+
+            if(qty == 0) return;
+
+            if ( elem.toxic || elem.half_life > 0 ) {
+                Potion poison_pot = Potion.getPotionFromResourceLocation("poison");
+                if (entity.getActivePotionEffect(poison_pot) == null) {
+                    entity.addPotionEffect(new PotionEffect(poison_pot, 50));
+                }
+            }
+            if( elem.half_life > 0) {
+                float ticTime = 0.1f;
+                int new_qty = (int) Math.floor((float)
+                                qty * (1.0f - ticTime / elem.half_life * 1e9 * 0.693f)
+                 );
+                new_qty = Math.max(0, new_qty);
+                nbt.setInteger("Quantity", new_qty);
+
+            }
+            stack.setTagCompound(nbt);
         }
     }
 
@@ -82,7 +111,6 @@ public class Canister extends Item {
             nbt = new NBTTagCompound();
         }
 
-
         if (nbt.hasKey("Uses")) {
             nbt.setInteger("Uses", nbt.getInteger("Uses") + 5);
         } else {
@@ -95,7 +123,6 @@ public class Canister extends Item {
 
     @Override
     public boolean showDurabilityBar(ItemStack stack) {
-
         return stack.hasTagCompound() && stack.getTagCompound().hasKey("Element");
     }
 
@@ -127,7 +154,9 @@ public class Canister extends Item {
                 lores.add("Mass: " + element.mass);
                 lores.add("Toxic: " + (element.toxic ? TextFormatting.RED + "yes" : TextFormatting.GREEN + "no"));
                 lores.add("Radioactive: " + (element.half_life > 0 ?
-                        TextFormatting.RED + "yes (hl: " + element.half_life + ")" :
+                        TextFormatting.RED + "yes" +
+                                TextFormatting.RESET + " (half-life: " +
+                                String.format("%.2e", element.half_life) + " s)" :
                         TextFormatting.GREEN + "no"));
             } else {
                 lores.add("Hold ctrl for more stuff.");
