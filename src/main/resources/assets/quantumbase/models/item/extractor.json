@@ -1,5 +1,5 @@
 {
-  "parent": "quantumbase:block/test_block",
+  "parent": "quantumbase:block/extractor",
   "display": {
     "thirdperson": {
       "rotation": [

@@ -17,20 +17,24 @@ import net.minecraft.util.ITickable;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.EnergyStorage;
 import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
+import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidTankProperties;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.ItemStackHandler;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 
 public class ExtractorTileEntity extends TileEntity
-        implements ITickable, IInventory,
-                   IFluidHandler, ICapabilityProvider {
+        implements ITickable {
 
     // Slot IDs
     static final public int inputSlot = 0;
@@ -43,16 +47,14 @@ public class ExtractorTileEntity extends TileEntity
     // Static register of recipes
     static public ArrayList<ExtractorRecipe> recipes;
 
-    // Capabilities
-    @CapabilityInject(IEnergyStorage.class)
-    static Capability<IEnergyStorage> ENERGY_CAPABILITY = null;
-    @CapabilityInject(IFluidHandler.class)
-    static Capability<IFluidHandler> FLUID_CAPABILITY = null;
-
     // Internal storages
     public EnergyStorage storage = new EnergyStorage(1000);
     public FluidTank tank = new FluidTank(1000);
-    private ItemStack[] inventory;
+
+    public final ItemStackHandler input = new ItemStackHandler(4);
+    public final ItemStackHandler output = new ItemStackHandler(4);
+    private final IItemHandler automationInput = new ItemStackHandler(4);
+    private final IItemHandler automationOutput = new ItemStackHandler(4);
 
     //// Static constants
     private final static String name = "Extractor";
@@ -67,16 +69,14 @@ public class ExtractorTileEntity extends TileEntity
     // Recipe Id currently smelting
     private int smeltingId = -1;
     // Has the input changed since last check?
-    private boolean inputChanged = false;
+    public boolean inputChanged = false;
     // Current progress oin smelting
     private int progress;
     private int storedFuel = 0;
     //
     private float elapsed = 0f;
 
-    ExtractorTileEntity() {
-        this.inventory = new ItemStack[this.getSizeInventory()];
-
+    public ExtractorTileEntity() {
         if (recipes == null) {
             recipes = new ArrayList<ExtractorRecipe>();
             registerRecipe(Item.getItemFromBlock(Blocks.IRON_ORE),
@@ -95,7 +95,7 @@ public class ExtractorTileEntity extends TileEntity
             registerRecipe(Item.getItemFromBlock(Blocks.IRON_BLOCK),
                     null,
                     new ElementStack[]{
-                            new ElementStack("Pu", 4, 0.5f),
+                            new ElementStack("Pu", 400, 0.5f),
                             new ElementStack("Pm", 5),
                             new ElementStack("H", 1, 0.8f),
                             new ElementStack("He", 2)
@@ -118,11 +118,22 @@ public class ExtractorTileEntity extends TileEntity
         return true;
     }
 
+    public IItemHandler getInput()
+    {
+        return input;
+    }
+
+    public IItemHandler getOutput()
+    {
+        return output;
+    }
+
     @Override
     public boolean hasCapability(Capability<?> capability,
                                  EnumFacing facing) {
-        if (capability == ENERGY_CAPABILITY
-                || capability == FLUID_CAPABILITY) {
+        if (capability == CapabilityEnergy.ENERGY ||
+                capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY ||
+                capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
             return true;
         }
         return super.hasCapability(capability, facing);
@@ -131,10 +142,12 @@ public class ExtractorTileEntity extends TileEntity
     @Override
     public <T> T getCapability(Capability<T> capability,
                                EnumFacing facing) {
-        if (capability == ENERGY_CAPABILITY) {
-            return (T) storage;
-        } else if (capability == FLUID_CAPABILITY) {
-            return (T) tank;
+        if (capability == CapabilityEnergy.ENERGY) {
+            return CapabilityEnergy.ENERGY.cast(storage);
+        } else if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
+            return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(tank);
+        } else if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY){
+            return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(automationInput);
         }
         return super.getCapability(capability, facing);
     }
@@ -156,15 +169,16 @@ public class ExtractorTileEntity extends TileEntity
     public boolean canSmelt(int idx) {
         if (idx == -1) return false;
         ExtractorRecipe recipe = recipes.get(idx);
-        if (inventory == null ||
+        if (input == null ||
+                input.getStackInSlot(inputSlot) == null ||
                 // Check input
-                inventory[inputSlot] == null ||
-                inventory[inputSlot].getItem() != recipe.item ||
-                inventory[inputSlot].stackSize < 1 ||
+                input.getStackInSlot(inputSlot).getItem() != recipe.item ||
+                input.getStackInSlot(inputSlot).stackSize < 1 ||
                 // Check catalyst
-                recipe.catalyst != null && (inventory[catalystSlot] == null ||
-                        inventory[catalystSlot].getItem() != recipe.catalyst ||
-                        inventory[catalystSlot].stackSize < 1
+                recipe.catalyst != null &&
+                        (input.getStackInSlot(catalystSlot) == null ||
+                         input.getStackInSlot(catalystSlot).getItem() != recipe.catalyst ||
+                         input.getStackInSlot(catalystSlot).stackSize < 1
                     )
                 ) {
             return false;
@@ -182,7 +196,7 @@ public class ExtractorTileEntity extends TileEntity
 
         ExtractorRecipe recipe = recipes.get(smeltingId);
         if (storedFuel < consumedFuelPerTic) {
-            ItemStack fuelItem = inventory[fuelSlot];
+            ItemStack fuelItem = input.getStackInSlot(fuelSlot);
             int fuel = TileEntityFurnace.getItemBurnTime(fuelItem); //GameRegistry.getFuelValue(fuelItem);
             if (storage.getEnergyStored() > consumedEnergyPerFuelRefill) {
                 storage.extractEnergy(consumedEnergyPerFuelRefill, false);
@@ -223,11 +237,11 @@ public class ExtractorTileEntity extends TileEntity
     }
 
     public void doneSmelting() {
-        inventory[inputSlot] = new ItemStack(inventory[inputSlot].getItem(),
-                inventory[inputSlot].stackSize - 1);
+        input.setStackInSlot(inputSlot, new ItemStack(input.getStackInSlot(inputSlot).getItem(),
+                input.getStackInSlot(inputSlot).stackSize - 1));
         if (recipes.get(smeltingId).catalyst != null) {
-            inventory[catalystSlot] = new ItemStack(inventory[catalystSlot].getItem(),
-                    inventory[catalystSlot].stackSize - 1);
+            input.setStackInSlot(catalystSlot, new ItemStack(input.getStackInSlot(catalystSlot).getItem(),
+                    input.getStackInSlot(catalystSlot).stackSize - 1));
         }
 
         // For each Element output, flag telling if this has already been produced
@@ -235,15 +249,15 @@ public class ExtractorTileEntity extends TileEntity
 
         // Place outputs in canisters, only if output can be placed (i.e. there isn't another element inside.
         // Try each output slot
-        for (int rec_slot = outputSlotStart; rec_slot < outputSlotStart + outputSlotSize; ++rec_slot) {
-
-            if (inventory[rec_slot] == null) {
+        for (int rec_slot = 0; rec_slot < outputSlotSize; ++rec_slot) {
+            ItemStack out = output.getStackInSlot(rec_slot);
+            if (out == null) {
                 continue;
             }
 
             NBTTagCompound nbt;
-            if (inventory[rec_slot].hasTagCompound()) {
-                nbt = inventory[rec_slot].getTagCompound();
+            if (out.hasTagCompound()) {
+                nbt = out.getTagCompound();
             } else {
                 nbt = new NBTTagCompound();
             }
@@ -261,44 +275,46 @@ public class ExtractorTileEntity extends TileEntity
                     int qty = nbt.getInteger("Quantity");
                     if (elemId == rec_out.id) {
                         nbt.setInteger("Quantity", rec_out.quantity + qty);
-                        inventory[rec_slot].setTagCompound(nbt);
+                        out.setTagCompound(nbt);
                         done_out[i] = true;
                         break;
                     }
                 } else {
                     nbt.setInteger("Element", rec_out.id);
                     nbt.setInteger("Quantity", rec_out.quantity);
-                    inventory[rec_slot].setTagCompound(nbt);
+                    out.setTagCompound(nbt);
                     done_out[i] = true;
                     break;
                 }
                 ++i;
             }
+
         }
 
         // If there is a canister in canister slot, pull if to the output slot and
         // fill it with element
         // Try each output slot
-        for (int rec_slot = outputSlotStart; rec_slot < outputSlotStart + outputSlotSize; ++rec_slot) {
+        for (int rec_slot = 0; rec_slot < outputSlotSize; ++rec_slot) {
 
-            if (inventory[rec_slot] == null) {
+            ItemStack out = output.getStackInSlot(rec_slot);
+            if (out == null) {
                 // Try each element
                 int i = 0;
                 for (ElementStack rec_out : recipes.get(smeltingId).outs) {
 
                     // If Element has not been produced and there is a canister in
                     // the slot
-                    if (done_out[i] == false && inventory[canisterSlot] != null &&
-                            inventory[canisterSlot].stackSize > 0 &&
-                            inventory[canisterSlot].getItem() == ModItems.canister) {
+                    if (done_out[i] == false && input.getStackInSlot(canisterSlot) != null &&
+                            input.getStackInSlot(canisterSlot).stackSize > 0 &&
+                            input.getStackInSlot(canisterSlot).getItem() == ModItems.canister) {
                         done_out[i] = true;
-                        inventory[canisterSlot] = new ItemStack(inventory[canisterSlot].getItem(),
-                                inventory[canisterSlot].stackSize - 1);
-                        inventory[rec_slot] = new ItemStack(inventory[canisterSlot].getItem(), 1);
+                        output.setStackInSlot(rec_slot, new ItemStack(input.getStackInSlot(canisterSlot).getItem(), 1));
+                        input.setStackInSlot(canisterSlot, new ItemStack(input.getStackInSlot(canisterSlot).getItem(),
+                                input.getStackInSlot(canisterSlot).stackSize - 1));
                         NBTTagCompound nbt = new NBTTagCompound();
                         nbt.setInteger("Element", rec_out.id);
                         nbt.setInteger("Quantity", rec_out.quantity);
-                        inventory[rec_slot].setTagCompound(nbt);
+                        output.getStackInSlot(rec_slot).setTagCompound(nbt);
                         break;
                     }
 
@@ -348,189 +364,22 @@ public class ExtractorTileEntity extends TileEntity
     }
 
     @Override
-    public String getName() {
-        return this.name;
-    }
-
-    @Override
-    public boolean hasCustomName() {
-        return false;
-    }
-
-    @Override
-    public int getSizeInventory() {
-        return NumberOfSlots;
-    }
-
-    @Override
-    public ItemStack getStackInSlot(int index) {
-        if (index < 0 || index >= this.getSizeInventory())
-            return null;
-        return this.inventory[index];
-    }
-
-    @Override
-    public ItemStack decrStackSize(int index, int count) {
-        if (this.getStackInSlot(index) != null) {
-            ItemStack itemstack;
-
-            if (this.getStackInSlot(index).stackSize <= count) {
-                itemstack = this.getStackInSlot(index);
-                this.setInventorySlotContents(index, null);
-                this.markDirty();
-                return itemstack;
-            } else {
-                itemstack = this.getStackInSlot(index).splitStack(count);
-
-                if (this.getStackInSlot(index).stackSize <= 0) {
-                    this.setInventorySlotContents(index, null);
-                } else {
-                    //Just to show that changes happened
-                    this.setInventorySlotContents(index, this.getStackInSlot(index));
-                }
-
-                this.markDirty();
-                return itemstack;
-            }
-        } else {
-            return null;
-        }
-    }
-
-    @Override
-    public ItemStack removeStackFromSlot(int index) {
-        ItemStack stack = this.getStackInSlot(index);
-        this.setInventorySlotContents(index, null);
-        return stack;
-    }
-
-    @Override
-    public void setInventorySlotContents(int index, ItemStack stack) {
-
-
-        if (index < 0 || index >= this.getSizeInventory())
-            return;
-
-        if (stack != null && stack.stackSize > this.getInventoryStackLimit())
-            stack.stackSize = this.getInventoryStackLimit();
-        if (stack != null && (index == inputSlot || index == catalystSlot)) {
-            inputChanged = true;
-        }
-
-        if (stack != null && stack.stackSize == 0)
-            stack = null;
-
-        this.inventory[index] = stack;
-        this.markDirty();
-    }
-
-
-    @Override
-    public int getInventoryStackLimit() {
-        return 64;
-    }
-
-    @Override
-    public boolean isUseableByPlayer(EntityPlayer player) {
-        return this.worldObj.getTileEntity(this.getPos()) == this &&
-                player.getDistanceSq(this.pos.add(0.5, 0.5, 0.5)) <= 64;
-    }
-
-    @Override
-    public void openInventory(EntityPlayer player) {
-    }
-
-    @Override
-    public void closeInventory(EntityPlayer player) {
-    }
-
-    @Override
-    public boolean isItemValidForSlot(int index, ItemStack stack) {
-        if (index == canisterSlot || index >= outputSlotStart || index < outputSlotStart + outputSlotSize) {
-            if (stack.getItem() != ModItems.canister) {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    @Override
-    public int getField(int id) {
-        return 0;
-    }
-
-    @Override
-    public void setField(int id, int value) {
-    }
-
-    @Override
-    public int getFieldCount() {
-        return 0;
-    }
-
-    @Override
-    public void clear() {
-        for (int i = 0; i < this.getSizeInventory(); i++)
-            this.setInventorySlotContents(i, null);
-    }
-
-    public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
-        super.writeToNBT(nbt);
-
-        NBTTagList list = new NBTTagList();
-        for (int i = 0; i < this.getSizeInventory(); ++i) {
-            if (this.getStackInSlot(i) != null) {
-                NBTTagCompound stackTag = new NBTTagCompound();
-                stackTag.setByte("Slot", (byte) i);
-                this.getStackInSlot(i).writeToNBT(stackTag);
-                list.appendTag(stackTag);
-            }
-        }
-        nbt.setTag("Items", list);
-
-        if (this.hasCustomName()) {
-            nbt.setString("CustomName", "Name");
-        }
-
-        return nbt;
-    }
-
-    public void readFromNBT(NBTTagCompound nbt) {
+    public void readFromNBT(NBTTagCompound nbt)
+    {
         super.readFromNBT(nbt);
-
-        NBTTagList list = nbt.getTagList("Items", 10);
-        for (int i = 0; i < list.tagCount(); ++i) {
-            NBTTagCompound stackTag = list.getCompoundTagAt(i);
-            int slot = stackTag.getByte("Slot") & 255;
-            this.setInventorySlotContents(slot, ItemStack.loadItemStackFromNBT(stackTag));
-        }
-
-        if (nbt.hasKey("CustomName", 8)) {
-        }
-    }
-
-
-    @Override
-    public IFluidTankProperties[] getTankProperties() {
-        return new IFluidTankProperties[0];
+        System.out.println("adssaddsadsadsadsadsadsadsadsadsa");
+        input.deserializeNBT(nbt.getCompoundTag("Input"));
+        output.deserializeNBT(nbt.getCompoundTag("Output"));
     }
 
     @Override
-    public int fill(FluidStack resource, boolean doFill) {
-        return 0;
-    }
-
-    @Nullable
-    @Override
-    public FluidStack drain(FluidStack resource, boolean doDrain) {
-        return null;
-    }
-
-    @Nullable
-    @Override
-    public FluidStack drain(int maxDrain, boolean doDrain) {
-        return null;
+    public NBTTagCompound writeToNBT(NBTTagCompound nbt)
+    {
+        nbt = super.writeToNBT(nbt);
+        System.out.println("WWWWadssaddsadsadsadsadsadsadsadsadsa");
+        nbt.setTag("Input", input.serializeNBT());
+        nbt.setTag("Output", output.serializeNBT());
+        return nbt;
     }
 
     static public class ElementStack {

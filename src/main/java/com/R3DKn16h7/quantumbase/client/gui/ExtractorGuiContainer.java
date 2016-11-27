@@ -7,6 +7,10 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.util.ResourceLocation;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 public class ExtractorGuiContainer extends GuiContainer {
 
     private IInventory playerInv;
@@ -20,6 +24,24 @@ public class ExtractorGuiContainer extends GuiContainer {
 
 //	    this.xSize = 289;
 //	    this.ySize = 265;
+    }
+
+    protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException
+    {
+        super.mouseClicked(mouseX, mouseY, mouseButton);
+        int i = (this.width - this.xSize) / 2;
+        int j = (this.height - this.ySize) / 2;
+
+        for (int k = 0; k < 3; ++k)
+        {
+            int l = mouseX - (i + 60);
+            int i1 = mouseY - (j + 14 + 19 * k);
+
+            if (l >= 0 && i1 >= 0 && l < 108 && i1 < 19)
+            {
+                System.out.println("asdsdadasdsadsdasd");
+            }
+        }
     }
 
 
@@ -60,5 +82,11 @@ public class ExtractorGuiContainer extends GuiContainer {
         this.drawTexturedModalRect(8 + 8, 8 + 0 + maxH - h, 0, 0, w,  h);
         ++i;
 
+        List<String> hoveringText = new ArrayList<String>();
+        hoveringText.add("Progress:");
+        if (hoveringText.isEmpty()) {
+            return;
+        }
+        drawHoveringText(hoveringText, mouseX - guiLeft, mouseY - guiTop, fontRendererObj);
     }
 }

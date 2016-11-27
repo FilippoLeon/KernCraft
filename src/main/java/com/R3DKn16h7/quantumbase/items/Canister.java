@@ -27,6 +27,9 @@ import java.util.List;
 public class Canister extends Item {
     public static String base_name = "canister";
 
+    int elapsed = 0;
+    final int waitTime = 20;
+
     public Canister() {
         super();
 
@@ -52,7 +55,8 @@ public class Canister extends Item {
     @Override
     public void onUpdate(ItemStack stack, World worldIn,
                          Entity entityIn, int itemSlot, boolean isSelected) {
-        if (entityIn != null && entityIn instanceof EntityPlayer) {
+        if (elapsed > waitTime && entityIn != null && entityIn instanceof EntityPlayer) {
+            elapsed = 0;
             EntityPlayer entity = (EntityPlayer) entityIn;
 
             ElementBase.Element elem = Canister.getElement(stack);
@@ -86,8 +90,14 @@ public class Canister extends Item {
                 nbt.setInteger("Quantity", new_qty);
 
             }
+            if(elem.symbol.matches("Pu") && qty > 70) {
+                double x = entityIn.posX, y = entityIn.posY, z = entityIn.posZ;
+                worldIn.createExplosion(null, x,y,z,10,true);
+                nbt.setInteger("Quantity", 0);
+            }
             stack.setTagCompound(nbt);
         }
+        ++elapsed;
     }
 
     public void registerRender() {

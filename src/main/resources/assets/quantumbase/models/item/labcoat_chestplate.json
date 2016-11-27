@@ -1,0 +1,7 @@
+{
+    "parent": "item/generated",
+    "textures": {
+        "layer0": "quantumbase:items/labcoat_chestplate",
+        "layer1": "quantumbase:items/labcoat_chestplate_overlay"
+    }
+}

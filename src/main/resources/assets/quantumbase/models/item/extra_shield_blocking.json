@@ -87,10 +87,10 @@
     }
   },
   "textures": {
+    "side": "blocks/planks_oak",
     "particle": "#side",
     "bottom": "blocks/planks_oak",
     "top": "blocks/planks_oak",
-    "side": "blocks/planks_oak",
     "handle": "blocks/iron_block",
     "back": "quantumbase:items/shield",
     "front": "quantumbase:items/shield"

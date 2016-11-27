@@ -11,6 +11,11 @@ public final class ItemRenderRegister {
         reg(ModItems.portableBeacon);
         ModItems.canister.registerRender();
         reg(ModItems.EXTRA_SHIELD);
+
+        reg(ModItems.A);
+        reg(ModItems.B);
+        reg(ModItems.C);
+        reg(ModItems.D);
     }
 
 

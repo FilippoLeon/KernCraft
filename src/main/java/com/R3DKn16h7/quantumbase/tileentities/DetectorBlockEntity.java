@@ -48,7 +48,7 @@ public class DetectorBlockEntity extends BlockContainer {
         setRegistryName(name);
         GameRegistry.register(this);
         GameRegistry.register(new ItemBlock(this), getRegistryName());
-        GameRegistry.registerTileEntity(ExtractorTileEntity.class, getRegistryName().toString());
+        GameRegistry.registerTileEntity(DetectorTileEntity.class, getRegistryName().toString());
     }
 
     /**

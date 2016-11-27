@@ -13,11 +13,14 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.InventoryHelper;
+import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
@@ -30,6 +33,11 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.ItemStackHandler;
+
+import javax.swing.plaf.basic.BasicComboBoxUI;
 
 public class ExtractorBlockEntity extends BlockContainer {
 
@@ -75,7 +83,65 @@ public class ExtractorBlockEntity extends BlockContainer {
     @Override
     public void breakBlock(World world, BlockPos pos, IBlockState blockstate) {
         ExtractorTileEntity te = (ExtractorTileEntity) world.getTileEntity(pos);
-        InventoryHelper.dropInventoryItems(world, pos, te);
+        //.dropInventory(te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, EnumFacing.DOWN),
+        //        world, pos);
+
+
+//        TileEntity tileentity = world.getTileEntity(pos);
+//            //worldIn.updateComparatorOutputLevel(pos, this);
+//
+//        ItemStack stack = new ItemStack(world.getTileEntity(pos), 1);
+//        if (!stack.hasTagCompound()) {
+//            stack.setTagCompound(new NBTTagCompound());
+//        }
+//        //stack.getTagCompound().setBoolean("potBlockR", tile.red);
+        double x = pos.getX(), y = pos.getY(), z  = pos.getZ();
+//        world.spawnEntityInWorld(new EntityItem(world,x,y,z,stack));
+//        //world.setBlock(x, y, z, Blocks.air);
+
+        IItemHandler inv = te.getInput();
+        if (inv == null)
+            return;
+
+        for (int i = 0; i < inv.getSlots(); i++)
+        {
+            ItemStack stack = inv.getStackInSlot(i);
+
+            if (stack == null)
+            {
+                continue;
+            }
+
+           // spawnEntityItem(world, stack, pos);
+            float f = world.rand.nextFloat() * 0.8F + 0.1F;
+            float f1 = world.rand.nextFloat() * 0.8F + 0.1F;
+            float f2 = world.rand.nextFloat() * 0.8F + 0.1F;
+
+
+            EntityItem entityitem = new EntityItem(world, x + f, y + f1, z + f2, stack.copy());
+            entityitem.motionX = world.rand.nextGaussian() * 0.05;
+            entityitem.motionY = world.rand.nextGaussian() * 0.05 + 0.2;
+            entityitem.motionZ = world.rand.nextGaussian() * 0.05;
+            world.spawnEntityInWorld(entityitem);
+        }
+
+        ItemStack testack = new ItemStack(this);
+        NBTTagCompound nbt = new NBTTagCompound();
+
+        nbt.setTag("Input", te.input.serializeNBT());
+        nbt.setTag("Output", te.output.serializeNBT());
+
+        testack.setTagCompound(nbt);
+        float f = world.rand.nextFloat() * 0.8F + 0.1F;
+        float f1 = world.rand.nextFloat() * 0.8F + 0.1F;
+        float f2 = world.rand.nextFloat() * 0.8F + 0.1F;
+        EntityItem entityitem = new EntityItem(world, x + f, y + f1, z + f2, testack.copy());
+        entityitem.motionX = world.rand.nextGaussian() * 0.05;
+        entityitem.motionY = world.rand.nextGaussian() * 0.05 + 0.2;
+        entityitem.motionZ = world.rand.nextGaussian() * 0.05;
+        world.spawnEntityInWorld(entityitem);
+
+
         super.breakBlock(world, pos, blockstate);
     }
 
@@ -178,7 +244,16 @@ public class ExtractorBlockEntity extends BlockContainer {
     }
 
     @Override
-    public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
+    public void onBlockPlacedBy(World world, BlockPos pos,
+                                IBlockState state, EntityLivingBase placer,
+                                ItemStack stack) {
+
+        ExtractorTileEntity te = (ExtractorTileEntity) world.getTileEntity(pos);
+        NBTTagCompound nbt = stack.getTagCompound();
+        if(nbt != null && nbt.hasKey("Input") && nbt.hasKey("Output")) {
+            te.input.deserializeNBT(nbt.getCompoundTag("Input"));
+            te.output.deserializeNBT(nbt.getCompoundTag("Output"));
+        }
         if (stack.hasDisplayName()) {
             // ((ExtractorEntity) worldIn.getTileEntity(pos)).setCustomName(stack.getDisplayName());
         }
