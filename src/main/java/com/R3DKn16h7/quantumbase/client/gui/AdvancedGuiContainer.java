@@ -1,5 +1,6 @@
 package com.R3DKn16h7.quantumbase.client.gui;
 
+import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.inventory.Container;
@@ -17,7 +18,10 @@ import java.util.List;
  */
 public class AdvancedGuiContainer extends GuiContainer {
 
+    public IWidget activeWidget;
+
     // Margin of gui backgound
+
     public int borderLeft = 9;
     public int borderTop = 18;
     public int backgroundStartx;
@@ -51,21 +55,29 @@ public class AdvancedGuiContainer extends GuiContainer {
         //protected int ySize = 166;
 
         AddWidget(
-                new GuiElement(this,
+                new TexturedElement(this,
                         "textures/gui/container/furnace.png", 80, 80,
                         14, 14, 176, 0),
                 false);
         AddWidget(
-                new GuiElement(this,
+                new TexturedElement(this,
                         "textures/gui/container/furnace.png", 18, 18,
                         14, 14, 176, 0),
                 true);
         AddWidget(new Button(this, "textures/gui/container/furnace.png",
                 0, 0, 14, 14, 176, 0), true);
 
-        AddWidget(AnimatedGuiElement.ARROW(this, 40, 40), true);
+        AddWidget(AnimatedTexturedElement.ARROW(this, 40, 40), true);
+
+        Text txt = new Text(this, 20, 20, 40, 80, Text.Alignment.LEFT);
+        txt.setText("TEXT");
+        AddWidget(txt, true);
 
         //Runnable r2 = () -> System.out.println("Hello world two!");
+    }
+
+    public FontRenderer getFontRenderer() {
+        return fontRendererObj;
     }
 
     public void AddWidget(IWidget widget, boolean foreground) {
@@ -116,9 +128,23 @@ public class AdvancedGuiContainer extends GuiContainer {
     protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
         for (IWidget widget : foreground_widgets) {
             if (widget.isMouseInArea(mouseX, mouseY)) {
-                widget.click(mouseButton);
+                widget.onClicked(mouseX - widget.getPositionX(),
+                        mouseY - widget.getPositionY(), mouseButton);
+                return;
             }
         }
+    }
+
+    public boolean hasActiveWidget() {
+        return activeWidget != null;
+    }
+
+    @Override
+    protected void keyTyped(char typedChar, int keyCode) throws IOException {
+        if(hasActiveWidget() && activeWidget.doesInterceptKeyPress()) {
+            activeWidget.onKeyTyped(typedChar, keyCode);
+        }
+        super.keyTyped(typedChar, keyCode);
     }
 
     void setBackground(String location,

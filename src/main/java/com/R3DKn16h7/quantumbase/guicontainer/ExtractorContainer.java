@@ -188,7 +188,7 @@ public class ExtractorContainer extends Container {
             while (stack.stackSize > 0 &&
                     (!reverseDirection && i < endIndex || reverseDirection && i >= startIndex)) {
                 // Try and fill this slot
-                Slot slot = (Slot) this.inventorySlots.get(i);
+                Slot slot = this.inventorySlots.get(i);
                 // Current stack in tested slot
                 ItemStack itemstack = slot.getStack();
                 // Is slot non-empty but can accept some of those items
@@ -231,7 +231,7 @@ public class ExtractorContainer extends Container {
             while (!reverseDirection && i < endIndex ||
                     reverseDirection && i >= startIndex) {
                 // Test a new slot
-                Slot slot1 = (Slot) this.inventorySlots.get(i);
+                Slot slot1 = this.inventorySlots.get(i);
                 ItemStack itemstack1 = slot1.getStack();
 
                 // Only if slot is empty or can place item in slot

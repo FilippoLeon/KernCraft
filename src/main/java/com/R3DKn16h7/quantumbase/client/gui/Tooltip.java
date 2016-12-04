@@ -5,12 +5,12 @@ import java.util.List;
 /**
  * Created by Filippo on 27/11/2016.
  */
-public class Tooltip extends GuiElement {
+public class Tooltip extends Widget {
 
-    Tooltip(AdvancedGuiContainer container, String texture, int xPosition, int yPosition,
-            int xSize, int ySize,
-            int offsetX, int offsetY) {
-        super(container, texture, xPosition, yPosition, xSize, ySize, offsetX, offsetY);
+    Tooltip(AdvancedGuiContainer container, String texture,
+            int xPosition, int yPosition,
+            int xSize, int ySize) {
+        super(container, xPosition, yPosition , xSize, ySize);
     }
 
     @Override
@@ -20,12 +20,7 @@ public class Tooltip extends GuiElement {
 
     @Override
     public List<String> addHoveringText(List<String> hoveringText) {
-        hoveringText.add("Button");
+        hoveringText.add("Tooltip");
         return hoveringText;
-    }
-
-    @Override
-    public void click(int mouseButton) {
-        System.out.print("Click!");
     }
 }

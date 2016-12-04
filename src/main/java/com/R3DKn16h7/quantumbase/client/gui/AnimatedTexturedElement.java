@@ -3,21 +3,21 @@ package com.R3DKn16h7.quantumbase.client.gui;
 /**
  * Created by Filippo on 27/11/2016.
  */
-public class AnimatedGuiElement extends GuiElement {
+public class AnimatedTexturedElement extends TexturedElement {
     Direction dir;
     int speed;
     int time;
 
-    AnimatedGuiElement(AdvancedGuiContainer container, String texture, int xPosition, int yPosition,
-                       int xSize, int ySize,
-                       int offsetX, int offsetY, Direction dir, int speed) {
+    AnimatedTexturedElement(AdvancedGuiContainer container, String texture, int xPosition, int yPosition,
+                            int xSize, int ySize,
+                            int offsetX, int offsetY, Direction dir, int speed) {
         super(container, texture, xPosition, yPosition, xSize, ySize, offsetX, offsetY);
         this.dir = dir;
         this.speed = speed;
     }
 
-    static public AnimatedGuiElement ARROW(AdvancedGuiContainer container, int xPosition, int yPosition) {
-        return new AnimatedGuiElement(container, "textures/gui/container/furnace.png",
+    static public AnimatedTexturedElement ARROW(AdvancedGuiContainer container, int xPosition, int yPosition) {
+        return new AnimatedTexturedElement(container, "textures/gui/container/furnace.png",
                 yPosition, yPosition, 24, 18, 176, 14,
                 Direction.LEFT, 200);
     }

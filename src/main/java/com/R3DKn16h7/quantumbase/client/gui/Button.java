@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Created by Filippo on 27/11/2016.
  */
-public class Button extends GuiElement {
+public class Button extends TexturedElement {
 
     Button(AdvancedGuiContainer container, String texture, int xPosition, int yPosition,
            int xSize, int ySize,
@@ -25,7 +25,7 @@ public class Button extends GuiElement {
     }
 
     @Override
-    public void click(int mouseButton) {
+    public void onClicked(int mouseButton) {
         System.out.print("Click!");
     }
 }

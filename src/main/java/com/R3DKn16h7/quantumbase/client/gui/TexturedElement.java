@@ -7,18 +7,15 @@ import java.util.List;
 /**
  * Created by Filippo on 27/11/2016.
  */
-public class GuiElement implements IWidget {
+public class TexturedElement extends Widget {
 
     public ResourceLocation textureLocation;
+public int offsetX, offsetY;
 
-    public int xPosition, yPosition, xSize, ySize, offsetX, offsetY;
-
-    protected AdvancedGuiContainer container;
-
-    public GuiElement(AdvancedGuiContainer container, String texture, int xPosition, int yPosition,
-                      int xSize, int ySize,
-                      int offsetX, int offsetY) {
-        this.container = container;
+    public TexturedElement(AdvancedGuiContainer container, String texture, int xPosition, int yPosition,
+                           int xSize, int ySize,
+                           int offsetX, int offsetY) {
+        super(container, xPosition, yPosition, xSize, ySize);
         this.textureLocation = new ResourceLocation(texture);
         this.xPosition = container.borderLeft + container.backgroundStartx + xPosition;
         this.yPosition = container.borderTop + container.backgroundStarty + yPosition;
@@ -43,14 +40,15 @@ public class GuiElement implements IWidget {
     }
 
     @Override
-    public void click(int mouseButton) {
-        return;
+    public void onHover(int mouseX, int mouseY) {
+
     }
 
     @Override
-    public boolean isMouseInArea(int mouseX, int mouseY) {
-        return (mouseX >= xPosition && mouseX <= xPosition + xSize &&
-                mouseY >= yPosition && mouseY <= yPosition + ySize);
+    public void onClicked(int mouseX, int mouseY, int mouseButton) {
+
+        return;
     }
+
 
 }
