@@ -3,34 +3,24 @@ package com.R3DKn16h7.quantumbase.tileentities;
 import com.R3DKn16h7.quantumbase.elements.ElementBase;
 import com.R3DKn16h7.quantumbase.items.ModItems;
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.inventory.IInventory;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.CapabilityInject;
-import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.EnergyStorage;
-import net.minecraftforge.energy.IEnergyStorage;
-import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
-import net.minecraftforge.fluids.capability.IFluidHandler;
-import net.minecraftforge.fluids.capability.IFluidTankProperties;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 
-import javax.annotation.Nullable;
 import java.util.ArrayList;
 
 public class ExtractorTileEntity extends TileEntity
@@ -44,32 +34,28 @@ public class ExtractorTileEntity extends TileEntity
     static final public int outputSlotStart = 4;
     static final public int outputSlotSize = 4;
     static final private int NumberOfSlots = 8;
+    //// Static constants
+    private final static String name = "Extractor";
+    static private final float ticTime = 5f;
+    static private final int consumedEnergyPerFuelRefill = 100;
+    static private final int generatedFuelPerEnergyDrain = 100;
     // Static register of recipes
     static public ArrayList<ExtractorRecipe> recipes;
-
-    // Internal storages
-    public EnergyStorage storage = new EnergyStorage(1000);
-    public FluidTank tank = new FluidTank(1000);
-
     public final ItemStackHandler input = new ItemStackHandler(4);
     public final ItemStackHandler output = new ItemStackHandler(4);
     private final IItemHandler automationInput = new ItemStackHandler(4);
     private final IItemHandler automationOutput = new ItemStackHandler(4);
-
-    //// Static constants
-    private final static String name = "Extractor";
-    static private final float ticTime = 5f;
-    private final int consumedFuelPerTic = 1;
-    static private final int consumedEnergyPerFuelRefill = 100;
-    static private final int generatedFuelPerEnergyDrain = 100;
-
+    private final int consumedFuelPerTic = 20;
+    // Internal storages
+    public EnergyStorage storage = new EnergyStorage(1000);
+    public FluidTank tank = new FluidTank(1000);
+    // Has the input changed since last check?
+    public boolean inputChanged = false;
     //// Status variables
     // Are we currently smelting
     private boolean smelting = false;
     // Recipe Id currently smelting
     private int smeltingId = -1;
-    // Has the input changed since last check?
-    public boolean inputChanged = false;
     // Current progress oin smelting
     private int progress;
     private int storedFuel = 0;
@@ -169,7 +155,7 @@ public class ExtractorTileEntity extends TileEntity
     public boolean canSmelt(int idx) {
         if (idx == -1) return false;
         ExtractorRecipe recipe = recipes.get(idx);
-        if (input == null ||
+        return !(input == null ||
                 input.getStackInSlot(inputSlot) == null ||
                 // Check input
                 input.getStackInSlot(inputSlot).getItem() != recipe.item ||
@@ -177,14 +163,9 @@ public class ExtractorTileEntity extends TileEntity
                 // Check catalyst
                 recipe.catalyst != null &&
                         (input.getStackInSlot(catalystSlot) == null ||
-                         input.getStackInSlot(catalystSlot).getItem() != recipe.catalyst ||
-                         input.getStackInSlot(catalystSlot).stackSize < 1
-                    )
-                ) {
-            return false;
-        }
-
-        return true;
+                                input.getStackInSlot(catalystSlot).getItem() != recipe.catalyst ||
+                                input.getStackInSlot(catalystSlot).stackSize < 1
+                        ));
     }
 
     /**
@@ -361,6 +342,13 @@ public class ExtractorTileEntity extends TileEntity
         } else {
             elapsed += 1;
         }
+    }
+
+    public float getFuelStoredPercentage() {
+        return Math.min(storedFuel / (float)
+                        TileEntityFurnace.getItemBurnTime(new ItemStack(Items.COAL)),
+                1.0f
+        );
     }
 
     @Override

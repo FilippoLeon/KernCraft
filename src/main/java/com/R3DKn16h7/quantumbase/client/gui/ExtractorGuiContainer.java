@@ -1,7 +1,7 @@
 package com.R3DKn16h7.quantumbase.client.gui;
 
-import com.R3DKn16h7.quantumbase.tileentities.ExtractorTileEntity;
 import com.R3DKn16h7.quantumbase.guicontainer.ExtractorContainer;
+import com.R3DKn16h7.quantumbase.tileentities.ExtractorTileEntity;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.inventory.IInventory;
@@ -13,8 +13,11 @@ import java.util.List;
 
 public class ExtractorGuiContainer extends GuiContainer {
 
+    int i = 0;
     private IInventory playerInv;
     private ExtractorTileEntity te;
+    private int borderLeft = 9;
+    private int borderTop = 18;
 
     public ExtractorGuiContainer(IInventory playerInv, ExtractorTileEntity te) {
         super(new ExtractorContainer(playerInv, te));
@@ -44,7 +47,6 @@ public class ExtractorGuiContainer extends GuiContainer {
         }
     }
 
-
     @Override
     protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
         GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
@@ -54,12 +56,21 @@ public class ExtractorGuiContainer extends GuiContainer {
                 new ResourceLocation("quantumbase:textures/gui/container/extractor_gui.png")
         );
         this.drawTexturedModalRect(this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize);
-//	    this.drawModalRectWithCustomSizedTexture(this.guiLeft, this.guiTop, 0, 0, 
+//	    this.drawModalRectWithCustomSizedTexture(this.guiLeft, this.guiTop, 0, 0,
 //	            this.xSize,  this.ySize, 320, 320);
+
+
+        ResourceLocation backgroundLocation = new ResourceLocation("minecraft",
+                "textures/gui/container/furnace.png");
+
+        this.mc.getTextureManager().bindTexture(backgroundLocation);
+
+        int offset = (int) Math.ceil(14.0 * (1. - te.getFuelStoredPercentage()));
+        this.drawTexturedModalRect(this.guiLeft + borderLeft + 18 * 1,
+                this.guiTop + borderTop + 18 * 1 + offset,
+                176, 0 + offset, 14, 14 - offset);
     }
 
-
-    int i = 0;
     @Override
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
         //String s = ""; // this.te.getDisplayName().getUnformattedText();
@@ -88,5 +99,6 @@ public class ExtractorGuiContainer extends GuiContainer {
             return;
         }
         drawHoveringText(hoveringText, mouseX - guiLeft, mouseY - guiTop, fontRendererObj);
+
     }
 }

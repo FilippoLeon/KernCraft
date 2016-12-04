@@ -16,6 +16,8 @@ public final class ItemRenderRegister {
         reg(ModItems.B);
         reg(ModItems.C);
         reg(ModItems.D);
+
+        reg(ModItems.TEST_ITEM);
     }
 
 

@@ -7,8 +7,10 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class ModTileEntities {
     public static TileEntity EXTRACTOR_TE;
     public static TileEntity DETECTOR_TE;
+    public static TileEntity CLOCK_TE;
     public static ExtractorBlockEntity EXTRACTOR;
     public static DetectorBlockEntity DETECTOR;
+    public static ClockBlockEntity CLOCK;
 
 
     public static void createEntities() {
@@ -17,8 +19,10 @@ public class ModTileEntities {
 //         GameRegistry.registerTileEntity(DetectorTileEntity.class, "detector");
         EXTRACTOR = new ExtractorBlockEntity("extractor");
         DETECTOR = new DetectorBlockEntity();
+        CLOCK = new ClockBlockEntity();
         EXTRACTOR_TE = new ExtractorTileEntity();
         DETECTOR_TE = new DetectorTileEntity();
+        CLOCK_TE = new ClockTileEntity();
 //    	GameRegistry.register(extractorEntity);
 //    	 ModLoader.registerTileEntity(ExtractorEntity.class, "ExpBank");
     }
@@ -28,6 +32,7 @@ public class ModTileEntities {
     public static void initModels() {
         EXTRACTOR.initModel();
         DETECTOR.initModel();
+        CLOCK.initModel();
     }
 }
 
