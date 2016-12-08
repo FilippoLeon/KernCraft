@@ -1,0 +1,7 @@
+{
+  "parent": "block/cube_column",
+  "textures": {
+    "end": "kerncraft:blocks/clock_top",
+    "side": "kerncraft:blocks/clock_00"
+  }
+}

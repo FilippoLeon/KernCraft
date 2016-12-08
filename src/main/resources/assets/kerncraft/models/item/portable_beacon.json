@@ -1,0 +1,256 @@
+{
+  "parent": "block/block",
+  "ambientocclusion": false,
+  "textures": {
+    "particle": "blocks/glass",
+    "glass": "blocks/glass",
+    "obsidian": "blocks/obsidian",
+    "beacon": "kerncraft:blocks/portable_beacon"
+  },
+  "display": {
+  "thirdperson_righthand": {
+    "rotation": [ 75, 45, 0 ],
+    "translation": [ 0.00, 2.50, 0.00 ],
+    "scale": [ 0.37, 0.37, 0.37 ]
+  },
+  "thirdperson_lefthand": {
+    "rotation": [ 0, 0, 0 ],
+    "translation": [ 0.00, 0.00, 0.00 ],
+    "scale": [ 0.37, 0.37, 0.37 ]
+  },
+  "firstperson_righthand": {
+    "rotation": [ 0, 45, 0 ],
+    "translation": [ 1.00, 1.25, 0.50 ],
+    "scale": [ 0.19, 0.19, 0.19 ]
+  },
+  "firstperson_lefthand": {
+    "rotation": [ 0, 0, 0 ],
+    "translation": [ 0.25, 1.75, -0.50 ],
+    "scale": [ 0.19, 0.19, 0.19 ]
+  },
+  "head": {
+    "rotation": [ 0, 0, 0 ],
+    "translation": [ 0.00, 0.00, 0.00 ],
+    "scale": [ 1.00, 1.00, 1.00 ]
+  },
+  "fixed": {
+    "rotation": [ 0, 0, 0 ],
+    "translation": [ 0.00, 0.00, 0.00 ],
+    "scale": [ 1.00, 0.57, 1.00 ]
+  },
+  "ground": {
+    "rotation": [ 0, 0, 0 ],
+    "translation": [ 0.00, 0.00, 0.00 ],
+    "scale": [ 0.25, 0.25, 0.25 ]
+  }
+},
+  "elements": [
+    {
+      "__comment": "Glass shell",
+      "from": [
+        0,
+        0,
+        0
+      ],
+      "to": [
+        16,
+        16,
+        16
+      ],
+      "faces": {
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#glass"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#glass"
+        },
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#glass"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#glass"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#glass"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#glass"
+        }
+      }
+    },
+    {
+      "__comment": "Obsidian base",
+      "from": [
+        2,
+        0.1,
+        2
+      ],
+      "to": [
+        14,
+        3,
+        14
+      ],
+      "faces": {
+        "down": {
+          "uv": [
+            2,
+            2,
+            14,
+            14
+          ],
+          "texture": "#obsidian"
+        },
+        "up": {
+          "uv": [
+            2,
+            2,
+            14,
+            14
+          ],
+          "texture": "#obsidian"
+        },
+        "north": {
+          "uv": [
+            2,
+            13,
+            14,
+            16
+          ],
+          "texture": "#obsidian"
+        },
+        "south": {
+          "uv": [
+            2,
+            13,
+            14,
+            16
+          ],
+          "texture": "#obsidian"
+        },
+        "west": {
+          "uv": [
+            2,
+            13,
+            14,
+            16
+          ],
+          "texture": "#obsidian"
+        },
+        "east": {
+          "uv": [
+            2,
+            13,
+            14,
+            16
+          ],
+          "texture": "#obsidian"
+        }
+      }
+    },
+    {
+      "__comment": "Inner beacon texture",
+      "from": [
+        3,
+        3,
+        3
+      ],
+      "to": [
+        13,
+        14,
+        13
+      ],
+      "faces": {
+        "down": {
+          "uv": [
+            3,
+            3,
+            13,
+            13
+          ],
+          "texture": "#beacon"
+        },
+        "up": {
+          "uv": [
+            3,
+            3,
+            13,
+            13
+          ],
+          "texture": "#beacon"
+        },
+        "north": {
+          "uv": [
+            3,
+            2,
+            13,
+            13
+          ],
+          "texture": "#beacon"
+        },
+        "south": {
+          "uv": [
+            3,
+            2,
+            13,
+            13
+          ],
+          "texture": "#beacon"
+        },
+        "west": {
+          "uv": [
+            3,
+            2,
+            13,
+            13
+          ],
+          "texture": "#beacon"
+        },
+        "east": {
+          "uv": [
+            3,
+            2,
+            13,
+            13
+          ],
+          "texture": "#beacon"
+        }
+      }
+    }
+  ]
+}

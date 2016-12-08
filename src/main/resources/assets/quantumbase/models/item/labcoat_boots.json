@@ -1,7 +1,0 @@
-{
-    "parent": "item/generated",
-    "textures": {
-      "layer0": "quantumbase:items/labcoat_boots",
-      "layer1": "quantumbase:items/labcoat_boots_overlay"
-    }
-}

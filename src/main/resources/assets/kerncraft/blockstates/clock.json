@@ -1,0 +1,96 @@
+{
+  "parent": "block/cube_column",
+  "forge_marker": 1,
+  "defaults": {
+    "textures": {
+      "end": "kerncraft:blocks/clock_top",
+      "side": "kerncraft:blocks/clock_00"
+    },
+    "model": "cube_column",
+    "uvlock": true
+  },
+  "variants": {
+    "time": {
+      "0": {
+        "textures": {
+          "side": "kerncraft:blocks/clock_00"
+        }
+      },
+      "1": {
+        "textures": {
+          "side": "kerncraft:blocks/clock_01"
+        }
+      },
+      "2": {
+        "textures": {
+          "side": "kerncraft:blocks/clock_02"
+        }
+      },
+      "3": {
+        "textures": {
+          "side": "kerncraft:blocks/clock_03"
+        }
+      },
+      "4": {
+        "textures": {
+          "side": "kerncraft:blocks/clock_02"
+        }
+      },
+      "5": {
+        "textures": {
+          "side": "kerncraft:blocks/clock_01"
+        }
+      },
+      "6": {
+        "textures": {
+          "side": "kerncraft:blocks/clock_00"
+        }
+      },
+      "7": {
+        "textures": {
+          "side": "kerncraft:blocks/clock_04"
+        }
+      },
+      "8": {
+        "textures": {
+          "side": "kerncraft:blocks/clock_05"
+        }
+      },
+      "9": {
+        "textures": {
+          "side": "kerncraft:blocks/clock_06"
+        }
+      },
+      "10": {
+        "textures": {
+          "side": "kerncraft:blocks/clock_07"
+        }
+      },
+      "11": {
+        "textures": {
+          "side": "kerncraft:blocks/clock_07"
+        }
+      },
+      "12": {
+        "textures": {
+          "side": "kerncraft:blocks/clock_06"
+        }
+      },
+      "13": {
+        "textures": {
+          "side": "kerncraft:blocks/clock_05"
+        }
+      },
+      "14": {
+        "textures": {
+          "side": "kerncraft:blocks/clock_04"
+        }
+      },
+      "15": {
+        "textures": {
+          "side": "kerncraft:blocks/clock_00"
+        }
+      }
+    }
+  }
+}

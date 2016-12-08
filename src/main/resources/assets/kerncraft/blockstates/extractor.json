@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "kerncraft:extractor"
+    },
+    "facing=south": {
+      "model": "kerncraft:extractor",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "kerncraft:extractor",
+      "y": 270
+    },
+    "facing=east": {
+      "model": "kerncraft:extractor",
+      "y": 90
+    }
+  }
+}

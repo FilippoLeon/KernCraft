@@ -1,0 +1,7 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "kerncraft:items/labcoat_helmet",
+    "layer1": "kerncraft:items/labcoat_helmet_overlay"
+  }
+}

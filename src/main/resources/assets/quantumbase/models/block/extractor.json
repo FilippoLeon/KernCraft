@@ -1,8 +1,0 @@
-{
-  "parent": "block/orientable",
-  "textures": {
-    "top": "quantumbase:blocks/extractor_top",
-    "front": "quantumbase:blocks/extractor_front_off",
-    "side": "quantumbase:blocks/extractor_side"
-  }
-}

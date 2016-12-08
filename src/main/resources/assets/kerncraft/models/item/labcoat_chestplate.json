@@ -1,0 +1,7 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "kerncraft:items/labcoat_chestplate",
+    "layer1": "kerncraft:items/labcoat_chestplate_overlay"
+  }
+}
