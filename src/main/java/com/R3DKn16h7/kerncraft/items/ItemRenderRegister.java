@@ -18,11 +18,15 @@ public final class ItemRenderRegister {
         reg(ModItems.D);
 
         reg(ModItems.TEST_ITEM);
+
+        reg(ModItems.TYROCINIUM_CHYMICUM);
     }
 
 
     public static void reg(Item item) {
         Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
-                .register(item, 0, new ModelResourceLocation(KernCraft.MODID + ":" + item.getUnlocalizedName().substring(5), "inventory"));
+                .register(item, 0, new ModelResourceLocation(
+                        KernCraft.MODID + ":" + item.getUnlocalizedName().substring(5),
+                        "inventory"));
     }
 }

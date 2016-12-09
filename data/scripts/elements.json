@@ -2,7 +2,8 @@
     "1": {
         "symbol": "H", 
         "group": "1", 
-        "period": "1", 
+        "period": "1",
+      "family": "Nonmetal",
         "english": "hydrogen", 
         "german": "Wasserstoff", 
         "french": "hydrog\u00e8ne", 
@@ -26,7 +27,8 @@
     "2": {
         "symbol": "He", 
         "group": "18", 
-        "period": "1", 
+        "period": "1",
+      "family": "Noble",
         "english": "helium", 
         "german": "Helium", 
         "french": "h\u00e9lium", 
@@ -50,7 +52,8 @@
     "3": {
         "symbol": "Li", 
         "group": "1", 
-        "period": "2", 
+        "period": "2",
+      "family": "Alkali",
         "english": "lithium", 
         "german": "Lithium", 
         "french": "lithium", 
@@ -74,7 +77,8 @@
     "4": {
         "symbol": "Be", 
         "group": "2", 
-        "period": "2", 
+        "period": "2",
+      "family": "Alkaline",
         "english": "beryllium", 
         "german": "Beryllium", 
         "french": "b\u00e9ryllium", 
@@ -98,7 +102,8 @@
     "5": {
         "symbol": "B", 
         "group": "13", 
-        "period": "2", 
+        "period": "2",
+      "family": "Metalloid",
         "english": "boron", 
         "german": "Bor", 
         "french": "bore", 
@@ -122,7 +127,8 @@
     "6": {
         "symbol": "C", 
         "group": "14", 
-        "period": "2", 
+        "period": "2",
+      "family": "NonMetal",
         "english": "carbon", 
         "german": "Kohlenlstoff", 
         "french": "carbone", 
@@ -146,7 +152,8 @@
     "7": {
         "symbol": "N", 
         "group": "15", 
-        "period": "2", 
+        "period": "2",
+      "family": "NonMetal",
         "english": "nitrogen", 
         "german": "Stickstoff", 
         "french": "azote", 
@@ -170,7 +177,8 @@
     "8": {
         "symbol": "O", 
         "group": "16", 
-        "period": "2", 
+        "period": "2",
+      "family": "NonMetal",
         "english": "oxygen", 
         "german": "Sauerstoff", 
         "french": "oxyg\u00e8ne", 
@@ -194,7 +202,8 @@
     "9": {
         "symbol": "F", 
         "group": "17", 
-        "period": "2", 
+        "period": "2",
+      "family": "Halogen",
         "english": "fluorine", 
         "german": "Fluor", 
         "french": "fluor", 
@@ -218,7 +227,8 @@
     "10": {
         "symbol": "Ne", 
         "group": "18", 
-        "period": "2", 
+        "period": "2",
+      "family": "Noble",
         "english": "neon", 
         "german": "Neon", 
         "french": "n\u00e9on", 
@@ -242,7 +252,8 @@
     "11": {
         "symbol": "Na", 
         "group": "1", 
-        "period": "3", 
+        "period": "3",
+      "family": "Alkali",
         "english": "sodium", 
         "german": "Natrium", 
         "french": "sodium", 
@@ -266,7 +277,8 @@
     "12": {
         "symbol": "Mg", 
         "group": "2", 
-        "period": "3", 
+        "period": "3",
+      "family": "Alkaline",
         "english": "magnesium", 
         "german": "Magnesium", 
         "french": "magn\u00e9sium", 
@@ -290,7 +302,8 @@
     "13": {
         "symbol": "Al", 
         "group": "13", 
-        "period": "3", 
+        "period": "3",
+      "family": "BasicMetal",
         "english": "aluminum", 
         "german": "Aluminium", 
         "french": "aluminium", 
@@ -314,7 +327,8 @@
     "14": {
         "symbol": "Si", 
         "group": "14", 
-        "period": "3", 
+        "period": "3",
+      "family": "Semimetal",
         "english": "silicon", 
         "german": "Silizium", 
         "french": "silicium", 
@@ -338,7 +352,8 @@
     "15": {
         "symbol": "P", 
         "group": "15", 
-        "period": "3", 
+        "period": "3",
+      "family": "NonMetal",
         "english": "phosphorus", 
         "german": "Phosphor", 
         "french": "phosphore", 
@@ -362,7 +377,8 @@
     "16": {
         "symbol": "S", 
         "group": "16", 
-        "period": "3", 
+        "period": "3",
+      "family": "NonMetal",
         "english": "sulfur", 
         "german": "Schwefel", 
         "french": "soufre", 
@@ -386,7 +402,8 @@
     "17": {
         "symbol": "Cl", 
         "group": "17", 
-        "period": "3", 
+        "period": "3",
+      "family": "Halogen",
         "english": "chlorine", 
         "german": "Chlor", 
         "french": "chlore", 
@@ -410,7 +427,8 @@
     "18": {
         "symbol": "Ar", 
         "group": "18", 
-        "period": "3", 
+        "period": "3",
+      "family": "Noble",
         "english": "argon", 
         "german": "Argon", 
         "french": "argon", 
@@ -434,7 +452,8 @@
     "19": {
         "symbol": "K", 
         "group": "1", 
-        "period": "4", 
+        "period": "4",
+      "family": "Alkali",
         "english": "potassium", 
         "german": "Kalium", 
         "french": "potassium", 
@@ -458,7 +477,8 @@
     "20": {
         "symbol": "Ca", 
         "group": "2", 
-        "period": "4", 
+        "period": "4",
+      "family": "Alkaline",
         "english": "calcium", 
         "german": "Kalzium", 
         "french": "calcium", 
@@ -482,7 +502,8 @@
     "21": {
         "symbol": "Sc", 
         "group": "3", 
-        "period": "4", 
+        "period": "4",
+      "family": "Transition",
         "english": "scandium", 
         "german": "Skandium", 
         "french": "scandium", 
@@ -506,7 +527,8 @@
     "22": {
         "symbol": "Ti", 
         "group": "4", 
-        "period": "4", 
+        "period": "4",
+      "family": "Transition",
         "english": "titanium", 
         "german": "Titan", 
         "french": "titane", 
@@ -530,7 +552,8 @@
     "23": {
         "symbol": "V", 
         "group": "5", 
-        "period": "4", 
+        "period": "4",
+      "family": "Transition",
         "english": "vanadium", 
         "german": "Vanadium", 
         "french": "vanadium", 
@@ -554,7 +577,8 @@
     "24": {
         "symbol": "Cr", 
         "group": "6", 
-        "period": "4", 
+        "period": "4",
+      "family": "Transition",
         "english": "chromium", 
         "german": "Chrom", 
         "french": "chrome", 
@@ -578,7 +602,8 @@
     "25": {
         "symbol": "Mn", 
         "group": "7", 
-        "period": "4", 
+        "period": "4",
+      "family": "Transition",
         "english": "manganese", 
         "german": "Mangan", 
         "french": "mangan\u00e8se", 
@@ -602,7 +627,8 @@
     "26": {
         "symbol": "Fe", 
         "group": "8", 
-        "period": "4", 
+        "period": "4",
+      "family": "Transition",
         "english": "iron", 
         "german": "Eisen", 
         "french": "fer", 
@@ -626,7 +652,8 @@
     "27": {
         "symbol": "Co", 
         "group": "9", 
-        "period": "4", 
+        "period": "4",
+      "family": "Transition",
         "english": "cobalt", 
         "german": "Kobalt", 
         "french": "cobalt", 
@@ -650,7 +677,8 @@
     "28": {
         "symbol": "Ni", 
         "group": "10", 
-        "period": "4", 
+        "period": "4",
+      "family": "Transition",
         "english": "nickel", 
         "german": "Nickel", 
         "french": "nickel", 
@@ -674,7 +702,8 @@
     "29": {
         "symbol": "Cu", 
         "group": "11", 
-        "period": "4", 
+        "period": "4",
+      "family": "Transition",
         "english": "copper", 
         "german": "Kupfer", 
         "french": "cuivre", 
@@ -698,7 +727,8 @@
     "30": {
         "symbol": "Zn", 
         "group": "12", 
-        "period": "4", 
+        "period": "4",
+      "family": "Transition",
         "english": "zinc", 
         "german": "Zink", 
         "french": "zinc", 
@@ -722,7 +752,8 @@
     "31": {
         "symbol": "Ga", 
         "group": "13", 
-        "period": "4", 
+        "period": "4",
+      "family": "BasicMetal",
         "english": "gallium", 
         "german": "Gallium", 
         "french": "gallium", 
@@ -746,7 +777,8 @@
     "32": {
         "symbol": "Ge", 
         "group": "14", 
-        "period": "4", 
+        "period": "4",
+      "family": "Semimetal",
         "english": "germanium", 
         "german": "Germanium", 
         "french": "germanium", 
@@ -770,7 +802,8 @@
     "33": {
         "symbol": "As", 
         "group": "15", 
-        "period": "4", 
+        "period": "4",
+      "family": "Semimetal",
         "english": "arsenic", 
         "german": "Arsen", 
         "french": "arsenic", 
@@ -794,7 +827,8 @@
     "34": {
         "symbol": "Se", 
         "group": "16", 
-        "period": "4", 
+        "period": "4",
+      "family": "NonMetal",
         "english": "selenium", 
         "german": "Selen", 
         "french": "s\u00e9l\u00e9nium", 
@@ -818,7 +852,8 @@
     "35": {
         "symbol": "Br", 
         "group": "17", 
-        "period": "4", 
+        "period": "4",
+      "family": "Halogen",
         "english": "bromine", 
         "german": "Brom", 
         "french": "brome", 
@@ -842,7 +877,8 @@
     "36": {
         "symbol": "Kr", 
         "group": "18", 
-        "period": "4", 
+        "period": "4",
+      "family": "Noble",
         "english": "krypton", 
         "german": "Krypton", 
         "french": "krypton", 
@@ -866,7 +902,8 @@
     "37": {
         "symbol": "Rb", 
         "group": "1", 
-        "period": "5", 
+        "period": "5",
+      "family": "Alkali",
         "english": "rubidium", 
         "german": "Rubidium", 
         "french": "rubidium", 
@@ -890,7 +927,8 @@
     "38": {
         "symbol": "Sr", 
         "group": "2", 
-        "period": "5", 
+        "period": "5",
+      "family": "Alkaline",
         "english": "strontium", 
         "german": "Strontium", 
         "french": "strontium", 
@@ -914,7 +952,8 @@
     "39": {
         "symbol": "Y", 
         "group": "3", 
-        "period": "5", 
+        "period": "5",
+      "family": "Transition",
         "english": "yttrium", 
         "german": "Yttrium", 
         "french": "yttrium", 
@@ -938,7 +977,8 @@
     "40": {
         "symbol": "Zr", 
         "group": "4", 
-        "period": "5", 
+        "period": "5",
+      "family": "Transition",
         "english": "zirconium", 
         "german": "Zirkonium", 
         "french": "zirconium", 
@@ -962,7 +1002,8 @@
     "41": {
         "symbol": "Nb", 
         "group": "5", 
-        "period": "5", 
+        "period": "5",
+      "family": "Transition",
         "english": "niobium", 
         "german": "Niob", 
         "french": "niobium", 
@@ -986,7 +1027,8 @@
     "42": {
         "symbol": "Mo", 
         "group": "6", 
-        "period": "5", 
+        "period": "5",
+      "family": "Transition",
         "english": "molybdenum", 
         "german": "Molybd\u00e4n", 
         "french": "molybd\u00e8ne", 
@@ -1010,7 +1052,8 @@
     "43": {
         "symbol": "Tc", 
         "group": "7", 
-        "period": "5", 
+        "period": "5",
+      "family": "Transition",
         "english": "technetium", 
         "german": "Technetium", 
         "french": "techn\u00e9tium", 
@@ -1028,13 +1071,14 @@
         "characteristics": "Radioactive, man made", 
         "uses": "medical imaging agents", 
         "toxic": "", 
-        "state": "s", 
-        "half_life": "1299283200000000"
+        "state": "s",
+      "half_life": "1300000000000000"
     }, 
     "44": {
         "symbol": "Ru", 
         "group": "8", 
-        "period": "5", 
+        "period": "5",
+      "family": "Transition",
         "english": "ruthenium", 
         "german": "Ruthenium", 
         "french": "ruth\u00e9nium", 
@@ -1058,7 +1102,8 @@
     "45": {
         "symbol": "Rh", 
         "group": "9", 
-        "period": "5", 
+        "period": "5",
+      "family": "Transition",
         "english": "rhodium", 
         "german": "Rhodium", 
         "french": "rhodium", 
@@ -1082,7 +1127,8 @@
     "46": {
         "symbol": "Pd", 
         "group": "10", 
-        "period": "5", 
+        "period": "5",
+      "family": "Transition",
         "english": "palladium", 
         "german": "Palladium", 
         "french": "palladium", 
@@ -1106,7 +1152,8 @@
     "47": {
         "symbol": "Ag", 
         "group": "11", 
-        "period": "5", 
+        "period": "5",
+      "family": "Transition",
         "english": "silver", 
         "german": "Silber", 
         "french": "argent", 
@@ -1130,7 +1177,8 @@
     "48": {
         "symbol": "Cd", 
         "group": "12", 
-        "period": "5", 
+        "period": "5",
+      "family": "Transition",
         "english": "cadmium", 
         "german": "Kadmium", 
         "french": "cadmium", 
@@ -1154,7 +1202,8 @@
     "49": {
         "symbol": "In", 
         "group": "13", 
-        "period": "5", 
+        "period": "5",
+      "family": "BasicMetal",
         "english": "indium", 
         "german": "Indium", 
         "french": "indium", 
@@ -1178,7 +1227,8 @@
     "50": {
         "symbol": "Sn", 
         "group": "14", 
-        "period": "5", 
+        "period": "5",
+      "family": "BasicMetal",
         "english": "tin", 
         "german": "Zinn", 
         "french": "\u00c9tain", 
@@ -1202,7 +1252,8 @@
     "51": {
         "symbol": "Sb", 
         "group": "15", 
-        "period": "5", 
+        "period": "5",
+      "family": "Semimetal",
         "english": "antimony", 
         "german": "Antimon", 
         "french": "antimoine", 
@@ -1226,7 +1277,8 @@
     "52": {
         "symbol": "Te", 
         "group": "16", 
-        "period": "5", 
+        "period": "5",
+      "family": "Semimetal",
         "english": "tellurium", 
         "german": "Tellur", 
         "french": "tellure", 
@@ -1250,7 +1302,8 @@
     "53": {
         "symbol": "I", 
         "group": "17", 
-        "period": "5", 
+        "period": "5",
+      "family": "Halogen",
         "english": "iodine", 
         "german": "Iod (Jod)", 
         "french": "iode", 
@@ -1274,7 +1327,8 @@
     "54": {
         "symbol": "Xe", 
         "group": "18", 
-        "period": "5", 
+        "period": "5",
+      "family": "Noble",
         "english": "xenon", 
         "german": "Xenon", 
         "french": "x\u00e9non", 
@@ -1298,7 +1352,8 @@
     "55": {
         "symbol": "Cs", 
         "group": "1", 
-        "period": "6", 
+        "period": "6",
+      "family": "Alkali",
         "english": "cesium", 
         "german": "Z\u00e4sium", 
         "french": "c\u00e9sium", 
@@ -1322,7 +1377,8 @@
     "56": {
         "symbol": "Ba", 
         "group": "2", 
-        "period": "6", 
+        "period": "6",
+      "family": "Alkaline",
         "english": "barium", 
         "german": "Barium", 
         "french": "baryum", 
@@ -1346,7 +1402,8 @@
     "57": {
         "symbol": "La", 
         "group": "L", 
-        "period": "6", 
+        "period": "6",
+      "family": "L",
         "english": "lanthanum", 
         "german": "Lanthan", 
         "french": "lanthane", 
@@ -1370,7 +1427,8 @@
     "58": {
         "symbol": "Ce", 
         "group": "L", 
-        "period": "6", 
+        "period": "6",
+      "family": "L",
         "english": "cerium", 
         "german": "Zer", 
         "french": "c\u00e9rium", 
@@ -1394,7 +1452,8 @@
     "59": {
         "symbol": "Pr", 
         "group": "L", 
-        "period": "6", 
+        "period": "6",
+      "family": "L",
         "english": "praseodymium", 
         "german": "Praseodym", 
         "french": "pras\u00e9odyme", 
@@ -1418,7 +1477,8 @@
     "60": {
         "symbol": "Nd", 
         "group": "L", 
-        "period": "6", 
+        "period": "6",
+      "family": "L",
         "english": "neodymium", 
         "german": "Neodym", 
         "french": "n\u00e9odyme", 
@@ -1442,7 +1502,8 @@
     "61": {
         "symbol": "Pm", 
         "group": "L", 
-        "period": "6", 
+        "period": "6",
+      "family": "L",
         "english": "promethium", 
         "german": "Promethium", 
         "french": "prom\u00e9thium", 
@@ -1460,13 +1521,14 @@
         "characteristics": "Radioactive", 
         "uses": "nuclear battery", 
         "toxic": "", 
-        "state": "s", 
-        "half_life": "559133280"
+        "state": "s",
+      "half_life": "559000000"
     }, 
     "62": {
         "symbol": "Sm", 
         "group": "L", 
-        "period": "6", 
+        "period": "6",
+      "family": "L",
         "english": "samarium", 
         "german": "Samarium", 
         "french": "samarium", 
@@ -1490,7 +1552,8 @@
     "63": {
         "symbol": "Eu", 
         "group": "L", 
-        "period": "6", 
+        "period": "6",
+      "family": "L",
         "english": "europium", 
         "german": "Europium", 
         "french": "europium", 
@@ -1514,7 +1577,8 @@
     "64": {
         "symbol": "Gd", 
         "group": "L", 
-        "period": "6", 
+        "period": "6",
+      "family": "L",
         "english": "gadolinium", 
         "german": "Gadolinium", 
         "french": "gadolinium", 
@@ -1538,7 +1602,8 @@
     "65": {
         "symbol": "Tb", 
         "group": "L", 
-        "period": "6", 
+        "period": "6",
+      "family": "L",
         "english": "terbium", 
         "german": "Terbium", 
         "french": "terbium", 
@@ -1562,7 +1627,8 @@
     "66": {
         "symbol": "Dy", 
         "group": "L", 
-        "period": "6", 
+        "period": "6",
+      "family": "L",
         "english": "dysprosium", 
         "german": "Dysprosium", 
         "french": "dysprosium", 
@@ -1586,7 +1652,8 @@
     "67": {
         "symbol": "Ho", 
         "group": "L", 
-        "period": "6", 
+        "period": "6",
+      "family": "L",
         "english": "holmium", 
         "german": "Holmium", 
         "french": "holmium", 
@@ -1610,7 +1677,8 @@
     "68": {
         "symbol": "Er", 
         "group": "L", 
-        "period": "6", 
+        "period": "6",
+      "family": "L",
         "english": "erbium", 
         "german": "Erbium", 
         "french": "erbium", 
@@ -1634,7 +1702,8 @@
     "69": {
         "symbol": "Tm", 
         "group": "L", 
-        "period": "6", 
+        "period": "6",
+      "family": "L",
         "english": "thulium", 
         "german": "Thulium", 
         "french": "thulium", 
@@ -1658,7 +1727,8 @@
     "70": {
         "symbol": "Yb", 
         "group": "L", 
-        "period": "6", 
+        "period": "6",
+      "family": "L",
         "english": "ytterbium", 
         "german": "Ytterbium", 
         "french": "ytterbium", 
@@ -1682,7 +1752,8 @@
     "71": {
         "symbol": "Lu", 
         "group": "3", 
-        "period": "6", 
+        "period": "6",
+      "family": "L",
         "english": "lutetium", 
         "german": "Lutetium", 
         "french": "lut\u00e9cium", 
@@ -1706,7 +1777,8 @@
     "72": {
         "symbol": "Hf", 
         "group": "4", 
-        "period": "6", 
+        "period": "6",
+      "family": "Transition",
         "english": "hafnium", 
         "german": "Hafnium", 
         "french": "hafnium", 
@@ -1730,7 +1802,8 @@
     "73": {
         "symbol": "Ta", 
         "group": "5", 
-        "period": "6", 
+        "period": "6",
+      "family": "Transition",
         "english": "tantalum", 
         "german": "Tantal", 
         "french": "tantale", 
@@ -1754,7 +1827,8 @@
     "74": {
         "symbol": "W", 
         "group": "6", 
-        "period": "6", 
+        "period": "6",
+      "family": "Transition",
         "english": "tungsten", 
         "german": "Wolfram", 
         "french": "tungst\u00e8ne", 
@@ -1778,7 +1852,8 @@
     "75": {
         "symbol": "Re", 
         "group": "7", 
-        "period": "6", 
+        "period": "6",
+      "family": "Transition",
         "english": "rhenium", 
         "german": "Rhenium", 
         "french": "rh\u00e9nium", 
@@ -1802,7 +1877,8 @@
     "76": {
         "symbol": "Os", 
         "group": "8", 
-        "period": "6", 
+        "period": "6",
+      "family": "Transition",
         "english": "osmium", 
         "german": "Osmium", 
         "french": "osmium", 
@@ -1826,7 +1902,8 @@
     "77": {
         "symbol": "Ir", 
         "group": "9", 
-        "period": "6", 
+        "period": "6",
+      "family": "Transition",
         "english": "iridium", 
         "german": "Iridium", 
         "french": "iridium", 
@@ -1850,7 +1927,8 @@
     "78": {
         "symbol": "Pt", 
         "group": "10", 
-        "period": "6", 
+        "period": "6",
+      "family": "Transition",
         "english": "platinum", 
         "german": "Platin", 
         "french": "platine", 
@@ -1874,7 +1952,8 @@
     "79": {
         "symbol": "Au", 
         "group": "11", 
-        "period": "6", 
+        "period": "6",
+      "family": "Transition",
         "english": "gold", 
         "german": "Gold", 
         "french": "or", 
@@ -1898,7 +1977,8 @@
     "80": {
         "symbol": "Hg", 
         "group": "12", 
-        "period": "6", 
+        "period": "6",
+      "family": "Transition",
         "english": "mercury", 
         "german": "Quecksilber", 
         "french": "mercure", 
@@ -1922,7 +2002,8 @@
     "81": {
         "symbol": "Tl", 
         "group": "13", 
-        "period": "6", 
+        "period": "6",
+      "family": "BasicMetal",
         "english": "thallium", 
         "german": "Thallium", 
         "french": "thallium", 
@@ -1946,7 +2027,8 @@
     "82": {
         "symbol": "Pb", 
         "group": "14", 
-        "period": "6", 
+        "period": "6",
+      "family": "BasicMetal",
         "english": "lead", 
         "german": "Blei", 
         "french": "plomb", 
@@ -1970,7 +2052,8 @@
     "83": {
         "symbol": "Bi", 
         "group": "15", 
-        "period": "6", 
+        "period": "6",
+      "family": "BasicMetal",
         "english": "bismuth", 
         "german": "Wismut", 
         "french": "bismuth", 
@@ -1988,13 +2071,14 @@
         "characteristics": "brittle", 
         "uses": "antacid, fusible alloy", 
         "toxic": "", 
-        "state": "s", 
-        "half_life": "5.99184E+027"
+        "state": "s",
+      "half_life": "5.99E+027"
     }, 
     "84": {
         "symbol": "Po", 
         "group": "16", 
-        "period": "6", 
+        "period": "6",
+      "family": "NonMetal",
         "english": "polonium", 
         "german": "Polonium", 
         "french": "polonium", 
@@ -2012,13 +2096,14 @@
         "characteristics": "Radioactive", 
         "uses": " 2 forms", 
         "toxic": "thermoelectric power", 
-        "state": "s", 
-        "half_life": "3219825600"
+        "state": "s",
+      "half_life": "3220000000"
     }, 
     "85": {
         "symbol": "At", 
         "group": "17", 
-        "period": "6", 
+        "period": "6",
+      "family": "Halogen",
         "english": "astatine", 
         "german": "Astat", 
         "french": "astate", 
@@ -2036,13 +2121,14 @@
         "characteristics": "Radioactive", 
         "uses": "", 
         "toxic": "", 
-        "state": "s", 
-        "half_life": "29016"
+        "state": "s",
+      "half_life": "29000"
     }, 
     "86": {
         "symbol": "Rn", 
         "group": "18", 
-        "period": "6", 
+        "period": "6",
+      "family": "Noble",
         "english": "radon", 
         "german": "Radon", 
         "french": "radon", 
@@ -2060,13 +2146,14 @@
         "characteristics": "Radioactive,air pollutant", 
         "uses": "earthquake prediction", 
         "toxic": "", 
-        "state": "g", 
-        "half_life": "330349.968"
+        "state": "g",
+      "half_life": "330000"
     }, 
     "87": {
         "symbol": "Fr", 
         "group": "1", 
-        "period": "7", 
+        "period": "7",
+      "family": "Alkali",
         "english": "francium", 
         "german": "Franzium", 
         "french": "francium", 
@@ -2084,13 +2171,14 @@
         "characteristics": "Radioactive", 
         "uses": "", 
         "toxic": "", 
-        "state": "s", 
-        "half_life": "1302"
+        "state": "s",
+      "half_life": "1300"
     }, 
     "88": {
         "symbol": "Ra", 
         "group": "2", 
-        "period": "7", 
+        "period": "7",
+      "family": "Alkaline",
         "english": "radium", 
         "german": "Radium", 
         "french": "radium", 
@@ -2108,13 +2196,14 @@
         "characteristics": "Radioactive, luminescent", 
         "uses": "neutron source", 
         "toxic": "", 
-        "state": "s", 
-        "half_life": "501422400000"
+        "state": "s",
+      "half_life": "501000000000"
     }, 
     "89": {
         "symbol": "Ac", 
         "group": "A", 
-        "period": "7", 
+        "period": "7",
+      "family": "A",
         "english": "actinium", 
         "german": "Aktinium", 
         "french": "actinium", 
@@ -2132,13 +2221,14 @@
         "characteristics": "Radioactive", 
         "uses": "thermoelectric power", 
         "toxic": "", 
-        "state": "s", 
-        "half_life": "687059064"
+        "state": "s",
+      "half_life": "687000000"
     }, 
     "90": {
         "symbol": "Th", 
         "group": "A", 
-        "period": "7", 
+        "period": "7",
+      "family": "A",
         "english": "thorium", 
         "german": "Thorium", 
         "french": "thorium", 
@@ -2156,13 +2246,14 @@
         "characteristics": "Radioactive", 
         "uses": "gas mantles (ThO2)", 
         "toxic": "", 
-        "state": "s", 
-        "half_life": "4.4339616E+018"
+        "state": "s",
+      "half_life": "4.43E+018"
     }, 
     "91": {
         "symbol": "Pa", 
         "group": "A", 
-        "period": "7", 
+        "period": "7",
+      "family": "A",
         "english": "protactinium", 
         "german": "Protaktinium", 
         "french": "protactinium", 
@@ -2180,13 +2271,14 @@
         "characteristics": "Radioactive", 
         "uses": "", 
         "toxic": "", 
-        "state": "s", 
-        "half_life": "1034002368000"
+        "state": "s",
+      "half_life": "1030000000000"
     }, 
     "92": {
         "symbol": "U", 
         "group": "A", 
-        "period": "7", 
+        "period": "7",
+      "family": "A",
         "english": "uranium", 
         "german": "Uran", 
         "french": "uranium", 
@@ -2204,13 +2296,14 @@
         "characteristics": "Radioactive", 
         "uses": "nuclear reactor fuel", 
         "toxic": "", 
-        "state": "s", 
-        "half_life": "1.40997456E+018"
+        "state": "s",
+      "half_life": "1.41E+018"
     }, 
     "93": {
         "symbol": "Np", 
         "group": "A", 
-        "period": "7", 
+        "period": "7",
+      "family": "A",
         "english": "neptunium", 
         "german": "Neptunium", 
         "french": "neptunium", 
@@ -2228,13 +2321,14 @@
         "characteristics": "Radioactive", 
         "uses": "", 
         "toxic": "", 
-        "state": "s", 
-        "half_life": "676604880000000"
+        "state": "s",
+      "half_life": "677000000000000"
     }, 
     "94": {
         "symbol": "Pu", 
         "group": "A", 
-        "period": "7", 
+        "period": "7",
+      "family": "A",
         "english": "plutonium", 
         "german": "Plutonium", 
         "french": "plutonium", 
@@ -2252,13 +2346,14 @@
         "characteristics": "Radioactive", 
         "uses": "weapon fuel, pacemakers", 
         "toxic": "", 
-        "state": "s", 
-        "half_life": "2.5008048E+016"
+        "state": "s",
+      "half_life": "2.5E+016"
     }, 
     "95": {
         "symbol": "Am", 
         "group": "A", 
-        "period": "7", 
+        "period": "7",
+      "family": "A",
         "english": "americium", 
         "german": "Amerizium", 
         "french": "am\u00e9ricium", 
@@ -2276,13 +2371,14 @@
         "characteristics": "Radioactive", 
         "uses": "smoke detector", 
         "toxic": "", 
-        "state": "s", 
-        "half_life": "232987968000"
+        "state": "s",
+      "half_life": "233000000000"
     }, 
     "96": {
         "symbol": "Cm", 
         "group": "A", 
-        "period": "7", 
+        "period": "7",
+      "family": "A",
         "english": "curium", 
         "german": "Kurium", 
         "french": "curium", 
@@ -2300,13 +2396,14 @@
         "characteristics": "Radioactive", 
         "uses": "thermoelec. pwr, n source", 
         "toxic": "", 
-        "state": "s", 
-        "half_life": "4919616000000000"
+        "state": "s",
+      "half_life": "4920000000000000"
     }, 
     "97": {
         "symbol": "Bk", 
         "group": "A", 
-        "period": "7", 
+        "period": "7",
+      "family": "A",
         "english": "berkelium", 
         "german": "Berkelium", 
         "french": "berk\u00e9lium", 
@@ -2324,13 +2421,14 @@
         "characteristics": "Radioactive", 
         "uses": "", 
         "toxic": "", 
-        "state": "s", 
-        "half_life": "43488144000"
+        "state": "s",
+      "half_life": "43500000000"
     }, 
     "98": {
         "symbol": "Cf", 
         "group": "A", 
-        "period": "7", 
+        "period": "7",
+      "family": "A",
         "english": "californium", 
         "german": "Kalifornium", 
         "french": "californium", 
@@ -2348,13 +2446,14 @@
         "characteristics": "Radioactive", 
         "uses": "neutron source", 
         "toxic": "", 
-        "state": "", 
-        "half_life": "28401321600"
+        "state": "",
+      "half_life": "28400000000"
     }, 
     "99": {
         "symbol": "Es", 
         "group": "A", 
-        "period": "7", 
+        "period": "7",
+      "family": "A",
         "english": "einsteinium", 
         "german": "Einsteinium", 
         "french": "einsteinium", 
@@ -2372,13 +2471,14 @@
         "characteristics": "Radioactive", 
         "uses": "", 
         "toxic": "", 
-        "state": "", 
-        "half_life": "40750819.2"
+        "state": "",
+      "half_life": "40800000"
     }, 
     "100": {
         "symbol": "Fm", 
         "group": "A", 
-        "period": "7", 
+        "period": "7",
+      "family": "A",
         "english": "fermium", 
         "german": "Fermium", 
         "french": "fermium", 
@@ -2396,13 +2496,14 @@
         "characteristics": "Radioactive", 
         "uses": "", 
         "toxic": "", 
-        "state": "", 
-        "half_life": "8683200"
+        "state": "",
+      "half_life": "8680000"
     }, 
     "101": {
         "symbol": "Md", 
         "group": "A", 
-        "period": "7", 
+        "period": "7",
+      "family": "A",
         "english": "mendelevium", 
         "german": "Mendelevium", 
         "french": "mend\u00e9l\u00e9vium", 
@@ -2420,13 +2521,14 @@
         "characteristics": "Radioactive", 
         "uses": "", 
         "toxic": "", 
-        "state": "", 
-        "half_life": "4449600"
+        "state": "",
+      "half_life": "4450000"
     }, 
     "102": {
         "symbol": "No", 
         "group": "A", 
-        "period": "7", 
+        "period": "7",
+      "family": "A",
         "english": "nobelium", 
         "german": "Nobelium", 
         "french": "nob\u00e9lium", 
@@ -2444,13 +2546,14 @@
         "characteristics": "Radioactive", 
         "uses": "", 
         "toxic": "", 
-        "state": "", 
-        "half_life": "10008"
+        "state": "",
+      "half_life": "10000"
     }, 
     "103": {
         "symbol": "Lr", 
         "group": "3", 
-        "period": "7", 
+        "period": "7",
+      "family": "A",
         "english": "lawrencium", 
         "german": "Lawrencium", 
         "french": "lawrencium", 
@@ -2474,7 +2577,8 @@
     "104": {
         "symbol": "Rf", 
         "group": "4", 
-        "period": "7", 
+        "period": "7",
+      "family": "Transition",
         "english": "rutherfordium", 
         "german": "Rutherfordium", 
         "french": "rutherfordium", 
@@ -2492,13 +2596,14 @@
         "characteristics": "", 
         "uses": "", 
         "toxic": "", 
-        "state": "", 
-        "half_life": "47160"
+        "state": "",
+      "half_life": "47200"
     }, 
     "105": {
         "symbol": "Db", 
         "group": "5", 
-        "period": "7", 
+        "period": "7",
+      "family": "Transition",
         "english": "dubnium", 
         "german": "Dubnium", 
         "french": "dubnium", 
@@ -2516,13 +2621,14 @@
         "characteristics": "", 
         "uses": "", 
         "toxic": "", 
-        "state": "", 
-        "half_life": "20016"
+        "state": "",
+      "half_life": "20000"
     }, 
     "106": {
         "symbol": "Sg", 
         "group": "6", 
-        "period": "7", 
+        "period": "7",
+      "family": "Transition",
         "english": "seaborgium", 
         "german": "Seaborgium", 
         "french": "seaborgium", 
@@ -2540,13 +2646,14 @@
         "characteristics": "", 
         "uses": "", 
         "toxic": "", 
-        "state": "", 
-        "half_life": "6984"
+        "state": "",
+      "half_life": "6980"
     }, 
     "107": {
         "symbol": "Bh", 
         "group": "7", 
-        "period": "7", 
+        "period": "7",
+      "family": "Transition",
         "english": "bohrium", 
         "german": "Bohrium", 
         "french": "bohrium", 
@@ -2570,7 +2677,8 @@
     "108": {
         "symbol": "Hs", 
         "group": "8", 
-        "period": "7", 
+        "period": "7",
+      "family": "Transition",
         "english": "hassium", 
         "german": "Hassium", 
         "french": "hassium", 
@@ -2588,13 +2696,14 @@
         "characteristics": "", 
         "uses": "", 
         "toxic": "", 
-        "state": "", 
-        "half_life": "3996"
+        "state": "",
+      "half_life": "4000"
     }, 
     "109": {
         "symbol": "Mt", 
         "group": "9", 
-        "period": "7", 
+        "period": "7",
+      "family": "Transition",
         "english": "meitnerium", 
         "german": "Meitnerium ", 
         "french": "meitn\u00e9rium", 
@@ -2618,7 +2727,8 @@
     "110": {
         "symbol": "Ds", 
         "group": "10", 
-        "period": "7", 
+        "period": "7",
+      "family": "Transition",
         "english": "darmstadtium", 
         "german": "Darmstadtium", 
         "french": "darmstadtium", 
@@ -2642,7 +2752,8 @@
     "111": {
         "symbol": "Rg", 
         "group": "11", 
-        "period": "7", 
+        "period": "7",
+      "family": "Transition",
         "english": "roentgentium", 
         "german": "Roentgentium", 
         "french": "roentgentium", 
@@ -2666,7 +2777,8 @@
     "112": {
         "symbol": "Cn", 
         "group": "12", 
-        "period": "7", 
+        "period": "7",
+      "family": "Transition",
         "english": "copernicum", 
         "german": "Kopernikum", 
         "french": "cop\u00e9rnicum", 
@@ -2690,7 +2802,8 @@
     "113": {
         "symbol": "Nh", 
         "group": "13", 
-        "period": "7", 
+        "period": "7",
+      "family": "BasicMetal",
         "english": "nihonium", 
         "german": "Nihonium", 
         "french": "nihonium", 
@@ -2714,7 +2827,8 @@
     "114": {
         "symbol": "Fl", 
         "group": "14", 
-        "period": "7", 
+        "period": "7",
+      "family": "BasicMetal",
         "english": "flerovium", 
         "german": "Flerovium", 
         "french": "flerovium", 
@@ -2738,7 +2852,8 @@
     "115": {
         "symbol": "Mc", 
         "group": "15", 
-        "period": "7", 
+        "period": "7",
+      "family": "BasicMetal",
         "english": "moscovium", 
         "german": "Moscovium", 
         "french": "moscovium", 
@@ -2762,7 +2877,8 @@
     "116": {
         "symbol": "Lv", 
         "group": "16", 
-        "period": "7", 
+        "period": "7",
+      "family": "BasicMetal",
         "english": "livermorium", 
         "german": "Livermorium", 
         "french": "livermorium", 
@@ -2786,7 +2902,8 @@
     "117": {
         "symbol": "Ts", 
         "group": "17", 
-        "period": "7", 
+        "period": "7",
+      "family": "Halogen",
         "english": "tennessine", 
         "german": "Tennessine", 
         "french": "tennessine", 
@@ -2810,7 +2927,8 @@
     "118": {
         "symbol": "Og", 
         "group": "18", 
-        "period": "7", 
+        "period": "7",
+      "family": "Noble",
         "english": "oganesson", 
         "german": "Oganesson", 
         "french": "oganesson", 

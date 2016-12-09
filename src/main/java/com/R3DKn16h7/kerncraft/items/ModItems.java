@@ -10,6 +10,8 @@ public class ModItems {
     public static TestItem TEST_ITEM;
 
     public static LabCoat A,B,C,D;
+
+    public static TyrociniumChymicum TYROCINIUM_CHYMICUM;
     public static void createItems() {
 
         portableBeacon = new PortableBeacon();
@@ -21,6 +23,8 @@ public class ModItems {
         B = new LabCoat(EntityEquipmentSlot.CHEST);
         C = new LabCoat(EntityEquipmentSlot.FEET);
         D = new LabCoat(EntityEquipmentSlot.LEGS);
+
+        TYROCINIUM_CHYMICUM = new TyrociniumChymicum();
 //        IRenderFactory<ExtraShield> renderFactory;
 //        RenderingRegistry.registerEntityRenderingHandler(ExtraShield.class, renderFactory);
     }
