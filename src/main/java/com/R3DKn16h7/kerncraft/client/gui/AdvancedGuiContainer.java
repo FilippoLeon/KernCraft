@@ -25,10 +25,10 @@ public class AdvancedGuiContainer extends GuiContainer {
     public int borderLeft = 9;
     public int borderTop = 18;
     public int id = 0;
+    protected IInventory playerInv;
+    protected TileEntity te;
     private ArrayList<IWidget> background_widgets = new ArrayList<IWidget>();
     private ArrayList<IWidget> foreground_widgets = new ArrayList<IWidget>();
-    private IInventory playerInv;
-    private TileEntity te;
     // Background offset within texture
     private int offsetX = 0;
     private int offsetY = 0;
@@ -51,28 +51,25 @@ public class AdvancedGuiContainer extends GuiContainer {
         /** The Y size of the inventory window in pixels. */
         //protected int ySize = 166;
 
-        AddWidget(
-                new TexturedElement(this,
-                        "textures/gui/container/furnace.png", 18, 18,
-                        14, 14, 176, 0),
-                true);
-        AddWidget(new Button(this, "textures/gui/container/furnace.png",
-                0, 0, 14, 14, 176, 0), true);
-
-        AddWidget(AnimatedTexturedElement.ARROW(this, 40, 40), true);
-
-        Text txt = new Text(this, 0, 0,
-                40, 6, Text.Alignment.LEFT, Text.Ellipsis.DOTS);
-        txt.setText("Example text");
-        AddWidget(txt, true);
-
-        AddWidget(new Tooltip(this, "Tooltip",
-                18 * 2, 18 * 2, 18, 18), true);
-
-        AddWidget(new TextInput(this, 0, 0, 100, 15), true);
-
-        //Runnable r2 = () -> System.out.println("Hello world two!");
-        //
+//        AddWidget(
+//                new TexturedElement(this,
+//                        "textures/gui/container/furnace.png", 18, 18,
+//                        14, 14, 176, 0),
+//                true);
+//        AddWidget(new Button(this, "textures/gui/container/furnace.png",
+//                0, 0, 14, 14, 176, 0), true);
+//
+//        AddWidget(AnimatedTexturedElement.ARROW(this, 40, 40), true);
+//
+//        Text txt = new Text(this, 0, 0,
+//                40, 6, Text.Alignment.LEFT, Text.Ellipsis.DOTS);
+//        txt.setText("Example text");
+//        AddWidget(txt, true);
+//
+//        AddWidget(new Tooltip(this, "Tooltip",
+//                18 * 2, 18 * 2, 18, 18), true);
+//
+//        AddWidget(new TextInput(this, 0, 0, 100, 15), true);
     }
 
     public int getGuiLeft() {
@@ -105,9 +102,14 @@ public class AdvancedGuiContainer extends GuiContainer {
             background_widgets.add(widget);
     }
 
+    public void updateWidgets() {
+    }
+
     @Override
     protected void drawGuiContainerBackgroundLayer(float partialTicks,
                                                    int mouseX, int mouseY) {
+        updateWidgets();
+
         GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
 
         drawBackground();
@@ -151,6 +153,7 @@ public class AdvancedGuiContainer extends GuiContainer {
                 return;
             }
         }
+        super.mouseClicked(mouseX, mouseY, mouseButton);
     }
 
     public boolean hasActiveWidget() {

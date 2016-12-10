@@ -5,8 +5,10 @@ package com.R3DKn16h7.kerncraft.client.gui;
  */
 public class AnimatedTexturedElement extends TexturedElement {
     Direction dir;
-    int speed;
-    int time;
+    private int time;
+    private int speed;
+    private float perc;
+    private boolean auto_animated = false;
 
     AnimatedTexturedElement(AdvancedGuiContainer container, String texture, int xPosition, int yPosition,
                             int xSize, int ySize,
@@ -18,49 +20,68 @@ public class AnimatedTexturedElement extends TexturedElement {
 
     static public AnimatedTexturedElement ARROW(AdvancedGuiContainer container, int xPosition, int yPosition) {
         return new AnimatedTexturedElement(container, "textures/gui/container/furnace.png",
-                yPosition, yPosition, 24, 18, 176, 14,
+                xPosition, yPosition, 24, 18, 176, 14,
                 Direction.LEFT, 200);
     }
 
     static public AnimatedTexturedElement FLAME(AdvancedGuiContainer container, int xPosition, int yPosition) {
         return new AnimatedTexturedElement(container, "textures/gui/container/furnace.png",
-                yPosition, yPosition, 14, 14, 176, 0,
-                Direction.LEFT, 200);
+                xPosition, yPosition, 14, 14, 176, 0,
+                Direction.BOTTOM, 200);
     }
 
     static public AnimatedTexturedElement BREWING(AdvancedGuiContainer container, int xPosition, int yPosition) {
-        return new AnimatedTexturedElement(container, "textures/gui/container/furnace.png",
-                yPosition, yPosition, 24, 18, 176, 14,
+        return new AnimatedTexturedElement(container, "textures/gui/container/brewing_stand.png",
+                xPosition, yPosition, 12, 29, 185, 0,
+                Direction.BOTTOM, 200);
+    }
+
+    static public AnimatedTexturedElement ARROW_DOWN(AdvancedGuiContainer container, int xPosition, int yPosition) {
+        return new AnimatedTexturedElement(container, "textures/gui/container/brewing_stand.png",
+                xPosition, yPosition, 9, 28, 176, 0,
                 Direction.LEFT, 200);
+    }
+
+    public void setAutoAnimated(boolean yesorno, int speed) {
+        this.auto_animated = yesorno;
+        this.speed = speed;
+    }
+
+    public void setPercentage(float perc) {
+        this.perc = perc;
     }
 
     @Override
     public void draw() {
         container.mc.getTextureManager().bindTexture(textureLocation);
 
+        if (auto_animated) {
+            perc = time / speed;
+        }
+
         int size, offset;
         switch (dir) {
             case LEFT:
-                size = xSize * time / speed;
+                size = Math.round(xSize * perc);
                 container.drawTexturedModalRect(xPosition, yPosition,
                         offsetX, offsetY,
                         size, ySize + offsetY);
                 break;
             case RIGHT:
-                size = xSize * time / speed;
+                size = Math.round(xSize * perc);
                 offset = ySize - size;
                 container.drawTexturedModalRect(xPosition + offset, yPosition,
                         offsetX + offset, offsetY,
                         size, ySize);
                 break;
             case TOP:
-                size = ySize * time / speed;
+                size = Math.round(ySize * perc);
                 container.drawTexturedModalRect(xPosition, yPosition,
                         offsetX, offsetY,
                         xSize, size);
                 break;
             case BOTTOM:
-                size = ySize * time / speed;
+                size = Math.round(ySize * perc);
                 offset = ySize - size;
                 container.drawTexturedModalRect(xPosition, yPosition + offset,
                         offsetX, offsetY + offset,
@@ -69,8 +90,10 @@ public class AnimatedTexturedElement extends TexturedElement {
         }
 
 
-        ++time;
-        if (time >= speed) time = 0;
+        if (auto_animated) {
+            ++time;
+            if (time >= speed) time = 0;
+        }
     }
 
     enum Direction {
