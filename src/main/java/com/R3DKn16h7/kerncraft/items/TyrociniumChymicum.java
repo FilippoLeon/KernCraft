@@ -1,11 +1,15 @@
 package com.R3DKn16h7.kerncraft.items;
 
 import com.R3DKn16h7.kerncraft.KernCraft;
+import com.R3DKn16h7.kerncraft.crafting.ElementRecipe;
 import com.R3DKn16h7.kerncraft.network.ModGuiHandler;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.CraftingManager;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
@@ -41,4 +45,17 @@ public class TyrociniumChymicum extends Item {
         return super.onItemUse(stack, entityPlayer, world, pos, hand, facing, hitX, hitY, hitZ);
     }
 
+    public void addRecipes() {
+        ItemStack canister = new ItemStack(ModItems.canister, 1, 1);
+        NBTTagCompound comp = new NBTTagCompound();
+        comp.setInteger("element", 1);
+        canister.writeToNBT(comp);
+        //IRecipe
+        GameRegistry.addShapelessRecipe(new ItemStack(this), Items.BOOK, canister);
+
+        int[] elements = {ElementRecipe.ANY_ELEMENT};
+        int[] quantities = {0};
+        ItemStack[] ing = {new ItemStack(Items.BOOK)};
+        CraftingManager.getInstance().addRecipe(new ElementRecipe(ModItems.TYROCINIUM_CHYMICUM, ing, elements, quantities));
+    }
 }

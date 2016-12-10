@@ -1,6 +1,19 @@
 item.portable_beacon.name=Portable Beacon
 item.canister.name=Canister
 
+item.potato_battery.name=Potato battery
+item.electrolytic_cell.name=Electrolytic cell
+
 tile.test_block.name=Test Block
 tile.extractor.name=Extractor
 tile.detector.name=Detector
+tile.clock.name=Clock
+
+achievement.Master of potatoes=Master of Potatoes
+achievement.Master of potatoes.desc=Stick gold and iron into a potato to craft a rudimentary battery.
+achievement.Apprentice=Apprentice
+achievement.Apprentice.desc=Use iron in the shape of a canister to craft a canister (duh!).
+achievement.Disciple=Disciple.
+achievement.Disciple.desc=The fishmaster.
+achievement.Chemist=Chemist
+achievement.Chemist.desc=Iron pressure plates, glass bottles, iron bars and a potato battery should make a nice Electrolytical separator.

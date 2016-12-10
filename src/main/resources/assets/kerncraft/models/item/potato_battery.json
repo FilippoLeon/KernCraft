@@ -1,7 +1,7 @@
 {
   "parent": "builtin/generated",
   "textures": {
-    "layer0": "kerncraft:items/manual"
+    "layer0": "kerncraft:items/potato_battery"
   },
   "display": {
     "ground": {

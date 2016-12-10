@@ -7,7 +7,7 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -46,8 +46,8 @@ public class Canister extends Item {
     }
 
     public void addRecipes() {
-        GameRegistry.addRecipe(new ItemStack(this),
-                "##", "##", '#', Blocks.IRON_BLOCK);
+        GameRegistry.addShapedRecipe(new ItemStack(this),
+                "#N#", "N N", "#N#", '#', Items.IRON_INGOT, 'N', Items.IRON_INGOT);
     }
 
     @Override

@@ -12,7 +12,6 @@ import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;
-import net.minecraft.init.Items;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraftforge.common.MinecraftForge;
@@ -98,8 +97,12 @@ public class CommonProxy {
 
         @SubscribeEvent(priority = EventPriority.LOW)
         public void crafting(PlayerEvent.ItemCraftedEvent event) {
-            if (event.crafting.getItem() == Items.ARROW) {
-                event.player.addStat(AchievementHandler.FIRST_STEP, 1);
+            if (event.crafting.getItem() == ModItems.canister) {
+                event.player.addStat(AchievementHandler.APPRENTICE, 1);
+            } else if (event.crafting.getItem() == ModItems.POTATO_BATTERY) {
+                event.player.addStat(AchievementHandler.MASTER_OF_POTATOES, 1);
+            } else if (event.crafting.getItem() == ModItems.ELECTROLYTIC_CELL) {
+                event.player.addStat(AchievementHandler.CHEMIST, 1);
             }
         }
 //    public void LivingAttackEvent(LivingAttasackEvent e) {

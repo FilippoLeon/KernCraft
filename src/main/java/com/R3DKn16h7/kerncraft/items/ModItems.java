@@ -12,6 +12,10 @@ public class ModItems {
     public static LabCoat A,B,C,D;
 
     public static TyrociniumChymicum TYROCINIUM_CHYMICUM;
+
+    public static ElectrolyticCell ELECTROLYTIC_CELL;
+    public static PotatoBattery POTATO_BATTERY;
+
     public static void createItems() {
 
         portableBeacon = new PortableBeacon();
@@ -25,6 +29,9 @@ public class ModItems {
         D = new LabCoat(EntityEquipmentSlot.LEGS);
 
         TYROCINIUM_CHYMICUM = new TyrociniumChymicum();
+
+        ELECTROLYTIC_CELL = new ElectrolyticCell();
+        POTATO_BATTERY = new PotatoBattery();
 //        IRenderFactory<ExtraShield> renderFactory;
 //        RenderingRegistry.registerEntityRenderingHandler(ExtraShield.class, renderFactory);
     }

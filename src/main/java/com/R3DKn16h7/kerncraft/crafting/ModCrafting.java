@@ -11,6 +11,9 @@ public class ModCrafting {
                 "##", "##", '#', ModItems.portableBeacon);
 
         ModItems.canister.addRecipes();
+        ModItems.POTATO_BATTERY.addRecipes();
+        ModItems.ELECTROLYTIC_CELL.addRecipes();
+        ModItems.TYROCINIUM_CHYMICUM.addRecipes();
 //		GameRegistry.addShapelessRecipe(new ItemStack(ModItems.tutorialItem), new Object[] {Items.redstone, new ItemStack(Items.dye, 1, 4)});
 //		GameRegistry.addSmelting(Items.diamond, new ItemStack(ModItems.tutorialItem), 1.0F);
     }

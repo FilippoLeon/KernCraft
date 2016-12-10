@@ -1,6 +1,6 @@
 package com.R3DKn16h7.kerncraft.achievements;
 
-import net.minecraft.init.Items;
+import com.R3DKn16h7.kerncraft.items.ModItems;
 import net.minecraft.stats.Achievement;
 import net.minecraftforge.common.AchievementPage;
 
@@ -9,17 +9,21 @@ import net.minecraftforge.common.AchievementPage;
  */
 public class AchievementHandler {
 
-    public static Achievement FIRST_STEP;
-    public static Achievement SECOND_STEP;
+    public static Achievement APPRENTICE;
+    public static Achievement MASTER_OF_POTATOES;
+    public static Achievement CHEMIST;
     public static AchievementPage PAGE;
 
     public AchievementHandler() {
 
-        FIRST_STEP = new Achievement("", "FirstAchievement",
-                0, 0, Items.ACACIA_DOOR, null);
-        SECOND_STEP = new Achievement("", "SecondAchievement",
-                0, 4, Items.ARROW, null);
-        PAGE = new AchievementPage("KernCraft", FIRST_STEP, SECOND_STEP);
+        APPRENTICE = new Achievement("apprentice", "Apprentice",
+                0, 0, ModItems.canister, null);
+        MASTER_OF_POTATOES = new Achievement("mop", "Master of potatoes",
+                0, 3, ModItems.POTATO_BATTERY, APPRENTICE);
+        CHEMIST = new Achievement("chemist", "Chemist",
+                0, 6, ModItems.ELECTROLYTIC_CELL, MASTER_OF_POTATOES);
+
+        PAGE = new AchievementPage("KernCraft", APPRENTICE, MASTER_OF_POTATOES, CHEMIST);
         AchievementPage.registerAchievementPage(PAGE);
     }
 }

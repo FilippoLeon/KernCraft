@@ -20,6 +20,9 @@ public final class ItemRenderRegister {
         reg(ModItems.TEST_ITEM);
 
         reg(ModItems.TYROCINIUM_CHYMICUM);
+
+        reg(ModItems.POTATO_BATTERY);
+        reg(ModItems.ELECTROLYTIC_CELL);
     }
 
 
