@@ -10,9 +10,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumHand;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -46,6 +43,7 @@ public class Canister extends Item {
     @Override
     public void onUpdate(ItemStack stack, World worldIn,
                          Entity entityIn, int itemSlot, boolean isSelected) {
+        System.out.println("Update!");
         if (elapsed > waitTime && entityIn != null && entityIn instanceof EntityPlayer) {
             elapsed = 0;
             EntityPlayer entity = (EntityPlayer) entityIn;
@@ -89,26 +87,6 @@ public class Canister extends Item {
             stack.setTagCompound(nbt);
         }
         ++elapsed;
-    }
-
-    @Override
-    public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World worldIn,
-                                                    EntityPlayer playerIn, EnumHand hand) {
-        NBTTagCompound nbt;
-        if (stack.hasTagCompound()) {
-            nbt = stack.getTagCompound();
-        } else {
-            nbt = new NBTTagCompound();
-        }
-
-        if (nbt.hasKey("Uses")) {
-            nbt.setInteger("Uses", nbt.getInteger("Uses") + 5);
-        } else {
-            nbt.setInteger("Uses", 1);
-        }
-        stack.setTagCompound(nbt);
-
-        return new ActionResult<ItemStack>(EnumActionResult.PASS, stack);
     }
 
     @Override

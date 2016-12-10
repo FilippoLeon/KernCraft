@@ -56,7 +56,7 @@ public class ExtractorContainer extends Container {
         // Output (O) ID 4-7
         int numOutputs = 4;
         for (int i = 0; i < numOutputs; ++i) {
-            this.addSlotToContainer(new SingleItemSlotItemHandler(output, i,
+            this.addSlotToContainer(new SingleItemSlotItemHandler(this, output, i,
                     bdLeft + (5 + i) * xSlotSize, bdTop + 2 * ySlotSize));
         }
 
@@ -323,11 +323,18 @@ public class ExtractorContainer extends Container {
 
     }
 
+    public void onSlotChanged() {
+        te.inputChanged = true;
+    }
+
     static public class SingleItemSlotItemHandler extends SlotItemHandler {
 
-        public SingleItemSlotItemHandler(IItemHandler inventory,
+        private ExtractorContainer container;
+
+        public SingleItemSlotItemHandler(ExtractorContainer container, IItemHandler inventory,
                                          int index, int xPosition, int yPosition) {
             super(inventory, index, xPosition, yPosition);
+            this.container = container;
         }
 
         @Override
@@ -338,7 +345,7 @@ public class ExtractorContainer extends Container {
 
         @Override
         public void onSlotChanged() {
-
+            container.onSlotChanged();
         }
     }
 }

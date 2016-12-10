@@ -239,8 +239,9 @@ public class ElementBase {
             }
 
             String gr = js.get("group").getAsString();
-            if (gr.equals("LAB_BONNET")) group = GROUP.Actinide.getValue();
-            else if (gr.equals("L")) {
+            if (gr.equals("A")) {
+                group = GROUP.Actinide.getValue();
+            } else if (gr.equals("L")) {
                 group = GROUP.Lanthanide.getValue();
             } else {
                 try {

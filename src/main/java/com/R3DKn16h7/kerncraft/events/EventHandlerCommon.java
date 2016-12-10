@@ -16,6 +16,7 @@ import net.minecraftforge.event.entity.player.PlayerPickupXpEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 public class EventHandlerCommon {
 
@@ -70,4 +71,10 @@ public class EventHandlerCommon {
             event.player.addStat(AchievementHandler.CHEMIST, 1);
         }
     }
+
+    @SubscribeEvent(priority = EventPriority.LOW)
+    public void PlayerTickEvent(TickEvent.PlayerTickEvent event) {
+        EventUpdate.tick();
+    }
+
 }

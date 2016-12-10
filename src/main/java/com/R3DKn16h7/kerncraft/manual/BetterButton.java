@@ -1,5 +1,6 @@
 package com.R3DKn16h7.kerncraft.manual;
 
+import com.R3DKn16h7.kerncraft.client.gui.IWidget;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
@@ -14,7 +15,7 @@ import java.awt.*;
  * Created by Filippo on 09/12/2016.
  */
 @SideOnly(Side.CLIENT)
-public class BetterButton extends GuiButton {
+public class BetterButton extends GuiButton implements IWidget {
 
     protected ResourceLocation BUTTON_TEXTURES;
     int green = 0;
@@ -29,11 +30,13 @@ public class BetterButton extends GuiButton {
     private int yEnd;
     private int xMargin = 0;
     private int yMargin = 0;
+    private Color textColor;
 
     public BetterButton(int buttonId, int x, int y, int widthIn, int heightIn, String buttonText,
                         Color color, String texture, int xStart, int yStart, int xEnd, int yEnd,
-                        Alignment alignment, int xMargin, int yMargin) {
+                        Alignment alignment, int xMargin, int yMargin, Color textColor) {
         super(buttonId, x, y, widthIn, heightIn, buttonText);
+        this.textColor = textColor;
         if (color != null) {
             this.red = color.getRed();
             this.green = color.getGreen();
@@ -51,6 +54,15 @@ public class BetterButton extends GuiButton {
             BUTTON_TEXTURES = new ResourceLocation(texture);
         }
         this.alignment = alignment;
+    }
+
+    public BetterButton(int buttonId, int x, int y, int widthIn, int heightIn, String buttonText,
+                        Color color, String texture, int xStart, int yStart, int xEnd, int yEnd,
+                        Alignment alignment, int xMargin, int yMargin) {
+        this(buttonId, x, y, widthIn, heightIn, buttonText,
+                color, texture, xStart, yStart, xEnd, yEnd,
+                alignment, xMargin, yMargin, Color.black);
+
     }
 
     public BetterButton(int buttonId, int x, int y, String buttonText, int red, int green, int blue) {
@@ -100,6 +112,7 @@ public class BetterButton extends GuiButton {
             }
             this.mouseDragged(mc, mouseX, mouseY);
             int j = 14737632;
+            if (textColor != null) j = textColor.getRGB();
 
             if (packedFGColour != 0) {
                 j = packedFGColour;
@@ -122,6 +135,61 @@ public class BetterButton extends GuiButton {
                     break;
             }
         }
+    }
+
+    @Override
+    public int getPositionX() {
+        return 0;
+    }
+
+    @Override
+    public int getPositionY() {
+        return 0;
+    }
+
+    @Override
+    public void init() {
+
+    }
+
+    @Override
+    public void draw() {
+
+    }
+
+    @Override
+    public java.util.List<String> addHoveringText(java.util.List<String> hoveringText) {
+        return null;
+    }
+
+    @Override
+    public void onHover(int mouseX, int mouseY) {
+
+    }
+
+    @Override
+    public void onClicked(int mouseX, int mouseY, int mouseButton) {
+
+    }
+
+    @Override
+    public void onKeyTyped(char typedChar, int keyCode) {
+
+    }
+
+    @Override
+    public boolean isMouseInArea(int mouseX, int mouseY) {
+        return false;
+    }
+
+    @Override
+    public boolean interceptKeyPress() {
+        return false;
+    }
+
+    @Override
+    public boolean canBecomeActive() {
+        return false;
     }
 
     enum Alignment {
