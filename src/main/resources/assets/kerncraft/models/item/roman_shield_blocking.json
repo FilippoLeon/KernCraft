@@ -92,7 +92,7 @@
     "bottom": "blocks/planks_oak",
     "top": "blocks/planks_oak",
     "handle": "blocks/iron_block",
-    "back": "kerncraft:items/shield",
+    "back": "blocks/obsidian",
     "front": "kerncraft:items/shield"
   },
   "elements": [

@@ -1,8 +1,10 @@
 item.portable_beacon.name=Portable Beacon
 item.canister.name=Canister
-
 item.potato_battery.name=Potato battery
 item.electrolytic_cell.name=Electrolytic cell
+item.tyrocinium_chimicum=Tyroccinium Chimicum
+item.glass_shield.name=Glass shield
+item.roman_shield.name=Roman shield
 
 tile.test_block.name=Test Block
 tile.extractor.name=Extractor

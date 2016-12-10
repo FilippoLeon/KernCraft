@@ -17,7 +17,7 @@ public class AchievementHandler {
     public AchievementHandler() {
 
         APPRENTICE = new Achievement("apprentice", "Apprentice",
-                0, 0, ModItems.canister, null);
+                0, 0, ModItems.CANISTER, null);
         MASTER_OF_POTATOES = new Achievement("mop", "Master of potatoes",
                 0, 3, ModItems.POTATO_BATTERY, APPRENTICE);
         CHEMIST = new Achievement("chemist", "Chemist",

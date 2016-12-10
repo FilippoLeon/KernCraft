@@ -37,7 +37,7 @@ public class ElementRecipe implements IRecipe {
         for (int i = 0; i < inv.getSizeInventory(); ++i) {
             ItemStack is = inv.getStackInSlot(i);
             if (is == null) continue;
-            if (is.getItem() == ModItems.canister) {
+            if (is.getItem() == ModItems.CANISTER) {
                 NBTTagCompound comp = is.getTagCompound();
                 if (comp != null && comp.hasKey("Element")) {
                     for (int j = 0; j < id.length; ++j) {
@@ -94,7 +94,7 @@ public class ElementRecipe implements IRecipe {
         for (int i = 0; i < inv.getSizeInventory(); ++i) {
             ItemStack is = inv.getStackInSlot(i);
             if (is == null) continue;
-            if (is.getItem() == ModItems.canister) {
+            if (is.getItem() == ModItems.CANISTER) {
 
             } else {
                 for (int j = 0; j < ingredients.length; ++j) {

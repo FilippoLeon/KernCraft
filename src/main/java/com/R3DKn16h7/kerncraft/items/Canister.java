@@ -1,13 +1,10 @@
 package com.R3DKn16h7.kerncraft.items;
 
-import com.R3DKn16h7.kerncraft.KernCraft;
 import com.R3DKn16h7.kerncraft.elements.ElementBase;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -24,7 +21,8 @@ import org.lwjgl.input.Keyboard;
 import java.util.List;
 
 public class Canister extends Item {
-    public static String base_name = "canister";
+    public final static String base_name = "canister";
+    public final static int CAPACITY = 1000;
     final int waitTime = 20;
     int elapsed = 0;
 
@@ -43,11 +41,6 @@ public class Canister extends Item {
             return ElementBase.getElement(element_id);
         }
         return null;
-    }
-
-    public void addRecipes() {
-        GameRegistry.addShapedRecipe(new ItemStack(this),
-                "#N#", "N N", "#N#", '#', Items.IRON_INGOT, 'N', Items.IRON_INGOT);
     }
 
     @Override
@@ -98,17 +91,6 @@ public class Canister extends Item {
         ++elapsed;
     }
 
-    public void registerRender() {
-        Minecraft.getMinecraft()
-                .getRenderItem()
-                .getItemModelMesher()
-                .register(this, 0,
-                        new ModelResourceLocation(KernCraft.MODID + ":" +
-                                this.getUnlocalizedName().substring(5),
-                                "inventory")
-                );
-    }
-
     @Override
     public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World worldIn,
                                                     EntityPlayer playerIn, EnumHand hand) {
@@ -136,7 +118,7 @@ public class Canister extends Item {
 
     @Override
     public double getDurabilityForDisplay(ItemStack stack) {
-        return 1.0 - (double) stack.getTagCompound().getInteger("Quantity") / 1000.0;
+        return 1.0 - (double) stack.getTagCompound().getInteger("Quantity") / CAPACITY;
     }
 
     @SuppressWarnings({"unchecked", "rawtypes"})

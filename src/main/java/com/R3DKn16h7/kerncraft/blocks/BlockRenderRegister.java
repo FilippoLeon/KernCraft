@@ -8,7 +8,7 @@ import net.minecraft.item.Item;
 
 public final class BlockRenderRegister {
     public static void registerBlockRenderer() {
-//        	reg(ModBlocks.testBlock);
+//        	reg(ModBlocks.TEST_BLOCK);
     }
 
     public static void reg(Block block) {

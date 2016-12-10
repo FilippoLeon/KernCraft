@@ -81,7 +81,7 @@ public class ElementBase {
     }
 
     static public ItemStack getItem(int id, int qty) {
-        ItemStack is = new ItemStack(ModItems.canister);
+        ItemStack is = new ItemStack(ModItems.CANISTER);
         NBTTagCompound nbt = is.getTagCompound();
         if (nbt == null) {
             nbt = new NBTTagCompound();
@@ -176,7 +176,7 @@ public class ElementBase {
             else if (s.equals("Noble")) return NobleGas;
             else if (s.equals("Transition")) return Transition;
             else if (s.equals("L")) return Lanthanides;
-            else if (s.equals("A")) return Actinides;
+            else if (s.equals("LAB_BONNET")) return Actinides;
             return UNKNOWN;
         }
 
@@ -239,7 +239,7 @@ public class ElementBase {
             }
 
             String gr = js.get("group").getAsString();
-            if (gr.equals("A")) group = GROUP.Actinide.getValue();
+            if (gr.equals("LAB_BONNET")) group = GROUP.Actinide.getValue();
             else if (gr.equals("L")) {
                 group = GROUP.Lanthanide.getValue();
             } else {

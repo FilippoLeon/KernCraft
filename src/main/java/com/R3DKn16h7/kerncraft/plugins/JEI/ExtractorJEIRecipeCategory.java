@@ -85,7 +85,7 @@ public class ExtractorJEIRecipeCategory implements IRecipeCategory {
         guiItemStacks.set(inputSlot, ingredients.getInputs(ItemStack.class).get(++i));
         if(ingredients.getInputs(ItemStack.class).size() > 1)
             guiItemStacks.set(catalystSlot, ingredients.getInputs(ItemStack.class).get(++i));
-        guiItemStacks.set(canisterSlot, new ItemStack(ModItems.canister));
+        guiItemStacks.set(canisterSlot, new ItemStack(ModItems.CANISTER));
         //guiItemStacks.set(outputSlot, ingredients.getOutputs(ItemStack.class).get(0));
     }
 
@@ -104,7 +104,7 @@ public class ExtractorJEIRecipeCategory implements IRecipeCategory {
         guiItemStacks.set(inputSlot, ingredients.getInputs(ItemStack.class).get(++i));
         if(((ExtractorJEIRecipeWrapper) recipeWrapper).recipe.catalyst != null)
             guiItemStacks.set(catalystSlot, ingredients.getInputs(ItemStack.class).get(++i));
-        guiItemStacks.set(canisterSlot, new ItemStack(ModItems.canister));
+        guiItemStacks.set(canisterSlot, new ItemStack(ModItems.CANISTER));
 
         List<ItemStack> outs = ingredients.getOutputs(ItemStack.class);
         int min = Math.min(outs.size(), outputSlotSize);

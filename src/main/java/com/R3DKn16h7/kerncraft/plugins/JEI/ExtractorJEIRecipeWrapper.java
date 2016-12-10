@@ -32,7 +32,7 @@ public class ExtractorJEIRecipeWrapper extends BlankRecipeWrapper {
         if(recipe.catalyst != null) inputs.add(new ItemStack(recipe.catalyst));
 
 
-        inputs.add(new ItemStack(ModItems.canister));
+        inputs.add(new ItemStack(ModItems.CANISTER));
         ingredients.setInputs(ItemStack.class, inputs);
 
         ArrayList<ItemStack> outputs = new ArrayList<ItemStack>();

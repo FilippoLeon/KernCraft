@@ -18,7 +18,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 /**
- * A beacon that doesn't need to be placed in the world.
+ * LAB_BONNET beacon that doesn't need to be placed in the world.
  * TODO: baubles+COfH compoatibility
  *
  * @author R3DKn16h7

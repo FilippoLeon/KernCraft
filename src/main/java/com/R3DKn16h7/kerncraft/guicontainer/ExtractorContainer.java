@@ -26,7 +26,7 @@ public class ExtractorContainer extends Container {
      * @param playerInv
      * @param te
      * ###########
-     * # I C    R#
+     * # I LAB_BOOTS    R#
      * #         #
      * # F   OOOO#
      * ___________
@@ -46,7 +46,7 @@ public class ExtractorContainer extends Container {
         int id = -1;
         // Input (I) ID 0
         this.addSlotToContainer(new SlotItemHandler(input, ++id, bdLeft + xSlotSize, bdTop));
-        // Catalyst (C) ID 1
+        // Catalyst (LAB_BOOTS) ID 1
         this.addSlotToContainer(new SlotItemHandler(input, ++id, bdLeft + 3 * xSlotSize, bdTop));
         // Container (R) ID 2
         this.addSlotToContainer(new SlotItemHandler(input, ++id, bdLeft + 8 * xSlotSize, bdTop));
@@ -241,6 +241,7 @@ public class ExtractorContainer extends Container {
                         slot1.putStack(stack.copy());
                         slot1.onSlotChanged();
                         stack.stackSize = 0;
+                        stack = null;
                         flag = true;
                         break;
                     // If total of items cannot completely fill slot, do as much as possible
@@ -250,6 +251,7 @@ public class ExtractorContainer extends Container {
                         slot1.putStack(portion.copy());
                         slot1.onSlotChanged();
                         stack.stackSize -= slot1.getSlotStackLimit();
+                        if (stack.stackSize == 0) stack = null;
                     }
                 }
 
@@ -320,7 +322,6 @@ public class ExtractorContainer extends Container {
     {
 
     }
-
 
     static public class SingleItemSlotItemHandler extends SlotItemHandler {
 

@@ -26,10 +26,12 @@ public class ExtractorGuiContainer extends AdvancedGuiContainer {
 
 
         String s = this.playerInv.getDisplayName().getUnformattedText();
-        Text titleText = new Text(this, borderLeft, 6, width, 6, Text.Alignment.MIDDLE);
+        Text titleText = new Text(this, 0, -borderTop + 4,
+                this.xSize - 2 * borderLeft, 6, Text.Alignment.MIDDLE);
+        titleText.setText(s);
         AddWidget(titleText, true);
 
-        progressText = new Text(this, 18 * 5 + 2, 0, 30, 6, Text.Alignment.LEFT);
+        progressText = new Text(this, 18 * 5 + 2, 0, 10, 6, Text.Alignment.LEFT);
         AddWidget(progressText, true);
     }
 

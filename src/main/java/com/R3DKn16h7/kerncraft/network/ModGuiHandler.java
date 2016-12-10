@@ -35,12 +35,6 @@ public class ModGuiHandler implements IGuiHandler {
                     (ExtractorTileEntity) world.getTileEntity(
                             new BlockPos(x, y, z))
             );
-//            return new AdvancedGuiContainer(new ExtractorContainer(player.inventory,
-//                    (ExtractorTileEntity) world.getTileEntity(
-//                            new BlockPos(x, y, z))), player.inventory,
-//                    world.getTileEntity(
-//                            new BlockPos(x, y, z))
-//            );
         else if (ID == MANUAL_GUI) {
             return TyrociniumChymicumGui.Factory();
         }

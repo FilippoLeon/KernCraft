@@ -8,25 +8,26 @@ import net.minecraft.item.Item;
 public final class ItemRenderRegister {
 
     public static void registerItemRenderer() {
-        reg(ModItems.portableBeacon);
-        ModItems.canister.registerRender();
-        reg(ModItems.EXTRA_SHIELD);
+        register(ModItems.PORTABLE_BEACON);
+        register(ModItems.CANISTER);
+        register(ModItems.ROMAN_SHIELD);
+        register(ModItems.GLASS_SHIELD);
 
-        reg(ModItems.A);
-        reg(ModItems.B);
-        reg(ModItems.C);
-        reg(ModItems.D);
+        register(ModItems.LAB_BONNET);
+        register(ModItems.LAB_COAT);
+        register(ModItems.LAB_BOOTS);
+        register(ModItems.LAB_PANTS);
 
-        reg(ModItems.TEST_ITEM);
+        register(ModItems.TEST_ITEM);
 
-        reg(ModItems.TYROCINIUM_CHYMICUM);
+        register(ModItems.TYROCINIUM_CHYMICUM);
 
-        reg(ModItems.POTATO_BATTERY);
-        reg(ModItems.ELECTROLYTIC_CELL);
+        register(ModItems.POTATO_BATTERY);
+        register(ModItems.ELECTROLYTIC_CELL);
     }
 
 
-    public static void reg(Item item) {
+    public static void register(Item item) {
         Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
                 .register(item, 0, new ModelResourceLocation(
                         KernCraft.MODID + ":" + item.getUnlocalizedName().substring(5),

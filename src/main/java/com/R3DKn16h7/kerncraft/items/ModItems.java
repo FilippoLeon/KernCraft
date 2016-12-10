@@ -4,12 +4,15 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 
 public class ModItems {
-    public static Item portableBeacon;
-    public static Canister canister;
-    public static ExtraShield EXTRA_SHIELD;
+    public static Item PORTABLE_BEACON;
+    public static Canister CANISTER;
+
+    public static ExtraShield ROMAN_SHIELD;
+    public static ExtraShield GLASS_SHIELD;
+
     public static TestItem TEST_ITEM;
 
-    public static LabCoat A,B,C,D;
+    public static LabCoat LAB_BONNET, LAB_COAT, LAB_BOOTS, LAB_PANTS;
 
     public static TyrociniumChymicum TYROCINIUM_CHYMICUM;
 
@@ -18,21 +21,22 @@ public class ModItems {
 
     public static void createItems() {
 
-        portableBeacon = new PortableBeacon();
-        canister = new Canister();
-        EXTRA_SHIELD = new ExtraShield();
+        PORTABLE_BEACON = new PortableBeacon();
+        CANISTER = new Canister();
+
+        ROMAN_SHIELD = new RomanShield("roman_shield");
+        GLASS_SHIELD = new GlassShield("glass_shield");
+
         TEST_ITEM = new TestItem();
 
-        A = new LabCoat(EntityEquipmentSlot.HEAD);
-        B = new LabCoat(EntityEquipmentSlot.CHEST);
-        C = new LabCoat(EntityEquipmentSlot.FEET);
-        D = new LabCoat(EntityEquipmentSlot.LEGS);
+        LAB_BONNET = new LabCoat(EntityEquipmentSlot.HEAD);
+        LAB_COAT = new LabCoat(EntityEquipmentSlot.CHEST);
+        LAB_PANTS = new LabCoat(EntityEquipmentSlot.LEGS);
+        LAB_BOOTS = new LabCoat(EntityEquipmentSlot.FEET);
 
         TYROCINIUM_CHYMICUM = new TyrociniumChymicum();
 
         ELECTROLYTIC_CELL = new ElectrolyticCell();
         POTATO_BATTERY = new PotatoBattery();
-//        IRenderFactory<ExtraShield> renderFactory;
-//        RenderingRegistry.registerEntityRenderingHandler(ExtraShield.class, renderFactory);
     }
 }

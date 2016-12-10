@@ -1,8 +1,8 @@
 package com.R3DKn16h7.kerncraft.tileentities;
 
 import com.R3DKn16h7.kerncraft.elements.ElementBase;
+import com.R3DKn16h7.kerncraft.items.Canister;
 import com.R3DKn16h7.kerncraft.items.ModItems;
-import net.minecraft.client.Minecraft;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -94,7 +94,7 @@ public class ExtractorTileEntity extends TileEntity
      * Add new recipe
      * @param item Principal item that will allow to extract elements.
      * @param catalyst Additional item (optional) that acts as Catalyst
-     * @param outs A list of output Elements
+     * @param outs LAB_BONNET list of output Elements
      * @param energy The required energy (TODO: change to "cost") to perform a smelting operation.
      * @return Return false if registration failed (TODO)
      */
@@ -133,7 +133,8 @@ public class ExtractorTileEntity extends TileEntity
         } else if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
             return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(tank);
         } else if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY){
-            return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(automationInput);
+            //return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(automationInput);
+            return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(input);
         }
         return super.getCapability(capability, facing);
     }
@@ -186,7 +187,10 @@ public class ExtractorTileEntity extends TileEntity
                     fuelItem.stackSize >= 1 &&
                     fuel > 0) {
                 fuelItem.stackSize -= 1;
-                if(fuelItem.stackSize == 0) fuelItem = null;
+                if (fuelItem.stackSize == 0) {
+                    fuelItem = null;
+                    input.setStackInSlot(fuelSlot, null);
+                }
                 storedFuel += fuel;
             } else {
                 return false;
@@ -220,13 +224,18 @@ public class ExtractorTileEntity extends TileEntity
     public void doneSmelting() {
         input.setStackInSlot(inputSlot, new ItemStack(input.getStackInSlot(inputSlot).getItem(),
                 input.getStackInSlot(inputSlot).stackSize - 1));
+        if (input.getStackInSlot(inputSlot).stackSize == 0) input.setStackInSlot(inputSlot, null);
         if (recipes.get(smeltingId).catalyst != null) {
             input.setStackInSlot(catalystSlot, new ItemStack(input.getStackInSlot(catalystSlot).getItem(),
                     input.getStackInSlot(catalystSlot).stackSize - 1));
+            if (input.getStackInSlot(catalystSlot).stackSize == 0) input.setStackInSlot(catalystSlot, null);
         }
 
         // For each Element output, flag telling if this has already been produced
-        boolean[] done_out = new boolean[recipes.get(smeltingId).outs.length];
+        int[] remaining = new int[recipes.get(smeltingId).outs.length];
+        for (int i = 0; i < recipes.get(smeltingId).outs.length; ++i) {
+            remaining[i] = recipes.get(smeltingId).outs[i].quantity;
+        }
 
         // Place outputs in canisters, only if output can be placed (i.e. there isn't another element inside.
         // Try each output slot
@@ -246,25 +255,31 @@ public class ExtractorTileEntity extends TileEntity
             // Try each generated element
             int i = 0;
             for (ElementStack rec_out : recipes.get(smeltingId).outs) {
-                if (done_out[i]) {
+                // If all output has been produced break
+                if (remaining[i] <= 0) {
                     ++i;
                     continue;
                 }
-                Minecraft.getMinecraft().thePlayer.sendChatMessage("enti" + i);
                 if (nbt.hasKey("Element")) {
                     int elemId = nbt.getInteger("Element");
                     int qty = nbt.getInteger("Quantity");
                     if (elemId == rec_out.id) {
-                        nbt.setInteger("Quantity", rec_out.quantity + qty);
-                        out.setTagCompound(nbt);
-                        done_out[i] = true;
-                        break;
+                        if (remaining[i] + qty <= Canister.CAPACITY) {
+                            nbt.setInteger("Quantity", remaining[i] + qty);
+                            remaining[i] = 0;
+                            out.setTagCompound(nbt);
+                            break;
+                        } else {
+                            remaining[i] -= Canister.CAPACITY - qty;
+                            nbt.setInteger("Quantity", Canister.CAPACITY);
+                            out.setTagCompound(nbt);
+                        }
                     }
                 } else {
                     nbt.setInteger("Element", rec_out.id);
                     nbt.setInteger("Quantity", rec_out.quantity);
                     out.setTagCompound(nbt);
-                    done_out[i] = true;
+                    remaining[i] = 0;
                     break;
                 }
                 ++i;
@@ -272,7 +287,7 @@ public class ExtractorTileEntity extends TileEntity
 
         }
 
-        // If there is a canister in canister slot, pull if to the output slot and
+        // If there is a CANISTER in CANISTER slot, pull if to the output slot and
         // fill it with element
         // Try each output slot
         for (int rec_slot = 0; rec_slot < outputSlotSize; ++rec_slot) {
@@ -283,15 +298,16 @@ public class ExtractorTileEntity extends TileEntity
                 int i = 0;
                 for (ElementStack rec_out : recipes.get(smeltingId).outs) {
 
-                    // If Element has not been produced and there is a canister in
+                    // If Element has not been produced and there is a CANISTER in
                     // the slot
-                    if (done_out[i] == false && input.getStackInSlot(canisterSlot) != null &&
+                    if (remaining[i] > 0 && input.getStackInSlot(canisterSlot) != null &&
                             input.getStackInSlot(canisterSlot).stackSize > 0 &&
-                            input.getStackInSlot(canisterSlot).getItem() == ModItems.canister) {
-                        done_out[i] = true;
+                            input.getStackInSlot(canisterSlot).getItem() == ModItems.CANISTER) {
+                        remaining[i] = 0;
                         output.setStackInSlot(rec_slot, new ItemStack(input.getStackInSlot(canisterSlot).getItem(), 1));
                         input.setStackInSlot(canisterSlot, new ItemStack(input.getStackInSlot(canisterSlot).getItem(),
                                 input.getStackInSlot(canisterSlot).stackSize - 1));
+                        if (input.getStackInSlot(canisterSlot).stackSize == 0) input.setStackInSlot(canisterSlot, null);
                         NBTTagCompound nbt = new NBTTagCompound();
                         nbt.setInteger("Element", rec_out.id);
                         nbt.setInteger("Quantity", rec_out.quantity);

@@ -14,17 +14,12 @@ public class ModTileEntities {
 
 
     public static void createEntities() {
-
-//    	 GameRegistry.registerTileEntity(ExtractorTileEntity.class, "extractor");
-//         GameRegistry.registerTileEntity(DetectorTileEntity.class, "detector");
         EXTRACTOR = new ExtractorBlockEntity("extractor");
         DETECTOR = new DetectorBlockEntity();
         CLOCK = new ClockBlockEntity();
         EXTRACTOR_TE = new ExtractorTileEntity();
         DETECTOR_TE = new DetectorTileEntity();
         CLOCK_TE = new ClockTileEntity();
-//    	GameRegistry.register(extractorEntity);
-//    	 ModLoader.registerTileEntity(ExtractorEntity.class, "ExpBank");
     }
 
 
