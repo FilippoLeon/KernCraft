@@ -17,7 +17,7 @@ public class EventUpdate {
         elapsed++;
         if (elapsed > ticTime) {
             elapsed = 0;
-            System.out.println("Event");
+            ///System.out.println("Event");
         }
     }
 

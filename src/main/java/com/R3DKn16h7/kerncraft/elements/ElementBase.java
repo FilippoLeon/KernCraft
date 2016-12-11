@@ -5,6 +5,7 @@ import com.R3DKn16h7.kerncraft.tileentities.ExtractorTileEntity;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.text.TextFormatting;
@@ -54,7 +55,7 @@ public class ElementBase {
             String symb = j.getValue().getAsJsonObject().get("symbol").getAsString();
             Integer id = Integer.parseInt(j.getKey());
 
-            System.out.println(symb + " (id = " + id + ") added...");
+            // System.out.println(symb + " (id = " + id + ") added...");
 
             JsonObject js = j.getValue().getAsJsonObject();
             elements.add(new Element(id, js));
@@ -96,19 +97,19 @@ public class ElementBase {
     }
 
     static public Color StringToColor(String str) {
-        if (str.equals("colorless")) return new Color(255, 255, 255);
-        if (str.equals("white")) return new Color(255, 255, 255);
-        if (str.equals("bright white")) return new Color(255, 255, 255);
+        if (str.equals("colorless")) return new Color(62, 255, 255);
+        if (str.equals("white")) return new Color(142, 142, 142);
+        if (str.equals("bright white")) return new Color(148, 148, 148);
         else if (str.equals("silvery")) return new Color(192, 192, 192);
         else if (str.equals("gray")) return new Color(128, 128, 128);
         else if (str.equals("steel gray")) return new Color(100, 100, 100);
         else if (str.equals("black")) return new Color(0, 0, 0);
         else if (str.equals("gray-black")) return new Color(40, 40, 40);
-        else if (str.equals("white-yellow")) return new Color(255, 255, 200);
+        else if (str.equals("white-yellow")) return new Color(253, 255, 148);
         else if (str.equals("yellow(pale)")) return new Color(255, 255, 150);
         else if (str.equals("greenish-yellow")) return new Color(205, 255, 150);
-        else if (str.equals("silvery gray")) return new Color(230, 230, 230);
-        else if (str.equals("silvery-white")) return new Color(250, 250, 210);
+        else if (str.equals("silvery gray")) return new Color(101, 101, 101);
+        else if (str.equals("silvery-white")) return new Color(250, 249, 169);
         else if (str.equals("bluish-gray")) return new Color(150, 150, 255);
         else if (str.equals("bluish-black")) return new Color(200, 200, 255);
         else if (str.equals("golden yellow")) return new Color(255, 255, 10);
@@ -116,8 +117,8 @@ public class ElementBase {
         else if (str.equals("orange-red")) return new Color(255, 70, 0);
         else if (str.equals("silvery-blue")) return new Color(140, 190, 255);
         else if (str.equals("red-brown")) return new Color(165, 42, 42);
-        else if (str.equals("grayish-white")) return new Color(211, 211, 211);
-        else if (str.equals("gray-white")) return new Color(244, 244, 244);
+        else if (str.equals("grayish-white")) return new Color(151, 151, 151);
+        else if (str.equals("gray-white")) return new Color(156, 156, 156);
         else if (str.equals("yellow/silvery")) return new Color(230, 230, 192);
         else if (str.equals("blue glow")) return new Color(0, 0, 255);
         return new Color(255, 130, 130);
@@ -130,6 +131,19 @@ public class ElementBase {
 
         GROUP(int value) {
             this.value = value;
+        }
+
+        public static String toString(int value) {
+            if (value == -2) {
+                return "A";
+            } else if (value == -3) {
+                return "L";
+            }
+            return Integer.toString(value);
+        }
+
+        public String toString() {
+            return toString(value);
         }
 
         public int getValue() {
@@ -163,44 +177,48 @@ public class ElementBase {
     }
 
     public enum ElementFamily {
-        Alkali, Alkaline, BasicMetal, Semimetal, NonMetal, Halogen, NobleGas, Transition,
-        Actinides, Lanthanides, UNKNOWN;
+        ALKALI, ALKALINE, BASIC_METAL, SEMIMETAL, NON_METAL, HALOGEN, NOBLE_GAS, TRANSITION,
+        ACTINIDES, LANTHANIDES, UNKNOWN;
 
         public static ElementFamily fromString(String s) {
-            if (s.equals("Alkali")) return Alkali;
-            else if (s.equals("Alkaline")) return Alkaline;
-            else if (s.equals("BasicMetal")) return BasicMetal;
-            else if (s.equals("Semimetal")) return Semimetal;
-            else if (s.equals("NonMetal")) return NonMetal;
-            else if (s.equals("Halogen")) return Halogen;
-            else if (s.equals("Noble")) return NobleGas;
-            else if (s.equals("Transition")) return Transition;
-            else if (s.equals("L")) return Lanthanides;
-            else if (s.equals("LAB_BONNET")) return Actinides;
+            if (s.equals("Alkali")) return ALKALI;
+            else if (s.equals("Alkaline")) return ALKALINE;
+            else if (s.equals("BasicMetal")) return BASIC_METAL;
+            else if (s.equals("Semimetal")) return SEMIMETAL;
+            else if (s.equals("NonMetal")) return NON_METAL;
+            else if (s.equals("Halogen")) return HALOGEN;
+            else if (s.equals("Noble")) return NOBLE_GAS;
+            else if (s.equals("Transition")) return TRANSITION;
+            else if (s.equals("L")) return LANTHANIDES;
+            else if (s.equals("A")) return ACTINIDES;
             return UNKNOWN;
+        }
+
+        public String I18n() {
+            return I18n.format("element.family." + this + ".name");
         }
 
         public Color toColor() {
             switch (this) {
-                case Alkali:
+                case ALKALI:
                     return new Color(255, 0, 0);
-                case Alkaline:
+                case ALKALINE:
                     return new Color(240, 150, 0);
-                case Transition:
-                    return new Color(250, 250, 0);
-                case BasicMetal:
+                case TRANSITION:
+                    return new Color(250, 203, 40);
+                case BASIC_METAL:
                     return new Color(100, 255, 0);
-                case Semimetal:
+                case SEMIMETAL:
                     return new Color(0, 155, 135);
-                case NonMetal:
+                case NON_METAL:
                     return new Color(0, 105, 135);
-                case Halogen:
+                case HALOGEN:
                     return new Color(100, 55, 235);
-                case NobleGas:
+                case NOBLE_GAS:
                     return new Color(140, 0, 235);
-                case Lanthanides:
+                case LANTHANIDES:
                     return new Color(0, 205, 0);
-                case Actinides:
+                case ACTINIDES:
                     return new Color(0, 100, 0);
                 case UNKNOWN:
                     return new Color(14, 14, 14);

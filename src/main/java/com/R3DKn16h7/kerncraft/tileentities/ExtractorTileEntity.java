@@ -26,6 +26,7 @@ import java.util.ArrayList;
 public class ExtractorTileEntity extends TileEntity
         implements ITickable {
 
+
     // Slot IDs
     static final public int inputSlot = 0;
     static final public int catalystSlot = 1;
@@ -39,18 +40,19 @@ public class ExtractorTileEntity extends TileEntity
     static private final float ticTime = 5f;
     static private final int consumedEnergyPerFuelRefill = 100;
     static private final int generatedFuelPerEnergyDrain = 100;
+    static private final int consumedFuelPerTic = 20;
     // Static register of recipes
     static public ArrayList<ExtractorRecipe> recipes;
     public final ItemStackHandler input = new ItemStackHandler(4);
     public final ItemStackHandler output = new ItemStackHandler(4);
     private final IItemHandler automationInput = new ItemStackHandler(4);
     private final IItemHandler automationOutput = new ItemStackHandler(4);
-    private final int consumedFuelPerTic = 20;
     // Internal storages
     public EnergyStorage storage = new EnergyStorage(1000);
     public FluidTank tank = new FluidTank(1000);
     // Has the input changed since last check?
     public boolean inputChanged = false;
+    int mode = 0;
     //// Status variables
     // Are we currently smelting
     private boolean smelting = false;
@@ -384,6 +386,10 @@ public class ExtractorTileEntity extends TileEntity
         nbt.setTag("Input", input.serializeNBT());
         nbt.setTag("Output", output.serializeNBT());
         return nbt;
+    }
+
+    public void setMode(int mode) {
+        this.mode = mode;
     }
 
     static public class ElementStack {

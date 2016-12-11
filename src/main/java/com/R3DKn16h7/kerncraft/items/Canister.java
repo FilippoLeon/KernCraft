@@ -43,7 +43,6 @@ public class Canister extends Item {
     @Override
     public void onUpdate(ItemStack stack, World worldIn,
                          Entity entityIn, int itemSlot, boolean isSelected) {
-        System.out.println("Update!");
         if (elapsed > waitTime && entityIn != null && entityIn instanceof EntityPlayer) {
             elapsed = 0;
             EntityPlayer entity = (EntityPlayer) entityIn;

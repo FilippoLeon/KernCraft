@@ -6,6 +6,7 @@ import com.R3DKn16h7.kerncraft.crafting.ModCrafting;
 import com.R3DKn16h7.kerncraft.elements.ElementBase;
 import com.R3DKn16h7.kerncraft.events.EventHandlerCommon;
 import com.R3DKn16h7.kerncraft.items.ModItems;
+import com.R3DKn16h7.kerncraft.network.KernCraftNetwork;
 import com.R3DKn16h7.kerncraft.network.ModGuiHandler;
 import com.R3DKn16h7.kerncraft.tileentities.ModTileEntities;
 import net.minecraftforge.common.MinecraftForge;
@@ -27,6 +28,8 @@ public class CommonProxy {
         ModItems.createItems();
         ModBlocks.createBlocks();
         ModTileEntities.createEntities();
+
+        new KernCraftNetwork();
     }
 
     public void init(FMLInitializationEvent e) {

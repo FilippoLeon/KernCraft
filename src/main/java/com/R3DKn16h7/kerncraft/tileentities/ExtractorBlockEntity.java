@@ -9,7 +9,6 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
@@ -152,11 +151,6 @@ public class ExtractorBlockEntity extends BlockContainer {
     public void initModel() {
         ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), 0,
                 new ModelResourceLocation(KernCraft.MODID + ":" + this.getUnlocalizedName().substring(5), "inventory"));
-
-//        Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
-//        .register(Item.getItemFromBlock(this), 0,
-//                new ModelResourceLocation(KernCraft.MODID + ":" + this.getUnlocalizedName().substring(5),
-//                        "inventory"));
     }
 
     @Override
@@ -164,7 +158,6 @@ public class ExtractorBlockEntity extends BlockContainer {
                                     EntityPlayer player, EnumHand hand, ItemStack heldItem,
                                     EnumFacing side, float hitX, float hitY, float hitZ) {
         if (!world.isRemote) {
-            Minecraft.getMinecraft().thePlayer.sendChatMessage("Lol what a noob2");
             player.openGui(KernCraft.instance, ModGuiHandler.MOD_TILE_ENTITY_GUI,
                     world, pos.getX(), pos.getY(), pos.getZ());
         }
@@ -192,6 +185,8 @@ public class ExtractorBlockEntity extends BlockContainer {
 
     private void setDefaultFacing(World worldIn, BlockPos pos, IBlockState state) {
         if (!worldIn.isRemote) {
+            //worldIn
+
             IBlockState iblockstate = worldIn.getBlockState(pos.north());
             IBlockState iblockstate1 = worldIn.getBlockState(pos.south());
             IBlockState iblockstate2 = worldIn.getBlockState(pos.west());
@@ -240,6 +235,9 @@ public class ExtractorBlockEntity extends BlockContainer {
     public void onBlockPlacedBy(World world, BlockPos pos,
                                 IBlockState state, EntityLivingBase placer,
                                 ItemStack stack) {
+        world.setBlockState(pos, state.withProperty(FACING,
+                placer.getHorizontalFacing().getOpposite()), 2);
+
 
         ExtractorTileEntity te = (ExtractorTileEntity) world.getTileEntity(pos);
         NBTTagCompound nbt = stack.getTagCompound();

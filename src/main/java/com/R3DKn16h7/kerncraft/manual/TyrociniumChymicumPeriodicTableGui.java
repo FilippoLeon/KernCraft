@@ -1,5 +1,7 @@
 package com.R3DKn16h7.kerncraft.manual;
 
+import com.R3DKn16h7.kerncraft.client.gui.BetterButton;
+import com.R3DKn16h7.kerncraft.client.gui.Widget;
 import com.R3DKn16h7.kerncraft.elements.ElementBase;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.renderer.GlStateManager;
@@ -38,10 +40,9 @@ public class TyrociniumChymicumPeriodicTableGui extends TyrociniumChymicumGui {
         int y = 0;
         int a = 0;
         int b = 0;
-        int padLeft = guiLeft + 10; // 6*14;
-        int padTop = guiTop + 20; //14*2;
+        int padLeft = guiLeft + 10;
+        int padTop = guiTop + 20;
         for (ElementBase.Element element : ElementBase.getElements()) {
-            //GlStateManager.color(1.0F, 0.0F, 0.0F, 1.0F);
             int g = element.group;
             int p = element.period;
             if (g == ElementBase.GROUP.Actinide.getValue()) {
@@ -56,10 +57,10 @@ public class TyrociniumChymicumPeriodicTableGui extends TyrociniumChymicumGui {
 
             Color color = element.family.toColor();
 
-            GuiButton btn = new BetterButton(id++, 13 * (g - 1) + padLeft, 13 * (p - 1) + padTop, 14, 14,
-                    formatting + element.symbol, color.getRed(), color.getGreen(), color.getBlue());
-            //btn.setWidth(14);
-            //btn.height = 14;
+            GuiButton btn = new BetterButton(this, id++, 13 * (g - 1) + padLeft, 13 * (p - 1) + padTop, 14, 14)
+                    .setText(formatting + element.symbol)
+                    .setTint(color)
+                    .setAlignment(Widget.Alignment.MIDDLE);
             func_189646_b(btn);
             periodicButtonList.add(btn);
         }

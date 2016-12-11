@@ -1,8 +1,12 @@
 package com.R3DKn16h7.kerncraft.client.gui;
 
 import com.R3DKn16h7.kerncraft.guicontainer.ExtractorContainer;
+import com.R3DKn16h7.kerncraft.network.KernCraftNetwork;
+import com.R3DKn16h7.kerncraft.network.MessageRedstoneControl;
 import com.R3DKn16h7.kerncraft.tileentities.ExtractorTileEntity;
 import net.minecraft.inventory.IInventory;
+
+import java.util.function.IntConsumer;
 
 public class ExtractorGuiContainer extends AdvancedGuiContainer {
 
@@ -33,6 +37,43 @@ public class ExtractorGuiContainer extends AdvancedGuiContainer {
 
         progressText = new Text(this, 18 * 5 + 2, 0, 10, 6, Text.Alignment.LEFT);
         AddWidget(progressText, true);
+
+//        BetterButton btb = new BetterButton(this, 0,0,20,20)
+//                .setText("")
+//                .setAlignment(Widget.Alignment.MIDDLE)
+//                // .setTint(Color.black)
+//                .setIcon("kerncraft:textures/gui/widgets.png", 16*2, 16*7, 16, 16);
+//        AddWidget(btb, true);
+
+        int i = 0;
+        Runnable r = () -> {
+            System.out.println("Click!");
+        };
+        IntConsumer sdd = (int state) -> {
+            te.setMode(state);
+            KernCraftNetwork.networkWrapper.sendToAll(new MessageRedstoneControl(state, te.getPos()));
+            KernCraftNetwork.networkWrapper.sendToServer(new MessageRedstoneControl(state, te.getPos()));
+            //System.out.println("Click!"+state);
+        };
+
+        StateButton btb2 = new StateButton(this, -20, 20, 20, 20);
+        btb2.setText("")
+                .setAlignment(Widget.Alignment.MIDDLE)
+                .setOnClicked(r);
+        btb2.addState(new StateButton.State("kerncraft:textures/gui/widgets.png",
+                "", "Active with signal", 16 * 4, 16 * 7))
+                .addState(new StateButton.State("kerncraft:textures/gui/widgets.png",
+                        "", "Active without signal", 16 * 5, 16 * 7))
+                .addState(new StateButton.State("kerncraft:textures/gui/widgets.png",
+                        "", "Ignore", 16 * 2, 16 * 7))
+                .addOnStateChanged(sdd);
+        // .setTint(Color.black);
+        AddWidget(btb2, true);
+    }
+
+    @Override
+    public void initGui() {
+        super.initGui();
     }
 
     @Override

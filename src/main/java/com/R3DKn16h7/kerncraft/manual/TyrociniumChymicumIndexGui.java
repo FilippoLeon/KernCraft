@@ -1,5 +1,7 @@
 package com.R3DKn16h7.kerncraft.manual;
 
+import com.R3DKn16h7.kerncraft.client.gui.BetterButton;
+import com.R3DKn16h7.kerncraft.client.gui.IAdvancedGuiContainer;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.nbt.NBTTagCompound;
 
@@ -9,10 +11,10 @@ import java.io.IOException;
 /**
  * Created by Filippo on 08/12/2016.
  */
-public class TyrociniumChymicumIndexGui extends TyrociniumChymicumGui {
+public class TyrociniumChymicumIndexGui extends TyrociniumChymicumGui implements IAdvancedGuiContainer {
 
-    GuiButton PERIODIC_TABLE_BUTTON;
-    GuiButton PERIODIC_TABLE_FIRST_STEPS;
+    BetterButton PERIODIC_TABLE_BUTTON;
+    BetterButton PERIODIC_TABLE_FIRST_STEPS;
 
     public TyrociniumChymicumIndexGui() {
     }
@@ -26,22 +28,25 @@ public class TyrociniumChymicumIndexGui extends TyrociniumChymicumGui {
         int xmargin = 7;
         int i = 0;
 
-        PERIODIC_TABLE_BUTTON = new BetterButton(0, guiLeft + marginLeft,
-                guiTop + marginTop + buttonHeight * i++, 200, buttonHeight,
-                "Periodic Table", null, null, 0, 0,
-                0, 0, BetterButton.Alignment.LEFT, xmargin, 0, Color.black);
-        PERIODIC_TABLE_BUTTON.setWidth(pagewidth);
-        func_189646_b(PERIODIC_TABLE_BUTTON);
+        PERIODIC_TABLE_BUTTON = new BetterButton(this,
+                guiLeft + marginLeft, guiTop + marginTop + buttonHeight * i++)
+                .setSize(pagewidth, buttonHeight)
+                .setText("Periodic Table")
+                .setTextColor(Color.black, false)
+                .setTransparent()
+                .setMargin(xmargin, 0);
+        PERIODIC_TABLE_BUTTON.init();
         if (isUnlocked(Content.FirstSteps, 0)) {
-            PERIODIC_TABLE_FIRST_STEPS = new BetterButton(1, guiLeft + 10,
-                    guiTop + marginTop + buttonHeight * i++, 200, buttonHeight,
-                    "First steps", null, null, 0, 0,
-                    0, 0, BetterButton.Alignment.LEFT, xmargin, 0, Color.black);
-            PERIODIC_TABLE_FIRST_STEPS.setWidth(pagewidth);
-            func_189646_b(PERIODIC_TABLE_FIRST_STEPS);
+            PERIODIC_TABLE_FIRST_STEPS = new BetterButton(this,
+                    guiLeft + 10, guiTop + marginTop + buttonHeight * i++)
+                    .setSize(pagewidth, buttonHeight)
+                    .setText("First steps")
+                    .setTransparent()
+                    .setTextColor(Color.black, false)
+                    .setMargin(xmargin, 0);
+            PERIODIC_TABLE_FIRST_STEPS.init();
         }
     }
-
     @Override
     protected void actionPerformed(GuiButton button) throws IOException {
         super.actionPerformed(button);

@@ -1,6 +1,7 @@
 package com.R3DKn16h7.kerncraft.client.gui;
 
 import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.inventory.Container;
@@ -16,7 +17,7 @@ import java.util.List;
 /**
  * Created by Filippo on 27/11/2016.
  */
-public class AdvancedGuiContainer extends GuiContainer {
+public class AdvancedGuiContainer extends GuiContainer implements IAdvancedGuiContainer {
 
     public IWidget activeWidget;
 
@@ -33,6 +34,7 @@ public class AdvancedGuiContainer extends GuiContainer {
     private int offsetX = 0;
     private int offsetY = 0;
     private ResourceLocation backgroundResource;
+    private int btn_id = 0;
 
     public AdvancedGuiContainer(Container container,
                                 IInventory playerInv,
@@ -41,35 +43,6 @@ public class AdvancedGuiContainer extends GuiContainer {
 
         this.playerInv = playerInv;
         this.te = te;
-
-        setGuiSize(176, 166);
-
-        setBackground("kerncraft:textures/gui/container/extractor_gui.png",
-                0, 0, 176, 166);
-
-        //xSize = 176;
-        /** The Y size of the inventory window in pixels. */
-        //protected int ySize = 166;
-
-//        AddWidget(
-//                new TexturedElement(this,
-//                        "textures/gui/container/furnace.png", 18, 18,
-//                        14, 14, 176, 0),
-//                true);
-//        AddWidget(new Button(this, "textures/gui/container/furnace.png",
-//                0, 0, 14, 14, 176, 0), true);
-//
-//        AddWidget(AnimatedTexturedElement.ARROW(this, 40, 40), true);
-//
-//        Text txt = new Text(this, 0, 0,
-//                40, 6, Text.Alignment.LEFT, Text.Ellipsis.DOTS);
-//        txt.setText("Example text");
-//        AddWidget(txt, true);
-//
-//        AddWidget(new Tooltip(this, "Tooltip",
-//                18 * 2, 18 * 2, 18, 18), true);
-//
-//        AddWidget(new TextInput(this, 0, 0, 100, 15), true);
     }
 
     public int getGuiLeft() {
@@ -80,15 +53,20 @@ public class AdvancedGuiContainer extends GuiContainer {
         return guiTop;
     }
 
+    public void add(GuiButton btn) {
+        func_189646_b(btn);
+    }
+
     @Override
     public void initGui() {
+        super.initGui();
+
         for (IWidget widget : background_widgets) {
             widget.init();
         }
         for (IWidget widget : foreground_widgets) {
             widget.init();
         }
-        super.initGui();
     }
 
     public FontRenderer getFontRenderer() {
@@ -103,6 +81,10 @@ public class AdvancedGuiContainer extends GuiContainer {
     }
 
     public void updateWidgets() {
+    }
+
+    public int nextId() {
+        return btn_id++;
     }
 
     @Override
@@ -146,6 +128,7 @@ public class AdvancedGuiContainer extends GuiContainer {
 
     @Override
     protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
+        super.mouseClicked(mouseX, mouseY, mouseButton);
         for (IWidget widget : foreground_widgets) {
             if (widget.isMouseInArea(mouseX, mouseY)) {
                 widget.onClicked(mouseX - widget.getPositionX(),
@@ -153,7 +136,6 @@ public class AdvancedGuiContainer extends GuiContainer {
                 return;
             }
         }
-        super.mouseClicked(mouseX, mouseY, mouseButton);
     }
 
     public boolean hasActiveWidget() {

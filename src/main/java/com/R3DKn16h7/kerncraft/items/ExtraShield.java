@@ -69,7 +69,7 @@ public abstract class ExtraShield extends Item {
 
     public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
         playerIn.setActiveHand(hand);
-        return new ActionResult(EnumActionResult.SUCCESS, itemStackIn);
+        return new ActionResult<>(EnumActionResult.SUCCESS, itemStackIn);
     }
 
     public boolean getIsRepairable(ItemStack toRepair, ItemStack repair) {

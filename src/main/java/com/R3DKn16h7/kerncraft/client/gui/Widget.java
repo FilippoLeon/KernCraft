@@ -105,4 +105,11 @@ public class Widget implements IWidget {
         LEFT, MIDDLE, RIGHT
     }
 
+    public enum Alignment {
+        LEFT, MIDDLE, RIGHT
+    }
+
+    public enum Ellipsis {
+        TRUNCATE, OVERFLOW, DOTS, CENTER_DOTS
+    }
 }

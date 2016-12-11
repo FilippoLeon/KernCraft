@@ -113,11 +113,4 @@ public class Text extends Widget {
         return hoveringText;
     }
 
-    public enum Alignment {
-        LEFT, MIDDLE, RIGHT
-    }
-
-    public enum Ellipsis {
-        TRUNCATE, OVERFLOW, DOTS, CENTER_DOTS
-    }
 }
