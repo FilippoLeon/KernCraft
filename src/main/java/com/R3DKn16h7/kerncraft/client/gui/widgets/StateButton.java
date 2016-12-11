@@ -1,5 +1,6 @@
-package com.R3DKn16h7.kerncraft.client.gui;
+package com.R3DKn16h7.kerncraft.client.gui.widgets;
 
+import com.R3DKn16h7.kerncraft.client.gui.IAdvancedGuiContainer;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 

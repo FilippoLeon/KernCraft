@@ -23,7 +23,7 @@ import net.minecraftforge.items.ItemStackHandler;
 
 import java.util.ArrayList;
 
-public class ExtractorTileEntity extends TileEntity
+public class ChemicalFurnaceTileEntity extends TileEntity
         implements ITickable {
 
 
@@ -64,7 +64,7 @@ public class ExtractorTileEntity extends TileEntity
     //
     private float elapsed = 0f;
 
-    public ExtractorTileEntity() {
+    public ChemicalFurnaceTileEntity() {
         if (recipes == null) {
             recipes = new ArrayList<ExtractorRecipe>();
             registerRecipe(Item.getItemFromBlock(Blocks.IRON_ORE),
@@ -94,10 +94,11 @@ public class ExtractorTileEntity extends TileEntity
 
     /**
      * Add new recipe
-     * @param item Principal item that will allow to extract elements.
+     *
+     * @param item     Principal item that will allow to extract elements.
      * @param catalyst Additional item (optional) that acts as Catalyst
-     * @param outs LAB_BONNET list of output Elements
-     * @param energy The required energy (TODO: change to "cost") to perform a smelting operation.
+     * @param outs     LAB_BONNET list of output Elements
+     * @param energy   The required energy (TODO: change to "cost") to perform a smelting operation.
      * @return Return false if registration failed (TODO)
      */
     static public boolean registerRecipe(Item item, Item catalyst,
@@ -106,13 +107,11 @@ public class ExtractorTileEntity extends TileEntity
         return true;
     }
 
-    public IItemHandler getInput()
-    {
+    public IItemHandler getInput() {
         return input;
     }
 
-    public IItemHandler getOutput()
-    {
+    public IItemHandler getOutput() {
         return output;
     }
 
@@ -134,7 +133,7 @@ public class ExtractorTileEntity extends TileEntity
             return CapabilityEnergy.ENERGY.cast(storage);
         } else if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
             return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(tank);
-        } else if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY){
+        } else if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
             //return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(automationInput);
             return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(input);
         }
@@ -142,7 +141,7 @@ public class ExtractorTileEntity extends TileEntity
     }
 
     public float getProgressPerc() {
-        if(smeltingId == -1) return 0f;
+        if (smeltingId == -1) return 0f;
         return progress / (float) recipes.get(smeltingId).energy;
     }
 
@@ -152,6 +151,7 @@ public class ExtractorTileEntity extends TileEntity
 
     /**
      * Return true if recipe idx can be smelted.
+     *
      * @param idx
      * @return
      */
@@ -174,6 +174,7 @@ public class ExtractorTileEntity extends TileEntity
     /**
      * Try and consume one unit of fuel (depending on recipe)
      * if it fails, return false.
+     *
      * @return
      */
     public boolean tryConsumeFuel() {
@@ -216,7 +217,7 @@ public class ExtractorTileEntity extends TileEntity
             inputChanged = false;
         }
         if (canSmelt()) {
-            if( !tryConsumeFuel() ) return;
+            if (!tryConsumeFuel()) return;
             ++progress;
             if (progress >= recipes.get(smeltingId).energy) {
                 progress = 0;
@@ -374,8 +375,7 @@ public class ExtractorTileEntity extends TileEntity
     }
 
     @Override
-    public void readFromNBT(NBTTagCompound nbt)
-    {
+    public void readFromNBT(NBTTagCompound nbt) {
         super.readFromNBT(nbt);
         System.out.println("adssaddsadsadsadsadsadsadsadsadsa");
         input.deserializeNBT(nbt.getCompoundTag("Input"));
@@ -383,8 +383,7 @@ public class ExtractorTileEntity extends TileEntity
     }
 
     @Override
-    public NBTTagCompound writeToNBT(NBTTagCompound nbt)
-    {
+    public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
         nbt = super.writeToNBT(nbt);
         System.out.println("WWWWadssaddsadsadsadsadsadsadsadsadsa");
         nbt.setTag("Input", input.serializeNBT());

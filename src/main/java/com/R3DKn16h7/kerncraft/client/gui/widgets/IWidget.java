@@ -1,4 +1,4 @@
-package com.R3DKn16h7.kerncraft.client.gui;
+package com.R3DKn16h7.kerncraft.client.gui.widgets;
 
 import java.util.List;
 

@@ -1,8 +1,7 @@
-package com.R3DKn16h7.kerncraft.client.gui;
+package com.R3DKn16h7.kerncraft.client.gui.widgets;
 
+import com.R3DKn16h7.kerncraft.client.gui.AdvancedGuiContainer;
 import net.minecraft.client.gui.FontRenderer;
-
-import java.util.List;
 
 /**
  * Created by Filippo on 27/11/2016.
@@ -14,6 +13,9 @@ public class Text extends Widget {
     private Alignment alignment;
     private Ellipsis ellipsis;
     private boolean adaptive_size = false;
+
+    private boolean shadow = false;
+    private int textColor = 4210752;
 
     Text(AdvancedGuiContainer container, int xPosition, int yPosition,
          int xSize, int ySize,
@@ -88,15 +90,15 @@ public class Text extends Widget {
 
         switch (alignment) {
             case LEFT:
-                container.drawString(fr, disp_text, xPosition, yPosition, 4210752);
+                fr.drawString(disp_text, xPosition, yPosition, textColor, this.shadow);
                 break;
             case MIDDLE:
                 container.drawCenteredString(fr, disp_text,
-                        xPosition + xSize / 2, yPosition, 4210752);
+                        xPosition + xSize / 2, yPosition, textColor);
                 break;
             case RIGHT:
-                container.drawString(fr, disp_text,
-                        xPosition + (xSize - fr.getStringWidth(text)), yPosition, 4210752);
+                fr.drawString(disp_text,
+                        xPosition + (xSize - fr.getStringWidth(text)), yPosition, textColor, this.shadow);
                 break;
         }
 
@@ -104,13 +106,16 @@ public class Text extends Widget {
 
     void setText(String text) {
         this.text = text;
-
     }
 
-    @Override
-    public List<String> addHoveringText(List<String> hoveringText) {
-        hoveringText.add("Text");
-        return hoveringText;
+    public Text setShadow(boolean shadow) {
+        this.shadow = shadow;
+        return this;
+    }
+
+    Text setColor(int color) {
+        textColor = color;
+        return this;
     }
 
 }

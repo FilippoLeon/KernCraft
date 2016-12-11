@@ -1,4 +1,6 @@
-package com.R3DKn16h7.kerncraft.client.gui;
+package com.R3DKn16h7.kerncraft.client.gui.widgets;
+
+import com.R3DKn16h7.kerncraft.client.gui.AdvancedGuiContainer;
 
 import java.util.List;
 
@@ -14,6 +16,7 @@ public class Widget implements IWidget {
     public int ySize;
     protected AdvancedGuiContainer container;
     private Anchor anchor;
+    private String tooltip;
 
     Widget(AdvancedGuiContainer container, int xPosition, int yPosition,
            int xSize, int ySize,
@@ -58,9 +61,14 @@ public class Widget implements IWidget {
     public void draw() {
     }
 
+    public Widget setTooltip(String tooltip) {
+        this.tooltip = tooltip;
+        return this;
+    }
+
     @Override
     public List<String> addHoveringText(List<String> hoveringText) {
-
+        if (tooltip != null && !this.tooltip.isEmpty()) hoveringText.add(tooltip);
         return hoveringText;
     }
 

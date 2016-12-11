@@ -1,5 +1,9 @@
 package com.R3DKn16h7.kerncraft.client.gui;
 
+import com.R3DKn16h7.kerncraft.client.gui.widgets.AnimatedTexturedElement;
+import com.R3DKn16h7.kerncraft.client.gui.widgets.StateButton;
+import com.R3DKn16h7.kerncraft.client.gui.widgets.Text;
+import com.R3DKn16h7.kerncraft.client.gui.widgets.Widget;
 import com.R3DKn16h7.kerncraft.guicontainer.ExtractorContainer;
 import com.R3DKn16h7.kerncraft.network.KernCraftNetwork;
 import com.R3DKn16h7.kerncraft.network.MessageRedstoneControl;
@@ -28,6 +32,12 @@ public class ExtractorGuiContainer extends AdvancedGuiContainer {
         brewing.setAutoAnimated(false, 0);
         AddWidget(brewing, true);
 
+
+        AnimatedTexturedElement energyBar = new AnimatedTexturedElement(this,
+                "kerncraft:textures/gui/container/extractor_gui.png", -1, -1,
+                6, 18 * 3 - 2, 176, 0, AnimatedTexturedElement.Direction.BOTTOM, 300);
+        // energyBar.setTint(Color.blue);
+        AddWidget(energyBar, true);
 
         String s = this.playerInv.getDisplayName().getUnformattedText();
         Text titleText = new Text(this, 0, -borderTop + 4,
@@ -82,11 +92,17 @@ public class ExtractorGuiContainer extends AdvancedGuiContainer {
         ExtractorTileEntity cast_te = (ExtractorTileEntity) te;
 
         flame.setPercentage(cast_te.getFuelStoredPercentage());
+        flame.setTooltip(String.format("Fuel %.2f%%", cast_te.getFuelStoredPercentage()));
         //flame.addHoveringText();
 
         String perc = String.format("%.2f%%", cast_te.getProgressPerc() * 100);
         progressText.setText(perc);
 
+
+        String perc2 = String.format("Progress %.2f%%", cast_te.getProgressPerc() * 100);
         brewing.setPercentage(cast_te.getProgressPerc());
+        brewing.setTooltip(perc2);
+
+
     }
 }

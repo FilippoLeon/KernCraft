@@ -1,4 +1,6 @@
-package com.R3DKn16h7.kerncraft.client.gui;
+package com.R3DKn16h7.kerncraft.client.gui.widgets;
+
+import com.R3DKn16h7.kerncraft.client.gui.AdvancedGuiContainer;
 
 /**
  * Created by Filippo on 27/11/2016.
@@ -8,7 +10,7 @@ public class AnimatedTexturedElement extends TexturedElement {
     private int time;
     private int speed;
     private float perc;
-    private boolean auto_animated = false;
+    private boolean auto_animated = true;
 
     AnimatedTexturedElement(AdvancedGuiContainer container, String texture, int xPosition, int yPosition,
                             int xSize, int ySize,
@@ -56,7 +58,7 @@ public class AnimatedTexturedElement extends TexturedElement {
         container.mc.getTextureManager().bindTexture(textureLocation);
 
         if (auto_animated) {
-            perc = time / speed;
+            perc = (float) time / speed;
         }
 
         int size, offset;

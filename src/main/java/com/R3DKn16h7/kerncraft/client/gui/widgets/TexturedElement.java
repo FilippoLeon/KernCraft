@@ -1,8 +1,10 @@
-package com.R3DKn16h7.kerncraft.client.gui;
+package com.R3DKn16h7.kerncraft.client.gui.widgets;
 
+import com.R3DKn16h7.kerncraft.client.gui.AdvancedGuiContainer;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
 
-import java.util.List;
+import java.awt.*;
 
 /**
  * Created by Filippo on 27/11/2016.
@@ -10,7 +12,8 @@ import java.util.List;
 public class TexturedElement extends Widget {
 
     public ResourceLocation textureLocation;
-public int offsetX, offsetY;
+    public int offsetX, offsetY;
+    public Color tint;
 
     public TexturedElement(AdvancedGuiContainer container, String texture, int xPosition, int yPosition,
                            int xSize, int ySize,
@@ -22,29 +25,25 @@ public int offsetX, offsetY;
         this.offsetY = offsetY;
     }
 
+    public TexturedElement setTint(Color tint) {
+        this.tint = tint;
+        return this;
+    }
+
     @Override
     public void draw() {
         container.mc.getTextureManager().bindTexture(textureLocation);
+
+        if (tint != null) {
+            GlStateManager.color(tint.getRed() / 255.f,
+                    tint.getGreen() / 255.f,
+                    tint.getBlue() / 255.f,
+                    1.0F);
+        }
+
         container.drawTexturedModalRect(xPosition, yPosition,
                 offsetX, offsetY,
                 xSize, ySize);
     }
-
-    @Override
-    public List<String> addHoveringText(List<String> hoveringText) {
-        return hoveringText;
-    }
-
-    @Override
-    public void onHover(int mouseX, int mouseY) {
-
-    }
-
-    @Override
-    public void onClicked(int mouseX, int mouseY, int mouseButton) {
-
-        return;
-    }
-
 
 }

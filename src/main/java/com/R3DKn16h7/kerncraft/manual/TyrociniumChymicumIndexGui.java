@@ -1,7 +1,7 @@
 package com.R3DKn16h7.kerncraft.manual;
 
-import com.R3DKn16h7.kerncraft.client.gui.BetterButton;
 import com.R3DKn16h7.kerncraft.client.gui.IAdvancedGuiContainer;
+import com.R3DKn16h7.kerncraft.client.gui.widgets.BetterButton;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.nbt.NBTTagCompound;
 

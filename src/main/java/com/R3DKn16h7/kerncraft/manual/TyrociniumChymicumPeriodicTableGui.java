@@ -1,7 +1,7 @@
 package com.R3DKn16h7.kerncraft.manual;
 
-import com.R3DKn16h7.kerncraft.client.gui.BetterButton;
-import com.R3DKn16h7.kerncraft.client.gui.Widget;
+import com.R3DKn16h7.kerncraft.client.gui.widgets.BetterButton;
+import com.R3DKn16h7.kerncraft.client.gui.widgets.Widget;
 import com.R3DKn16h7.kerncraft.elements.ElementBase;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.renderer.GlStateManager;
@@ -57,7 +57,8 @@ public class TyrociniumChymicumPeriodicTableGui extends TyrociniumChymicumGui {
 
             Color color = element.family.toColor();
 
-            GuiButton btn = new BetterButton(this, id++, 13 * (g - 1) + padLeft, 13 * (p - 1) + padTop, 14, 14)
+            GuiButton btn = new BetterButton(this, id++, 13 * (g - 1) + padLeft, 13 * (p - 1) + padTop,
+                    14, 14)
                     .setText(formatting + element.symbol)
                     .setTint(color)
                     .setAlignment(Widget.Alignment.MIDDLE);
@@ -80,7 +81,7 @@ public class TyrociniumChymicumPeriodicTableGui extends TyrociniumChymicumGui {
 
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         this.mc.getTextureManager().bindTexture(
-                new ResourceLocation("kerncraft:textures/gui/blank_paper2.png")
+                new ResourceLocation("kerncraft:textures/gui/blank_paper.png")
         );
 
         this.drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
