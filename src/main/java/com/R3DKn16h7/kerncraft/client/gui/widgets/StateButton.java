@@ -1,6 +1,9 @@
 package com.R3DKn16h7.kerncraft.client.gui.widgets;
 
 import com.R3DKn16h7.kerncraft.client.gui.IAdvancedGuiContainer;
+import com.R3DKn16h7.kerncraft.network.KernCraftNetwork;
+import com.R3DKn16h7.kerncraft.network.MessageRedstoneControl;
+import com.R3DKn16h7.kerncraft.tileentities.IRedstoneSettable;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -30,6 +33,27 @@ public class StateButton extends BetterButton {
 
     public StateButton(IAdvancedGuiContainer container, int x, int y) {
         this(container, x, y, 200, 20);
+    }
+
+    public static StateButton REDSTONE_MODE(IAdvancedGuiContainer container,
+                                            IRedstoneSettable te) {
+        IntConsumer sdd = (int state) -> {
+            te.setMode(state);
+            //KernCraftNetwork.networkWrapper.sendToAll(new MessageRedstoneControl(state, te.getPos()));
+            KernCraftNetwork.networkWrapper.sendToServer(new MessageRedstoneControl(state, te.getPos()));
+        };
+
+        StateButton btb2 = new StateButton(container, -20, 20, 20, 20);
+        btb2.setText("")
+                .setAlignment(Widget.Alignment.MIDDLE);
+        btb2.addState(new StateButton.State("kerncraft:textures/gui/widgets.png",
+                "", "Active with signal", 16 * 4, 16 * 7))
+                .addState(new StateButton.State("kerncraft:textures/gui/widgets.png",
+                        "", "Active without signal", 16 * 5, 16 * 7))
+                .addState(new StateButton.State("kerncraft:textures/gui/widgets.png",
+                        "", "Ignore", 16 * 2, 16 * 7))
+                .addOnStateChanged(sdd);
+        return btb2;
     }
 
     public StateButton addState(State state) {

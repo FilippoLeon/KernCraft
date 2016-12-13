@@ -1,6 +1,7 @@
 package com.R3DKn16h7.kerncraft.client.gui.widgets;
 
 import com.R3DKn16h7.kerncraft.client.gui.AdvancedGuiContainer;
+import net.minecraft.client.gui.GuiScreen;
 
 /**
  * Created by Filippo on 27/11/2016.
@@ -12,9 +13,9 @@ public class AnimatedTexturedElement extends TexturedElement {
     private float perc;
     private boolean auto_animated = true;
 
-    AnimatedTexturedElement(AdvancedGuiContainer container, String texture, int xPosition, int yPosition,
-                            int xSize, int ySize,
-                            int offsetX, int offsetY, Direction dir, int speed) {
+    public AnimatedTexturedElement(AdvancedGuiContainer container, String texture, int xPosition, int yPosition,
+                                   int xSize, int ySize,
+                                   int offsetX, int offsetY, Direction dir, int speed) {
         super(container, texture, xPosition, yPosition, xSize, ySize, offsetX, offsetY);
         this.dir = dir;
         this.speed = speed;
@@ -55,7 +56,12 @@ public class AnimatedTexturedElement extends TexturedElement {
 
     @Override
     public void draw() {
-        container.mc.getTextureManager().bindTexture(textureLocation);
+        if (!(container instanceof GuiScreen)) {
+            return;
+        }
+        GuiScreen C = (GuiScreen) container;
+
+        C.mc.getTextureManager().bindTexture(textureLocation);
 
         if (auto_animated) {
             perc = (float) time / speed;
@@ -65,27 +71,27 @@ public class AnimatedTexturedElement extends TexturedElement {
         switch (dir) {
             case LEFT:
                 size = Math.round(xSize * perc);
-                container.drawTexturedModalRect(xPosition, yPosition,
+                C.drawTexturedModalRect(xPosition, yPosition,
                         offsetX, offsetY,
                         size, ySize + offsetY);
                 break;
             case RIGHT:
                 size = Math.round(xSize * perc);
                 offset = ySize - size;
-                container.drawTexturedModalRect(xPosition + offset, yPosition,
+                C.drawTexturedModalRect(xPosition + offset, yPosition,
                         offsetX + offset, offsetY,
                         size, ySize);
                 break;
             case TOP:
                 size = Math.round(ySize * perc);
-                container.drawTexturedModalRect(xPosition, yPosition,
+                C.drawTexturedModalRect(xPosition, yPosition,
                         offsetX, offsetY,
                         xSize, size);
                 break;
             case BOTTOM:
                 size = Math.round(ySize * perc);
                 offset = ySize - size;
-                container.drawTexturedModalRect(xPosition, yPosition + offset,
+                C.drawTexturedModalRect(xPosition, yPosition + offset,
                         offsetX, offsetY + offset,
                         xSize, size);
                 break;
@@ -98,7 +104,7 @@ public class AnimatedTexturedElement extends TexturedElement {
         }
     }
 
-    enum Direction {
+    public enum Direction {
         LEFT, RIGHT, TOP, BOTTOM
     }
 }

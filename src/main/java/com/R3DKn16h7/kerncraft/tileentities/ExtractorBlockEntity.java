@@ -58,11 +58,15 @@ public class ExtractorBlockEntity extends BlockContainer {
         TileEntity tileentity = worldIn.getTileEntity(pos);
 
         if (active) {
-            worldIn.setBlockState(pos, ModTileEntities.EXTRACTOR.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)), 3);
-            worldIn.setBlockState(pos, ModTileEntities.EXTRACTOR.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)), 3);
+            worldIn.setBlockState(pos, ModTileEntities.EXTRACTOR.getDefaultState()
+                    .withProperty(FACING, iblockstate.getValue(FACING)), 3);
+            worldIn.setBlockState(pos, ModTileEntities.EXTRACTOR.getDefaultState()
+                    .withProperty(FACING, iblockstate.getValue(FACING)), 3);
         } else {
-            worldIn.setBlockState(pos, ModTileEntities.EXTRACTOR.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)), 3);
-            worldIn.setBlockState(pos, ModTileEntities.EXTRACTOR.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)), 3);
+            worldIn.setBlockState(pos, ModTileEntities.EXTRACTOR.getDefaultState()
+                    .withProperty(FACING, iblockstate.getValue(FACING)), 3);
+            worldIn.setBlockState(pos, ModTileEntities.EXTRACTOR.getDefaultState()
+                    .withProperty(FACING, iblockstate.getValue(FACING)), 3);
         }
 
 
@@ -158,7 +162,7 @@ public class ExtractorBlockEntity extends BlockContainer {
                                     EntityPlayer player, EnumHand hand, ItemStack heldItem,
                                     EnumFacing side, float hitX, float hitY, float hitZ) {
         if (!world.isRemote) {
-            player.openGui(KernCraft.instance, ModGuiHandler.MOD_TILE_ENTITY_GUI,
+            player.openGui(KernCraft.instance, ModGuiHandler.EXTRACTOR_TILE_ENTITY_GUI,
                     world, pos.getX(), pos.getY(), pos.getZ());
         }
         return true;

@@ -14,12 +14,20 @@ public class KernCraftNetwork {
 
     public static KernCraftNetwork INSTANCE;
 
+    public static int discriminator = 0;
+
     public KernCraftNetwork() {
         INSTANCE = this;
 
         networkWrapper = NetworkRegistry.INSTANCE.newSimpleChannel(KernCraft.MODID);
         networkWrapper.registerMessage(MessageRedstoneControlHandler.class,
-                MessageRedstoneControl.class, 0, Side.SERVER);
+                MessageRedstoneControl.class, getNextDiscriminator(), Side.SERVER);
+        networkWrapper.registerMessage(MessageIntHandler.class,
+                MessageInt.class, getNextDiscriminator(), Side.SERVER);
 
+    }
+
+    public static int getNextDiscriminator() {
+        return discriminator++;
     }
 }

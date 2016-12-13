@@ -156,7 +156,7 @@ public class ChemicalFurnaceBlockEntity extends BlockContainer {
                                     EntityPlayer player, EnumHand hand, ItemStack heldItem,
                                     EnumFacing side, float hitX, float hitY, float hitZ) {
         if (!world.isRemote) {
-            player.openGui(KernCraft.instance, ModGuiHandler.MOD_TILE_ENTITY_GUI,
+            player.openGui(KernCraft.instance, ModGuiHandler.EXTRACTOR_TILE_ENTITY_GUI,
                     world, pos.getX(), pos.getY(), pos.getZ());
         }
         return true;

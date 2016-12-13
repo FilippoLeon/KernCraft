@@ -63,7 +63,6 @@ public class ExtractorGuiContainer extends AdvancedGuiContainer {
             te.setMode(state);
             KernCraftNetwork.networkWrapper.sendToAll(new MessageRedstoneControl(state, te.getPos()));
             KernCraftNetwork.networkWrapper.sendToServer(new MessageRedstoneControl(state, te.getPos()));
-            //System.out.println("Click!"+state);
         };
 
         StateButton btb2 = new StateButton(this, -20, 20, 20, 20);
@@ -77,7 +76,6 @@ public class ExtractorGuiContainer extends AdvancedGuiContainer {
                 .addState(new StateButton.State("kerncraft:textures/gui/widgets.png",
                         "", "Ignore", 16 * 2, 16 * 7))
                 .addOnStateChanged(sdd);
-        // .setTint(Color.black);
         AddWidget(btb2, true);
     }
 
@@ -93,7 +91,6 @@ public class ExtractorGuiContainer extends AdvancedGuiContainer {
 
         flame.setPercentage(cast_te.getFuelStoredPercentage());
         flame.setTooltip(String.format("Fuel %.2f%%", cast_te.getFuelStoredPercentage()));
-        //flame.addHoveringText();
 
         String perc = String.format("%.2f%%", cast_te.getProgressPerc() * 100);
         progressText.setText(perc);
@@ -102,7 +99,5 @@ public class ExtractorGuiContainer extends AdvancedGuiContainer {
         String perc2 = String.format("Progress %.2f%%", cast_te.getProgressPerc() * 100);
         brewing.setPercentage(cast_te.getProgressPerc());
         brewing.setTooltip(perc2);
-
-
     }
 }

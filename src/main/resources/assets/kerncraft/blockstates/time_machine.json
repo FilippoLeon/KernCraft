@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "kerncraft:time_machine"
+    },
+    "facing=south": {
+      "model": "kerncraft:time_machine",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "kerncraft:time_machine",
+      "y": 270
+    },
+    "facing=east": {
+      "model": "kerncraft:time_machine",
+      "y": 90
+    }
+  }
+}

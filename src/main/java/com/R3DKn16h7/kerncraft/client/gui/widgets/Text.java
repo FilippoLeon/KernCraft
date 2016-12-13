@@ -1,6 +1,6 @@
 package com.R3DKn16h7.kerncraft.client.gui.widgets;
 
-import com.R3DKn16h7.kerncraft.client.gui.AdvancedGuiContainer;
+import com.R3DKn16h7.kerncraft.client.gui.IAdvancedGuiContainer;
 import net.minecraft.client.gui.FontRenderer;
 
 /**
@@ -17,24 +17,24 @@ public class Text extends Widget {
     private boolean shadow = false;
     private int textColor = 4210752;
 
-    Text(AdvancedGuiContainer container, int xPosition, int yPosition,
-         int xSize, int ySize,
-         Alignment alignment, Ellipsis ellipsis) {
+    public Text(IAdvancedGuiContainer container, int xPosition, int yPosition,
+                int xSize, int ySize,
+                Alignment alignment, Ellipsis ellipsis) {
         super(container, xPosition, yPosition, xSize, ySize);
         this.alignment = alignment;
         this.ellipsis = ellipsis;
     }
 
-    Text(AdvancedGuiContainer container, int xPosition, int yPosition,
-         int xSize, int ySize,
-         Alignment alignment) {
+    public Text(IAdvancedGuiContainer container, int xPosition, int yPosition,
+                int xSize, int ySize,
+                Alignment alignment) {
         super(container, xPosition, yPosition, xSize, ySize);
         this.alignment = alignment;
         this.ellipsis = Ellipsis.OVERFLOW;
     }
 
-    Text(AdvancedGuiContainer container, int xPosition, int yPosition,
-         Alignment alignment) {
+    public Text(IAdvancedGuiContainer container, int xPosition, int yPosition,
+                Alignment alignment) {
         super(container, xPosition, yPosition, 0, TEXT_DEFAULT_HEIGHT);
         this.adaptive_size = true;
         this.alignment = alignment;
@@ -49,7 +49,6 @@ public class Text extends Widget {
 
         if (adaptive_size) {
             disp_text = text;
-            return;
         }
 
         String end_text = "";
@@ -88,23 +87,28 @@ public class Text extends Widget {
                 break;
         }
 
+        int offset = 0;
+
         switch (alignment) {
             case LEFT:
-                fr.drawString(disp_text, xPosition, yPosition, textColor, this.shadow);
+                fr.drawString(disp_text, xPosition, yPosition + offset, textColor, this.shadow);
                 break;
             case MIDDLE:
-                container.drawCenteredString(fr, disp_text,
-                        xPosition + xSize / 2, yPosition, textColor);
+                // TODO: vertical alignment option
+                offset = (ySize - 6) / 2;
+                int size = fr.getStringWidth(disp_text);
+                fr.drawString(disp_text,
+                        xPosition + (xSize - size) / 2, yPosition + offset, textColor);
                 break;
             case RIGHT:
                 fr.drawString(disp_text,
-                        xPosition + (xSize - fr.getStringWidth(text)), yPosition, textColor, this.shadow);
+                        xPosition + (xSize - fr.getStringWidth(text)), yPosition + offset, textColor, this.shadow);
                 break;
         }
 
     }
 
-    void setText(String text) {
+    public void setText(String text) {
         this.text = text;
     }
 
@@ -113,7 +117,7 @@ public class Text extends Widget {
         return this;
     }
 
-    Text setColor(int color) {
+    public Text setColor(int color) {
         textColor = color;
         return this;
     }

@@ -1,6 +1,7 @@
 package com.R3DKn16h7.kerncraft.client.gui.widgets;
 
 import com.R3DKn16h7.kerncraft.client.gui.AdvancedGuiContainer;
+import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
 
@@ -32,7 +33,12 @@ public class TexturedElement extends Widget {
 
     @Override
     public void draw() {
-        container.mc.getTextureManager().bindTexture(textureLocation);
+        if (!(container instanceof GuiScreen)) {
+            return;
+        }
+        GuiScreen C = (GuiScreen) container;
+
+        C.mc.getTextureManager().bindTexture(textureLocation);
 
         if (tint != null) {
             GlStateManager.color(tint.getRed() / 255.f,
@@ -41,7 +47,7 @@ public class TexturedElement extends Widget {
                     1.0F);
         }
 
-        container.drawTexturedModalRect(xPosition, yPosition,
+        C.drawTexturedModalRect(xPosition, yPosition,
                 offsetX, offsetY,
                 xSize, ySize);
     }

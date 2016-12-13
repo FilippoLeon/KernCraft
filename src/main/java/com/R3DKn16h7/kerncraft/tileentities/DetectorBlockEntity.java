@@ -73,6 +73,7 @@ public class DetectorBlockEntity extends BlockContainer {
 
     @Override
     protected BlockStateContainer createBlockState() {
+
         return new BlockStateContainer(this, POWERED);
     }
 

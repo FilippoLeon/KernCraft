@@ -1,5 +1,7 @@
 package com.R3DKn16h7.kerncraft.client.gui;
 
+import com.R3DKn16h7.kerncraft.client.gui.widgets.IWidget;
+import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
 
 /**
@@ -13,4 +15,12 @@ public interface IAdvancedGuiContainer {
     int getGuiLeft();
 
     int getGuiTop();
+
+    void setActiveWidget(IWidget widget);
+
+    int getBorderLeft();
+
+    int getBorderTop();
+
+    FontRenderer getFontRenderer();
 }

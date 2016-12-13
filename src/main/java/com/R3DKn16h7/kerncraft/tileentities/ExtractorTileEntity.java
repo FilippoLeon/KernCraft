@@ -24,7 +24,7 @@ import net.minecraftforge.items.ItemStackHandler;
 import java.util.ArrayList;
 
 public class ExtractorTileEntity extends TileEntity
-        implements ITickable {
+        implements ITickable, IRedstoneSettable {
 
 
     // Slot IDs

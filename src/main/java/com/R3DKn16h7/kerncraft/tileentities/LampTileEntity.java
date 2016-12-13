@@ -1,39 +1,47 @@
 package com.R3DKn16h7.kerncraft.tileentities;
 
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ITickable;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 
-public class LampTileEntity extends TileEntity
-        implements ITickable {
+public class LampTileEntity extends TileEntity implements IRedstoneSettable, IMessageIntReceiver {
+
+    public int redstoneMode = 0;
+    public int lightLevel = 0;
 
     public LampTileEntity() {
 
     }
 
-    @Override
-    public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
-        super.writeToNBT(nbt);
-
-        return nbt;
+    public void setMode(int i) {
+        redstoneMode = i;
+        updateState();
     }
 
-
-    @Override
-    public void readFromNBT(NBTTagCompound nbt) {
-        super.readFromNBT(nbt);
-
+    public void receiveMessage(int i) {
+        if (i == 0 && lightLevel < 15) ++lightLevel;
+        else if (i == 1 && lightLevel > 0) --lightLevel;
+        else return;
+        updateState();
     }
 
     @Override
-    public void update() {
-        ClockBlockEntity _block = (ClockBlockEntity)
-                this.getWorld().getBlockState(this.getPos()).getBlock();
+    public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newSate) {
+        return false;
+    }
 
-        this.worldObj.setBlockState(pos,
-                _block.getDefaultState().withProperty(ClockBlockEntity.TIME,
-                        Math.min((int) worldObj.getWorldTime() * 15 / 22500, 15)));
+    public void updateState() {
+        if (redstoneMode == 0 && !this.worldObj.isBlockPowered(pos)) {
+            worldObj.setBlockState(this.pos, ModTileEntities.Lamp[0].getDefaultState()
+                    .withProperty(LampBlockEntity.POWERED, 0));
+        } else if (redstoneMode == 1 && this.worldObj.isBlockPowered(pos)) {
+            worldObj.setBlockState(this.pos, ModTileEntities.Lamp[0].getDefaultState()
+                    .withProperty(LampBlockEntity.POWERED, 0));
+        } else {
+            worldObj.setBlockState(this.pos, ModTileEntities.Lamp[0]
+                    .getDefaultState().withProperty(LampBlockEntity.POWERED, lightLevel));
+        }
 
-        //System.out.print(worldObj.getWorldTime() + " " + (int) worldObj.getWorldTime() * 15 / 22500 + " ---");
     }
 }
