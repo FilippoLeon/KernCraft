@@ -16,10 +16,11 @@ public class ModTileEntities {
     public static ClockBlockEntity CLOCK;
     public static TileEntity CLOCK_TE;
 
-    //public static LampBlockEntity LAMP;
-    public static LampBlockEntity[] Lamp = new LampBlockEntity[16];
-    public static LampBlockEntity LAMP_DEFAULT;
+    public static LampBlockEntity LAMP;
     public static LampTileEntity LAMP_TE;
+
+    public static ChemicalFurnaceBlockEntity CHEMICAL_FURNACE;
+    public static ChemicalFurnaceTileEntity CHEMICAL_FURNACE_TE;
 
     public static void createEntities() {
         EXTRACTOR = new ExtractorBlockEntity("extractor");
@@ -31,15 +32,14 @@ public class ModTileEntities {
         CLOCK = new ClockBlockEntity();
         CLOCK_TE = new ClockTileEntity();
 
-        //LAMP = new LampBlockEntity();
-        for (int i = 0; i < 1; ++i) Lamp[i] = new LampBlockEntity(i);
-        LAMP_DEFAULT = Lamp[0];
-
-        GameRegistry.register(LAMP_DEFAULT);
-        GameRegistry.register(new ItemBlock(LAMP_DEFAULT), LAMP_DEFAULT.getRegistryName());
+        LAMP = new LampBlockEntity(0);
+        GameRegistry.register(LAMP);
+        GameRegistry.register(new ItemBlock(LAMP), LAMP.getRegistryName());
         GameRegistry.registerTileEntity(LampTileEntity.class, "lamp");
-
         LAMP_TE = new LampTileEntity();
+
+        CHEMICAL_FURNACE = new ChemicalFurnaceBlockEntity("chemical_furnace");
+        CHEMICAL_FURNACE_TE = new ChemicalFurnaceTileEntity();
     }
 
 
@@ -48,7 +48,8 @@ public class ModTileEntities {
         EXTRACTOR.initModel();
         DETECTOR.initModel();
         CLOCK.initModel();
-        Lamp[0].initModel();
+        LAMP.initModel();
+        CHEMICAL_FURNACE.initModel();
         //for(int i = 0; i < 15; ++i) Lamp[i].initModel();
     }
 }

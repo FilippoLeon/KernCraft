@@ -1,9 +1,12 @@
 package com.R3DKn16h7.kerncraft.network;
 
+import com.R3DKn16h7.kerncraft.client.gui.ChemicalFurnaceGuiContainer;
 import com.R3DKn16h7.kerncraft.client.gui.ExtractorGuiContainer;
 import com.R3DKn16h7.kerncraft.client.gui.LampGui;
+import com.R3DKn16h7.kerncraft.guicontainer.ChemicalFurnaceContainer;
 import com.R3DKn16h7.kerncraft.guicontainer.ExtractorContainer;
 import com.R3DKn16h7.kerncraft.manual.TyrociniumChymicumGui;
+import com.R3DKn16h7.kerncraft.tileentities.ChemicalFurnaceTileEntity;
 import com.R3DKn16h7.kerncraft.tileentities.ExtractorTileEntity;
 import com.R3DKn16h7.kerncraft.tileentities.LampTileEntity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -29,6 +32,11 @@ public class ModGuiHandler implements IGuiHandler {
                         (ExtractorTileEntity) world.getTileEntity(
                                 new BlockPos(x, y, z))
                 );
+            case CHEMICAL_FURNACE_TILE_ENTITY_GUI:
+                return new ChemicalFurnaceContainer(player.inventory,
+                        (ChemicalFurnaceTileEntity) world.getTileEntity(
+                                new BlockPos(x, y, z))
+                );
         }
 
         return null;
@@ -41,6 +49,10 @@ public class ModGuiHandler implements IGuiHandler {
             case EXTRACTOR_TILE_ENTITY_GUI:
                 return new ExtractorGuiContainer(player.inventory,
                         (ExtractorTileEntity) world.getTileEntity(
+                                new BlockPos(x, y, z)));
+            case CHEMICAL_FURNACE_TILE_ENTITY_GUI:
+                return new ChemicalFurnaceGuiContainer(player.inventory,
+                        (ChemicalFurnaceTileEntity) world.getTileEntity(
                                 new BlockPos(x, y, z)));
             case LAMP_TILE_ENTITY_GUI:
                 return new LampGui(player.inventory,

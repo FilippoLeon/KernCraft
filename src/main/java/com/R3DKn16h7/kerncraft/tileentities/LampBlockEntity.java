@@ -131,15 +131,15 @@ public class LampBlockEntity extends BlockContainer {
      */
     @Nullable
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-        return Item.getItemFromBlock(ModTileEntities.LAMP_DEFAULT);
+        return Item.getItemFromBlock(ModTileEntities.LAMP);
     }
 
     public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state) {
-        return new ItemStack(ModTileEntities.LAMP_DEFAULT);
+        return new ItemStack(ModTileEntities.LAMP);
     }
 
     protected ItemStack createStackedBlock(IBlockState state) {
-        return new ItemStack(ModTileEntities.LAMP_DEFAULT);
+        return new ItemStack(ModTileEntities.LAMP);
     }
 
 

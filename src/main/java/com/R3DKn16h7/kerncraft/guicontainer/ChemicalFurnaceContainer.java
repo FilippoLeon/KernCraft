@@ -1,6 +1,6 @@
 package com.R3DKn16h7.kerncraft.guicontainer;
 
-import com.R3DKn16h7.kerncraft.tileentities.ExtractorTileEntity;
+import com.R3DKn16h7.kerncraft.tileentities.ChemicalFurnaceTileEntity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
@@ -9,13 +9,13 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
 
 
-public class ExtractorContainer extends AdvancedContainer {
+public class ChemicalFurnaceContainer extends AdvancedContainer {
 
     static public int xSlotSize = 18;
     static public int ySlotSize = 18;
     static public int bdLeft = 8;
     static public int bdTop = 17;
-    private ExtractorTileEntity te;
+    private ChemicalFurnaceTileEntity te;
 
     /***
      *
@@ -33,7 +33,8 @@ public class ExtractorContainer extends AdvancedContainer {
      * #HHHHHHHHH#
      * ###########
      */
-    public ExtractorContainer(IInventory playerInv, ExtractorTileEntity te) {
+    public ChemicalFurnaceContainer(IInventory playerInv,
+                                    ChemicalFurnaceTileEntity te) {
         this.te = te;
 
         IItemHandler input = te.getInput();
@@ -116,7 +117,7 @@ public class ExtractorContainer extends AdvancedContainer {
                         slot.onSlotChanged();
                         flag = true;
                         break;
-                    // If total of items cannot completely fill slot, do as much as possible
+                        // If total of items cannot completely fill slot, do as much as possible
                     } else if (itemstack.stackSize < stack.getMaxStackSize()) {
                         stack.stackSize -= max_stack_size - itemstack.stackSize;
                         itemstack.stackSize = max_stack_size;
@@ -157,7 +158,7 @@ public class ExtractorContainer extends AdvancedContainer {
                         stack = null;
                         flag = true;
                         break;
-                    // If total of items cannot completely fill slot, do as much as possible
+                        // If total of items cannot completely fill slot, do as much as possible
                     } else {
                         ItemStack portion = stack.copy();
                         portion.stackSize = slot1.getSlotStackLimit();

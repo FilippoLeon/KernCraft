@@ -37,13 +37,13 @@ public class LampTileEntity extends TileEntity implements IRedstoneSettable, IMe
 
     public void updateState() {
         if (redstoneMode == 0 && !this.worldObj.isBlockPowered(pos)) {
-            worldObj.setBlockState(this.pos, ModTileEntities.Lamp[0].getDefaultState()
+            worldObj.setBlockState(this.pos, ModTileEntities.LAMP.getDefaultState()
                     .withProperty(LampBlockEntity.POWERED, 0));
         } else if (redstoneMode == 1 && this.worldObj.isBlockPowered(pos)) {
-            worldObj.setBlockState(this.pos, ModTileEntities.Lamp[0].getDefaultState()
+            worldObj.setBlockState(this.pos, ModTileEntities.LAMP.getDefaultState()
                     .withProperty(LampBlockEntity.POWERED, 0));
         } else {
-            worldObj.setBlockState(this.pos, ModTileEntities.Lamp[0]
+            worldObj.setBlockState(this.pos, ModTileEntities.LAMP
                     .getDefaultState().withProperty(LampBlockEntity.POWERED, lightLevel));
         }
 

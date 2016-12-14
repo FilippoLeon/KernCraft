@@ -8,10 +8,8 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.ITickable;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.EnergyStorage;
@@ -23,8 +21,8 @@ import net.minecraftforge.items.ItemStackHandler;
 
 import java.util.ArrayList;
 
-public class ExtractorTileEntity extends TileEntity
-        implements ITickable, IRedstoneSettable {
+public class ExtractorTileEntity extends MachineTileEntity
+        implements IRedstoneSettable {
 
     // Slot IDs
     static final public int inputSlot = 0;
@@ -35,15 +33,12 @@ public class ExtractorTileEntity extends TileEntity
     static final public int outputSlotSize = 4;
     static final private int NumberOfSlots = 8;
     //// Static constants
-    private final static String name = "Extractor";
     static private final float ticTime = 5f;
     static private final int consumedEnergyPerFuelRefill = 100;
     static private final int generatedFuelPerEnergyDrain = 100;
     static private final int consumedFuelPerTic = 20;
     // Static register of recipes
     static public ArrayList<ExtractorRecipe> recipes;
-    public final ItemStackHandler input = new ItemStackHandler(4);
-    public final ItemStackHandler output = new ItemStackHandler(4);
     private final IItemHandler automationInput = new ItemStackHandler(4);
     private final IItemHandler automationOutput = new ItemStackHandler(4);
     // Internal storages
@@ -64,6 +59,8 @@ public class ExtractorTileEntity extends TileEntity
     private float elapsed = 0f;
 
     public ExtractorTileEntity() {
+        super(4, 4);
+
         if (recipes == null) {
             recipes = new ArrayList<ExtractorRecipe>();
             registerRecipe(Item.getItemFromBlock(Blocks.IRON_ORE),
@@ -107,16 +104,6 @@ public class ExtractorTileEntity extends TileEntity
 
     public int getRedstoneMode() {
         return mode;
-    }
-
-    public IItemHandler getInput()
-    {
-        return input;
-    }
-
-    public IItemHandler getOutput()
-    {
-        return output;
     }
 
     @Override
@@ -374,23 +361,6 @@ public class ExtractorTileEntity extends TileEntity
                         TileEntityFurnace.getItemBurnTime(new ItemStack(Items.COAL)),
                 1.0f
         );
-    }
-
-    @Override
-    public void readFromNBT(NBTTagCompound nbt)
-    {
-        super.readFromNBT(nbt);
-        input.deserializeNBT(nbt.getCompoundTag("Input"));
-        output.deserializeNBT(nbt.getCompoundTag("Output"));
-    }
-
-    @Override
-    public NBTTagCompound writeToNBT(NBTTagCompound nbt)
-    {
-        nbt = super.writeToNBT(nbt);
-        nbt.setTag("Input", input.serializeNBT());
-        nbt.setTag("Output", output.serializeNBT());
-        return nbt;
     }
 
     public void setMode(int mode) {

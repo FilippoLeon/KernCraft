@@ -3,23 +3,24 @@ package com.R3DKn16h7.kerncraft.client.gui;
 import com.R3DKn16h7.kerncraft.client.gui.widgets.AnimatedTexturedElement;
 import com.R3DKn16h7.kerncraft.client.gui.widgets.StateButton;
 import com.R3DKn16h7.kerncraft.client.gui.widgets.Text;
-import com.R3DKn16h7.kerncraft.guicontainer.ExtractorContainer;
+import com.R3DKn16h7.kerncraft.guicontainer.ChemicalFurnaceContainer;
 import com.R3DKn16h7.kerncraft.network.KernCraftNetwork;
 import com.R3DKn16h7.kerncraft.network.MessageRedstoneControl;
+import com.R3DKn16h7.kerncraft.tileentities.ChemicalFurnaceTileEntity;
 import com.R3DKn16h7.kerncraft.tileentities.ExtractorTileEntity;
 import net.minecraft.inventory.IInventory;
 
 import java.awt.*;
 import java.util.function.IntConsumer;
 
-public class ExtractorGuiContainer extends AdvancedGuiContainer {
+public class ChemicalFurnaceGuiContainer extends AdvancedGuiContainer {
 
     AnimatedTexturedElement flame;
-    AnimatedTexturedElement brewing;
     Text progressText;
 
-    public ExtractorGuiContainer(IInventory playerInv, ExtractorTileEntity te) {
-        super(new ExtractorContainer(playerInv, te), playerInv, te);
+    public ChemicalFurnaceGuiContainer(IInventory playerInv,
+                                       ChemicalFurnaceTileEntity te) {
+        super(new ChemicalFurnaceContainer(playerInv, te), playerInv, te);
 
         setBackground("kerncraft:textures/gui/container/extractor_gui.png",
                 0, 0, this.xSize, this.ySize);
@@ -27,11 +28,6 @@ public class ExtractorGuiContainer extends AdvancedGuiContainer {
         flame = AnimatedTexturedElement.FLAME(this, 18 * 1, 18 * 1);
         flame.setAutoAnimated(false, 0);
         AddWidget(flame, true);
-
-        brewing = AnimatedTexturedElement.BREWING(this, 18 * 3 + 1, 18 * 1 + 8);
-        brewing.setAutoAnimated(false, 0);
-        AddWidget(brewing, true);
-
 
         AnimatedTexturedElement energyBar = new AnimatedTexturedElement(this,
                 "kerncraft:textures/gui/container/extractor_gui.png", -1, -1,
@@ -64,7 +60,6 @@ public class ExtractorGuiContainer extends AdvancedGuiContainer {
         };
 
         StateButton btb2 = StateButton.REDSTONE_MODE(this, te);
-        btb2.setState(te.getRedstoneMode());
         AddWidget(btb2, true);
 
         // Side configuration button
@@ -92,7 +87,5 @@ public class ExtractorGuiContainer extends AdvancedGuiContainer {
 
 
         String perc2 = String.format("Progress %.2f%%", cast_te.getProgressPerc() * 100);
-        brewing.setPercentage(cast_te.getProgressPerc());
-        brewing.setTooltip(perc2);
     }
 }

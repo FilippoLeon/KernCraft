@@ -33,6 +33,7 @@ import net.minecraftforge.items.ItemStackHandler;
  * Created by Filippo on 14/12/2016.
  */
 public abstract class MachineBlock extends BlockContainer {
+
     public static final PropertyDirection FACING = BlockHorizontal.FACING;
 
     public static int gui = 0;
