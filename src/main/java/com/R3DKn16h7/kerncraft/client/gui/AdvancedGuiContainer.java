@@ -110,6 +110,8 @@ public class AdvancedGuiContainer extends GuiContainer implements IAdvancedGuiCo
 
         drawBackground();
 
+        GlStateManager.pushMatrix();
+        GlStateManager.translate(guiLeft - borderLeft, guiTop - borderTop, 0);
         List<String> hoveringText = new ArrayList<String>();
         for (IWidget widget : background_widgets) {
             widget.draw();
@@ -121,6 +123,7 @@ public class AdvancedGuiContainer extends GuiContainer implements IAdvancedGuiCo
         if (!hoveringText.isEmpty()) {
             drawHoveringText(hoveringText, mouseX - guiLeft, mouseY - guiTop, fontRendererObj);
         }
+        GlStateManager.popMatrix();
     }
 
     @Override

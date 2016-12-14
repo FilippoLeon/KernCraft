@@ -2,6 +2,7 @@ package com.R3DKn16h7.kerncraft.tileentities;
 
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
@@ -21,26 +22,26 @@ abstract public class SmeltingTileEntity
 
     //// Status variables
     // Are we currently smelting
-    static private final float ticTime = 5f;
+    static protected final float ticTime = 5f;
     //// Static constants
     // Static register of recipes
     static public ArrayList<ISmeltingRecipe> recipes;
-    private final IItemHandler automationInput;
-    private final IItemHandler automationOutput;
+    protected final IItemHandler automationInput;
+    protected final IItemHandler automationOutput;
     // Internal storages
     public EnergyStorage storage;
     public FluidTank tank;
     // Has the input changed since last check?
     public boolean inputChanged = false;
-    int mode = 0;
-    private boolean smelting = false;
+    protected boolean smelting = false;
     // Recipe Id currently smelting
-    private int smeltingId = -1;
+    protected ISmeltingRecipe currentlySmelting;
     // Current progress oin smelting
-    private int progress;
-    private int storedFuel = 0;
+    protected int progress;
+    protected int storedFuel = 0;
     //
-    private float elapsed = 0f;
+    protected float elapsed = 0f;
+    int mode = 0;
 
     public SmeltingTileEntity(int inputSize, int outputSize) {
         super(inputSize, outputSize);
@@ -91,24 +92,12 @@ abstract public class SmeltingTileEntity
     }
 
     public float getProgressPerc() {
-        if (smeltingId == -1) return 0f;
-        return progress / (float) recipes.get(smeltingId).getCost();
+        if (currentlySmelting == null) return 0f;
+        return progress / (float) currentlySmelting.getCost();
     }
 
     public boolean canSmelt() {
-        return canSmelt(smeltingId);
-    }
-
-    /**
-     * Return true if recipe idx can be smelted.
-     *
-     * @param idx
-     * @return
-     */
-    public boolean canSmelt(int idx) {
-        if (idx == -1) return false;
-        ISmeltingRecipe recipe = recipes.get(idx);
-        return canSmelt(recipe);
+        return canSmelt(currentlySmelting);
     }
 
     abstract public boolean canSmelt(ISmeltingRecipe rec);
@@ -130,10 +119,11 @@ abstract public class SmeltingTileEntity
             findRecipe();
             inputChanged = false;
         }
+        if (currentlySmelting == null) return;
         if (canSmelt()) {
             if (!tryProgress()) return;
             ++progress;
-            if (progress >= recipes.get(smeltingId).getCost()) {
+            if (progress >= currentlySmelting.getCost()) {
                 progress = 0;
                 doneSmelting();
             }
@@ -147,22 +137,20 @@ abstract public class SmeltingTileEntity
      */
     public void abortSmelting() {
         smelting = false;
-        smeltingId = -1;
+        currentlySmelting = null;
     }
 
     /**
      * Find recipe that matches the input/catalyst slots
      */
     public void findRecipe() {
-        int idx = 0;
+        if (recipes == null) return;
         for (ISmeltingRecipe recipe : recipes) {
-            if (canSmelt(idx)) {
-                smeltingId = idx;
+            if (canSmelt(recipe)) {
+                currentlySmelting = recipe;
                 smelting = true;
                 return;
             }
-
-            ++idx;
         }
         abortSmelting();
     }
@@ -185,6 +173,28 @@ abstract public class SmeltingTileEntity
                         TileEntityFurnace.getItemBurnTime(new ItemStack(Items.COAL)),
                 1.0f
         );
+    }
+
+    @Override
+    public void readFromNBT(NBTTagCompound nbt) {
+        super.readFromNBT(nbt);
+        if (nbt.hasKey("RedstoneMode"))
+            mode = nbt.getInteger("RedstoneMode");
+    }
+
+    @Override
+    public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
+        nbt = super.writeToNBT(nbt);
+        nbt.setInteger("RedstoneMode", mode);
+        return nbt;
+    }
+
+    @Override
+    public void restoreFromNBT(NBTTagCompound nbt) {
+        super.restoreFromNBT(nbt);
+
+        if (nbt != null && nbt.hasKey("RedstoneMode"))
+            mode = nbt.getInteger("RedstoneMode");
     }
 
     public void setMode(int mode) {

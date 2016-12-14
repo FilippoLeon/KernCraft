@@ -1,18 +1,18 @@
 {
   "variants": {
     "facing=north": {
-      "model": "kerncraft:chemical_furnaces"
+      "model": "kerncraft:chemical_furnace"
     },
     "facing=south": {
-      "model": "kerncraft:chemical_furnaces",
+      "model": "kerncraft:chemical_furnace",
       "y": 180
     },
     "facing=west": {
-      "model": "kerncraft:chemical_furnaces",
+      "model": "kerncraft:chemical_furnace",
       "y": 270
     },
     "facing=east": {
-      "model": "kerncraft:chemical_furnaces",
+      "model": "kerncraft:chemical_furnace",
       "y": 90
     }
   }

@@ -16,7 +16,8 @@ public class TexturedElement extends Widget {
     public int offsetX, offsetY;
     public Color tint;
 
-    public TexturedElement(AdvancedGuiContainer container, String texture, int xPosition, int yPosition,
+    public TexturedElement(AdvancedGuiContainer container, String texture,
+                           int xPosition, int yPosition,
                            int xSize, int ySize,
                            int offsetX, int offsetY) {
         super(container, xPosition, yPosition, xSize, ySize);

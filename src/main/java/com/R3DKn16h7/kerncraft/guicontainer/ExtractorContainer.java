@@ -6,15 +6,10 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.SlotItemHandler;
 
 
 public class ExtractorContainer extends AdvancedContainer {
 
-    static public int xSlotSize = 18;
-    static public int ySlotSize = 18;
-    static public int bdLeft = 8;
-    static public int bdTop = 17;
     private ExtractorTileEntity te;
 
     /***
@@ -41,14 +36,19 @@ public class ExtractorContainer extends AdvancedContainer {
 
         int id = -1;
         // Input (I) ID 0
-        this.addSlotToContainer(new SlotItemHandler(input, ++id, bdLeft + xSlotSize, bdTop));
+        this.addSlotToContainer(new AdvancedSlotItemHandler(this,
+                input, ++id,
+                bdLeft + xSlotSize, bdTop, 64));
         // Catalyst (LAB_BOOTS) ID 1
-        this.addSlotToContainer(new SlotItemHandler(input, ++id, bdLeft + 3 * xSlotSize, bdTop));
+        this.addSlotToContainer(new AdvancedSlotItemHandler(this,
+                input, ++id, bdLeft + 3 * xSlotSize, bdTop, 64));
         // Container (R) ID 2
-        this.addSlotToContainer(new SlotItemHandler(input, ++id, bdLeft + 8 * xSlotSize, bdTop));
+        this.addSlotToContainer(new AdvancedSlotItemHandler(this,
+                input, ++id, bdLeft + 8 * xSlotSize, bdTop, 64));
         // Fuel slot (F) ID 3
-        this.addSlotToContainer(new SlotItemHandler(input, ++id,
-                bdLeft + xSlotSize, bdTop + 2 * ySlotSize));
+        this.addSlotToContainer(new AdvancedSlotItemHandler(this,
+                input, ++id,
+                bdLeft + xSlotSize, bdTop + 2 * ySlotSize, 64));
         // Output (O) ID 4-7
         int numOutputs = 4;
         for (int i = 0; i < numOutputs; ++i) {
@@ -192,6 +192,7 @@ public class ExtractorContainer extends AdvancedContainer {
             ItemStack current = slot.getStack();
             previous = current.copy();
 
+            // TODO: FIX
             if (fromSlot < 8) {
                 // We are shift clicking something in the tile entity
                 if (!this.mergeItemStack(current,

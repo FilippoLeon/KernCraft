@@ -4,25 +4,16 @@ import com.R3DKn16h7.kerncraft.elements.ElementBase;
 import com.R3DKn16h7.kerncraft.items.Canister;
 import com.R3DKn16h7.kerncraft.items.ModItems;
 import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntityFurnace;
-import net.minecraft.util.EnumFacing;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.energy.CapabilityEnergy;
-import net.minecraftforge.energy.EnergyStorage;
-import net.minecraftforge.fluids.FluidTank;
-import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
-import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 
 import java.util.ArrayList;
 
-public class ExtractorTileEntity extends MachineTileEntity
-        implements IRedstoneSettable {
+public class ExtractorTileEntity extends SmeltingTileEntity {
 
     // Slot IDs
     static final public int inputSlot = 0;
@@ -33,36 +24,18 @@ public class ExtractorTileEntity extends MachineTileEntity
     static final public int outputSlotSize = 4;
     static final private int NumberOfSlots = 8;
     //// Static constants
-    static private final float ticTime = 5f;
     static private final int consumedEnergyPerFuelRefill = 100;
     static private final int generatedFuelPerEnergyDrain = 100;
     static private final int consumedFuelPerTic = 20;
     // Static register of recipes
-    static public ArrayList<ExtractorRecipe> recipes;
     private final IItemHandler automationInput = new ItemStackHandler(4);
     private final IItemHandler automationOutput = new ItemStackHandler(4);
-    // Internal storages
-    public EnergyStorage storage = new EnergyStorage(1000);
-    public FluidTank tank = new FluidTank(1000);
-    // Has the input changed since last check?
-    public boolean inputChanged = false;
-    int mode = 0;
-    //// Status variables
-    // Are we currently smelting
-    private boolean smelting = false;
-    // Recipe Id currently smelting
-    private int smeltingId = -1;
-    // Current progress oin smelting
-    private int progress;
-    private int storedFuel = 0;
-    //
-    private float elapsed = 0f;
 
     public ExtractorTileEntity() {
         super(4, 4);
 
         if (recipes == null) {
-            recipes = new ArrayList<ExtractorRecipe>();
+            recipes = new ArrayList<ISmeltingRecipe>();
             registerRecipe(Item.getItemFromBlock(Blocks.IRON_ORE),
                     Item.getItemFromBlock(Blocks.ANVIL),
                     new ElementStack[]{new ElementStack(1, 1), new ElementStack(4, 1)}, 10);
@@ -102,61 +75,19 @@ public class ExtractorTileEntity extends MachineTileEntity
         return true;
     }
 
-    public int getRedstoneMode() {
-        return mode;
-    }
-
     @Override
-    public boolean hasCapability(Capability<?> capability,
-                                 EnumFacing facing) {
-        if (capability == CapabilityEnergy.ENERGY ||
-                capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY ||
-                capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-            return true;
-        }
-        return super.hasCapability(capability, facing);
-    }
+    public boolean canSmelt(ISmeltingRecipe rec) {
+        ExtractorRecipe ex_rec = ((ExtractorRecipe) rec);
 
-    @Override
-    public <T> T getCapability(Capability<T> capability,
-                               EnumFacing facing) {
-        if (capability == CapabilityEnergy.ENERGY) {
-            return CapabilityEnergy.ENERGY.cast(storage);
-        } else if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
-            return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(tank);
-        } else if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY){
-            //return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(automationInput);
-            return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(input);
-        }
-        return super.getCapability(capability, facing);
-    }
-
-    public float getProgressPerc() {
-        if(smeltingId == -1) return 0f;
-        return progress / (float) recipes.get(smeltingId).energy;
-    }
-
-    public boolean canSmelt() {
-        return canSmelt(smeltingId);
-    }
-
-    /**
-     * Return true if recipe idx can be smelted.
-     * @param idx
-     * @return
-     */
-    public boolean canSmelt(int idx) {
-        if (idx == -1) return false;
-        ExtractorRecipe recipe = recipes.get(idx);
         return !(input == null ||
                 input.getStackInSlot(inputSlot) == null ||
                 // Check input
-                input.getStackInSlot(inputSlot).getItem() != recipe.item ||
+                input.getStackInSlot(inputSlot).getItem() != ex_rec.item ||
                 input.getStackInSlot(inputSlot).stackSize < 1 ||
                 // Check catalyst
-                recipe.catalyst != null &&
+                ex_rec.catalyst != null &&
                         (input.getStackInSlot(catalystSlot) == null ||
-                                input.getStackInSlot(catalystSlot).getItem() != recipe.catalyst ||
+                                input.getStackInSlot(catalystSlot).getItem() != ex_rec.catalyst ||
                                 input.getStackInSlot(catalystSlot).stackSize < 1
                         ));
     }
@@ -166,9 +97,9 @@ public class ExtractorTileEntity extends MachineTileEntity
      * if it fails, return false.
      * @return
      */
-    public boolean tryConsumeFuel() {
-
-        ExtractorRecipe recipe = recipes.get(smeltingId);
+    @Override
+    public boolean tryProgress() {
+        ExtractorRecipe recipe = ((ExtractorRecipe) currentlySmelting);
         if (storedFuel < consumedFuelPerTic) {
             ItemStack fuelItem = input.getStackInSlot(fuelSlot);
             int fuel = TileEntityFurnace.getItemBurnTime(fuelItem); //GameRegistry.getFuelValue(fuelItem);
@@ -192,45 +123,23 @@ public class ExtractorTileEntity extends MachineTileEntity
         return true;
     }
 
-    /**
-     * Do "one tick" of smelting, check if recipe changed, and if it
-     * is possible to continue smelting.
-     */
-    public void progressSmelting() {
-
-        if (mode == 0 && !this.worldObj.isBlockPowered(pos)) return;
-        if (mode == 1 && this.worldObj.isBlockPowered(pos)) return;
-
-        if (inputChanged) {
-            findRecipe();
-            inputChanged = false;
-        }
-        if (canSmelt()) {
-            if( !tryConsumeFuel() ) return;
-            ++progress;
-            if (progress >= recipes.get(smeltingId).energy) {
-                progress = 0;
-                doneSmelting();
-            }
-        } else {
-            progress = 0;
-        }
-    }
-
+    @Override
     public void doneSmelting() {
+        ExtractorRecipe recipe = ((ExtractorRecipe) currentlySmelting);
+
         input.setStackInSlot(inputSlot, new ItemStack(input.getStackInSlot(inputSlot).getItem(),
                 input.getStackInSlot(inputSlot).stackSize - 1));
         if (input.getStackInSlot(inputSlot).stackSize == 0) input.setStackInSlot(inputSlot, null);
-        if (recipes.get(smeltingId).catalyst != null) {
+        if (recipe.catalyst != null) {
             input.setStackInSlot(catalystSlot, new ItemStack(input.getStackInSlot(catalystSlot).getItem(),
                     input.getStackInSlot(catalystSlot).stackSize - 1));
             if (input.getStackInSlot(catalystSlot).stackSize == 0) input.setStackInSlot(catalystSlot, null);
         }
 
         // For each Element output, flag telling if this has already been produced
-        int[] remaining = new int[recipes.get(smeltingId).outs.length];
-        for (int i = 0; i < recipes.get(smeltingId).outs.length; ++i) {
-            remaining[i] = recipes.get(smeltingId).outs[i].quantity;
+        int[] remaining = new int[recipe.outs.length];
+        for (int i = 0; i < recipe.outs.length; ++i) {
+            remaining[i] = recipe.outs[i].quantity;
         }
 
         // Place outputs in canisters, only if output can be placed (i.e. there isn't another element inside.
@@ -250,7 +159,7 @@ public class ExtractorTileEntity extends MachineTileEntity
 
             // Try each generated element
             int i = 0;
-            for (ElementStack rec_out : recipes.get(smeltingId).outs) {
+            for (ElementStack rec_out : recipe.outs) {
                 // If all output has been produced break
                 if (remaining[i] <= 0) {
                     ++i;
@@ -292,7 +201,7 @@ public class ExtractorTileEntity extends MachineTileEntity
             if (out == null) {
                 // Try each element
                 int i = 0;
-                for (ElementStack rec_out : recipes.get(smeltingId).outs) {
+                for (ElementStack rec_out : recipe.outs) {
 
                     // If Element has not been produced and there is a CANISTER in
                     // the slot
@@ -318,54 +227,6 @@ public class ExtractorTileEntity extends MachineTileEntity
         this.markDirty();
     }
 
-    /**
-     *
-     */
-    public void abortSmelting() {
-        smelting = false;
-        smeltingId = -1;
-    }
-
-    /**
-     * Find recipe that matches the input/catalyst slots
-     */
-    public void findRecipe() {
-        int idx = 0;
-        for (ExtractorRecipe recipe : recipes) {
-            if (canSmelt(idx)) {
-                smeltingId = idx;
-                smelting = true;
-                return;
-            }
-
-            ++idx;
-        }
-        abortSmelting();
-    }
-
-    /**
-     * Update entity: check if needs to smelt item
-     */
-    @Override
-    public void update() {
-        if (elapsed > ticTime) {
-            progressSmelting();
-            elapsed = 0;
-        } else {
-            elapsed += 1;
-        }
-    }
-
-    public float getFuelStoredPercentage() {
-        return Math.min(storedFuel / (float)
-                        TileEntityFurnace.getItemBurnTime(new ItemStack(Items.COAL)),
-                1.0f
-        );
-    }
-
-    public void setMode(int mode) {
-        this.mode = mode;
-    }
 
     static public class ElementStack {
         public int id;
@@ -396,7 +257,7 @@ public class ExtractorTileEntity extends MachineTileEntity
     /**
      * Represents the recipe for the extractor.
      */
-    static public class ExtractorRecipe {
+    static public class ExtractorRecipe implements ISmeltingRecipe {
         public Item item;
         public Item catalyst;
         public ElementStack[] outs;
@@ -408,6 +269,11 @@ public class ExtractorTileEntity extends MachineTileEntity
             catalyst = catalyst_;
             outs = outs_;
             energy = energy_;
+        }
+
+        @Override
+        public int getCost() {
+            return energy;
         }
     }
 }

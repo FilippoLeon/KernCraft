@@ -6,15 +6,10 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.SlotItemHandler;
 
 
 public class ChemicalFurnaceContainer extends AdvancedContainer {
 
-    static public int xSlotSize = 18;
-    static public int ySlotSize = 18;
-    static public int bdLeft = 8;
-    static public int bdTop = 17;
     private ChemicalFurnaceTileEntity te;
 
     /***
@@ -40,21 +35,19 @@ public class ChemicalFurnaceContainer extends AdvancedContainer {
         IItemHandler input = te.getInput();
         IItemHandler output = te.getOutput();
 
-        int id = -1;
-        // Input (I) ID 0
-        this.addSlotToContainer(new SlotItemHandler(input, ++id, bdLeft + xSlotSize, bdTop));
-        // Catalyst (LAB_BOOTS) ID 1
-        this.addSlotToContainer(new SlotItemHandler(input, ++id, bdLeft + 3 * xSlotSize, bdTop));
-        // Container (R) ID 2
-        this.addSlotToContainer(new SlotItemHandler(input, ++id, bdLeft + 8 * xSlotSize, bdTop));
-        // Fuel slot (F) ID 3
-        this.addSlotToContainer(new SlotItemHandler(input, ++id,
-                bdLeft + xSlotSize, bdTop + 2 * ySlotSize));
-        // Output (O) ID 4-7
-        int numOutputs = 4;
+        int numInputs = 2;
+        for (int i = 0; i < numInputs; ++i) {
+            this.addSlotToContainer(new AdvancedSlotItemHandler(this,
+                    input, i,
+                    bdLeft + (4 + i) * xSlotSize,
+                    bdTop + 0 * ySlotSize, 64));
+        }
+        int numOutputs = 2;
         for (int i = 0; i < numOutputs; ++i) {
-            this.addSlotToContainer(new AdvancedSlotItemHandler(this, output, i,
-                    bdLeft + (5 + i) * xSlotSize, bdTop + 2 * ySlotSize));
+            this.addSlotToContainer(new AdvancedSlotItemHandler(this,
+                    output, i,
+                    bdLeft + (4 + i) * xSlotSize,
+                    bdTop + 2 * ySlotSize, 64));
         }
 
         // Player Inventory Slot 9-35, ID 9-35
@@ -193,6 +186,7 @@ public class ChemicalFurnaceContainer extends AdvancedContainer {
             ItemStack current = slot.getStack();
             previous = current.copy();
 
+            // TODO: FIX
             if (fromSlot < 8) {
                 // We are shift clicking something in the tile entity
                 if (!this.mergeItemStack(current,
@@ -200,7 +194,7 @@ public class ChemicalFurnaceContainer extends AdvancedContainer {
                     return null;
             } else {
                 // We are shift clicking something from the tile entity
-                if (!this.mergeItemStack(current, 0, 8, false))
+                if (!this.mergeItemStack(current, 0, 4, false))
                     return null;
             }
 

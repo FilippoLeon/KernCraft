@@ -14,7 +14,6 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumBlockRenderType;
@@ -24,10 +23,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraftforge.items.ItemStackHandler;
 
 /**
  * Created by Filippo on 14/12/2016.
@@ -36,8 +33,8 @@ public abstract class MachineBlock extends BlockContainer {
 
     public static final PropertyDirection FACING = BlockHorizontal.FACING;
 
-    public static int gui = 0;
-    public static boolean has_gui = false;
+    public int gui;
+    public boolean has_gui = false;
 
     public MachineBlock(String unlocalizedName) {
         super(Material.IRON);
@@ -50,30 +47,20 @@ public abstract class MachineBlock extends BlockContainer {
         this.isBlockContainer = true;
 
         setRegistryName(unlocalizedName);
-        GameRegistry.register(this);
-        GameRegistry.register(new ItemBlock(this).setRegistryName(unlocalizedName));
-        GameRegistry.registerTileEntity(ExtractorTileEntity.class, unlocalizedName);
-
         this.setDefaultState(this.blockState
                 .getBaseState().withProperty(FACING, EnumFacing.NORTH));
     }
 
     @Override
     public void breakBlock(World world, BlockPos pos, IBlockState blockstate) {
-        MachineTileEntity te = (MachineTileEntity) world.getTileEntity(pos);
 
         double x = pos.getX(), y = pos.getY(), z = pos.getZ();
-
-        ItemStackHandler inv_in = te.getInput();
-        ItemStackHandler inv_out = te.getOutput();
 
         ItemStack te_stack = new ItemStack(this);
 
         NBTTagCompound nbt = new NBTTagCompound();
-        if (inv_in != null)
-            nbt.setTag("Input", inv_in.serializeNBT());
-        if (inv_out != null)
-            nbt.setTag("Output", inv_out.serializeNBT());
+        MachineTileEntity te = (MachineTileEntity) world.getTileEntity(pos);
+        nbt = te.writeToNBT(nbt);
         te_stack.setTagCompound(nbt);
 
         float f = world.rand.nextFloat() * 0.8F + 0.1F;
@@ -91,6 +78,7 @@ public abstract class MachineBlock extends BlockContainer {
 
     @Override
     public EnumBlockRenderType getRenderType(IBlockState state) {
+
         return EnumBlockRenderType.MODEL;
     }
 
@@ -102,8 +90,8 @@ public abstract class MachineBlock extends BlockContainer {
     }
 
     void setGui(int gui) {
-        MachineBlock.gui = gui;
-        has_gui = true;
+        this.gui = gui;
+        this.has_gui = true;
     }
 
     @Override
@@ -183,6 +171,7 @@ public abstract class MachineBlock extends BlockContainer {
         return new BlockStateContainer(this, FACING);
     }
 
+
     @Override
     public void onBlockPlacedBy(World world, BlockPos pos,
                                 IBlockState state, EntityLivingBase placer,
@@ -190,14 +179,9 @@ public abstract class MachineBlock extends BlockContainer {
         world.setBlockState(pos, state.withProperty(FACING,
                 placer.getHorizontalFacing().getOpposite()), 2);
 
-        ExtractorTileEntity te = (ExtractorTileEntity) world.getTileEntity(pos);
+        MachineTileEntity te = (MachineTileEntity) world.getTileEntity(pos);
         NBTTagCompound nbt = stack.getTagCompound();
-        if (nbt != null && nbt.hasKey("Input")) {
-            te.input.deserializeNBT(nbt.getCompoundTag("Input"));
-        }
-        if (nbt != null && nbt.hasKey("Output")) {
-            te.output.deserializeNBT(nbt.getCompoundTag("Output"));
-        }
+        te.restoreFromNBT(nbt);
         if (stack.hasDisplayName()) {
             // ((ExtractorEntity) worldIn.getTileEntity(pos))
             // .setCustomName(stack.getDisplayName());

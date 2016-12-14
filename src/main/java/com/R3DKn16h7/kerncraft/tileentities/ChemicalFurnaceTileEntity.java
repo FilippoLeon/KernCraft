@@ -1,5 +1,8 @@
 package com.R3DKn16h7.kerncraft.tileentities;
 
+import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
+
 public class ChemicalFurnaceTileEntity extends SmeltingTileEntity {
 
     // Slot IDs
@@ -15,7 +18,9 @@ public class ChemicalFurnaceTileEntity extends SmeltingTileEntity {
 
     @Override
     public boolean canSmelt(ISmeltingRecipe rec) {
-        return false;
+        return input.getStackInSlot(0) != null &&
+                input.getStackInSlot(0).getItem() ==
+                        Item.getItemFromBlock(Blocks.IRON_BLOCK);
     }
 
     @Override
@@ -25,6 +30,6 @@ public class ChemicalFurnaceTileEntity extends SmeltingTileEntity {
 
     @Override
     public void doneSmelting() {
-
+        int a = storage.receiveEnergy(100, false);
     }
 }

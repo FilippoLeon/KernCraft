@@ -62,8 +62,12 @@ public abstract class MachineTileEntity extends TileEntity
     @Override
     public void readFromNBT(NBTTagCompound nbt) {
         super.readFromNBT(nbt);
-        input.deserializeNBT(nbt.getCompoundTag("Input"));
-        output.deserializeNBT(nbt.getCompoundTag("Output"));
+        if (nbt != null && nbt.hasKey("Input")) {
+            input.deserializeNBT(nbt.getCompoundTag("Input"));
+        }
+        if (nbt != null && nbt.hasKey("Output")) {
+            output.deserializeNBT(nbt.getCompoundTag("Output"));
+        }
     }
 
     @Override
@@ -72,5 +76,14 @@ public abstract class MachineTileEntity extends TileEntity
         nbt.setTag("Input", input.serializeNBT());
         nbt.setTag("Output", output.serializeNBT());
         return nbt;
+    }
+
+    public void restoreFromNBT(NBTTagCompound nbt) {
+        if (nbt != null && nbt.hasKey("Input")) {
+            input.deserializeNBT(nbt.getCompoundTag("Input"));
+        }
+        if (nbt != null && nbt.hasKey("Output")) {
+            output.deserializeNBT(nbt.getCompoundTag("Output"));
+        }
     }
 }

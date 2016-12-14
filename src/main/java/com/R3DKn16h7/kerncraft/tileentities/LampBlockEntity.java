@@ -12,6 +12,7 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
@@ -21,6 +22,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -32,26 +34,26 @@ public class LampBlockEntity extends BlockContainer {
 
     public static final PropertyInteger POWERED = PropertyInteger.create("lightlevel", 0, 15);
 
-    protected LampBlockEntity(int ll) {
+    protected LampBlockEntity(String unlocalizedName) {
         super(Material.IRON);
-        String name = "lamp";
-        this.setUnlocalizedName(name);
+        this.setUnlocalizedName(unlocalizedName);
         this.setHardness(2.0f);
         this.setResistance(6.0f);
         this.setHarvestLevel("pickaxe", 2);
-        if (ll == 0) this.setCreativeTab(CreativeTabs.MISC);
+        this.setCreativeTab(CreativeTabs.MISC);
 
-        setLightLevel((float) ll / 15.0F);
+        setLightLevel(0f);
         setLightOpacity(1);
         this.setDefaultState(this.blockState.getBaseState()
-                .withProperty(POWERED, ll));
+                .withProperty(POWERED, 0));
         //this.setLightLevel(1.0F);
 
-        setUnlocalizedName(name);
-        setRegistryName(name);
-        //GameRegistry.register(this);
-        //GameRegistry.register(new ItemBlock(this), getRegistryName());
-        //GameRegistry.registerTileEntity(LampTileEntity.class, getRegistryName().toString());
+        setUnlocalizedName(unlocalizedName);
+        setRegistryName(unlocalizedName);
+
+        GameRegistry.register(this);
+        GameRegistry.register(new ItemBlock(this), this.getRegistryName());
+        GameRegistry.registerTileEntity(LampTileEntity.class, "lamp");
     }
 
     @Override
