@@ -1,0 +1,13 @@
+{
+  "chapters": [
+    "first_chapter",
+    "second_chapter"
+  ],
+  "entries": [
+    {
+      "introduction": {
+        "chapter": "first_chapter"
+      }
+    }
+  ]
+}

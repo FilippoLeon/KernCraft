@@ -9,4 +9,6 @@ public interface IRedstoneSettable {
     BlockPos getPos();
 
     void setMode(int i);
+
+    int getRedstoneMode();
 }

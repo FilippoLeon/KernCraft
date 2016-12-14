@@ -7,6 +7,7 @@ import com.R3DKn16h7.kerncraft.tileentities.IRedstoneSettable;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.function.IntConsumer;
 
@@ -56,6 +57,20 @@ public class StateButton extends BetterButton {
         return btb2;
     }
 
+    public StateButton setState(int i) {
+        if (states == null || states.size() == 0) return this;
+        stateIdx = i % states.size();
+        State state = states.get(stateIdx);
+        if (state.texture != null)
+            setIcon(state.texture, state.xTexture, state.yTexture, 16, 16);
+        if (state.tint != null)
+            setTint(state.tint);
+        setText(state.text);
+        setTooltip(state.tooltip);
+        if (OnStateChangedConsumer != null) OnStateChangedConsumer.accept(stateIdx);
+        return this;
+    }
+
     public StateButton addState(State state) {
         states.add(state);
         if (states.size() == 1) {
@@ -71,13 +86,7 @@ public class StateButton extends BetterButton {
 
     public void nextState() {
         //setIcon();
-        stateIdx++;
-        if (stateIdx >= states.size()) stateIdx = 0;
-        State state = states.get(stateIdx);
-        setIcon(state.texture, state.xTexture, state.yTexture, 16, 16);
-        setText(state.text);
-        setTooltip(state.tooltip);
-        if (OnStateChangedConsumer != null) OnStateChangedConsumer.accept(stateIdx);
+        setState(++stateIdx);
     }
 
     @Override
@@ -91,6 +100,12 @@ public class StateButton extends BetterButton {
         public String texture;
         public String text;
         public String tooltip;
+        public Color tint;
+
+        public State() {
+            this.xTexture = 0;
+            this.yTexture = 0;
+        }
 
         public State(String texture, String text, String tooltip, int xTexture, int yTexture) {
             this.texture = texture;
@@ -98,6 +113,21 @@ public class StateButton extends BetterButton {
             this.tooltip = tooltip;
             this.xTexture = xTexture;
             this.yTexture = yTexture;
+        }
+
+        public State setTint(Color tint) {
+            this.tint = tint;
+            return this;
+        }
+
+        public State setText(String txt) {
+            this.text = txt;
+            return this;
+        }
+
+        public State setTooltip(String txt) {
+            this.tooltip = txt;
+            return this;
         }
     }
 }

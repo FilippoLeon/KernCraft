@@ -26,7 +26,6 @@ import java.util.ArrayList;
 public class ExtractorTileEntity extends TileEntity
         implements ITickable, IRedstoneSettable {
 
-
     // Slot IDs
     static final public int inputSlot = 0;
     static final public int catalystSlot = 1;
@@ -104,6 +103,10 @@ public class ExtractorTileEntity extends TileEntity
                                          ElementStack[] outs, int energy) {
         recipes.add(new ExtractorRecipe(item, catalyst, outs, energy));
         return true;
+    }
+
+    public int getRedstoneMode() {
+        return mode;
     }
 
     public IItemHandler getInput()
@@ -377,7 +380,6 @@ public class ExtractorTileEntity extends TileEntity
     public void readFromNBT(NBTTagCompound nbt)
     {
         super.readFromNBT(nbt);
-        System.out.println("adssaddsadsadsadsadsadsadsadsadsa");
         input.deserializeNBT(nbt.getCompoundTag("Input"));
         output.deserializeNBT(nbt.getCompoundTag("Output"));
     }
@@ -386,7 +388,6 @@ public class ExtractorTileEntity extends TileEntity
     public NBTTagCompound writeToNBT(NBTTagCompound nbt)
     {
         nbt = super.writeToNBT(nbt);
-        System.out.println("WWWWadssaddsadsadsadsadsadsadsadsadsa");
         nbt.setTag("Input", input.serializeNBT());
         nbt.setTag("Output", output.serializeNBT());
         return nbt;

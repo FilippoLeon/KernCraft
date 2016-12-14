@@ -10,6 +10,7 @@ import com.R3DKn16h7.kerncraft.network.MessageRedstoneControl;
 import com.R3DKn16h7.kerncraft.tileentities.ExtractorTileEntity;
 import net.minecraft.inventory.IInventory;
 
+import java.awt.*;
 import java.util.function.IntConsumer;
 
 public class ExtractorGuiContainer extends AdvancedGuiContainer {
@@ -39,7 +40,12 @@ public class ExtractorGuiContainer extends AdvancedGuiContainer {
         // energyBar.setTint(Color.blue);
         AddWidget(energyBar, true);
 
-        String s = this.playerInv.getDisplayName().getUnformattedText();
+        String s;
+        if (te.getDisplayName() != null)
+            s = te.getDisplayName().getUnformattedText();
+        else
+            s = "Extractor";
+
         Text titleText = new Text(this, 0, -borderTop + 4,
                 this.xSize - 2 * borderLeft, 6, Text.Alignment.MIDDLE);
         titleText.setText(s);
@@ -57,7 +63,7 @@ public class ExtractorGuiContainer extends AdvancedGuiContainer {
 
         int i = 0;
         Runnable r = () -> {
-            System.out.println("Click!");
+            //System.out.println("Click!");
         };
         IntConsumer sdd = (int state) -> {
             te.setMode(state);
@@ -76,7 +82,15 @@ public class ExtractorGuiContainer extends AdvancedGuiContainer {
                 .addState(new StateButton.State("kerncraft:textures/gui/widgets.png",
                         "", "Ignore", 16 * 2, 16 * 7))
                 .addOnStateChanged(sdd);
+
+        btb2.setState(te.getRedstoneMode());
         AddWidget(btb2, true);
+
+
+        StateButton btbX = new StateButton(this, 23, 48, 6, 6)
+                .addState(new StateButton.State().setTooltip("Front").setTint(Color.red));
+
+        AddWidget(btbX, true);
     }
 
     @Override

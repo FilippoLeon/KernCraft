@@ -32,7 +32,7 @@ public class ModTileEntities {
         CLOCK_TE = new ClockTileEntity();
 
         //LAMP = new LampBlockEntity();
-        for (int i = 0; i < 16; ++i) Lamp[i] = new LampBlockEntity(i);
+        for (int i = 0; i < 1; ++i) Lamp[i] = new LampBlockEntity(i);
         LAMP_DEFAULT = Lamp[0];
 
         GameRegistry.register(LAMP_DEFAULT);

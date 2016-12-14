@@ -17,7 +17,8 @@ public class LampGui extends AdvancedGui {
 
         setDynamicBackground(200, 60);
 
-        BetterButton bt = StateButton.REDSTONE_MODE(this, te);
+        StateButton bt = StateButton.REDSTONE_MODE(this, te);
+        bt.setState(te.redstoneMode);
         AddWidget(bt);
 
         Text txt = new Text(this, getMiddle() - 10 - borderLeft - borderLeft / 2, 0, Widget.Alignment.MIDDLE);

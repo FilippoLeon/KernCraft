@@ -8,9 +8,63 @@
     "uvlock": true
   },
   "variants": {
-    "normal": [
-      {
+    "lightlevel": {
+      "0": {
+        "textures": {
+          "all": "kerncraft:blocks/test_block"
+        }
+      },
+      "1": {
+        "textures": {
+          "side": "kerncraft:blocks/test_block"
+        }
+      },
+      "2": {
+        "textures": {
+          "side": "kerncraft:blocks/test_block"
+        }
+      },
+      "3": {
+        "textures": {
+          "side": "kerncraft:blocks/test_block"
+        }
+      },
+      "4": {
+        "textures": {
+          "side": "kerncraft:blocks/test_block"
+        }
+      },
+      "5": {
+        "textures": {
+          "side": "kerncraft:blocks/test_block"
+        }
+      },
+      "6": {
+        "textures": {
+          "side": "kerncraft:blocks/test_block"
+        }
+      },
+      "7": {
+        "textures": {
+          "side": "kerncraft:blocks/test_block"
+        }
+      },
+      "8": {
+      },
+      "9": {
+      },
+      "10": {
+      },
+      "11": {
+      },
+      "12": {
+      },
+      "13": {
+      },
+      "14": {
+      },
+      "15": {
       }
-    ]
+    }
   }
 }
