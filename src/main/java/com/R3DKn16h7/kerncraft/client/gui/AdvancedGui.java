@@ -66,7 +66,7 @@ public class AdvancedGui extends GuiScreen implements IAdvancedGuiContainer {
     }
 
     public void add(GuiButton btn) {
-        func_189646_b(btn);
+        addButton(btn);
     }
 
     @Override

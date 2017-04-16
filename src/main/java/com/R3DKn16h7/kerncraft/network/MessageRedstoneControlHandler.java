@@ -16,7 +16,7 @@ public class MessageRedstoneControlHandler implements IMessageHandler<MessageRed
     public IMessage onMessage(MessageRedstoneControl message, MessageContext ctx) {
         System.out.println("Block at " + message.pos + " sent " + message.mode);
         EntityPlayer player = ctx.getServerHandler().playerEntity;
-        TileEntity te = player.worldObj.getTileEntity(message.pos);
+        TileEntity te = player.world.getTileEntity(message.pos);
         if (te instanceof IRedstoneSettable) {
 
             ((IRedstoneSettable) te).setMode(message.mode);

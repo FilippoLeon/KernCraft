@@ -1,9 +1,17 @@
 package com.R3DKn16h7.kerncraft.tileentities;
 
+import com.R3DKn16h7.kerncraft.network.KernCraftNetwork;
+import com.R3DKn16h7.kerncraft.network.MessageInt;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.Packet;
+import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+
+import javax.annotation.Nullable;
 
 public class LampTileEntity extends TileEntity implements IRedstoneSettable, IMessageIntReceiver {
 
@@ -24,28 +32,70 @@ public class LampTileEntity extends TileEntity implements IRedstoneSettable, IMe
     }
 
     public void receiveMessage(int i) {
-        if (i == 0 && lightLevel < 15) ++lightLevel;
-        else if (i == 1 && lightLevel > 0) --lightLevel;
+        System.out.println("Received ll:" + lightLevel);
+        if (i == -1 && lightLevel < 15) ++lightLevel;
+        else if (i == -2 && lightLevel > 0) --lightLevel;
+        else if(i >= 0 && i <= 15 && lightLevel != i) lightLevel = i;
         else return;
+        world.scheduleBlockUpdate(pos,this.getBlockType(),0,0);
+        this.markDirty();
         updateState();
     }
 
+
     @Override
-    public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newSate) {
+    public void readFromNBT(NBTTagCompound nbt) {
+        super.readFromNBT(nbt);
+        if (nbt != null && nbt.hasKey("lightLevel")) {
+            lightLevel = nbt.getInteger("lightLevel");
+            redstoneMode = nbt.getInteger("redstoneMode");
+        }
+    }
+
+    @Override
+    public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
+        nbt = super.writeToNBT(nbt);
+        nbt.setInteger("lightLevel", lightLevel);
+        nbt.setInteger("redstoneMode", redstoneMode);
+//        System.out.println("Load nbt");
+        return nbt;
+    }
+
+    @Override
+    public boolean shouldRefresh(World world, BlockPos pos,
+                                 IBlockState oldState, IBlockState newSate) {
         return false;
     }
 
     public void updateState() {
-        if (redstoneMode == 0 && !this.worldObj.isBlockPowered(pos)) {
-            worldObj.setBlockState(this.pos, ModTileEntities.LAMP.getDefaultState()
+        if (redstoneMode == 0 && !this.world.isBlockPowered(pos)) {
+            world.setBlockState(this.pos, ModTileEntities.LAMP.getDefaultState()
                     .withProperty(LampBlockEntity.POWERED, 0));
-        } else if (redstoneMode == 1 && this.worldObj.isBlockPowered(pos)) {
-            worldObj.setBlockState(this.pos, ModTileEntities.LAMP.getDefaultState()
+        } else if (redstoneMode == 1 && this.world.isBlockPowered(pos)) {
+            world.setBlockState(this.pos, ModTileEntities.LAMP.getDefaultState()
                     .withProperty(LampBlockEntity.POWERED, 0));
         } else {
-            worldObj.setBlockState(this.pos, ModTileEntities.LAMP
+            world.setBlockState(this.pos, ModTileEntities.LAMP
                     .getDefaultState().withProperty(LampBlockEntity.POWERED, lightLevel));
         }
 
+    }
+
+    @Nullable
+    @Override
+    public SPacketUpdateTileEntity getUpdatePacket() {
+        SPacketUpdateTileEntity packet = super.getUpdatePacket();
+        NBTTagCompound tag = packet != null ? packet.getNbtCompound() : new NBTTagCompound();
+
+        writeToNBT(tag);
+
+        return new SPacketUpdateTileEntity(pos, 1, tag);
+    }
+
+    @Override
+    public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
+        super.onDataPacket(net, pkt);
+        NBTTagCompound tag = pkt.getNbtCompound();
+        readFromNBT(tag);
     }
 }

@@ -92,7 +92,7 @@ public class ChemicalFurnaceContainer extends AdvancedContainer {
         }
 
         if (stack.isStackable()) {
-            while (stack.stackSize > 0 &&
+            while (stack.getCount() > 0 &&
                     (!reverseDirection && i < endIndex || reverseDirection && i >= startIndex)) {
                 // Try and fill this slot
                 Slot slot = this.inventorySlots.get(i);
@@ -100,20 +100,20 @@ public class ChemicalFurnaceContainer extends AdvancedContainer {
                 ItemStack itemstack = slot.getStack();
                 // Is slot non-empty but can accept some of those items
                 if (itemstack != null && areItemStacksEqual(stack, itemstack)) {
-                    int j = itemstack.stackSize + stack.stackSize;
+                    int j = itemstack.getCount() + stack.getCount();
 
                     int max_stack_size = Math.min(stack.getMaxStackSize(), slot.getSlotStackLimit());
                     // If total of items can fit in slot, then just do that
                     if (j <= max_stack_size) {
-                        stack.stackSize = 0;
-                        itemstack.stackSize = j;
+                        stack.setCount(0);
+                        itemstack.setCount(j);
                         slot.onSlotChanged();
                         flag = true;
                         break;
                         // If total of items cannot completely fill slot, do as much as possible
-                    } else if (itemstack.stackSize < stack.getMaxStackSize()) {
-                        stack.stackSize -= max_stack_size - itemstack.stackSize;
-                        itemstack.stackSize = max_stack_size;
+                    } else if (itemstack.getCount() < stack.getMaxStackSize()) {
+                        stack.setCount(stack.getCount() - max_stack_size - itemstack.getCount());
+                        itemstack.setCount(max_stack_size);
                         slot.onSlotChanged();
                         flag = true;
                     }
@@ -128,7 +128,7 @@ public class ChemicalFurnaceContainer extends AdvancedContainer {
         }
 
         // Still left over items? Fill empty slots
-        if (stack.stackSize > 0) {
+        if (stack.getCount() > 0) {
             if (reverseDirection) {
                 i = endIndex - 1;
             } else {
@@ -144,21 +144,21 @@ public class ChemicalFurnaceContainer extends AdvancedContainer {
                 // Only if slot is empty or can place item in slot
                 if (itemstack1 == null && slot1.isItemValid(stack)) {
                     // If total of items can fit in slot, then just do that
-                    if (stack.stackSize <= slot1.getSlotStackLimit()) {
+                    if (stack.getCount() <= slot1.getSlotStackLimit()) {
                         slot1.putStack(stack.copy());
                         slot1.onSlotChanged();
-                        stack.stackSize = 0;
+                        stack.setCount(0);
                         stack = null;
                         flag = true;
                         break;
                         // If total of items cannot completely fill slot, do as much as possible
                     } else {
                         ItemStack portion = stack.copy();
-                        portion.stackSize = slot1.getSlotStackLimit();
+                        portion.setCount(slot1.getSlotStackLimit());
                         slot1.putStack(portion.copy());
                         slot1.onSlotChanged();
-                        stack.stackSize -= slot1.getSlotStackLimit();
-                        if (stack.stackSize == 0) stack = null;
+                        stack.setCount(stack.getCount() - slot1.getSlotStackLimit());
+                        if (stack.getCount() == 0) stack = null;
                     }
                 }
 
@@ -198,14 +198,14 @@ public class ChemicalFurnaceContainer extends AdvancedContainer {
                     return null;
             }
 
-            if (current.stackSize == 0)
+            if (current.getCount() == 0)
                 slot.putStack(null);
             else
                 slot.onSlotChanged();
 
-            if (current.stackSize == previous.stackSize)
+            if (current.getCount() == previous.getCount())
                 return null;
-            slot.onPickupFromSlot(playerIn, current);
+            slot.onTake(playerIn, current);
         }
         return previous;
     }

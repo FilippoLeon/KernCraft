@@ -64,7 +64,7 @@ public class ChemicalFurnaceGuiContainer extends AdvancedGuiContainer {
         for (Slot slot : inventorySlots.inventorySlots) {
             TexturedElement element = new TexturedElement(this,
                     "kerncraft:textures/gui/container/extractor_gui.png",
-                    slot.xDisplayPosition - 1, slot.yDisplayPosition - 1,
+                    slot.xPos - 1, slot.yPos - 1,
                     AdvancedContainer.xSlotSize, AdvancedContainer.ySlotSize,
                     borderLeft + 18 * 1 - 2, borderTop + 18 * 2 - 2);
             AddWidget(element, false);

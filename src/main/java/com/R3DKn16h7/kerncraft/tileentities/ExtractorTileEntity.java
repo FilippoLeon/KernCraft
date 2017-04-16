@@ -83,12 +83,12 @@ public class ExtractorTileEntity extends SmeltingTileEntity {
                 input.getStackInSlot(inputSlot) == null ||
                 // Check input
                 input.getStackInSlot(inputSlot).getItem() != ex_rec.item ||
-                input.getStackInSlot(inputSlot).stackSize < 1 ||
+                input.getStackInSlot(inputSlot).getCount() < 1 ||
                 // Check catalyst
                 ex_rec.catalyst != null &&
                         (input.getStackInSlot(catalystSlot) == null ||
                                 input.getStackInSlot(catalystSlot).getItem() != ex_rec.catalyst ||
-                                input.getStackInSlot(catalystSlot).stackSize < 1
+                                input.getStackInSlot(catalystSlot).getCount() < 1
                         ));
     }
 
@@ -107,10 +107,10 @@ public class ExtractorTileEntity extends SmeltingTileEntity {
                 storage.extractEnergy(consumedEnergyPerFuelRefill, false);
                 storedFuel += generatedFuelPerEnergyDrain;
             } else if (fuelItem != null &&
-                    fuelItem.stackSize >= 1 &&
+                    fuelItem.getCount() >= 1 &&
                     fuel > 0) {
-                fuelItem.stackSize -= 1;
-                if (fuelItem.stackSize == 0) {
+                fuelItem.setCount(fuelItem.getCount() - 1);
+                if (fuelItem.getCount() == 0) {
                     fuelItem = null;
                     input.setStackInSlot(fuelSlot, null);
                 }
@@ -128,12 +128,12 @@ public class ExtractorTileEntity extends SmeltingTileEntity {
         ExtractorRecipe recipe = ((ExtractorRecipe) currentlySmelting);
 
         input.setStackInSlot(inputSlot, new ItemStack(input.getStackInSlot(inputSlot).getItem(),
-                input.getStackInSlot(inputSlot).stackSize - 1));
-        if (input.getStackInSlot(inputSlot).stackSize == 0) input.setStackInSlot(inputSlot, null);
+                input.getStackInSlot(inputSlot).getCount() - 1));
+        if (input.getStackInSlot(inputSlot).getCount() == 0) input.setStackInSlot(inputSlot, null);
         if (recipe.catalyst != null) {
             input.setStackInSlot(catalystSlot, new ItemStack(input.getStackInSlot(catalystSlot).getItem(),
-                    input.getStackInSlot(catalystSlot).stackSize - 1));
-            if (input.getStackInSlot(catalystSlot).stackSize == 0) input.setStackInSlot(catalystSlot, null);
+                    input.getStackInSlot(catalystSlot).getCount() - 1));
+            if (input.getStackInSlot(catalystSlot).getCount() == 0) input.setStackInSlot(catalystSlot, null);
         }
 
         // For each Element output, flag telling if this has already been produced
@@ -206,13 +206,13 @@ public class ExtractorTileEntity extends SmeltingTileEntity {
                     // If Element has not been produced and there is a CANISTER in
                     // the slot
                     if (remaining[i] > 0 && input.getStackInSlot(canisterSlot) != null &&
-                            input.getStackInSlot(canisterSlot).stackSize > 0 &&
+                            input.getStackInSlot(canisterSlot).getCount() > 0 &&
                             input.getStackInSlot(canisterSlot).getItem() == ModItems.CANISTER) {
                         remaining[i] = 0;
                         output.setStackInSlot(rec_slot, new ItemStack(input.getStackInSlot(canisterSlot).getItem(), 1));
                         input.setStackInSlot(canisterSlot, new ItemStack(input.getStackInSlot(canisterSlot).getItem(),
-                                input.getStackInSlot(canisterSlot).stackSize - 1));
-                        if (input.getStackInSlot(canisterSlot).stackSize == 0) input.setStackInSlot(canisterSlot, null);
+                                input.getStackInSlot(canisterSlot).getCount() - 1));
+                        if (input.getStackInSlot(canisterSlot).getCount() == 0) input.setStackInSlot(canisterSlot, null);
                         NBTTagCompound nbt = new NBTTagCompound();
                         nbt.setInteger("Element", rec_out.id);
                         nbt.setInteger("Quantity", rec_out.quantity);

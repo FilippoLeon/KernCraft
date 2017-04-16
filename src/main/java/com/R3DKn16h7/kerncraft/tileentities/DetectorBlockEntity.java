@@ -119,7 +119,7 @@ public class DetectorBlockEntity extends BlockContainer {
 
     @Override
     public boolean onBlockActivated(World world, BlockPos pos, IBlockState state,
-                                    EntityPlayer player, EnumHand hand, ItemStack heldItem,
+                                    EntityPlayer player, EnumHand hand,
                                     EnumFacing side, float hitX, float hitY, float hitZ) {
         return true;
     }

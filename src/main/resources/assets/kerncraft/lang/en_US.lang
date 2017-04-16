@@ -5,11 +5,20 @@ item.electrolytic_cell.name=Electrolytic cell
 item.tyrocinium_chymicum=Tyrocinium Chymicum
 item.glass_shield.name=Glass shield
 item.roman_shield.name=Roman shield
+item.test_item.name=Placeholder
+
+item.labcoat_helmet.name=Lab cap
+item.labcoat_chestplate.name=Labcoat
+item.labcoat_leggings.name=Lab pants
+item.labcoat_boots.name=Lab boots
 
 tile.test_block.name=Test Block
 tile.extractor.name=Extractor
 tile.detector.name=Detector
 tile.clock.name=Clock
+tile.lamp.name=Variadic lamp
+tile.chemical_furnace.name=Chemical furnace
+tile.time_machine.name=Time machine
 
 achievement.Master of potatoes=Master of Potatoes
 achievement.Master of potatoes.desc=Stick gold and iron into a potato to craft a rudimentary battery.

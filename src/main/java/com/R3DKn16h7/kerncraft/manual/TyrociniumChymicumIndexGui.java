@@ -54,9 +54,9 @@ public class TyrociniumChymicumIndexGui extends TyrociniumChymicumGui implements
         if (button == PERIODIC_TABLE_BUTTON) {
             mc.displayGuiScreen(new TyrociniumChymicumPeriodicTableGui());
 
-            NBTTagCompound nbt = mc.thePlayer.getEntityData();
+            NBTTagCompound nbt = mc.player.getEntityData();
             nbt.setBoolean("kernkraft_first_steps_unlocked", true);
-            mc.thePlayer.writeToNBT(nbt);
+            mc.player.writeToNBT(nbt);
         }
     }
 
@@ -64,7 +64,7 @@ public class TyrociniumChymicumIndexGui extends TyrociniumChymicumGui implements
 
         switch (content) {
             case FirstSteps:
-                NBTTagCompound nbt = mc.thePlayer.getEntityData();
+                NBTTagCompound nbt = mc.player.getEntityData();
                 return nbt.hasKey("kernkraft_first_steps_unlocked");
         }
         return false;

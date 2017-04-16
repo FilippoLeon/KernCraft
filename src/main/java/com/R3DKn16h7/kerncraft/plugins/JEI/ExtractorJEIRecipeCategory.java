@@ -1,6 +1,7 @@
 package com.R3DKn16h7.kerncraft.plugins.JEI;
 
 import com.R3DKn16h7.kerncraft.items.ModItems;
+import mcp.MethodsReturnNonnullByDefault;
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.*;
 import mezz.jei.api.ingredients.IIngredients;
@@ -10,6 +11,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
+import javax.annotation.Nullable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -66,36 +69,43 @@ public class ExtractorJEIRecipeCategory implements IRecipeCategory {
         return background;
     }
 
+    @Nullable
+    @Override
+    public IDrawable getIcon() {
+        return null;
+    }
+
     @Override
     public void drawExtras(Minecraft minecraft) {
 
     }
 
-    @Override
-    public void drawAnimations(Minecraft minecraft) {
-        flame.draw(minecraft, 2 + 18, 2 + 18 * 1);
-        arrow.draw(minecraft, 18 + 18 * 2, 18 * 2);
-    }
+//    @Override
+//    public void drawAnimations(Minecraft minecraft) {
+//        flame.draw(minecraft, 2 + 18, 2 + 18 * 1);
+//        arrow.draw(minecraft, 18 + 18 * 2, 18 * 2);
+//    }
 
-    @Override
-    public void setRecipe(IRecipeLayout recipeLayout, IRecipeWrapper recipeWrapper) {
-        IGuiItemStackGroup guiItemStacks = recipeLayout.getItemStacks();
-
-        guiItemStacks.init(inputSlot, true, 0, 0);
-        guiItemStacks.init(catalystSlot, false, 60, 18);
-        guiItemStacks.init(canisterSlot, false, 1200, 18);
-
-
-        IIngredients ingredients = null;
-        recipeWrapper.getIngredients(ingredients);
-        int i = -1;
-        guiItemStacks.set(inputSlot, ingredients.getInputs(ItemStack.class).get(++i));
-        if(ingredients.getInputs(ItemStack.class).size() > 1)
-            guiItemStacks.set(catalystSlot,
-                    ingredients.getInputs(ItemStack.class).get(++i));
-        guiItemStacks.set(canisterSlot, new ItemStack(ModItems.CANISTER));
-        //guiItemStacks.set(outputSlot, ingredients.getOutputs(ItemStack.class).get(0));
-    }
+//    @Override
+//    public void setRecipe(IRecipeLayout recipeLayout,
+//                          IRecipeWrapper recipeWrapper, IIngredients ingr) {
+//        IGuiItemStackGroup guiItemStacks = recipeLayout.getItemStacks();
+//
+//        guiItemStacks.init(inputSlot, true, 0, 0);
+//        guiItemStacks.init(catalystSlot, false, 60, 18);
+//        guiItemStacks.init(canisterSlot, false, 1200, 18);
+//
+//
+//        IIngredients ingredients = null;
+//        recipeWrapper.getIngredients(ingredients);
+//        int i = -1;
+//        guiItemStacks.set(inputSlot, ingredients.getInputs(ItemStack.class).get(++i));
+//        if(ingredients.getInputs(ItemStack.class).size() > 1)
+//            guiItemStacks.set(catalystSlot,
+//                    ingredients.getInputs(ItemStack.class).get(++i));
+//        guiItemStacks.set(canisterSlot, new ItemStack(ModItems.CANISTER));
+//        //guiItemStacks.set(outputSlot, ingredients.getOutputs(ItemStack.class).get(0));
+//    }
 
     @Override
     public void setRecipe(IRecipeLayout recipeLayout,
@@ -116,14 +126,22 @@ public class ExtractorJEIRecipeCategory implements IRecipeCategory {
                     ingredients.getInputs(ItemStack.class).get(++i));
         guiItemStacks.set(canisterSlot, new ItemStack(ModItems.CANISTER));
 
-        List<ItemStack> outs = ingredients.getOutputs(ItemStack.class);
+        List<List<ItemStack>> outs = ingredients.getOutputs(ItemStack.class);
         int min = Math.min(outs.size(), outputSlotSize);
         for (int j = 0; j < min; ++j) {
             guiItemStacks.init(j + outputSlotStart,
                     false, 0 + 18 * (j + 5), 18 * 2);
-            ItemStack item = outs.get(j);
+            ItemStack item = outs.get(0).get(j);
             if (item != null)
                 guiItemStacks.set(j + outputSlotStart, item);
         }
+    }
+
+    @Override
+    @MethodsReturnNonnullByDefault
+    public List<String> getTooltipStrings(int mouseX, int mouseY) {
+        ArrayList a = new ArrayList<String>();
+        a.add("");
+        return a;
     }
 }

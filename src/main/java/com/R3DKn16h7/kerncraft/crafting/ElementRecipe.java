@@ -6,6 +6,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
@@ -17,11 +18,11 @@ public class ElementRecipe implements IRecipe {
 
     public static final int ANY_ELEMENT = -1;
     Item result;
-    ItemStack[] ingredients;
+    NonNullList<ItemStack> ingredients;
     int[] id;
     int[] qty;
 
-    public ElementRecipe(Item result, ItemStack[] ingredients, int[] id, int[] qty) {
+    public ElementRecipe(Item result, NonNullList<ItemStack> ingredients, int[] id, int[] qty) {
 
         this.result = result;
         this.ingredients = ingredients;
@@ -33,10 +34,10 @@ public class ElementRecipe implements IRecipe {
     public boolean matches(InventoryCrafting inv, World worldIn) {
         boolean[] id_ok = new boolean[id.length];
         int[] remaining = qty.clone();
-        boolean[] ingredients_ok = new boolean[ingredients.length];
+        boolean[] ingredients_ok = new boolean[ingredients.size()];
         for (int i = 0; i < inv.getSizeInventory(); ++i) {
             ItemStack is = inv.getStackInSlot(i);
-            if (is == null) continue;
+            if (is == ItemStack.EMPTY) continue;
             if (is.getItem() == ModItems.CANISTER) {
                 NBTTagCompound comp = is.getTagCompound();
                 if (comp != null && comp.hasKey("Element")) {
@@ -53,8 +54,8 @@ public class ElementRecipe implements IRecipe {
                     }
                 }
             } else {
-                for (int j = 0; j < ingredients.length; ++j) {
-                    if (ingredients[j].getItem() == inv.getStackInSlot(i).getItem()) {
+                for (int j = 0; j < ingredients.size(); ++j) {
+                    if (ingredients.get(j).getItem() == inv.getStackInSlot(i).getItem()) {
                         ingredients_ok[j] = true;
                     }
                 }
@@ -71,7 +72,6 @@ public class ElementRecipe implements IRecipe {
         return true;
     }
 
-    @Nullable
     @Override
     public ItemStack getCraftingResult(InventoryCrafting inv) {
 
@@ -83,28 +83,31 @@ public class ElementRecipe implements IRecipe {
         return 3;
     }
 
-    @Nullable
     @Override
     public ItemStack getRecipeOutput() {
-        return null;
+        return ItemStack.EMPTY;
     }
 
     @Override
-    public ItemStack[] getRemainingItems(InventoryCrafting inv) {
+    public NonNullList<ItemStack> getRemainingItems(InventoryCrafting inv) {
         for (int i = 0; i < inv.getSizeInventory(); ++i) {
             ItemStack is = inv.getStackInSlot(i);
-            if (is == null) continue;
+            if (is == ItemStack.EMPTY) continue;
             if (is.getItem() == ModItems.CANISTER) {
 
             } else {
-                for (int j = 0; j < ingredients.length; ++j) {
-                    if (ingredients[j].getItem() == inv.getStackInSlot(i).getItem()) {
+                for (int j = 0; j < ingredients.size(); ++j) {
+                    if (ingredients.get(j).getItem() == inv.getStackInSlot(i).getItem()) {
                         inv.decrStackSize(i, 1);
                     }
                 }
             }
         }
 
-        return new ItemStack[0];
+        NonNullList<ItemStack> a = NonNullList.<ItemStack>create();
+        a.add(ItemStack.EMPTY);
+        return a;
+
+
     }
 }

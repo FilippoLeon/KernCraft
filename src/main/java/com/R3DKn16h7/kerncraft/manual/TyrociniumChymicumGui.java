@@ -51,25 +51,25 @@ public class TyrociniumChymicumGui extends ManualEntry {
         int ypos = (height - ySize) / 2 + ySize;
         btn3 = new GuiButton(ID++, r, ypos, "<--");
         btn3.setWidth(size);
-        func_189646_b(btn3);
+        add(btn3);
         btn5 = new GuiButton(ID++, r += SPACE, ypos, "<<");
         btn5.setWidth(size);
-        func_189646_b(btn5);
+        add(btn5);
         btn = new GuiButton(ID++, r += SPACE, ypos, "<");
         btn.setWidth(size);
-        func_189646_b(btn);
+        add(btn);
         btn2 = new GuiButton(ID++, r += SPACE, ypos, "^");
         btn2.setWidth(size);
-        func_189646_b(btn2);
+        add(btn2);
         btn1 = new GuiButton(ID++, r += SPACE, ypos, ">");
         btn1.setWidth(size);
-        func_189646_b(btn1);
+        add(btn1);
         btn6 = new GuiButton(ID++, r += SPACE, ypos, ">>");
         btn6.setWidth(size);
-        func_189646_b(btn6);
+        add(btn6);
         btn4 = new GuiButton(ID++, r += SPACE, ypos, "HOME");
         btn4.setWidth(size);
-        func_189646_b(btn4);
+        add(btn4);
     }
 
 

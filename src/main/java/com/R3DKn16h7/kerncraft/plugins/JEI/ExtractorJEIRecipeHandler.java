@@ -13,10 +13,6 @@ public class ExtractorJEIRecipeHandler implements IRecipeHandler {
         return ExtractorTileEntity.ExtractorRecipe.class;
     }
 
-    @Override
-    public String getRecipeCategoryUid() {
-        return "kerncraft.extractor";
-    }
 
     @Override
     public String getRecipeCategoryUid(Object recipe) {

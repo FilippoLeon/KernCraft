@@ -64,10 +64,10 @@ public class ExtractorJEIRecipeWrapper extends BlankRecipeWrapper {
         }
     }
 
-    @Override
-    public void drawAnimations(Minecraft minecraft, int recipeWidth, int recipeHeight) {
-
-    }
+//    @Override
+//    public void drawAnimations(Minecraft minecraft, int recipeWidth, int recipeHeight) {
+//
+//    }
 
     @Nullable
     @Override

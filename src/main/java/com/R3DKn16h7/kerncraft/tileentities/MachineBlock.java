@@ -71,7 +71,7 @@ public abstract class MachineBlock extends BlockContainer {
         entityitem.motionX = world.rand.nextGaussian() * 0.05;
         entityitem.motionY = world.rand.nextGaussian() * 0.05 + 0.2;
         entityitem.motionZ = world.rand.nextGaussian() * 0.05;
-        world.spawnEntityInWorld(entityitem);
+        world.spawnEntity(entityitem);
 
         super.breakBlock(world, pos, blockstate);
     }
@@ -96,7 +96,7 @@ public abstract class MachineBlock extends BlockContainer {
 
     @Override
     public boolean onBlockActivated(World world, BlockPos pos, IBlockState state,
-                                    EntityPlayer player, EnumHand hand, ItemStack heldItem,
+                                    EntityPlayer player, EnumHand hand,
                                     EnumFacing side, float hitX, float hitY, float hitZ) {
         if (!world.isRemote && has_gui) {
             player.openGui(KernCraft.instance, gui,
@@ -107,7 +107,7 @@ public abstract class MachineBlock extends BlockContainer {
 
     @Override
     public void neighborChanged(IBlockState state, World worldIn,
-                                BlockPos pos, Block blockIn) {
+                                BlockPos pos, Block blockIn, BlockPos pos2) {
         if (!worldIn.isRemote) {
             if (true && !worldIn.isBlockPowered(pos)) {
                 worldIn.scheduleUpdate(pos, this, 4);

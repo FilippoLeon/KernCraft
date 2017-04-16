@@ -30,9 +30,9 @@ public class ClockTileEntity extends TileEntity
         ClockBlockEntity _block = (ClockBlockEntity)
                 this.getWorld().getBlockState(this.getPos()).getBlock();
 
-        this.worldObj.setBlockState(pos,
+        this.world.setBlockState(pos,
                 _block.getDefaultState().withProperty(ClockBlockEntity.TIME,
-                        Math.min((int) worldObj.getWorldTime() * 15 / 22500, 15)));
+                        Math.min((int) world.getWorldTime() * 15 / 22500, 15)));
 
         //System.out.print(worldObj.getWorldTime() + " " + (int) worldObj.getWorldTime() * 15 / 22500 + " ---");
     }

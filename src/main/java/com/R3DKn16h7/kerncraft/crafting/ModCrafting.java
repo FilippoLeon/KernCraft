@@ -7,10 +7,12 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.NonNullList;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class ModCrafting {
     public static void initCrafting() {
+
         GameRegistry.addRecipe(new ItemStack(ModItems.PORTABLE_BEACON),
                 "##", "##", '#', ModBlocks.TEST_BLOCK);
 
@@ -37,8 +39,10 @@ public class ModCrafting {
 
         int[] elements = {ElementRecipe.ANY_ELEMENT};
         int[] quantities = {0};
-        ItemStack[] ing = {new ItemStack(Items.BOOK)};
-        CraftingManager.getInstance().addRecipe(new ElementRecipe(ModItems.TYROCINIUM_CHYMICUM, ing, elements, quantities));
+        NonNullList<ItemStack> ing = NonNullList.create();
+        ing.add(new ItemStack(Items.BOOK));
+//        CraftingManager.getInstance().addRecipe(new ElementRecipe(ModItems.TYROCINIUM_CHYMICUM,
+//                ing, elements, quantities));
     }
 
 }

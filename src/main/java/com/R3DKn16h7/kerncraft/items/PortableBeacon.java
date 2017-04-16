@@ -41,7 +41,7 @@ public class PortableBeacon extends Item {
     }
 
     @Override
-    public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player,
+    public EnumActionResult onItemUse(EntityPlayer player,
                                       World world, BlockPos pos, EnumHand hand,
                                       EnumFacing facing, float hitX, float hitY, float hitZ) {
         // TODO DEPRECATED
@@ -55,7 +55,7 @@ public class PortableBeacon extends Item {
     @Override
     public boolean onLeftClickEntity(ItemStack stack, EntityPlayer player, Entity entity) {
         // TODO DEPRECATED
-        if (!player.worldObj.isRemote) {
+        if (!player.world.isRemote) {
             if (entity instanceof EntityLivingBase) {
                 EntityLivingBase entityLivingBase = (EntityLivingBase) entity;
                 if (entityLivingBase instanceof IMob) {

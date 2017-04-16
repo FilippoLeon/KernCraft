@@ -30,10 +30,10 @@ public class TestItem extends Item {
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(ItemStack stack,
-                                                    World worldIn,
+    public ActionResult<ItemStack> onItemRightClick( World worldIn,
                                                     EntityPlayer playerIn,
                                                     EnumHand hand) {
+        ItemStack stack = playerIn.getHeldItem(hand);
         NBTTagCompound nbt;
         if (stack.hasTagCompound()) {
             nbt = stack.getTagCompound();
@@ -55,25 +55,24 @@ public class TestItem extends Item {
     }
 
     @Override
-    public EnumActionResult onItemUse(ItemStack stack,
-                                      EntityPlayer playerIn,
+    public EnumActionResult onItemUse(EntityPlayer playerIn,
                                       World worldIn,
                                       BlockPos pos,
                                       EnumHand hand,
                                       EnumFacing facing,
                                       float hitX, float hitY, float hitZ) {
-
+        ItemStack stack = playerIn.getHeldItem(hand);
         NBTTagCompound nbt;
         nbt = stack.getTagCompound();
-        if (stack.hasTagCompound() && nbt.hasKey("Uses")) {
+        if (nbt != null && nbt.hasKey("Uses")) {
             int e = nbt.getInteger("Uses");
-            Minecraft.getMinecraft().thePlayer.sendChatMessage("setEntityState" + String.format("%d", e));
+            Minecraft.getMinecraft().player.sendChatMessage("setEntityState" + String.format("%d", e));
             worldIn.setEntityState(playerIn, (byte) e);
         }
 
         worldIn.setWorldTime(0);
 
-        return super.onItemUse(stack, playerIn, worldIn, pos, hand, facing, hitX, hitY, hitZ);
+        return super.onItemUse(playerIn, worldIn, pos, hand, facing, hitX, hitY, hitZ);
     }
 
     @Override
@@ -82,10 +81,10 @@ public class TestItem extends Item {
                                      Entity entity) {
         NBTTagCompound nbt;
         nbt = stack.getTagCompound();
-        if (stack.hasTagCompound() && nbt.hasKey("Uses")) {
+        if (nbt != null && nbt.hasKey("Uses")) {
             int e = nbt.getInteger("Uses");
-            Minecraft.getMinecraft().thePlayer.sendChatMessage("setEntityState" + String.format("%d", e));
-            Minecraft.getMinecraft().theWorld.setEntityState(entity, (byte) e);
+            Minecraft.getMinecraft().player.sendChatMessage("setEntityState" + String.format("%d", e));
+            Minecraft.getMinecraft().world.setEntityState(entity, (byte) e);
         }
 
         return true;

@@ -52,12 +52,12 @@ public class LabCoat extends ItemArmor {
         nbttagcompound1.setInteger("color", color);
     }
 
-    public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn,
-                                                    World worldIn,
+    @Override
+    public ActionResult<ItemStack> onItemRightClick(World worldIn,
                                                     EntityPlayer playerIn,
                                                     EnumHand hand) {
-        this.setColor(itemStackIn, 0x00FF0000);
-        return super.onItemRightClick(itemStackIn, worldIn, playerIn, hand);
+        this.setColor(playerIn.getHeldItem(hand), 0x00FF0000);
+        return super.onItemRightClick(worldIn, playerIn, hand);
     }
 
     /**

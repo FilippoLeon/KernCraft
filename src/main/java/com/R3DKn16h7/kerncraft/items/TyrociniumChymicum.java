@@ -24,10 +24,11 @@ public class TyrociniumChymicum extends Item {
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
+    public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn,
+                                                    EnumHand hand) {
         if (worldIn.isRemote) {
             playerIn.openGui(KernCraft.instance, ModGuiHandler.MANUAL_GUI, worldIn, 0, 0, 0);
         }
-        return super.onItemRightClick(itemStackIn, worldIn, playerIn, hand);
+        return super.onItemRightClick(worldIn, playerIn, hand);
     }
 }

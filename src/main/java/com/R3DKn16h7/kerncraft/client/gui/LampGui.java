@@ -28,15 +28,15 @@ public class LampGui extends AdvancedGui {
         AddWidget(txt);
 
         Runnable r = () -> {
-            te.receiveMessage(0);
+            te.receiveMessage(-1);
             //KernCraftNetwork.networkWrapper.sendToAll(new MessageInt(0, te.getPos()));
-            KernCraftNetwork.networkWrapper.sendToServer(new MessageInt(0, te.getPos()));
+            KernCraftNetwork.networkWrapper.sendToServer(new MessageInt(-1, te.getPos()));
             txt.setText(Integer.toString(te.lightLevel));
         };
         Runnable r2 = () -> {
-            te.receiveMessage(1);
+            te.receiveMessage(-2);
             //KernCraftNetwork.networkWrapper.sendToAll(new MessageInt(0, te.getPos()));
-            KernCraftNetwork.networkWrapper.sendToServer(new MessageInt(1, te.getPos()));
+            KernCraftNetwork.networkWrapper.sendToServer(new MessageInt(-2, te.getPos()));
             txt.setText(Integer.toString(te.lightLevel));
         };
 

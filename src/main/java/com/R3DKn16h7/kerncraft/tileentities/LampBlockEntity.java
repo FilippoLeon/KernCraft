@@ -31,9 +31,15 @@ import java.util.Random;
 
 public class LampBlockEntity extends BlockContainer {
 
-
+    /**
+     * A block state containing the light level (i.e. power level).
+     */
     public static final PropertyInteger POWERED = PropertyInteger.create("lightlevel", 0, 15);
 
+    /**
+     * Constructor, set names, set default params and register to Block register.
+     * @param unlocalizedName
+     */
     protected LampBlockEntity(String unlocalizedName) {
         super(Material.IRON);
         this.setUnlocalizedName(unlocalizedName);
@@ -56,18 +62,37 @@ public class LampBlockEntity extends BlockContainer {
         GameRegistry.registerTileEntity(LampTileEntity.class, "lamp");
     }
 
+    /**
+     * Light value is the value of the blockstate POWERED.
+     * @param state
+     * @param world
+     * @param pos
+     * @return
+     */
     @Override
     public int getLightValue(IBlockState state, IBlockAccess world, BlockPos pos) {
         return state.getValue(POWERED).intValue();
         //return super.getLightValue(state, world, pos);
     }
 
+    /**
+     * The lamp block has a tile entity associated, that displays an UI and
+     * allows basic configuration.
+     * @param worldIn
+     * @param meta
+     * @return
+     */
     @Override
     public TileEntity createNewTileEntity(World worldIn, int meta) {
 
         return new LampTileEntity();
     }
 
+    /**
+     *
+     * @param state
+     * @return
+     */
     @Override
     public EnumBlockRenderType getRenderType(IBlockState state) {
         return EnumBlockRenderType.MODEL;
@@ -75,7 +100,7 @@ public class LampBlockEntity extends BlockContainer {
 
     @Override
     public boolean onBlockActivated(World world, BlockPos pos, IBlockState state,
-                                    EntityPlayer player, EnumHand hand, ItemStack heldItem,
+                                    EntityPlayer player, EnumHand hand,
                                     EnumFacing side, float hitX, float hitY, float hitZ) {
         if (world.isRemote) {
             player.openGui(KernCraft.instance, ModGuiHandler.LAMP_TILE_ENTITY_GUI,
@@ -84,6 +109,9 @@ public class LampBlockEntity extends BlockContainer {
         return true;
     }
 
+    /**
+     *
+     */
     @SideOnly(Side.CLIENT)
     public void initModel() {
         ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), 0,
@@ -92,26 +120,18 @@ public class LampBlockEntity extends BlockContainer {
     }
 
     /**
-     * Called when a neighboring block was changed and marks that this state should perform any checks during a neighbor
-     * change. Cases may include when redstone power is updated, cactus blocks popping off due to a neighboring solid
-     * block, etc.
+     *
+     * @param world
+     * @param pos
+     * @param neighbor
      */
-    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn) {
-        if (!worldIn.isRemote) {
-            //IBlockState iblockstate = worldIn.getBlockState(pos);
-            //LampTileEntity tileentity = (LampTileEntity) worldIn.getTileEntity(pos);
-
-            //setLightLevel(tileentity.redstoneMode);
-            //if (this.isOn && !worldIn.isBlockPowered(pos))
-            //{
-            //    worldIn.scheduleUpdate(pos, this, 4);
-            //}
-            //else if (!this.isOn && worldIn.isBlockPowered(pos))
-            //{
-            //    setLightLevel(1);
-            //worldIn.setBlockState(pos, Blocks.LIT_REDSTONE_LAMP.getDefaultState(), 2);
-            //}
-        }
+    @Override
+    public void onNeighborChange(IBlockAccess world, BlockPos pos, BlockPos neighbor) {
+        super.onNeighborChange(world, pos, neighbor);
+//        if (!world.isRemote) {
+            LampTileEntity tileentity = (LampTileEntity) world.getTileEntity(pos);
+            tileentity.updateState();
+//        }
     }
 
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {

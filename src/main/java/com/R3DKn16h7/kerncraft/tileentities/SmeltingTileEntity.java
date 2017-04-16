@@ -112,8 +112,8 @@ abstract public class SmeltingTileEntity
      */
     public void progressSmelting() {
 
-        if (mode == 0 && !this.worldObj.isBlockPowered(pos)) return;
-        if (mode == 1 && this.worldObj.isBlockPowered(pos)) return;
+        if (mode == 0 && !this.world.isBlockPowered(pos)) return;
+        if (mode == 1 && this.world.isBlockPowered(pos)) return;
 
         if (inputChanged) {
             findRecipe();

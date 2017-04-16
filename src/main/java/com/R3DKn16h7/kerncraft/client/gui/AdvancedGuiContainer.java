@@ -60,7 +60,7 @@ public class AdvancedGuiContainer extends GuiContainer implements IAdvancedGuiCo
     }
 
     public void add(GuiButton btn) {
-        func_189646_b(btn);
+        addButton(btn);
     }
 
     public int getBorderLeft() {

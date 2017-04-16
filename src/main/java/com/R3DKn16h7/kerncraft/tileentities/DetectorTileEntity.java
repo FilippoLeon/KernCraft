@@ -41,7 +41,7 @@ public class DetectorTileEntity extends TileEntity implements ITickable {
         AxisAlignedBB box = new AxisAlignedBB(p.getX() - 5f, p.getY() - 5f, p.getZ() - 5,
                 p.getX() + 5, p.getY() + 5, p.getZ() + 5);
 
-        List<EntityPlayer> ep = worldObj.getEntitiesWithinAABB(EntityPlayer.class, box);
+        List<EntityPlayer> ep = world.getEntitiesWithinAABB(EntityPlayer.class, box);
 
         entityNear = false;
         for (EntityPlayer pl : ep) {
@@ -51,13 +51,13 @@ public class DetectorTileEntity extends TileEntity implements ITickable {
             DetectorBlockEntity _block = (DetectorBlockEntity)
                     this.getWorld().getBlockState(this.getPos()).getBlock();
 
-            this.worldObj.setBlockState(pos,
+            this.world.setBlockState(pos,
                     _block.getDefaultState().withProperty(DetectorBlockEntity.POWERED, true));
             return;
         }
         DetectorBlockEntity _block = (DetectorBlockEntity)
                 this.getWorld().getBlockState(this.getPos()).getBlock();
-        this.worldObj.setBlockState(pos,
+        this.world.setBlockState(pos,
                 _block.getDefaultState().withProperty(DetectorBlockEntity.POWERED, false));
 
     }

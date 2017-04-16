@@ -45,7 +45,8 @@ public class ManualEntry extends GuiScreen implements IAdvancedGuiContainer {
     }
 
     public void add(GuiButton btn) {
-        this.func_189646_b(btn);
+        this.addButton(btn);
+//        this.func_189646_b(btn);
     }
 
     @Override

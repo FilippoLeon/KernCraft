@@ -62,7 +62,7 @@ public class TyrociniumChymicumPeriodicTableGui extends TyrociniumChymicumGui {
                     .setText(formatting + element.symbol)
                     .setTint(color)
                     .setAlignment(Widget.Alignment.MIDDLE);
-            func_189646_b(btn);
+            addButton(btn);
             periodicButtonList.add(btn);
         }
 

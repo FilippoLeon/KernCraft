@@ -37,6 +37,9 @@ public class ModGuiHandler implements IGuiHandler {
                         (ChemicalFurnaceTileEntity) world.getTileEntity(
                                 new BlockPos(x, y, z))
                 );
+            case LAMP_TILE_ENTITY_GUI:
+                return new LampServer((LampTileEntity) world.getTileEntity(
+                                new BlockPos(x, y, z)));
         }
 
         return null;

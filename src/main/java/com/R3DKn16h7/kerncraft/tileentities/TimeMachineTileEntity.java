@@ -12,6 +12,6 @@ public class TimeMachineTileEntity extends TileEntity
 
     @Override
     public void update() {
-        worldObj.setWorldTime(worldObj.getStrongPower(pos) * 1500);
+        world.setWorldTime(world.getStrongPower(pos) * 1500);
     }
 }
