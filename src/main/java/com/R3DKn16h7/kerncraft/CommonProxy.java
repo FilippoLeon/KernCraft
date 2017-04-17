@@ -36,7 +36,6 @@ public class CommonProxy {
 
         ModCrafting.initCrafting();
 
-        NetworkRegistry.INSTANCE.registerGuiHandler(instance, new ModGuiHandler());
 
         EventHandlerCommon handler = new EventHandlerCommon();
         MinecraftForge.EVENT_BUS.register(handler);
@@ -46,5 +45,6 @@ public class CommonProxy {
 
     public void postInit(FMLPostInitializationEvent e) {
 
+        NetworkRegistry.INSTANCE.registerGuiHandler(instance, new ModGuiHandler());
     }
 }

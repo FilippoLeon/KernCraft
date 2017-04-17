@@ -127,7 +127,7 @@ public class ExtractorJEIRecipeCategory implements IRecipeCategory {
         guiItemStacks.set(canisterSlot, new ItemStack(ModItems.CANISTER));
 
         List<List<ItemStack>> outs = ingredients.getOutputs(ItemStack.class);
-        int min = Math.min(outs.size(), outputSlotSize);
+        int min = Math.min(outs.get(0).size(), outputSlotSize);
         for (int j = 0; j < min; ++j) {
             guiItemStacks.init(j + outputSlotStart,
                     false, 0 + 18 * (j + 5), 18 * 2);
@@ -141,7 +141,7 @@ public class ExtractorJEIRecipeCategory implements IRecipeCategory {
     @MethodsReturnNonnullByDefault
     public List<String> getTooltipStrings(int mouseX, int mouseY) {
         ArrayList a = new ArrayList<String>();
-        a.add("");
+        //a.add("Extractor recipes");
         return a;
     }
 }

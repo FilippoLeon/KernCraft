@@ -1,5 +1,8 @@
 {
   "variants": {
+    "normal": {
+      "model": "kerncraft:time_machine"
+    },
     "facing=north": {
       "model": "kerncraft:time_machine"
     },

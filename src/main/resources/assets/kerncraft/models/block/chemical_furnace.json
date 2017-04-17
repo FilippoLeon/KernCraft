@@ -2,7 +2,7 @@
   "parent": "block/orientable",
   "textures": {
     "top": "kerncraft:blocks/extractor_top",
-    "front": "kerncraft:blocks/extractor_front_off",
+    "front": "kerncraft:blocks/chemical_furnace_front_off",
     "side": "kerncraft:blocks/extractor_side"
   }
 }

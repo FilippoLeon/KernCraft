@@ -48,6 +48,7 @@ public class ExtractorJEIRecipeWrapper extends BlankRecipeWrapper {
                          int recipeWidth, int recipeHeight,
                          int mouseX, int mouseY) {
 
+        // Draw each output element
         int j = 0;
         for (ExtractorTileEntity.ElementStack i : recipe.outs) {
             if (i.prob == 1) continue;
@@ -59,7 +60,7 @@ public class ExtractorJEIRecipeWrapper extends BlankRecipeWrapper {
             else color = Color.green.getRGB();
 
             minecraft.fontRendererObj.drawStringWithShadow(prob_string,
-                    18 * (5 + j), 18 * 3 - 3, color);
+                    18 * (5 + j), 18 * 3 - 37, color);
             ++j;
         }
     }
