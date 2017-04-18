@@ -12,12 +12,17 @@
             at first. Hydrogen is easy to obtain: you just need a source of electricity
             (somebody said potato?) and some fresh water. The idea is the following:
             a molecule of Water (H20 for short) is made out of two atoms of Hydrogen
-            and [url=""]Oxygen[/url]. Those two atoms are glued together. We just need to pull them
+            and [b]Oxygen[/b]. Those two atoms are glued together. We just need to pull them
             apart and observe the magic as it happens.
             [br/]
             Precautions: Hydrogen is
             dangerous: together with Oxygen and a spark it causes a violent explosion.
             If you do not believe me, look up the Wikipedia page for Hindenburg disaster.
+        </Description>
+    </Element>
+    <Element id="2">
+        <Description lang="en_us">
+
         </Description>
     </Element>
 </Elements>

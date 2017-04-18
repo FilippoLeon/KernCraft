@@ -16,8 +16,9 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class ExtractorTileEntity extends SmeltingTileEntity implements ICapabilityProvider {
+public class ExtractorTileEntity extends SmeltingTileEntity implements ICapabilityProvider, IMessageIntReceiver {
 
     // Slot IDs
     static final public int inputSlot = 0;
@@ -35,7 +36,11 @@ public class ExtractorTileEntity extends SmeltingTileEntity implements ICapabili
     private final IItemHandler automationInput = new ItemStackHandler(4);
     private final IItemHandler automationOutput = new ItemStackHandler(4);
 
+    public int[][] inputCoords = {{1,0},{3,0},{8,0},{1,2}};
+    public int[][] outputCoords = {{8,2},{8,2},{8,2},{8,2}};
+
     public ExtractorTileEntity() {
+
         super(4, 4);
 
         if (recipes == null) {
@@ -63,6 +68,14 @@ public class ExtractorTileEntity extends SmeltingTileEntity implements ICapabili
                     },
                     10);
         }
+    }
+
+    @Override
+    public void receiveMessage(int i) {
+
+
+        world.scheduleBlockUpdate(pos,this.getBlockType(),0,0);
+        this.markDirty();
     }
 
     /**

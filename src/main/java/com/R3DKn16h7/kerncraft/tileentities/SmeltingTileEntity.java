@@ -3,6 +3,8 @@ package com.R3DKn16h7.kerncraft.tileentities;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
@@ -14,6 +16,7 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 
 abstract public class SmeltingTileEntity
@@ -178,14 +181,35 @@ abstract public class SmeltingTileEntity
     @Override
     public void readFromNBT(NBTTagCompound nbt) {
         super.readFromNBT(nbt);
-        if (nbt.hasKey("RedstoneMode"))
-            mode = nbt.getInteger("RedstoneMode");
+        if (nbt.hasKey("redstoneMode")) {
+            mode = nbt.getInteger("redstoneMode");
+        }
+        if (nbt.hasKey("tank")) {
+            tank.readFromNBT(nbt.getCompoundTag("tank"));
+        }
+        if (nbt.hasKey("maxEnergyStored") && nbt.getInteger("maxEnergyStored") != storage.getMaxEnergyStored()) {
+            int temp = storage.getEnergyStored();
+            storage = new EnergyStorage( nbt.getInteger("maxEnergyStored"));
+            storage.receiveEnergy(temp,false);
+        }
+        if (nbt.hasKey("energyStored")) {
+            storage.extractEnergy(1000000000, false);
+            storage.receiveEnergy(nbt.getInteger("energyStored"),false);
+        }
     }
 
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
         nbt = super.writeToNBT(nbt);
-        nbt.setInteger("RedstoneMode", mode);
+
+        nbt.setInteger("redstoneMode", mode);
+
+        NBTTagCompound nbt_tank = new NBTTagCompound();
+        tank.writeToNBT(nbt_tank);
+        nbt.setTag("tank", nbt_tank);
+
+        nbt.setInteger("energyStored", storage.getEnergyStored());
+        nbt.setInteger("maxEnergyStored", storage.getMaxEnergyStored());
         return nbt;
     }
 
@@ -193,11 +217,47 @@ abstract public class SmeltingTileEntity
     public void restoreFromNBT(NBTTagCompound nbt) {
         super.restoreFromNBT(nbt);
 
-        if (nbt != null && nbt.hasKey("RedstoneMode"))
-            mode = nbt.getInteger("RedstoneMode");
+        if (nbt != null) {
+            if (nbt.hasKey("redstoneMode")) {
+                mode = nbt.getInteger("redstoneMode");
+            }
+            if (nbt.hasKey("tank")) {
+                tank.readFromNBT(nbt.getCompoundTag("tank"));
+            }
+            if (nbt.hasKey("maxEnergyStored") && nbt.getInteger("maxEnergyStored") != storage.getMaxEnergyStored()) {
+                int temp = storage.getEnergyStored();
+                storage = new EnergyStorage( nbt.getInteger("maxEnergyStored"));
+                storage.receiveEnergy(temp,false);
+            }
+            if (nbt.hasKey("energyStored")) {
+                storage.extractEnergy(1000000000, false);
+                storage.receiveEnergy(nbt.getInteger("energyStored"),false);
+            }
+        }
+    }
+
+    @Nullable
+    @Override
+    public SPacketUpdateTileEntity getUpdatePacket() {
+        SPacketUpdateTileEntity packet = super.getUpdatePacket();
+        NBTTagCompound tag = packet != null ? packet.getNbtCompound() : new NBTTagCompound();
+
+        writeToNBT(tag);
+
+        return new SPacketUpdateTileEntity(pos, 1, tag);
+    }
+
+    @Override
+    public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
+        super.onDataPacket(net, pkt);
+        NBTTagCompound tag = pkt.getNbtCompound();
+        readFromNBT(tag);
     }
 
     public void setMode(int mode) {
+        world.scheduleBlockUpdate(pos,this.getBlockType(),0,0);
+        this.markDirty();
         this.mode = mode;
+
     }
 }

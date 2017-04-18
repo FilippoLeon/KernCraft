@@ -114,14 +114,23 @@ public abstract class MachineBlock extends BlockContainer {
                 );
                 FluidStack stack = new FluidStack(FluidRegistry.WATER, 1000);
                 ((SmeltingTileEntity) te).tank.fill(stack, true);
+
             }
             player.setHeldItem(hand, new ItemStack(Items.BUCKET));
+
+
+            world.scheduleBlockUpdate(pos, te.getBlockType(),0,0);
+            te.markDirty();
+
             return true;
         } else if(player.getHeldItem(hand).getItem() == ModItems.POTATO_BATTERY) {
             MachineTileEntity te = (MachineTileEntity) world.getTileEntity(pos);
             if(te instanceof SmeltingTileEntity) {
                 ((SmeltingTileEntity) te).storage.receiveEnergy(100, false);
             }
+            world.scheduleBlockUpdate(pos, te.getBlockType(),0,0);
+            te.markDirty();
+            return true;
         }
         if (!world.isRemote && has_gui) {
             player.openGui(KernCraft.instance, gui,

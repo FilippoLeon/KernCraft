@@ -1,12 +1,16 @@
 package com.R3DKn16h7.kerncraft.tileentities;
 
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
+
+import javax.annotation.Nullable;
 
 /**
  * Created by Filippo on 14/12/2016.
@@ -85,5 +89,23 @@ public abstract class MachineTileEntity extends TileEntity
         if (nbt != null && nbt.hasKey("Output")) {
             output.deserializeNBT(nbt.getCompoundTag("Output"));
         }
+    }
+
+    @Nullable
+    @Override
+    public SPacketUpdateTileEntity getUpdatePacket() {
+        SPacketUpdateTileEntity packet = super.getUpdatePacket();
+        NBTTagCompound tag = packet != null ? packet.getNbtCompound() : new NBTTagCompound();
+
+        writeToNBT(tag);
+
+        return new SPacketUpdateTileEntity(pos, 1, tag);
+    }
+
+    @Override
+    public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
+        super.onDataPacket(net, pkt);
+        NBTTagCompound tag = pkt.getNbtCompound();
+        readFromNBT(tag);
     }
 }

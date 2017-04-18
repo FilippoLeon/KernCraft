@@ -7,7 +7,10 @@ import com.R3DKn16h7.kerncraft.guicontainer.ExtractorContainer;
 import com.R3DKn16h7.kerncraft.network.KernCraftNetwork;
 import com.R3DKn16h7.kerncraft.network.MessageRedstoneControl;
 import com.R3DKn16h7.kerncraft.tileentities.ExtractorTileEntity;
+import net.minecraft.client.Minecraft;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.items.ItemStackHandler;
 
 import java.awt.*;
 import java.util.function.IntConsumer;
@@ -21,6 +24,12 @@ public class ExtractorGuiContainer extends AdvancedGuiContainer {
 
     public ExtractorGuiContainer(IInventory playerInv, ExtractorTileEntity te) {
         super(new ExtractorContainer(playerInv, te), playerInv, te);
+
+
+//        te.getUpdateTag();
+          te.getUpdatePacket();
+//        Minecraft.getMinecraft().world.scheduleBlockUpdate(te.getPos(), te.getBlockType(),0,0);
+
 
         setBackground("kerncraft:textures/gui/container/extractor_gui.png",
                 0, 0, this.xSize, this.ySize);
@@ -63,9 +72,6 @@ public class ExtractorGuiContainer extends AdvancedGuiContainer {
         AddWidget(progressText, true);
 
         int i = 0;
-        Runnable r = () -> {
-            //System.out.println("Click!");
-        };
         IntConsumer sdd = (int state) -> {
             te.setMode(state);
             KernCraftNetwork.networkWrapper.sendToAll(new MessageRedstoneControl(state, te.getPos()));
@@ -77,10 +83,22 @@ public class ExtractorGuiContainer extends AdvancedGuiContainer {
         AddWidget(btb2, true);
 
         // Side configuration button
-        StateButton btbX = new StateButton(this, 23, 48, 6, 6)
-                .addState(new StateButton.State().setTooltip("Front").setTint(Color.red));
+//        for(Con)
+        for(int[] ish: te.inputCoords) {
+            IntConsumer onSlotConfigurationChanged = (int state) -> {
+                System.out.println("Click! " + state);
+            };
+            StateButton btbX = new StateButton(this, ish[0] * 23, ish[1] * 23, 6, 6)
+                    .addState(new StateButton.State().setTooltip("Front").setTint(Color.red))
+                    .addState(new StateButton.State().setTooltip("Back").setTint(Color.blue))
+                    .addState(new StateButton.State().setTooltip("Top").setTint(Color.cyan))
+                    .addState(new StateButton.State().setTooltip("Bottom").setTint(Color.magenta))
+                    .addState(new StateButton.State().setTooltip("Left").setTint(Color.green))
+                    .addState(new StateButton.State().setTooltip("Right").setTint(Color.orange))
+                    .addOnStateChanged(onSlotConfigurationChanged);
+            AddWidget(btbX, true);
+        }
 
-        AddWidget(btbX, true);
     }
 
     @Override

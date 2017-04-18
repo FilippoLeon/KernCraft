@@ -6,8 +6,10 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.network.Packet;
+import net.minecraft.server.MinecraftServer;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.items.IItemHandler;
-
 
 public class ExtractorContainer extends AdvancedContainer {
 
@@ -31,6 +33,16 @@ public class ExtractorContainer extends AdvancedContainer {
      */
     public ExtractorContainer(IInventory playerInv, ExtractorTileEntity te) {
         this.te = te;
+//        sendpackettoserver
+//        Dispatch
+//        Packet
+//                N
+//        PacketDispatcher.sendPacketToPlayer(thisTileEntityTiny.getDescriptionPacket(), (Player)player);
+//        NetworkManager.NETWORK_PACKETS_MARKER.se
+//        PacketDispacher
+        Packet packet = te.getUpdatePacket();
+        MinecraftServer server = FMLCommonHandler.instance().getMinecraftServerInstance();
+        server.getPlayerList().sendPacketToAllPlayers(packet);
 
         IItemHandler input = te.getInput();
         IItemHandler output = te.getOutput();
