@@ -1,6 +1,7 @@
 package com.R3DKn16h7.kerncraft.tileentities;
 
 import com.R3DKn16h7.kerncraft.KernCraft;
+import com.R3DKn16h7.kerncraft.items.ModItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.BlockHorizontal;
@@ -8,21 +9,26 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemBucket;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.EnumBlockRenderType;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -98,6 +104,25 @@ public abstract class MachineBlock extends BlockContainer {
     public boolean onBlockActivated(World world, BlockPos pos, IBlockState state,
                                     EntityPlayer player, EnumHand hand,
                                     EnumFacing side, float hitX, float hitY, float hitZ) {
+        if(player.getHeldItem(hand).getItem() == Items.WATER_BUCKET) {
+            MachineTileEntity te = (MachineTileEntity) world.getTileEntity(pos);
+            if(te instanceof SmeltingTileEntity) {
+                Minecraft.getMinecraft().getSoundHandler().playSound(
+                        PositionedSoundRecord.getMasterRecord(
+                                new SoundEvent(new ResourceLocation("item.bucket.empty")),
+                                1)
+                );
+                FluidStack stack = new FluidStack(FluidRegistry.WATER, 1000);
+                ((SmeltingTileEntity) te).tank.fill(stack, true);
+            }
+            player.setHeldItem(hand, new ItemStack(Items.BUCKET));
+            return true;
+        } else if(player.getHeldItem(hand).getItem() == ModItems.POTATO_BATTERY) {
+            MachineTileEntity te = (MachineTileEntity) world.getTileEntity(pos);
+            if(te instanceof SmeltingTileEntity) {
+                ((SmeltingTileEntity) te).storage.receiveEnergy(100, false);
+            }
+        }
         if (!world.isRemote && has_gui) {
             player.openGui(KernCraft.instance, gui,
                     world, pos.getX(), pos.getY(), pos.getZ());

@@ -1,5 +1,7 @@
 package com.R3DKn16h7.kerncraft.items;
 
+import baubles.api.BaubleType;
+import baubles.api.IBauble;
 import com.R3DKn16h7.kerncraft.utils.PotionHelper;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
@@ -13,6 +15,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 /**
@@ -20,7 +23,8 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
  * TODO: baubles+COFH compoatibility
  * @author R3DKn16h7
  */
-public class PortableBeacon extends Item {
+@Optional.Interface(iface = "baubles.api.IBauble", modid = "baubles")
+public class PortableBeacon extends Item implements IBauble {
     public static String unlocalizedName = "portable_beacon";
 
     public PortableBeacon() {
@@ -29,6 +33,7 @@ public class PortableBeacon extends Item {
         this.setUnlocalizedName(unlocalizedName);
         this.setRegistryName(unlocalizedName);
         this.setCreativeTab(CreativeTabs.MISC);
+        this.setMaxStackSize(1);
         GameRegistry.register(this);
     }
 
@@ -68,4 +73,47 @@ public class PortableBeacon extends Item {
         return false;
     }
 
+    @Override
+    @Optional.Method(modid="baubles")
+    public BaubleType getBaubleType(ItemStack itemStack) {
+        return BaubleType.BELT;
+    }
+
+    @Override
+    @Optional.Method(modid="baubles")
+    public void onWornTick(ItemStack itemstack, EntityLivingBase player) {
+        if (player != null && player instanceof EntityPlayer)
+            if (((EntityPlayer) player).getActivePotionEffect(PotionHelper.getPotion(PotionHelper.Effect.SPECTRAL)) == null)
+                ((EntityPlayer) player).addPotionEffect(PotionHelper.getPotionEffect(PotionHelper.Effect.SPECTRAL, 300));
+    }
+
+    @Override
+    @Optional.Method(modid="baubles")
+    public void onEquipped(ItemStack itemstack, EntityLivingBase player) {
+
+    }
+
+    @Override
+    @Optional.Method(modid="baubles")
+    public void onUnequipped(ItemStack itemstack, EntityLivingBase player) {
+
+    }
+
+    @Override
+    @Optional.Method(modid="baubles")
+    public boolean canEquip(ItemStack itemstack, EntityLivingBase player) {
+        return true;
+    }
+
+    @Override
+    @Optional.Method(modid="baubles")
+    public boolean canUnequip(ItemStack itemstack, EntityLivingBase player) {
+        return true;
+    }
+
+    @Override
+    @Optional.Method(modid="baubles")
+    public boolean willAutoSync(ItemStack itemstack, EntityLivingBase player) {
+        return false;
+    }
 }

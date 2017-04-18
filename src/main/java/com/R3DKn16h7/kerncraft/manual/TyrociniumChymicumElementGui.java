@@ -35,8 +35,11 @@ public class TyrociniumChymicumElementGui extends TyrociniumChymicumGui {
     public final void initGui() {
         super.initGui();
 
-        if (element.description != null) {
-            stlist = fontRendererObj.listFormattedStringToWidth(element.description, pagewidth);
+        String str = element.loadDescription();
+        if (str != null) {
+            String str2 = ElementBase.Element.parseXml(str);
+
+            stlist = fontRendererObj.listFormattedStringToWidth(str2, pagewidth);
         }
 
     }
@@ -165,7 +168,7 @@ public class TyrociniumChymicumElementGui extends TyrociniumChymicumGui {
         if (ix >= stlist.size()) return;
         for (int col = 0; col < 2; ++col) {
             for (int row = 0; row < MAX_ROWS; ++row) {
-                int l = element.description.length();
+//                int l = element.description.length();
                 //if(start >=l ) break;
                 //int end = Math.min(start + size, l);
                 //String str = element.description.substring(start, end);

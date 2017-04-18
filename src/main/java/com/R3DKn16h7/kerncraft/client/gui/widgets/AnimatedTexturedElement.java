@@ -2,6 +2,7 @@ package com.R3DKn16h7.kerncraft.client.gui.widgets;
 
 import com.R3DKn16h7.kerncraft.client.gui.AdvancedGuiContainer;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.renderer.GlStateManager;
 
 /**
  * Created by Filippo on 27/11/2016.
@@ -65,6 +66,13 @@ public class AnimatedTexturedElement extends TexturedElement {
 
         if (auto_animated) {
             perc = (float) time / speed;
+        }
+
+        if (tint != null) {
+            GlStateManager.color(tint.getRed() / 255.f,
+                    tint.getGreen() / 255.f,
+                    tint.getBlue() / 255.f,
+                    1.0F);
         }
 
         int size, offset;

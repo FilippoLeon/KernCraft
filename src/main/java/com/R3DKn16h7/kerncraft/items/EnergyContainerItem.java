@@ -19,8 +19,8 @@ import java.util.List;
 //@Optional.Interface( iname = IntegrationType.RF, iface = "cofh.api.energy.IEnergyContainerItem" )
 //@Optional.Interface( iname = IntegrationType.RF, iface = "cofh.api.energy.IEnergyReceiver" )
 @Optional.InterfaceList({
-        @Optional.Interface(modid = "Tesla", iface = "net.darkhax.tesla.api.ITeslaHolder"),
-        @Optional.Interface(modid = "Tesla", iface = "net.darkhax.tesla.api.ITeslaConsumer")
+        @Optional.Interface(modid = "tesla", iface = "net.darkhax.tesla.api.ITeslaHolder"),
+        @Optional.Interface(modid = "tesla", iface = "net.darkhax.tesla.api.ITeslaConsumer")
 })
 public abstract class EnergyContainerItem extends Item implements
         ITeslaHolder, ITeslaConsumer {
@@ -33,19 +33,19 @@ public abstract class EnergyContainerItem extends Item implements
     }
 
     @Override
-    @Optional.Method(modid = "Tesla")
+    @Optional.Method(modid = "tesla")
     public long getCapacity() {
         return maxPower;
     }
 
     @Override
-    @Optional.Method(modid = "Tesla")
+    @Optional.Method(modid = "tesla")
     public long getStoredPower() {
         return storedPower;
     }
 
     @Override
-    @Optional.Method(modid = "Tesla")
+    @Optional.Method(modid = "tesla")
     public long givePower(long power, boolean simulated) {
         if(storedPower + power > maxPower) {
             if(!simulated) storedPower = maxPower;
@@ -59,19 +59,19 @@ public abstract class EnergyContainerItem extends Item implements
     }
 
     @Override
-    @Optional.Method(modid = "Tesla")
+    @Optional.Method(modid = "tesla")
     public double getDurabilityForDisplay(ItemStack stack) {
         return (1. - (double) storedPower / (double) maxPower);
     }
 
     @Override
-    @Optional.Method(modid = "Tesla")
+    @Optional.Method(modid = "tesla")
     public boolean showDurabilityBar(ItemStack stack) {
         return true;
     }
 
     @Override
-    @Optional.Method(modid = "Tesla")
+    @Optional.Method(modid = "tesla")
     public void addInformation (ItemStack stack, EntityPlayer playerIn,
                                 List<String> tooltip, boolean advanced) {
 
@@ -80,7 +80,7 @@ public abstract class EnergyContainerItem extends Item implements
 
 
     @Override
-    @Optional.Method(modid = "Tesla")
+    @Optional.Method(modid = "tesla")
     public ICapabilityProvider initCapabilities(ItemStack stack,
                                                 NBTTagCompound nbt)
     {

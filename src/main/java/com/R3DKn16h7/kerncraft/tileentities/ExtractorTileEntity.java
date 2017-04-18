@@ -8,12 +8,16 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntityFurnace;
+import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import net.minecraftforge.fluids.FluidTank;
+import net.minecraftforge.fluids.capability.IFluidHandler;
+import net.minecraftforge.fluids.capability.templates.FluidHandlerItemStack;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 
 import java.util.ArrayList;
 
-public class ExtractorTileEntity extends SmeltingTileEntity {
+public class ExtractorTileEntity extends SmeltingTileEntity implements ICapabilityProvider {
 
     // Slot IDs
     static final public int inputSlot = 0;
@@ -253,6 +257,8 @@ public class ExtractorTileEntity extends SmeltingTileEntity {
             prob = prob_;
         }
     }
+
+
 
     /**
      * Represents the recipe for the extractor.

@@ -1,16 +1,16 @@
 [
-{
-  "modid": "kerncraft",
-  "name": "KernCraft",
-  "description": "A simple elementary mod.",
-  "version": "${version}",
-  "mcversion": "${mcversion}",
-  "url": "",
-  "updateUrl": "",
-  "authorList": ["R3DKn16h7"],
-  "credits": "",
-  "logoFile": "",
-  "screenshots": [],
-  "dependencies": []
-}
+    {
+          "modid": "kerncraft",
+          "name": "KernCraft",
+          "description": "A simple elementary mod.",
+          "version": "",
+          "mcversion": "${mcversion}",
+          "url": "",
+          "updateUrl": "",
+          "authorList": ["R3DKn16h7"],
+          "credits": "",
+          "logoFile": "",
+          "screenshots": [],
+          "dependencies": []
+    }
 ]

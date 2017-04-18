@@ -7,7 +7,8 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
-@Mod(modid = KernCraft.MODID, name = KernCraft.NAME, version = KernCraft.VERSION, dependencies= "after:tesla")
+@Mod(modid = KernCraft.MODID, name = KernCraft.NAME,
+     version = KernCraft.VERSION, dependencies= "after:tesla,after:baubles,after:jei")
 public class KernCraft {
     public static final String MODID = "kerncraft";
     public static final String NAME = "kerncraft";

@@ -57,7 +57,10 @@ dependencies {
     // at runtime, use the full JEI jar
     runtime "mezz.jei:jei_${mc_version}:${jei_version}"
 
-    compile "net.darkhax.tesla:Tesla:1.11-${tesla_version}"
+    provided "net.darkhax.tesla:Tesla:1.11-${tesla_version}"
+
+    provided files("libs/Baubles-1.11-1.4.3-deobf.jar")
+//    compile "mcp.mobius.waila:Waila:${waila_version}_${mc_version}:dev"
 
     // you may put jars on which you depend on in ./libs
     // or you may define them like so..

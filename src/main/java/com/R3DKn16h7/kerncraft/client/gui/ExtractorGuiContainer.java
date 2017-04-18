@@ -17,6 +17,7 @@ public class ExtractorGuiContainer extends AdvancedGuiContainer {
     AnimatedTexturedElement flame;
     AnimatedTexturedElement brewing;
     Text progressText;
+    AnimatedTexturedElement energyBar, fluidBar;
 
     public ExtractorGuiContainer(IInventory playerInv, ExtractorTileEntity te) {
         super(new ExtractorContainer(playerInv, te), playerInv, te);
@@ -33,11 +34,19 @@ public class ExtractorGuiContainer extends AdvancedGuiContainer {
         AddWidget(brewing, true);
 
 
-        AnimatedTexturedElement energyBar = new AnimatedTexturedElement(this,
+       energyBar = new AnimatedTexturedElement(this,
                 "kerncraft:textures/gui/container/extractor_gui.png", -1, -1,
                 6, 18 * 3 - 2, 176, 0, AnimatedTexturedElement.Direction.BOTTOM, 300);
         // energyBar.setTint(Color.blue);
+        energyBar.setAutoAnimated(false, 0);
         AddWidget(energyBar, true);
+
+        fluidBar = new AnimatedTexturedElement(this,
+                "kerncraft:textures/gui/container/extractor_gui.png", -1 + 9, -1,
+                6, 18 * 3 - 2, 176, 0, AnimatedTexturedElement.Direction.BOTTOM, 300);
+        fluidBar.setTint(Color.blue);
+        fluidBar.setAutoAnimated(false, 0);
+        AddWidget(fluidBar, true);
 
         String s;
         if (te.getDisplayName() != null)
@@ -90,6 +99,25 @@ public class ExtractorGuiContainer extends AdvancedGuiContainer {
         String perc = String.format("%.2f%%", cast_te.getProgressPerc() * 100);
         progressText.setText(perc);
 
+        float perc1 = (float) cast_te.storage.getEnergyStored()
+                / cast_te.storage.getMaxEnergyStored();
+        String tooltip = String.format("Energy: %d/%d",
+                cast_te.storage.getEnergyStored(), cast_te.storage.getMaxEnergyStored());
+        energyBar.setTooltip(tooltip);
+        energyBar.setPercentage(perc1);
+
+        float perc3 = (float) cast_te.tank.getFluidAmount() / cast_te.tank.getCapacity();
+        String name;
+        if(cast_te.tank.getFluid() != null) {
+            name = cast_te.tank.getFluid().getLocalizedName();
+        } else {
+            name = "Empty";
+        }
+        String tooltip1 = String.format("%s: %d/%d",
+                name,
+                cast_te.tank.getFluidAmount(), cast_te.tank.getCapacity());
+        fluidBar.setTooltip(tooltip1);
+        fluidBar.setPercentage(perc3);
 
         String perc2 = String.format("Progress %.2f%%", cast_te.getProgressPerc() * 100);
         brewing.setPercentage(cast_te.getProgressPerc());

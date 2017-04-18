@@ -5,15 +5,22 @@ import com.R3DKn16h7.kerncraft.tileentities.ExtractorTileEntity;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.text.TextFormatting;
+import org.w3c.dom.Document;
+import org.w3c.dom.NodeList;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpression;
+import javax.xml.xpath.XPathFactory;
 import java.awt.*;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -320,6 +327,61 @@ public class ElementBase {
             }
 
         }
+
+        public String loadDescription() {
+            String str = "";
+
+            try {
+                DataInputStream in = null;
+                System.out.println("Reading file = .xml");
+                in = new DataInputStream(getClass().getClassLoader()
+                        .getResourceAsStream("assets/kerncraft/config/elements_descriptions.xml"));
+                //in = Minecraft.getMinecraft().getResourceManager().getResource(loc).getInputStream();
+
+                DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+                DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+                Document doc = dBuilder.parse(in);
+                doc.getDocumentElement().normalize();
+
+                NodeList nList = doc.getElementsByTagName("staff");
+//                System.out.println("Root element:" + doc.getDocumentElement().getNodeName());
+
+                XPath xpath = XPathFactory.newInstance().newXPath();
+                XPathExpression expr = xpath.compile("//Element[@id=\"" + this.id + "\"]");
+                Object exprResult = expr.evaluate(doc, XPathConstants.NODESET);
+                NodeList nodeList = (NodeList) exprResult;
+                if (nodeList.getLength() > 0) {
+                    String lang = Minecraft.getMinecraft().gameSettings.language;
+//                        System.out.println("Root element :" + lang);
+                    expr = xpath.compile("//Description[@lang=\"" + lang + "\"]");
+                    exprResult = expr.evaluate(nodeList.item(0), XPathConstants.NODESET);
+                    NodeList nodeList2 = (NodeList) exprResult;
+                    if (nodeList2.getLength() > 0) {
+//                        System.out.println("Root element :" + nodeList2.item(0).getTextContent());
+                        return nodeList2.item(0).getTextContent();
+                    } else {
+
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+
+            return str;
+        }
+
+        public static final String parseXml(String str) {
+            str = str
+                    .replaceAll("\n[ ]+", " ")
+                    .replace("[b]", "§l")
+                    .replace("[/b]", "§r")
+                    .replace("[br/]", "\n\n");
+
+
+            return str;
+        }
     }
+
 
 }
