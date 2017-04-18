@@ -4,6 +4,8 @@ import com.R3DKn16h7.kerncraft.client.gui.IAdvancedGuiContainer;
 import com.R3DKn16h7.kerncraft.network.KernCraftNetwork;
 import com.R3DKn16h7.kerncraft.network.MessageRedstoneControl;
 import com.R3DKn16h7.kerncraft.tileentities.IRedstoneSettable;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -38,10 +40,12 @@ public class StateButton extends BetterButton {
 
     public static StateButton REDSTONE_MODE(IAdvancedGuiContainer container,
                                             IRedstoneSettable te) {
+        // TODO: BETTER FIX THIS
+        BlockPos pos = ((TileEntity) te).getPos();
         IntConsumer sdd = (int state) -> {
             te.setMode(state);
             //KernCraftNetwork.networkWrapper.sendToAll(new MessageRedstoneControl(state, te.getPos()));
-            KernCraftNetwork.networkWrapper.sendToServer(new MessageRedstoneControl(state, te.getPos()));
+            KernCraftNetwork.networkWrapper.sendToServer(new MessageRedstoneControl(state,  pos));
         };
 
         StateButton btb2 = new StateButton(container, -20, 20, 20, 20);

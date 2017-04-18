@@ -129,9 +129,18 @@ public class LampBlockEntity extends BlockContainer {
     public void onNeighborChange(IBlockAccess world, BlockPos pos, BlockPos neighbor) {
         super.onNeighborChange(world, pos, neighbor);
 //        if (!world.isRemote) {
+        System.out.println("OUpdate!");
             LampTileEntity tileentity = (LampTileEntity) world.getTileEntity(pos);
             tileentity.updateState();
 //        }
+    }
+
+    @Override
+    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
+        super.neighborChanged(state, worldIn, pos, blockIn, fromPos);
+        System.out.println("OUpdate!");
+        LampTileEntity tileentity = (LampTileEntity) worldIn.getTileEntity(pos);
+        tileentity.updateState();
     }
 
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {

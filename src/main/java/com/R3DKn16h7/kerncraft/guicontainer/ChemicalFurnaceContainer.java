@@ -90,6 +90,7 @@ public class ChemicalFurnaceContainer extends AdvancedContainer {
         if (reverseDirection) {
             i = endIndex - 1;
         }
+        if(stack == null) return false;
 
         if (stack.isStackable()) {
             while (stack.getCount() > 0 &&
@@ -99,7 +100,7 @@ public class ChemicalFurnaceContainer extends AdvancedContainer {
                 // Current stack in tested slot
                 ItemStack itemstack = slot.getStack();
                 // Is slot non-empty but can accept some of those items
-                if (itemstack != null && areItemStacksEqual(stack, itemstack)) {
+                if (itemstack != ItemStack.EMPTY && areItemStacksEqual(stack, itemstack)) {
                     int j = itemstack.getCount() + stack.getCount();
 
                     int max_stack_size = Math.min(stack.getMaxStackSize(), slot.getSlotStackLimit());
@@ -142,13 +143,13 @@ public class ChemicalFurnaceContainer extends AdvancedContainer {
                 ItemStack itemstack1 = slot1.getStack();
 
                 // Only if slot is empty or can place item in slot
-                if (itemstack1 == null && slot1.isItemValid(stack)) {
+                if (itemstack1 == ItemStack.EMPTY && slot1.isItemValid(stack)) {
                     // If total of items can fit in slot, then just do that
                     if (stack.getCount() <= slot1.getSlotStackLimit()) {
                         slot1.putStack(stack.copy());
                         slot1.onSlotChanged();
                         stack.setCount(0);
-                        stack = null;
+                        stack = ItemStack.EMPTY;
                         flag = true;
                         break;
                         // If total of items cannot completely fill slot, do as much as possible
@@ -158,7 +159,7 @@ public class ChemicalFurnaceContainer extends AdvancedContainer {
                         slot1.putStack(portion.copy());
                         slot1.onSlotChanged();
                         stack.setCount(stack.getCount() - slot1.getSlotStackLimit());
-                        if (stack.getCount() == 0) stack = null;
+                        if (stack.getCount() == 0) stack = ItemStack.EMPTY;
                     }
                 }
 
@@ -177,7 +178,11 @@ public class ChemicalFurnaceContainer extends AdvancedContainer {
 
     @Override
     public ItemStack transferStackInSlot(EntityPlayer playerIn, int fromSlot) {
-        ItemStack previous = null;
+
+        //TODO CHAMGE
+        int numSlots = 4;
+
+        ItemStack previous = ItemStack.EMPTY;
         Slot slot = this.inventorySlots.get(fromSlot);
 
         int numPlayerSlots = 36;
@@ -187,24 +192,24 @@ public class ChemicalFurnaceContainer extends AdvancedContainer {
             previous = current.copy();
 
             // TODO: FIX
-            if (fromSlot < 8) {
+            if (fromSlot < numSlots) {
                 // We are shift clicking something in the tile entity
                 if (!this.mergeItemStack(current,
-                        8, 8 + numPlayerSlots, true))
-                    return null;
+                        numSlots,  numSlots + numPlayerSlots, true))
+                    return ItemStack.EMPTY;
             } else {
                 // We are shift clicking something from the tile entity
-                if (!this.mergeItemStack(current, 0, 4, false))
-                    return null;
+                if (!this.mergeItemStack(current, 0,  numSlots, false))
+                    return ItemStack.EMPTY;
             }
 
             if (current.getCount() == 0)
-                slot.putStack(null);
+                slot.putStack(ItemStack.EMPTY);
             else
                 slot.onSlotChanged();
 
             if (current.getCount() == previous.getCount())
-                return null;
+                return ItemStack.EMPTY;
             slot.onTake(playerIn, current);
         }
         return previous;

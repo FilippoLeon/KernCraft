@@ -31,6 +31,11 @@ public class LampTileEntity extends TileEntity implements IRedstoneSettable, IMe
         updateState();
     }
 
+    @Override
+    public BlockPos getPos() {
+        return super.getPos();
+    }
+
     public void receiveMessage(int i) {
         System.out.println("Received ll:" + lightLevel);
         if (i == -1 && lightLevel < 15) ++lightLevel;

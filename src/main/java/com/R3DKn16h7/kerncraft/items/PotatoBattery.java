@@ -4,7 +4,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
-public class PotatoBattery extends Item {
+public class PotatoBattery extends EnergyContainerItem {
     public static String base_name = "potato_battery";
 
     public PotatoBattery() {
