@@ -167,7 +167,7 @@ public class AdvancedGuiContainer extends GuiContainer implements IAdvancedGuiCo
         super.keyTyped(typedChar, keyCode);
     }
 
-    void setDynamicBackground(int xSize, int Ysize) {
+    void setDynamicBackground(int xSize, int ySize) {
 
         use_dynamic_background = true;
         backgroundResource = new ResourceLocation("textures/gui/demo_background.png");

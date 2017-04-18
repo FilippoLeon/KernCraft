@@ -44,11 +44,13 @@ public class MachineGuiContainer extends AdvancedGuiContainer {
         if (te instanceof IFuelUser) {
             flame = AnimatedTexturedElement.FLAME(this, 18 * 1, 18 * 1);
             flame.setAutoAnimated(false, 0);
+            flame.setTint(null);
             AddWidget(flame, true);
         }
         if (te instanceof IProgressMachine) {
             brewing = AnimatedTexturedElement.BREWING(this, 18 * 3 + 1, 18 * 1 + 8);
             brewing.setAutoAnimated(false, 0);
+            brewing.setTint(null);
             AddWidget(brewing, true);
 
             progressText = new Text(this, 18 * 5 + 2,

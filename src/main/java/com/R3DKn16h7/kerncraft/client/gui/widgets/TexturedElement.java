@@ -25,6 +25,7 @@ public class TexturedElement extends Widget {
         // Offset within texture
         this.offsetX = offsetX;
         this.offsetY = offsetY;
+        this.tint = null;
     }
 
     public TexturedElement setTint(Color tint) {
@@ -39,8 +40,6 @@ public class TexturedElement extends Widget {
         }
         GuiScreen C = (GuiScreen) container;
 
-        C.mc.getTextureManager().bindTexture(textureLocation);
-
         if (tint != null) {
             GlStateManager.color(tint.getRed() / 255.f,
                     tint.getGreen() / 255.f,
@@ -48,11 +47,15 @@ public class TexturedElement extends Widget {
                     1.0F);
         }
 
+        C.mc.getTextureManager().bindTexture(textureLocation);
+
+
         C.drawTexturedModalRect(xPosition, yPosition,
                 offsetX, offsetY,
                 xSize, ySize);
 
         GlStateManager.resetColor();
+
     }
 
 }

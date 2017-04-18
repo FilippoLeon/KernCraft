@@ -62,18 +62,25 @@ public class AnimatedTexturedElement extends TexturedElement {
         }
         GuiScreen C = (GuiScreen) container;
 
+        if (tint != null) {
+            GlStateManager.color(tint.getRed() / 255.f,
+                    tint.getGreen() / 255.f,
+                    tint.getBlue() / 255.f,
+                    1.0F);
+        } else {
+            // TODO: this is just an hack, something must be awfully wrong somewhere
+            GlStateManager.color(255.f,
+                    255.f,
+                    255.f,
+                    1.0F);
+        }
+
         C.mc.getTextureManager().bindTexture(textureLocation);
 
         if (auto_animated) {
             perc = (float) time / speed;
         }
 
-        if (tint != null) {
-            GlStateManager.color(tint.getRed() / 255.f,
-                    tint.getGreen() / 255.f,
-                    tint.getBlue() / 255.f,
-                    1.0F);
-        }
 
         int size, offset;
         switch (dir) {

@@ -221,6 +221,7 @@ public class BetterButton extends GuiButton implements IWidget {
                             xIconSize, yIconSize);
                 }
             }
+            GlStateManager.resetColor();
         }
     }
 
