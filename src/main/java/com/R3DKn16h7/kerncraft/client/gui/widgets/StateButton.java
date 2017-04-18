@@ -18,7 +18,6 @@ import java.util.function.IntConsumer;
  */
 @SideOnly(Side.CLIENT)
 public class StateButton extends BetterButton {
-
     public int stateIdx = 0;
 
     public ArrayList<State> states = new ArrayList<State>();
@@ -44,21 +43,20 @@ public class StateButton extends BetterButton {
         BlockPos pos = ((TileEntity) te).getPos();
         IntConsumer sdd = (int state) -> {
             te.setMode(state);
-            //KernCraftNetwork.networkWrapper.sendToAll(new MessageRedstoneControl(state, te.getPos()));
             KernCraftNetwork.networkWrapper.sendToServer(new MessageRedstoneControl(state,  pos));
         };
 
-        StateButton btb2 = new StateButton(container, -20, 20, 20, 20);
-        btb2.setText("")
+        StateButton redstoneModeStateButton = new StateButton(container, -20, 20, 20, 20);
+        redstoneModeStateButton.setText("")
                 .setAlignment(Widget.Alignment.MIDDLE);
-        btb2.addState(new StateButton.State("kerncraft:textures/gui/widgets.png",
+        redstoneModeStateButton.addState(new StateButton.State("kerncraft:textures/gui/widgets.png",
                 "", "Active with signal", 16 * 4, 16 * 7))
                 .addState(new StateButton.State("kerncraft:textures/gui/widgets.png",
                         "", "Active without signal", 16 * 5, 16 * 7))
                 .addState(new StateButton.State("kerncraft:textures/gui/widgets.png",
                         "", "Ignore", 16 * 2, 16 * 7))
                 .addOnStateChanged(sdd);
-        return btb2;
+        return redstoneModeStateButton;
     }
 
     public StateButton setState(int i) {

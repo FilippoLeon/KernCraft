@@ -1,5 +1,6 @@
 package com.R3DKn16h7.kerncraft.guicontainer;
 
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.items.IItemHandler;
 
 /**
@@ -20,4 +21,8 @@ public class FilteredSlotItemHandler extends AdvancedSlotItemHandler {
         this(container, inventory, index, xPosition, yPosition, 1);
     }
 
+    @Override
+    public boolean itemStackIsValid(ItemStack itemstack) {
+        return true;
+    }
 }

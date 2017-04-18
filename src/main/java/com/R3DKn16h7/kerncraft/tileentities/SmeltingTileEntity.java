@@ -10,6 +10,8 @@ import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.EnergyStorage;
+import net.minecraftforge.energy.IEnergyStorage;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.items.CapabilityItemHandler;
@@ -21,7 +23,8 @@ import java.util.ArrayList;
 
 abstract public class SmeltingTileEntity
         extends MachineTileEntity
-        implements IRedstoneSettable {
+        implements IRedstoneSettable, IFuelUser,
+                   IEnergyContainer, IProgressMachine, IFluidStorage {
 
     //// Status variables
     // Are we currently smelting
@@ -29,13 +32,10 @@ abstract public class SmeltingTileEntity
     //// Static constants
     // Static register of recipes
     static public ArrayList<ISmeltingRecipe> recipes;
-    protected final IItemHandler automationInput;
-    protected final IItemHandler automationOutput;
-    // Internal storages
+    // Internal energy storage
     public EnergyStorage storage;
     public FluidTank tank;
-    // Has the input changed since last check?
-    public boolean inputChanged = false;
+    // Is the machine currently smelting
     protected boolean smelting = false;
     // Recipe Id currently smelting
     protected ISmeltingRecipe currentlySmelting;
@@ -48,23 +48,60 @@ abstract public class SmeltingTileEntity
 
     public SmeltingTileEntity(int inputSize, int outputSize) {
         super(inputSize, outputSize);
-        automationInput = new ItemStackHandler(4);
-        automationOutput = new ItemStackHandler(4);
         // Internal storages
-        storage = new EnergyStorage(1000);
-        tank = new FluidTank(1000);
+        storage = new EnergyStorage(100000);
+        tank = new FluidTank(16000);
     }
 
     /**
-     * Add new recipe
+     * Add new recipe to the recipes added by this machine.
      *
-     * @return Return false if registration failed (TODO)
+     * @return Return false if registration failed [WIP]
      */
     static public boolean registerRecipe(ISmeltingRecipe rec) {
         recipes.add(rec);
         return true;
     }
 
+    @Override
+    public float getProgressPercent() {
+        if (currentlySmelting == null) return 0f;
+        return progress / (float) currentlySmelting.getCost();
+    }
+    @Override
+    public float getFuelStoredPercent() {
+        return Math.min(storedFuel / (float)
+                        TileEntityFurnace.getItemBurnTime(new ItemStack(Items.COAL)),
+                1.0f
+        );
+    }
+
+    @Override
+    public int getEnergyStored() {
+        return storage.getEnergyStored();
+    }
+
+    @Override
+    public int getMaxEnergyStored() {
+        return storage.getMaxEnergyStored();
+    }
+
+    @Override
+    public int getCapacity() {
+        return tank.getCapacity();
+    }
+
+    @Override
+    public FluidStack getFluid() {
+        return tank.getFluid();
+    }
+
+    @Override
+    public int getFluidAmount() {
+        return tank.getFluidAmount();
+    }
+
+    @Override
     public int getRedstoneMode() {
         return mode;
     }
@@ -94,11 +131,6 @@ abstract public class SmeltingTileEntity
         return super.getCapability(capability, facing);
     }
 
-    public float getProgressPerc() {
-        if (currentlySmelting == null) return 0f;
-        return progress / (float) currentlySmelting.getCost();
-    }
-
     public boolean canSmelt() {
         return canSmelt(currentlySmelting);
     }
@@ -114,7 +146,6 @@ abstract public class SmeltingTileEntity
      * is possible to continue smelting.
      */
     public void progressSmelting() {
-
         if (mode == 0 && !this.world.isBlockPowered(pos)) return;
         if (mode == 1 && this.world.isBlockPowered(pos)) return;
 
@@ -171,12 +202,6 @@ abstract public class SmeltingTileEntity
         }
     }
 
-    public float getFuelStoredPercentage() {
-        return Math.min(storedFuel / (float)
-                        TileEntityFurnace.getItemBurnTime(new ItemStack(Items.COAL)),
-                1.0f
-        );
-    }
 
     @Override
     public void readFromNBT(NBTTagCompound nbt) {
@@ -254,6 +279,7 @@ abstract public class SmeltingTileEntity
         readFromNBT(tag);
     }
 
+    @Override
     public void setMode(int mode) {
         world.scheduleBlockUpdate(pos,this.getBlockType(),0,0);
         this.markDirty();

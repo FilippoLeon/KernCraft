@@ -4,6 +4,7 @@ import com.R3DKn16h7.kerncraft.elements.ElementBase;
 import com.R3DKn16h7.kerncraft.items.Canister;
 import com.R3DKn16h7.kerncraft.items.ModItems;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -27,9 +28,10 @@ public class ExtractorTileEntity extends SmeltingTileEntity
     static final public int canisterSlot = 2;
     static final public int fuelSlot = 3;
     static final public int outputSlotSize = 4;
+    static final public int totalSlots = 8;
     //// Static constants
     static private final int consumedEnergyPerFuelRefill = 100;
-    static private final int generatedFuelPerEnergyDrain = 100;
+    static private int generatedFuelPerEnergyDrain = 100;
     static private final int consumedFuelPerTic = 20;
 
     public int[][] inputCoords = {{1,1},{3,1},{8,1},{1,3}};
@@ -37,6 +39,8 @@ public class ExtractorTileEntity extends SmeltingTileEntity
 
     public ExtractorTileEntity() {
         super(4, 4);
+
+        generatedFuelPerEnergyDrain = TileEntityFurnace.getItemBurnTime(new ItemStack(Items.COAL));
 
         if (recipes == null) {
             recipes = new ArrayList<ISmeltingRecipe>();
@@ -106,6 +110,11 @@ public class ExtractorTileEntity extends SmeltingTileEntity
                                 input.getStackInSlot(catalystSlot).getItem() != ex_rec.catalyst ||
                                 input.getStackInSlot(catalystSlot).getCount() < 1
                         ));
+    }
+
+    @Override
+    public int getTotalSlots() {
+        return totalSlots;
     }
 
     /**

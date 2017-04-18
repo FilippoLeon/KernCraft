@@ -1,5 +1,6 @@
 package com.R3DKn16h7.kerncraft.guicontainer;
 
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
 
@@ -34,5 +35,9 @@ public class AdvancedSlotItemHandler extends SlotItemHandler {
     @Override
     public void onSlotChanged() {
         container.onSlotChanged();
+    }
+
+    public boolean itemStackIsValid(ItemStack itemstack) {
+        return true;
     }
 }

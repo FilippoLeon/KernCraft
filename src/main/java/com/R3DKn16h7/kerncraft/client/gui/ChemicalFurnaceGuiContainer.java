@@ -14,10 +14,9 @@ import net.minecraft.inventory.Slot;
 
 import java.util.function.IntConsumer;
 
-public class ChemicalFurnaceGuiContainer extends AdvancedGuiContainer {
+public class ChemicalFurnaceGuiContainer extends MachineGuiContainer {
 
     AnimatedTexturedElement flame;
-    AdvancedContainer container;
 
     public ChemicalFurnaceGuiContainer(IInventory playerInv,
                                        ChemicalFurnaceTileEntity te) {
@@ -30,34 +29,6 @@ public class ChemicalFurnaceGuiContainer extends AdvancedGuiContainer {
         flame = AnimatedTexturedElement.FLAME(this, 18 * 4 + 9, 18 * 1);
         flame.setAutoAnimated(false, 0);
         AddWidget(flame, true);
-
-        AnimatedTexturedElement energyBar = new AnimatedTexturedElement(this,
-                "kerncraft:textures/gui/container/extractor_gui.png",
-                -1, -1,
-                6, 18 * 3 - 2, 176, 0,
-                AnimatedTexturedElement.Direction.BOTTOM, 300);
-        // energyBar.setTint(Color.blue);
-        AddWidget(energyBar, true);
-
-        String s;
-        if (te.getDisplayName() != null)
-            s = te.getDisplayName().getUnformattedText();
-        else
-            s = "Chemical furnace";
-        Text titleText = new Text(this, 0, -borderTop + 4,
-                this.xSize - 2 * borderLeft, 6, Text.Alignment.MIDDLE);
-        titleText.setText(s);
-        AddWidget(titleText, true);
-
-
-        IntConsumer sdd = (int state) -> {
-            te.setMode(state);
-            KernCraftNetwork.networkWrapper.sendToAll(new MessageRedstoneControl(state, te.getPos()));
-            KernCraftNetwork.networkWrapper.sendToServer(new MessageRedstoneControl(state, te.getPos()));
-        };
-        StateButton btb2 = StateButton.REDSTONE_MODE(this, te);
-        AddWidget(btb2, true);
-
     }
 
     private void addSlotTextures(AdvancedContainer inventorySlots) {
@@ -72,20 +43,7 @@ public class ChemicalFurnaceGuiContainer extends AdvancedGuiContainer {
     }
 
     @Override
-    public void initGui() {
-        super.initGui();
-    }
-
-    @Override
     public void updateWidgets() {
         super.updateWidgets();
-        ChemicalFurnaceTileEntity cast_te = (ChemicalFurnaceTileEntity) te;
-
-        flame.setPercentage(cast_te.getFuelStoredPercentage());
-        flame.setTooltip(String.format("Fuel %.2f%%", cast_te.getFuelStoredPercentage()));
-
-        String perc = String.format("%.2f%%", cast_te.getProgressPerc() * 100);
-
-        String perc2 = String.format("Progress %.2f%%", cast_te.getProgressPerc() * 100);
     }
 }

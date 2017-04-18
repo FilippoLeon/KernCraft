@@ -8,12 +8,14 @@ import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 
 import javax.annotation.Nullable;
+import java.awt.*;
 
 /**
  * Created by Filippo on 14/12/2016.
@@ -25,6 +27,8 @@ public abstract class MachineTileEntity extends TileEntity
     public final ItemStackHandler output;
     private final int inputSize;
     private final int outputSize;
+    // Has the input changed since last check?
+    public boolean inputChanged = false;
 
     public final SideConfiguration sideConfig;
 
@@ -44,6 +48,8 @@ public abstract class MachineTileEntity extends TileEntity
     public void setSlotSide(int slotId, int side) {
         sideConfig.setSlotSide(slotId, side);
     }
+
+    public abstract int getTotalSlots();
 
     public ItemStackHandler getInput() {
         return input;

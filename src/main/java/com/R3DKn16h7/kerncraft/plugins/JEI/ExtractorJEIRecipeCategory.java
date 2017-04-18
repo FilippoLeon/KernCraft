@@ -127,11 +127,11 @@ public class ExtractorJEIRecipeCategory implements IRecipeCategory {
         guiItemStacks.set(canisterSlot, new ItemStack(ModItems.CANISTER));
 
         List<List<ItemStack>> outs = ingredients.getOutputs(ItemStack.class);
-        int min = Math.min(outs.get(0).size(), outputSlotSize);
+        int min = Math.min(outs.size(), outputSlotSize);
         for (int j = 0; j < min; ++j) {
             guiItemStacks.init(j + outputSlotStart,
                     false, 0 + 18 * (j + 5), 18 * 2);
-            ItemStack item = outs.get(0).get(j);
+            ItemStack item = outs.get(j).get(0);
             if (item != null)
                 guiItemStacks.set(j + outputSlotStart, item);
         }

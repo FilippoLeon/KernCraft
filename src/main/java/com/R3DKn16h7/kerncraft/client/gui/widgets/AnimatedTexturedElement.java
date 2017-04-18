@@ -105,6 +105,7 @@ public class AnimatedTexturedElement extends TexturedElement {
                 break;
         }
 
+        GlStateManager.resetColor();
 
         if (auto_animated) {
             ++time;

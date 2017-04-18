@@ -10,15 +10,20 @@ public class ChemicalFurnaceTileEntity extends SmeltingTileEntity {
     static final public int inputSlotSize = 2;
     static final public int outputSlotStart = 0;
     static final public int outputSlotSize = 2;
-    static final private int NumberOfSlots = 4;
+    static final public int totalSlots = 4;
 
     public ChemicalFurnaceTileEntity() {
         super(2, 2);
     }
 
     @Override
+    public int getTotalSlots() {
+        return totalSlots;
+    }
+
+    @Override
     public boolean canSmelt(ISmeltingRecipe rec) {
-        return input.getStackInSlot(0) != null &&
+        return !input.getStackInSlot(0).isEmpty() &&
                 input.getStackInSlot(0).getItem() ==
                         Item.getItemFromBlock(Blocks.IRON_BLOCK);
     }

@@ -51,6 +51,8 @@ public class TexturedElement extends Widget {
         C.drawTexturedModalRect(xPosition, yPosition,
                 offsetX, offsetY,
                 xSize, ySize);
+
+        GlStateManager.resetColor();
     }
 
 }
