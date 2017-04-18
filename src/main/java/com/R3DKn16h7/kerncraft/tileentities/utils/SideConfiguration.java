@@ -16,11 +16,11 @@ public class SideConfiguration {
     public enum EnumSide {
         Disabled(6),
         Front(0),
-        Back(1),
-        Top(2),
-        Bottom(3),
-        Left(4),
-        Right(5);
+        Right(1),
+        Back(2),
+        Left(3),
+        Top(4),
+        Bottom(5);
 
         private final int value;
 
@@ -44,20 +44,15 @@ public class SideConfiguration {
 
     // TODO: use entity facing to obtain correct positioning
     public ConfigurableItemHandler get(EnumFacing facing, EnumFacing tileEntityFacing) {
+        int horizontalSide = (facing.getHorizontalIndex() + tileEntityFacing.getHorizontalIndex()) % 4;
+//        facing.to
         switch (facing) {
             case DOWN:
                 return configurableItemHandler[EnumSide.Bottom.getValue()];
             case UP:
                 return configurableItemHandler[EnumSide.Top.getValue()];
-            case NORTH:
-                return configurableItemHandler[EnumSide.Bottom.getValue()];
-            case SOUTH:
-                return configurableItemHandler[EnumSide.Bottom.getValue()];
-            case WEST:
-                return configurableItemHandler[EnumSide.Bottom.getValue()];
             default:
-            case EAST:
-                return configurableItemHandler[EnumSide.Bottom.getValue()];
+                return configurableItemHandler[horizontalSide];
         }
     }
 

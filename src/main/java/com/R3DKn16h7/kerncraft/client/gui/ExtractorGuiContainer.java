@@ -93,11 +93,11 @@ public class ExtractorGuiContainer extends AdvancedGuiContainer {
             StateButton btbX = new StateButton(this, ish[0] *18 + borderLeft - 3,
                     (ish[1] -1) * 18 + borderTop - 4, 6, 6)
                     .addState(new StateButton.State().setTooltip("Side: Front").setTint(Color.red))
+                    .addState(new StateButton.State().setTooltip("Side: Right").setTint(Color.orange))
                     .addState(new StateButton.State().setTooltip("Side: Back").setTint(Color.blue))
+                    .addState(new StateButton.State().setTooltip("Side: Left").setTint(Color.green))
                     .addState(new StateButton.State().setTooltip("Side: Top").setTint(Color.cyan))
                     .addState(new StateButton.State().setTooltip("Side: Bottom").setTint(Color.magenta))
-                    .addState(new StateButton.State().setTooltip("Side: Left").setTint(Color.green))
-                    .addState(new StateButton.State().setTooltip("Side: Right").setTint(Color.orange))
                     .addState(new StateButton.State().setTooltip("Side: Disabled").setTint(Color.black))
                     .addOnStateChanged(onSlotConfigurationChanged);
             btbX.setState(te.sideConfig.getSlotSide(I++).getValue());
@@ -113,11 +113,11 @@ public class ExtractorGuiContainer extends AdvancedGuiContainer {
             StateButton btbX = new StateButton(this, ish[0] * 18 + borderLeft - 4,
                     (ish[1] - 1) * 18 + borderTop - 4, 6, 6)
                     .addState(new StateButton.State().setTooltip("Side: Front").setTint(Color.red))
+                    .addState(new StateButton.State().setTooltip("Side: Right").setTint(Color.orange))
                     .addState(new StateButton.State().setTooltip("Side: Back").setTint(Color.blue))
+                    .addState(new StateButton.State().setTooltip("Side: Left").setTint(Color.green))
                     .addState(new StateButton.State().setTooltip("Side: Top").setTint(Color.cyan))
                     .addState(new StateButton.State().setTooltip("Side: Bottom").setTint(Color.magenta))
-                    .addState(new StateButton.State().setTooltip("Side: Left").setTint(Color.green))
-                    .addState(new StateButton.State().setTooltip("Side: Right").setTint(Color.orange))
                     .addState(new StateButton.State().setTooltip("Side: Disabled").setTint(Color.black))
                     .addOnStateChanged(onSlotConfigurationChanged);
             btbX.setState(te.sideConfig.getSlotSide(I++).getValue());

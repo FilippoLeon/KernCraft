@@ -167,7 +167,6 @@ public class ExtractorContainer extends AdvancedContainer {
                         slot1.putStack(stack.copy());
                         slot1.onSlotChanged();
                         stack.setCount(0);
-                        stack = ItemStack.EMPTY;
                         flag = true;
                         break;
                     // If total of items cannot completely fill slot, do as much as possible
@@ -194,6 +193,14 @@ public class ExtractorContainer extends AdvancedContainer {
         return flag;
     }
 
+    /**
+     * This handles shift clicking
+     *
+     * TODO: this should be made into a super class
+     * @param playerIn
+     * @param fromSlot
+     * @return
+     */
     @Override
     @MethodsReturnNonnullByDefault
     public ItemStack transferStackInSlot(EntityPlayer playerIn, int fromSlot) {
@@ -206,7 +213,7 @@ public class ExtractorContainer extends AdvancedContainer {
             ItemStack current = slot.getStack();
             previous = current.copy();
 
-            // TODO: FIX
+            // TODO: FIX, hardcoded magic number
             if (fromSlot < 8) {
                 // We are shift clicking something in the tile entity
                 if (!this.mergeItemStack(current,
@@ -224,7 +231,7 @@ public class ExtractorContainer extends AdvancedContainer {
                 slot.onSlotChanged();
 
             if (current.getCount() == previous.getCount())
-                return null;
+                return ItemStack.EMPTY;
             slot.onTake(playerIn, current);
         }
         return previous;
