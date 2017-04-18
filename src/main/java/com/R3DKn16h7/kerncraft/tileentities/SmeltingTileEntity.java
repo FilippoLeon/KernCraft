@@ -89,7 +89,7 @@ abstract public class SmeltingTileEntity
             return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(tank);
         } else if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
             //return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(automationInput);
-            return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(input);
+//            return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(input);
         }
         return super.getCapability(capability, facing);
     }

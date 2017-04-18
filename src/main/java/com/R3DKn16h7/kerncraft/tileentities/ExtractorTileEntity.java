@@ -18,39 +18,40 @@ import net.minecraftforge.items.ItemStackHandler;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ExtractorTileEntity extends SmeltingTileEntity implements ICapabilityProvider, IMessageIntReceiver {
+public class ExtractorTileEntity extends SmeltingTileEntity
+        implements ICapabilityProvider, IMessageIntReceiver {
 
     // Slot IDs
     static final public int inputSlot = 0;
     static final public int catalystSlot = 1;
     static final public int canisterSlot = 2;
     static final public int fuelSlot = 3;
-    static final public int outputSlotStart = 4;
     static final public int outputSlotSize = 4;
-    static final private int NumberOfSlots = 8;
     //// Static constants
     static private final int consumedEnergyPerFuelRefill = 100;
     static private final int generatedFuelPerEnergyDrain = 100;
     static private final int consumedFuelPerTic = 20;
-    // Static register of recipes
-    private final IItemHandler automationInput = new ItemStackHandler(4);
-    private final IItemHandler automationOutput = new ItemStackHandler(4);
 
-    public int[][] inputCoords = {{1,0},{3,0},{8,0},{1,2}};
-    public int[][] outputCoords = {{8,2},{8,2},{8,2},{8,2}};
+    public int[][] inputCoords = {{1,1},{3,1},{8,1},{1,3}};
+    public int[][] outputCoords = {{5,3},{6,3},{7,3},{8,3}};
 
     public ExtractorTileEntity() {
-
         super(4, 4);
 
         if (recipes == null) {
             recipes = new ArrayList<ISmeltingRecipe>();
             registerRecipe(Item.getItemFromBlock(Blocks.IRON_ORE),
                     Item.getItemFromBlock(Blocks.ANVIL),
-                    new ElementStack[]{new ElementStack(1, 1), new ElementStack(4, 1)}, 10);
+                    new ElementStack[]{
+                            new ElementStack(1, 1),
+                            new ElementStack(4, 1)
+                        }, 10);
             registerRecipe(Item.getItemFromBlock(Blocks.DIAMOND_ORE),
                     Item.getItemFromBlock(Blocks.LAPIS_BLOCK),
-                    new ElementStack[]{new ElementStack(1, 1), new ElementStack(5, 5)}, 10);
+                    new ElementStack[]{
+                            new ElementStack(1, 1),
+                            new ElementStack(5, 5)
+                        }, 10);
             registerRecipe(Item.getItemFromBlock(Blocks.DIAMOND_BLOCK),
                     null,
                     new ElementStack[]{
@@ -72,8 +73,6 @@ public class ExtractorTileEntity extends SmeltingTileEntity implements ICapabili
 
     @Override
     public void receiveMessage(int i) {
-
-
         world.scheduleBlockUpdate(pos,this.getBlockType(),0,0);
         this.markDirty();
     }
@@ -97,13 +96,13 @@ public class ExtractorTileEntity extends SmeltingTileEntity implements ICapabili
         ExtractorRecipe ex_rec = ((ExtractorRecipe) rec);
 
         return !(input == null ||
-                input.getStackInSlot(inputSlot) == null ||
+                input.getStackInSlot(inputSlot) == ItemStack.EMPTY ||
                 // Check input
                 input.getStackInSlot(inputSlot).getItem() != ex_rec.item ||
                 input.getStackInSlot(inputSlot).getCount() < 1 ||
                 // Check catalyst
                 ex_rec.catalyst != null &&
-                        (input.getStackInSlot(catalystSlot) == null ||
+                        (input.getStackInSlot(catalystSlot) == ItemStack.EMPTY ||
                                 input.getStackInSlot(catalystSlot).getItem() != ex_rec.catalyst ||
                                 input.getStackInSlot(catalystSlot).getCount() < 1
                         ));
@@ -123,13 +122,13 @@ public class ExtractorTileEntity extends SmeltingTileEntity implements ICapabili
             if (storage.getEnergyStored() > consumedEnergyPerFuelRefill) {
                 storage.extractEnergy(consumedEnergyPerFuelRefill, false);
                 storedFuel += generatedFuelPerEnergyDrain;
-            } else if (fuelItem != null &&
+            } else if (fuelItem != ItemStack.EMPTY &&
                     fuelItem.getCount() >= 1 &&
                     fuel > 0) {
                 fuelItem.setCount(fuelItem.getCount() - 1);
                 if (fuelItem.getCount() == 0) {
-                    fuelItem = null;
-                    input.setStackInSlot(fuelSlot, null);
+//                    fuelItem = null;
+                    input.setStackInSlot(fuelSlot, ItemStack.EMPTY);
                 }
                 storedFuel += fuel;
             } else {
@@ -146,11 +145,11 @@ public class ExtractorTileEntity extends SmeltingTileEntity implements ICapabili
 
         input.setStackInSlot(inputSlot, new ItemStack(input.getStackInSlot(inputSlot).getItem(),
                 input.getStackInSlot(inputSlot).getCount() - 1));
-        if (input.getStackInSlot(inputSlot).getCount() == 0) input.setStackInSlot(inputSlot, null);
+        if (input.getStackInSlot(inputSlot).getCount() == 0) input.setStackInSlot(inputSlot, ItemStack.EMPTY);
         if (recipe.catalyst != null) {
             input.setStackInSlot(catalystSlot, new ItemStack(input.getStackInSlot(catalystSlot).getItem(),
                     input.getStackInSlot(catalystSlot).getCount() - 1));
-            if (input.getStackInSlot(catalystSlot).getCount() == 0) input.setStackInSlot(catalystSlot, null);
+            if (input.getStackInSlot(catalystSlot).getCount() == 0) input.setStackInSlot(catalystSlot, ItemStack.EMPTY);
         }
 
         // For each Element output, flag telling if this has already been produced
@@ -163,7 +162,7 @@ public class ExtractorTileEntity extends SmeltingTileEntity implements ICapabili
         // Try each output slot
         for (int rec_slot = 0; rec_slot < outputSlotSize; ++rec_slot) {
             ItemStack out = output.getStackInSlot(rec_slot);
-            if (out == null) {
+            if (out == ItemStack.EMPTY) {
                 continue;
             }
 
@@ -215,21 +214,21 @@ public class ExtractorTileEntity extends SmeltingTileEntity implements ICapabili
         for (int rec_slot = 0; rec_slot < outputSlotSize; ++rec_slot) {
 
             ItemStack out = output.getStackInSlot(rec_slot);
-            if (out == null) {
+            if (out == ItemStack.EMPTY) {
                 // Try each element
                 int i = 0;
                 for (ElementStack rec_out : recipe.outs) {
 
                     // If Element has not been produced and there is a CANISTER in
                     // the slot
-                    if (remaining[i] > 0 && input.getStackInSlot(canisterSlot) != null &&
+                    if (remaining[i] > 0 && input.getStackInSlot(canisterSlot) != ItemStack.EMPTY &&
                             input.getStackInSlot(canisterSlot).getCount() > 0 &&
                             input.getStackInSlot(canisterSlot).getItem() == ModItems.CANISTER) {
                         remaining[i] = 0;
                         output.setStackInSlot(rec_slot, new ItemStack(input.getStackInSlot(canisterSlot).getItem(), 1));
                         input.setStackInSlot(canisterSlot, new ItemStack(input.getStackInSlot(canisterSlot).getItem(),
                                 input.getStackInSlot(canisterSlot).getCount() - 1));
-                        if (input.getStackInSlot(canisterSlot).getCount() == 0) input.setStackInSlot(canisterSlot, null);
+                        if (input.getStackInSlot(canisterSlot).getCount() == 0) input.setStackInSlot(canisterSlot,  ItemStack.EMPTY);
                         NBTTagCompound nbt = new NBTTagCompound();
                         nbt.setInteger("Element", rec_out.id);
                         nbt.setInteger("Quantity", rec_out.quantity);

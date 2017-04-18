@@ -24,6 +24,8 @@ public class KernCraftNetwork {
                 MessageRedstoneControl.class, getNextDiscriminator(), Side.SERVER);
         networkWrapper.registerMessage(MessageIntHandler.class,
                 MessageInt.class, getNextDiscriminator(), Side.SERVER);
+        networkWrapper.registerMessage(MessageSideConfigHandler.class,
+                MessageSideConfig.class, getNextDiscriminator(), Side.SERVER);
 
     }
 

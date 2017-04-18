@@ -1,5 +1,7 @@
 package com.R3DKn16h7.kerncraft.tileentities;
 
+import com.R3DKn16h7.kerncraft.tileentities.utils.ConfigurableItemHandler;
+import com.R3DKn16h7.kerncraft.tileentities.utils.SideConfiguration;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
@@ -8,6 +10,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 
 import javax.annotation.Nullable;
@@ -16,22 +19,30 @@ import javax.annotation.Nullable;
  * Created by Filippo on 14/12/2016.
  */
 public abstract class MachineTileEntity extends TileEntity
-        implements ITickable {
+        implements ITickable, ISideConfigurable {
 
     public final ItemStackHandler input;
     public final ItemStackHandler output;
     private final int inputSize;
     private final int outputSize;
-    //private final IItemHandler automationInput = new ItemStackHandler(4);
-    //private final IItemHandler automationOutput = new ItemStackHandler(4);
+
+    public final SideConfiguration sideConfig;
 
     public MachineTileEntity(int inputSize, int outputSize) {
         super();
 
         this.inputSize = inputSize;
         this.outputSize = outputSize;
+
         input = new ItemStackHandler(inputSize);
         output = new ItemStackHandler(outputSize);
+
+        sideConfig = new SideConfiguration(input, output);
+    }
+
+    @Override
+    public void setSlotSide(int slotId, int side) {
+        sideConfig.setSlotSide(slotId, side);
     }
 
     public ItemStackHandler getInput() {
@@ -58,7 +69,8 @@ public abstract class MachineTileEntity extends TileEntity
                                EnumFacing facing) {
         if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
             //return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(automationInput);
-            return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(input);
+            EnumFacing machineFacing = world.getBlockState(getPos()).getValue(MachineBlock.FACING);
+            return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(sideConfig.get(facing, machineFacing));
         }
         return super.getCapability(capability, facing);
     }
@@ -66,12 +78,8 @@ public abstract class MachineTileEntity extends TileEntity
     @Override
     public void readFromNBT(NBTTagCompound nbt) {
         super.readFromNBT(nbt);
-        if (nbt != null && nbt.hasKey("Input")) {
-            input.deserializeNBT(nbt.getCompoundTag("Input"));
-        }
-        if (nbt != null && nbt.hasKey("Output")) {
-            output.deserializeNBT(nbt.getCompoundTag("Output"));
-        }
+
+        restoreFromNBT(nbt);
     }
 
     @Override
@@ -79,15 +87,21 @@ public abstract class MachineTileEntity extends TileEntity
         nbt = super.writeToNBT(nbt);
         nbt.setTag("Input", input.serializeNBT());
         nbt.setTag("Output", output.serializeNBT());
+        nbt.setTag("sideConfiguration", sideConfig.serializeNBT());
         return nbt;
     }
 
     public void restoreFromNBT(NBTTagCompound nbt) {
-        if (nbt != null && nbt.hasKey("Input")) {
-            input.deserializeNBT(nbt.getCompoundTag("Input"));
-        }
-        if (nbt != null && nbt.hasKey("Output")) {
-            output.deserializeNBT(nbt.getCompoundTag("Output"));
+        if(nbt != null) {
+            if ( nbt.hasKey("Input")) {
+                input.deserializeNBT(nbt.getCompoundTag("Input"));
+            }
+            if ( nbt.hasKey("Output")) {
+                output.deserializeNBT(nbt.getCompoundTag("Output"));
+            }
+            if ( nbt.hasKey("sideConfiguration")) {
+                sideConfig.deserializeNBT(nbt.getCompoundTag("sideConfiguration"));
+            }
         }
     }
 
