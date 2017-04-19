@@ -1,16 +1,23 @@
 package com.R3DKn16h7.kerncraft.events;
 
+import com.R3DKn16h7.kerncraft.KernCraft;
 import com.R3DKn16h7.kerncraft.achievements.AchievementHandler;
 import com.R3DKn16h7.kerncraft.items.ExtraShield;
 import com.R3DKn16h7.kerncraft.items.ModItems;
 import com.R3DKn16h7.kerncraft.utils.PotionHelper;
+import com.sun.glass.ui.View;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.event.AttachCapabilitiesEvent;
+import net.minecraftforge.event.entity.EntityEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.PlayerPickupXpEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
@@ -60,6 +67,18 @@ public class EventHandlerCommon {
             return;
         }
     }
+
+    @SubscribeEvent(priority = EventPriority.LOW)
+    public void entityConstructing(AttachCapabilitiesEvent<Entity> event) {
+        if(event.getObject() instanceof EntityPlayerMP){
+            event.addCapability(new ResourceLocation(KernCraft.MODID + ":testCapability"), new TestCabability());
+        }
+//        if(event.getEntity() instanceof EntityPlayerMP) {
+//            EntityPlayerMP player = ((EntityPlayerMP) event.getEntity());
+//            player.exten
+//        }
+    }
+
 
     @SubscribeEvent(priority = EventPriority.LOW)
     public void crafting(PlayerEvent.ItemCraftedEvent event) {

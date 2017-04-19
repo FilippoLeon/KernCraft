@@ -26,6 +26,10 @@ public class KernCraftNetwork {
                 MessageInt.class, getNextDiscriminator(), Side.SERVER);
         networkWrapper.registerMessage(MessageSideConfigHandler.class,
                 MessageSideConfig.class, getNextDiscriminator(), Side.SERVER);
+        networkWrapper.registerMessage(MessageUnlockHandler.class,
+                MessageUnlock.class, getNextDiscriminator(), Side.SERVER);
+        networkWrapper.registerMessage(MessageUnlockHandler.class,
+                MessageUnlock.class, getNextDiscriminator(), Side.CLIENT);
 
     }
 

@@ -9,14 +9,14 @@ import java.io.IOException;
 /**
  * Created by Filippo on 08/12/2016.
  */
-public class TyrociniumChymicumGui extends ManualEntry {
+public abstract class TyrociniumChymicumGui extends ManualEntry {
 
     private static final int STARTING_HOME_ROW_ID = 1;
-    public static ManualEntry lastOpened;
+    private static ManualEntry lastOpened;
     protected final int xSize = 256;
     protected final int ySize = 180;
-    protected int guiLeft;
-    protected int guiTop;
+    int guiLeft;
+    int guiTop;
     int pagewidth = 105;
     private GuiButton btn;
     private GuiButton btn1;
@@ -26,13 +26,12 @@ public class TyrociniumChymicumGui extends ManualEntry {
     private GuiButton btn5;
     private GuiButton btn6;
 
-    public TyrociniumChymicumGui() {
+    TyrociniumChymicumGui() {
         super();
         lastOpened = this;
     }
 
     public static ManualEntry Factory() {
-
         if (lastOpened != null) return lastOpened;
         else return new TyrociniumChymicumIndexGui();
     }
@@ -67,7 +66,7 @@ public class TyrociniumChymicumGui extends ManualEntry {
         btn6 = new GuiButton(ID++, r += SPACE, ypos, ">>");
         btn6.setWidth(size);
         add(btn6);
-        btn4 = new GuiButton(ID++, r += SPACE, ypos, "HOME");
+        btn4 = new GuiButton(ID, r += SPACE, ypos, "HOME");
         btn4.setWidth(size);
         add(btn4);
     }
@@ -114,7 +113,6 @@ public class TyrociniumChymicumGui extends ManualEntry {
         this.drawBackground(par1, par2, par3);
 
         super.drawScreen(par1, par2, par3);
-
     }
 
 }

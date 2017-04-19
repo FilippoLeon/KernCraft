@@ -5,11 +5,15 @@ import com.R3DKn16h7.kerncraft.blocks.ModBlocks;
 import com.R3DKn16h7.kerncraft.crafting.ModCrafting;
 import com.R3DKn16h7.kerncraft.elements.ElementBase;
 import com.R3DKn16h7.kerncraft.events.EventHandlerCommon;
+import com.R3DKn16h7.kerncraft.events.IExampleCapability;
+import com.R3DKn16h7.kerncraft.events.TestCapabilityFactory;
+import com.R3DKn16h7.kerncraft.events.TestCapabilityStorage;
 import com.R3DKn16h7.kerncraft.items.ModItems;
 import com.R3DKn16h7.kerncraft.network.KernCraftNetwork;
 import com.R3DKn16h7.kerncraft.network.ModGuiHandler;
 import com.R3DKn16h7.kerncraft.tileentities.ModTileEntities;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -30,6 +34,8 @@ public class CommonProxy {
         ModTileEntities.createEntities();
 
         new KernCraftNetwork();
+
+        CapabilityManager.INSTANCE.register(IExampleCapability.class, new TestCapabilityStorage(), new TestCapabilityFactory());
     }
 
     public void init(FMLInitializationEvent e) {

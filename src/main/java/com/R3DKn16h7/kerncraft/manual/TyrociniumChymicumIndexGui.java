@@ -1,7 +1,12 @@
 package com.R3DKn16h7.kerncraft.manual;
 
+import com.R3DKn16h7.kerncraft.achievements.AchievementHandler;
 import com.R3DKn16h7.kerncraft.client.gui.IAdvancedGuiContainer;
 import com.R3DKn16h7.kerncraft.client.gui.widgets.BetterButton;
+import com.R3DKn16h7.kerncraft.events.IExampleCapability;
+import com.R3DKn16h7.kerncraft.events.TestCabability;
+import com.R3DKn16h7.kerncraft.network.KernCraftNetwork;
+import com.R3DKn16h7.kerncraft.network.MessageUnlock;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.nbt.NBTTagCompound;
 
@@ -47,30 +52,59 @@ public class TyrociniumChymicumIndexGui extends TyrociniumChymicumGui implements
             PERIODIC_TABLE_FIRST_STEPS.init();
         }
     }
+
     @Override
     protected void actionPerformed(GuiButton button) throws IOException {
         super.actionPerformed(button);
 
         if (button == PERIODIC_TABLE_BUTTON) {
+
             mc.displayGuiScreen(new TyrociniumChymicumPeriodicTableGui());
 
-            NBTTagCompound nbt = mc.player.getEntityData();
-            nbt.setBoolean("kernkraft_first_steps_unlocked", true);
-            mc.player.writeToNBT(nbt);
+            unlock(Content.FirstSteps);
         }
+    }
+
+    protected void unlock(Content content) {
+        switch (content) {
+            case FirstSteps:
+                mc.player.addStat(AchievementHandler.LEARNER, 1);
+                break;
+        }
+
+//        NBTTagCompound nbt = mc.player.getEntityData();
+//        nbt.setBoolean(content.toString(), true);
+//        mc.player.writeToNBT(nbt);
+
+        KernCraftNetwork.networkWrapper.sendToServer(new MessageUnlock(1));
     }
 
     public boolean isUnlocked(Content content, int param) {
 
-        switch (content) {
-            case FirstSteps:
-                NBTTagCompound nbt = mc.player.getEntityData();
-                return nbt.hasKey("kernkraft_first_steps_unlocked");
+        if(mc.player.hasCapability(TestCabability.INSTANCE, null)) {
+            IExampleCapability capability = mc.player.getCapability(TestCabability.INSTANCE, null);
+            capability.unlockContent(1);
         }
+//        switch (content) {
+//            case FirstSteps:
+//                NBTTagCompound nbt = mc.player.getEntityData();
+//                return nbt.hasKey(content.toString());
+//        }
         return false;
     }
 
-    enum Content {
-        FirstSteps
+    private enum Content {
+        FirstSteps("kernkraft_first_steps_unlocked");
+
+        public String nbtKey;
+
+        Content(String nbtKey) {
+            this.nbtKey = nbtKey;
+        }
+
+        public String toString() {
+            return nbtKey;
+        }
+
     }
 }

@@ -12,6 +12,7 @@ public class AchievementHandler {
     public static Achievement APPRENTICE;
     public static Achievement MASTER_OF_POTATOES;
     public static Achievement CHEMIST;
+    public static Achievement LEARNER;
     public static AchievementPage PAGE;
 
     public AchievementHandler() {
@@ -22,8 +23,10 @@ public class AchievementHandler {
                 0, 3, ModItems.POTATO_BATTERY, APPRENTICE);
         CHEMIST = new Achievement("chemist", "Chemist",
                 0, 6, ModItems.ELECTROLYTIC_CELL, MASTER_OF_POTATOES);
+        LEARNER = new Achievement("learner", "Learner",
+                0, 9, ModItems.TYROCINIUM_CHYMICUM, CHEMIST);
 
-        PAGE = new AchievementPage("KernCraft", APPRENTICE, MASTER_OF_POTATOES, CHEMIST);
+        PAGE = new AchievementPage("KernCraft", APPRENTICE, MASTER_OF_POTATOES, CHEMIST, LEARNER);
         AchievementPage.registerAchievementPage(PAGE);
     }
 }
