@@ -30,8 +30,14 @@ public class Canister extends Item {
         this.setUnlocalizedName(base_name);
         this.setRegistryName(base_name);
         this.setCreativeTab(KernCraft.KERNCRAFT_CREATIVE_TAB);
+
+        setHasSubtypes(true);
+
         GameRegistry.register(this);
+
     }
+
+
 
     static public Element getElement(ItemStack stack) {
         if (stack.hasTagCompound() && stack.getTagCompound().hasKey("Element")) {
@@ -133,5 +139,16 @@ public class Canister extends Item {
         if (stack.hasTagCompound() && stack.getTagCompound().hasKey("Quantity")) {
             lores.add("Quantity: " + Integer.toString(stack.getTagCompound().getInteger("Quantity")));
         }
+    }
+
+    public static ItemStack getElementItemStack(int i) {
+        ItemStack itemStack = new ItemStack(KernCraftItems.CANISTER);
+
+        if(i > 0) {
+            NBTTagCompound nbt = new NBTTagCompound();
+            nbt.setInteger("Element", i);
+            itemStack.setTagCompound(nbt);
+        }
+        return itemStack;
     }
 }

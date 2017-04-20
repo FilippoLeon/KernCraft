@@ -6,6 +6,8 @@ import mezz.jei.api.recipe.IRecipeWrapper;
 
 /**
  * Created by filippo on 23/11/16.
+ *
+ *
  */
 public class ExtractorJEIRecipeHandler implements IRecipeHandler {
     @Override
@@ -25,6 +27,8 @@ public class ExtractorJEIRecipeHandler implements IRecipeHandler {
 
         return ret;
     }
+
+
 
     @Override
     public boolean isRecipeValid(Object recipe) {

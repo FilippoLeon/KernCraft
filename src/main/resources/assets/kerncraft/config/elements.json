@@ -22,7 +22,8 @@
         "uses": "rocket fuel",
         "toxic": "",
         "state": "g",
-        "half_life": "Stable"
+        "half_life": "Stable",
+        "description": "The lightest element. Also has the bad habit of exploding."
     },
     "2": {
         "symbol": "He",
