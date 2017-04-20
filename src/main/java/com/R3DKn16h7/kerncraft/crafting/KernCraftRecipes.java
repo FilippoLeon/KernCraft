@@ -99,14 +99,14 @@ public class KernCraftRecipes {
     private void RegisterChemicalFurnaceRecipes() {
         addChemicalFurnaceRecipe(
                 new ElementStack[]{
-                        new ElementStack("H", 2, 0),
-                        new ElementStack("O", 1, 0),
+                        new ElementStack("H", 4, 0),
+                        new ElementStack("O", 2, 0),
                 },
                 new ElementStack[]{
                     new ElementStack("Pu", 400, 0.5f),
                     new ElementStack("Pu", 400, 0.5f),
                 },
-                100000, new FluidStack(FluidRegistry.WATER, 1000)
+                100, new FluidStack(FluidRegistry.WATER, 1000), 5
         );
     }
 
@@ -126,8 +126,8 @@ public class KernCraftRecipes {
 
 
     static public boolean addChemicalFurnaceRecipe(ElementStack[] inputs, ElementStack[] outputs,
-                                                   int energy, FluidStack fluid) {
-        CHEMICAL_FURNACE_RECIPES.add(new ChemicalFurnaceRecipe(inputs, outputs, energy, fluid));
+                                                   int energy, FluidStack fluid, int cost) {
+        CHEMICAL_FURNACE_RECIPES.add(new ChemicalFurnaceRecipe(inputs, outputs, energy, fluid, cost));
         return true;
     }
 

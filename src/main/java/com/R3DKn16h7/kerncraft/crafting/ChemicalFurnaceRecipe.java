@@ -12,17 +12,19 @@ public class ChemicalFurnaceRecipe implements ISmeltingRecipe {
     public ElementStack[] outputs;
     public int energy;
     public FluidStack fluid;
+    public int cost;
 
     public ChemicalFurnaceRecipe(ElementStack[] inputs, ElementStack[] outputs,
-                                 int energy, FluidStack fluid) {
+                                 int energy, FluidStack fluid, int cost) {
         this.inputs = inputs;
         this.outputs = outputs;
         this.energy = energy;
         this.fluid = fluid;
+        this.cost = cost;
     }
 
     @Override
     public int getCost() {
-        return energy;
+        return cost;
     }
 }

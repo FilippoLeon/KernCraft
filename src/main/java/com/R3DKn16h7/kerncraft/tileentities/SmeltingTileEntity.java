@@ -52,6 +52,8 @@ abstract public class SmeltingTileEntity
         // Internal storages
         storage = new EnergyStorage(100000);
         tank = new FluidTank(16000);
+
+        setSmelting(false);
     }
 
     @Override
@@ -135,7 +137,7 @@ abstract public class SmeltingTileEntity
     private void setSmelting(boolean isSmelting) {
         if(smelting != isSmelting) {
             IBlockState state = world.getBlockState(this.pos);
-            world.setBlockState(this.pos, state.withProperty(MachineBlock.POWERED, smelting));
+            world.setBlockState(this.pos, state.withProperty(MachineBlock.POWERED, isSmelting));
         }
         smelting = isSmelting;
     }

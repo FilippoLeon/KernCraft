@@ -142,11 +142,16 @@ public class Canister extends Item {
     }
 
     public static ItemStack getElementItemStack(int i) {
+        return getElementItemStack(i, 0);
+    }
+
+    public static ItemStack getElementItemStack(int i, int amount) {
         ItemStack itemStack = new ItemStack(KernCraftItems.CANISTER);
 
         if(i > 0) {
             NBTTagCompound nbt = new NBTTagCompound();
             nbt.setInteger("Element", i);
+            nbt.setInteger("Quantity", amount >= 0 ? amount : KernCraftItems.CANISTER.CAPACITY);
             itemStack.setTagCompound(nbt);
         }
         return itemStack;

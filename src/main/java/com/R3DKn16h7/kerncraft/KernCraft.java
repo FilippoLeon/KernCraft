@@ -33,7 +33,7 @@ public class KernCraft {
 
             if(MOD_CONFIG_DISPLAY_ALL_ELEMENTS) {
                 for (int i = 1; i <= ElementBase.NUMBER_OF_ELEMENTS; ++i) {
-                    p_78018_1_.add(KernCraftItems.CANISTER.getElementItemStack(i));
+                    p_78018_1_.add(KernCraftItems.CANISTER.getElementItemStack(i, -1));
                 }
             }
         }

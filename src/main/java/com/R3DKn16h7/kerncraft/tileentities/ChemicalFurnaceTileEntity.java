@@ -1,10 +1,16 @@
 package com.R3DKn16h7.kerncraft.tileentities;
 
+import com.R3DKn16h7.kerncraft.crafting.ChemicalFurnaceRecipe;
 import com.R3DKn16h7.kerncraft.crafting.ISmeltingRecipe;
 import com.R3DKn16h7.kerncraft.crafting.KernCraftRecipes;
-import net.minecraft.init.Blocks;
-import net.minecraft.item.Item;
+import com.R3DKn16h7.kerncraft.elements.ElementBase;
+import com.R3DKn16h7.kerncraft.elements.ElementStack;
+import com.R3DKn16h7.kerncraft.items.Canister;
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.items.ItemStackHandler;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ChemicalFurnaceTileEntity extends SmeltingTileEntity {
@@ -58,20 +64,100 @@ public class ChemicalFurnaceTileEntity extends SmeltingTileEntity {
         return totalSlots;
     }
 
+
     @Override
     public boolean canSmelt(ISmeltingRecipe rec) {
-        return !input.getStackInSlot(0).isEmpty() &&
-                input.getStackInSlot(0).getItem() ==
-                        Item.getItemFromBlock(Blocks.IRON_BLOCK);
+        ChemicalFurnaceRecipe chemrec = ((ChemicalFurnaceRecipe) rec);
+        if(chemrec == null) return false;
+
+        if(chemrec.fluid != null && chemrec.fluid.amount < 0) {
+            if(getFluid().equals(chemrec.fluid)) {
+                if(getFluidAmount() < -chemrec.fluid.amount) {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        }
+
+        boolean[] matchInput = new boolean[2];
+        for(ElementStack elem: chemrec.inputs) {
+            List<Integer> slot = itemStackHandlerMatchesElementStack(input, elem);
+            if(slot != null) {
+                for(int slotId: slot) {
+                    if(!matchInput[slotId]) {
+                        matchInput[slotId] = true;
+                        break;
+                    }
+                }
+            }
+        }
+        for(boolean match: matchInput) {
+            if(!match) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    static private List<Integer> itemStackHandlerMatchesElementStack(ItemStackHandler stackHandler, ElementStack elem) {
+        List<Integer> match = new ArrayList<>();
+        for(int i = 0; i < stackHandler.getSlots(); ++i) {
+            ItemStack stack = stackHandler.getStackInSlot(i);
+            if(stack != ItemStack.EMPTY && elem.isContainedInStack(stack)) {
+                match.add(i);
+            }
+        }
+        return match;
     }
 
     @Override
     public boolean tryProgress() {
-        return false;
+
+        return true;
     }
 
     @Override
     public void doneSmelting() {
-        int a = storage.receiveEnergy(100, false);
+        ChemicalFurnaceRecipe chemrec = ((ChemicalFurnaceRecipe) currentlySmelting);
+
+        if(chemrec.fluid != null) {
+            if (getFluid().isFluidEqual(chemrec.fluid) || getFluid() == null) {
+                if (chemrec.fluid.amount < 0) {
+                    if(-chemrec.fluid.amount > getFluid().amount) return;
+                    FluidStack positiveFluid = new FluidStack(chemrec.fluid, -chemrec.fluid.amount);
+                    tank.drain(positiveFluid, true);
+                    // TODO: IF FAIL ?
+//                    return;
+                } else {
+                    tank.fill(chemrec.fluid, true);
+                }
+            }
+        }
+
+        // TODO: IF FAIL ?
+        for(ElementStack elem: chemrec.inputs) {
+            int to_remove = elem.quantity;
+            for(int i = 0; i < input.getSlots(); ++i) {
+                if(elem.isContainedInStackAnyQuantity(input.getStackInSlot(i))) {
+                    int canBeRemoved = Math.min(to_remove, ElementStack.getQuantity(input.getStackInSlot(i)));
+                    ElementStack.removeFromStack(input.getStackInSlot(i), canBeRemoved);
+
+                    to_remove -= canBeRemoved;
+                    if(to_remove <= 0) {
+                        continue;
+                    }
+                }
+            }
+        }
+
+        int producedEnergy = chemrec.energy;
+        if(producedEnergy > 0) {
+            storage.receiveEnergy(producedEnergy, false);
+        }
+
+        markDirty();
+        world.scheduleBlockUpdate(pos, getBlockType(), 0,0);
     }
 }
