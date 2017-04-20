@@ -37,6 +37,8 @@ public class AdvancedGuiContainer extends GuiContainer implements IAdvancedGuiCo
     private int offsetY = 0;
     private ResourceLocation backgroundResource;
     private int btn_id = 0;
+    private int xBackgroundSize = 250;
+    private int yBackgroundSize = 176;
 
     public AdvancedGuiContainer(Container container,
                                 IInventory playerInv,
@@ -167,14 +169,13 @@ public class AdvancedGuiContainer extends GuiContainer implements IAdvancedGuiCo
         super.keyTyped(typedChar, keyCode);
     }
 
-    void setDynamicBackground(int xSize, int ySize) {
 
+    void setDynamicBackground() {
         use_dynamic_background = true;
         backgroundResource = new ResourceLocation("textures/gui/demo_background.png");
-        this.xSize = xSize;
-        this.ySize = ySize;
+        this.xBackgroundSize = 250;
+        this.yBackgroundSize = 167;
     }
-
 
     void setBackground(String location,
                        int offsetX, int offsetY,
@@ -183,24 +184,28 @@ public class AdvancedGuiContainer extends GuiContainer implements IAdvancedGuiCo
         backgroundResource = new ResourceLocation(location);
         this.offsetX = offsetX;
         this.offsetY = offsetY;
-        this.xSize = xSize;
-        this.ySize = ySize;
+        this.xBackgroundSize = xSize;
+        this.yBackgroundSize = ySize;
     }
 
     void drawBackground() {
         this.mc.getTextureManager().bindTexture(backgroundResource);
         if (use_dynamic_background) {
+            // Top-left corner
             this.drawTexturedModalRect(this.guiLeft, this.guiTop,
                     offsetX, offsetY,
                     this.xSize / 2, this.ySize / 2);
+            // Bottom-left
             this.drawTexturedModalRect(this.guiLeft, this.guiTop + this.ySize / 2,
-                    offsetX, offsetY + this.ySize / 2,
+                    offsetX, offsetY + this.yBackgroundSize - this.ySize / 2,
                     this.xSize / 2, this.ySize / 2);
+            // Top-right
             this.drawTexturedModalRect(this.guiLeft + this.xSize / 2, this.guiTop,
-                    offsetX + this.xSize / 2, offsetY,
+                    offsetX + this.xBackgroundSize - this.xSize / 2, offsetY,
                     this.xSize / 2, this.ySize / 2);
+            // Bottom-right
             this.drawTexturedModalRect(this.guiLeft + this.xSize / 2, this.guiTop + this.ySize / 2,
-                    offsetX + this.xSize / 2, offsetY + this.ySize / 2,
+                    offsetX + this.xBackgroundSize - this.xSize / 2, offsetY + this.yBackgroundSize - this.ySize / 2,
                     this.xSize / 2, this.ySize / 2);
         } else {
             this.drawTexturedModalRect(this.guiLeft, this.guiTop,

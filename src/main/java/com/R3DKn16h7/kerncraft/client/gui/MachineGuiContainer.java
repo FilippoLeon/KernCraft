@@ -14,6 +14,7 @@ import java.awt.*;
  * Created by Filippo on 18-Apr-17.
  */
 public class MachineGuiContainer extends AdvancedGuiContainer {
+    public static final int itemStackIconSize = 18;
     protected AnimatedTexturedElement energyBar;
     protected AnimatedTexturedElement fluidBar;
     protected AnimatedTexturedElement flame;
@@ -25,13 +26,13 @@ public class MachineGuiContainer extends AdvancedGuiContainer {
 
         energyBar = new AnimatedTexturedElement(this,
                  "kerncraft:textures/gui/container/extractor_gui.png", -1, -1,
-                 6, 18 * 3 - 2, 176, 0, AnimatedTexturedElement.Direction.BOTTOM, 300);
+                 6, itemStackIconSize * 3 - 2, 176, 0, AnimatedTexturedElement.Direction.BOTTOM, 300);
         energyBar.setAutoAnimated(false, 0);
         AddWidget(energyBar, true);
 
         fluidBar = new AnimatedTexturedElement(this,
                 "kerncraft:textures/gui/container/extractor_gui.png", -1 + 9, -1,
-                6, 18 * 3 - 2, 176, 0, AnimatedTexturedElement.Direction.BOTTOM, 300);
+                6, itemStackIconSize * 3 - 2, 176, 0, AnimatedTexturedElement.Direction.BOTTOM, 300);
         fluidBar.setTint(Color.blue);
         fluidBar.setAutoAnimated(false, 0);
         AddWidget(fluidBar, true);
@@ -42,20 +43,30 @@ public class MachineGuiContainer extends AdvancedGuiContainer {
             AddWidget(redstoneModeButton, true);
         }
         if (te instanceof IFuelUser) {
-            flame = AnimatedTexturedElement.FLAME(this, 18 * 1, 18 * 1);
+            IFuelUser fuel_te = ((IFuelUser) te);
+            int[] pos = fuel_te.getFuelIconCoordinate();
+            flame = AnimatedTexturedElement.FLAME(this,
+                    itemStackIconSize * pos[0], itemStackIconSize * pos[1]);
             flame.setAutoAnimated(false, 0);
             flame.setTint(null);
             AddWidget(flame, true);
         }
         if (te instanceof IProgressMachine) {
-            brewing = AnimatedTexturedElement.BREWING(this, 18 * 3 + 1, 18 * 1 + 8);
-            brewing.setAutoAnimated(false, 0);
-            brewing.setTint(null);
-            AddWidget(brewing, true);
-
-            progressText = new Text(this, 18 * 5 + 2,
-                    0, 10, 6, Text.Alignment.LEFT);
-            AddWidget(progressText, true);
+            IProgressMachine progr_te = ((IProgressMachine) te);
+            int[] pos = progr_te.getProgressIconCoordinate();
+            if(pos != null) {
+                brewing = AnimatedTexturedElement.BREWING(this,
+                        itemStackIconSize * pos[0] + 1, itemStackIconSize * pos[1] + 8);
+                brewing.setAutoAnimated(false, 0);
+                brewing.setTint(null);
+                AddWidget(brewing, true);
+            }
+            pos = progr_te.getProgressTextCoordinate();
+            if(pos != null) {
+                progressText = new Text(this, itemStackIconSize * pos[0] + 2,
+                        itemStackIconSize * pos[1], 10, 6, Text.Alignment.LEFT);
+                AddWidget(progressText, true);
+            }
         }
 
         String titleString;
@@ -82,11 +93,15 @@ public class MachineGuiContainer extends AdvancedGuiContainer {
 
         if (te instanceof IProgressMachine) {
             IProgressMachine cast_te = ((IProgressMachine) te);
-            String progressPercent = String.format("%.2f%%", cast_te.getProgressPercent() * 100);
-            progressText.setText(progressPercent);
-            String fancyProgressPercent = String.format("Progress %.2f%%", cast_te.getProgressPercent() * 100);
-            brewing.setPercentage(cast_te.getProgressPercent());
-            brewing.setTooltip(fancyProgressPercent);
+            if(progressText != null) {
+                String progressPercent = String.format("%.2f%%", cast_te.getProgressPercent() * 100);
+                progressText.setText(progressPercent);
+            }
+            if(brewing != null) {
+                String fancyProgressPercent = String.format("Progress %.2f%%", cast_te.getProgressPercent() * 100);
+                brewing.setPercentage(cast_te.getProgressPercent());
+                brewing.setTooltip(fancyProgressPercent);
+            }
         }
 
         if (te instanceof IEnergyContainer) {

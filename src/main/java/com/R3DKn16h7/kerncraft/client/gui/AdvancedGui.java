@@ -35,6 +35,10 @@ public class AdvancedGui extends GuiScreen implements IAdvancedGuiContainer {
     private int btn_id = 0;
     private int guiLeft, guiTop;
     private int xSize, ySize;
+
+    private int xBackgroundSize = 250;
+    private int yBackgroundSize = 176;
+
     public AdvancedGui(IInventory playerInv,
                        TileEntity te) {
         this.playerInv = playerInv;
@@ -155,6 +159,8 @@ public class AdvancedGui extends GuiScreen implements IAdvancedGuiContainer {
         this.offsetY = offsetY;
         this.xSize = xSize;
         this.ySize = ySize;
+        this.xBackgroundSize = xSize;
+        this.yBackgroundSize = ySize;
     }
 
 //    @Override
@@ -163,21 +169,24 @@ public class AdvancedGui extends GuiScreen implements IAdvancedGuiContainer {
 //
 //        initGui();
 //    }
-
     void drawBackground() {
         this.mc.getTextureManager().bindTexture(backgroundResource);
         if (use_dynamic_background) {
+            // Top-left corner
             this.drawTexturedModalRect(this.guiLeft, this.guiTop,
-                    0, 0,
+                    offsetX, offsetY,
                     this.xSize / 2, this.ySize / 2);
+            // Bottom-left
             this.drawTexturedModalRect(this.guiLeft, this.guiTop + this.ySize / 2,
-                    0, 165 - this.ySize / 2,
+                    offsetX, offsetY + this.yBackgroundSize - this.ySize / 2,
                     this.xSize / 2, this.ySize / 2);
+            // Top-right
             this.drawTexturedModalRect(this.guiLeft + this.xSize / 2, this.guiTop,
-                    256 - this.xSize / 2, 0,
+                    offsetX + this.xBackgroundSize - this.xSize / 2, offsetY,
                     this.xSize / 2, this.ySize / 2);
+            // Bottom-right
             this.drawTexturedModalRect(this.guiLeft + this.xSize / 2, this.guiTop + this.ySize / 2,
-                    256 - this.xSize / 2, 165 - this.ySize / 2,
+                    offsetX + this.xBackgroundSize - this.xSize / 2, offsetY + this.yBackgroundSize - this.ySize / 2,
                     this.xSize / 2, this.ySize / 2);
         } else {
             this.drawTexturedModalRect(this.guiLeft, this.guiTop,

@@ -5,4 +5,8 @@ package com.R3DKn16h7.kerncraft.tileentities;
  */
 public interface IProgressMachine {
     float getProgressPercent();
+
+    int[] getProgressIconCoordinate();
+
+    int[] getProgressTextCoordinate();
 }

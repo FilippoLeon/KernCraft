@@ -39,6 +39,21 @@ public class ChemicalFurnaceTileEntity extends SmeltingTileEntity {
     }
 
     @Override
+    public int[] getFuelIconCoordinate() {
+        return new int[]{4,5};
+    }
+
+    @Override
+    public int[] getProgressIconCoordinate() {
+        return null;
+    }
+
+    @Override
+    public int[] getProgressTextCoordinate() {
+        return new int[]{3,3};
+    }
+
+    @Override
     public int getTotalSlots() {
         return totalSlots;
     }

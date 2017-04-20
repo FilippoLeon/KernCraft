@@ -38,6 +38,21 @@ public class ExtractorTileEntity extends SmeltingTileEntity
     public int[][] getOutputCoords() {return outputCoords; }
 
     @Override
+    public int[] getFuelIconCoordinate() {
+        return new int[]{1,1};
+    }
+
+    @Override
+    public int[] getProgressIconCoordinate() {
+        return new int[]{3,1};
+    }
+
+    @Override
+    public int[] getProgressTextCoordinate() {
+        return new int[]{5,0};
+    }
+
+    @Override
     public List<ISmeltingRecipe> getRecipes() {
         return KernCraftRecipes.EXTRACTOR_RECIPES;
     }

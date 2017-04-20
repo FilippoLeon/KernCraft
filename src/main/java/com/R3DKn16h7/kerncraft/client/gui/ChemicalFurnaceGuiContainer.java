@@ -15,20 +15,13 @@ import net.minecraft.inventory.Slot;
 import java.util.function.IntConsumer;
 
 public class ChemicalFurnaceGuiContainer extends MachineGuiContainer {
-
-    AnimatedTexturedElement flame;
-
     public ChemicalFurnaceGuiContainer(IInventory playerInv,
                                        ChemicalFurnaceTileEntity te) {
         super(new ChemicalFurnaceContainer(playerInv, te), playerInv, te);
 
         addSlotTextures((AdvancedContainer) inventorySlots);
 
-        setDynamicBackground(this.xSize, this.ySize);
-
-        flame = AnimatedTexturedElement.FLAME(this, 18 * 4 + 9, 18 * 1);
-        flame.setAutoAnimated(false, 0);
-        AddWidget(flame, true);
+        setDynamicBackground();
     }
 
     private void addSlotTextures(AdvancedContainer inventorySlots) {
