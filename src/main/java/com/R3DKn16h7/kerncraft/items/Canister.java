@@ -3,19 +3,29 @@ package com.R3DKn16h7.kerncraft.items;
 import com.R3DKn16h7.kerncraft.KernCraft;
 import com.R3DKn16h7.kerncraft.elements.Element;
 import com.R3DKn16h7.kerncraft.elements.ElementBase;
+import com.R3DKn16h7.kerncraft.elements.ElementStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
+import net.minecraft.item.IItemPropertyGetter;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemElytra;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.input.Keyboard;
 
+import javax.annotation.Nullable;
 import java.util.List;
 
 public class Canister extends Item {
@@ -27,11 +37,21 @@ public class Canister extends Item {
     public Canister() {
         super();
 
+        this.addPropertyOverride(new ResourceLocation("element"), new IItemPropertyGetter()
+        {
+            @SideOnly(Side.CLIENT)
+            public float apply(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn)
+            {
+                // TODO: only on shift
+                return ElementStack.getElementId(stack);
+            }
+        });
+
         this.setUnlocalizedName(base_name);
         this.setRegistryName(base_name);
         this.setCreativeTab(KernCraft.KERNCRAFT_CREATIVE_TAB);
 
-        setHasSubtypes(true);
+//        setHasSubtypes(true);
 
         GameRegistry.register(this);
 

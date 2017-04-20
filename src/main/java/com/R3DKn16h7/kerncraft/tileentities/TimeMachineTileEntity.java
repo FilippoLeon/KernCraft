@@ -2,12 +2,22 @@ package com.R3DKn16h7.kerncraft.tileentities;
 
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ITickable;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentString;
+
+import javax.annotation.Nullable;
 
 public class TimeMachineTileEntity extends TileEntity
         implements ITickable {
 
     public TimeMachineTileEntity() {
 
+    }
+
+    @Nullable
+    @Override
+    public ITextComponent getDisplayName() {
+        return new TextComponentString("Time Machine");
     }
 
     @Override

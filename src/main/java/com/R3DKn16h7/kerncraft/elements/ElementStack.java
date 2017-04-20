@@ -70,4 +70,14 @@ public class ElementStack {
             }
         }
     }
+
+    public static Integer getElementId(ItemStack stack) {
+        if(stack.hasTagCompound()) {
+            NBTTagCompound nbt = stack.getTagCompound();
+            if (nbt.hasKey("Element")) {
+                return nbt.getInteger("Element");
+            }
+        }
+        return 0;
+    }
 }

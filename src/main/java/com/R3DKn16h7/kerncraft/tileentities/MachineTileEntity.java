@@ -2,6 +2,7 @@ package com.R3DKn16h7.kerncraft.tileentities;
 
 import com.R3DKn16h7.kerncraft.tileentities.utils.ConfigurableItemHandler;
 import com.R3DKn16h7.kerncraft.tileentities.utils.SideConfiguration;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
@@ -9,6 +10,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
@@ -42,6 +44,12 @@ public abstract class MachineTileEntity extends TileEntity
         output = new ItemStackHandler(outputSize);
 
         sideConfig = new SideConfiguration(input, output, this);
+    }
+
+    @Nullable
+    @Override
+    public ITextComponent getDisplayName() {
+        return new TextComponentString(I18n.format(this.blockType.getUnlocalizedName()+ ".name" ) );
     }
 
     @Override

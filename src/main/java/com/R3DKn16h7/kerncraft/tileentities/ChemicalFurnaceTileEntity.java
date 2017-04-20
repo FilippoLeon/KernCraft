@@ -6,10 +6,14 @@ import com.R3DKn16h7.kerncraft.crafting.KernCraftRecipes;
 import com.R3DKn16h7.kerncraft.elements.ElementBase;
 import com.R3DKn16h7.kerncraft.elements.ElementStack;
 import com.R3DKn16h7.kerncraft.items.Canister;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.items.ItemStackHandler;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,7 +67,6 @@ public class ChemicalFurnaceTileEntity extends SmeltingTileEntity {
     public int getTotalSlots() {
         return totalSlots;
     }
-
 
     @Override
     public boolean canSmelt(ISmeltingRecipe rec) {
