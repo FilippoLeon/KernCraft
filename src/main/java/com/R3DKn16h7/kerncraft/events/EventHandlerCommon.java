@@ -2,32 +2,35 @@ package com.R3DKn16h7.kerncraft.events;
 
 import com.R3DKn16h7.kerncraft.KernCraft;
 import com.R3DKn16h7.kerncraft.achievements.AchievementHandler;
+import com.R3DKn16h7.kerncraft.capabilities.ITyrociniumProgressCapability;
+import com.R3DKn16h7.kerncraft.capabilities.TyrociniumProgressDefaultCapability;
 import com.R3DKn16h7.kerncraft.items.ExtraShield;
 import com.R3DKn16h7.kerncraft.items.ModItems;
+import com.R3DKn16h7.kerncraft.network.KernCraftNetwork;
+import com.R3DKn16h7.kerncraft.network.MessageSyncTyrociniumProgress;
 import com.R3DKn16h7.kerncraft.utils.PotionHelper;
-import com.sun.glass.ui.View;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.projectile.EntityArrow;
+import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
-import net.minecraftforge.event.entity.EntityEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.PlayerPickupXpEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
+//import net.minecraftforge.fml.common.gameevent.PlayerEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
+
 
 public class EventHandlerCommon {
-
-
     @SubscribeEvent(priority = EventPriority.NORMAL)
     public void onPlayerPickupXP(PlayerPickupXpEvent e) {
 
@@ -44,10 +47,10 @@ public class EventHandlerCommon {
                 ent.isActiveItemStackBlocking() &&
                 (
                         (
-                                ent.getHeldItemOffhand() != null &&
+                                ent.getHeldItemOffhand() != ItemStack.EMPTY &&
                                         ent.getHeldItemOffhand().getItem() instanceof ExtraShield
                         ) || (
-                                ent.getHeldItem(EnumHand.MAIN_HAND) != null &&
+                                ent.getHeldItem(EnumHand.MAIN_HAND) != ItemStack.EMPTY &&
                                         ent.getHeldItem(EnumHand.MAIN_HAND).getItem() instanceof ExtraShield)
                 )
                 ) {
@@ -70,18 +73,34 @@ public class EventHandlerCommon {
 
     @SubscribeEvent(priority = EventPriority.LOW)
     public void entityConstructing(AttachCapabilitiesEvent<Entity> event) {
-        if(event.getObject() instanceof EntityPlayerMP){
-            event.addCapability(new ResourceLocation(KernCraft.MODID + ":testCapability"), new TestCabability());
+        // Attach capability to players
+        if(event.getObject() instanceof EntityPlayer){
+            event.addCapability(
+                    new ResourceLocation(KernCraft.MODID + ":tyrociniumProgressCapability"),
+                    new TyrociniumProgressDefaultCapability()
+            );
         }
-//        if(event.getEntity() instanceof EntityPlayerMP) {
-//            EntityPlayerMP player = ((EntityPlayerMP) event.getEntity());
-//            player.exten
-//        }
     }
 
+    @SubscribeEvent(priority = EventPriority.LOW)
+    public void respawning(PlayerEvent.Clone event) {
+        // Reattach capabilities on death, not if returning from end
+        if(event.isWasDeath()) {
+            EntityPlayerMP playerOriginal = ((EntityPlayerMP) event.getOriginal());
+            EntityPlayerMP playerNew = ((EntityPlayerMP) event.getEntityPlayer());
+
+            ITyrociniumProgressCapability capabilityOriginal = playerOriginal.getCapability(TyrociniumProgressDefaultCapability.INSTANCE, null);
+            ITyrociniumProgressCapability capabilityNew = playerNew.getCapability(TyrociniumProgressDefaultCapability.INSTANCE, null);
+
+            capabilityNew.clone(capabilityOriginal);
+//            KernCraftNetwork.networkWrapper.sendTo(new MessageSyncTyrociniumProgress(capabilityNew), playerNew);
+//            capabilityNew.setDirty();
+        }
+    }
 
     @SubscribeEvent(priority = EventPriority.LOW)
-    public void crafting(PlayerEvent.ItemCraftedEvent event) {
+    // LOL
+    public void crafting(net.minecraftforge.fml.common.gameevent.PlayerEvent.ItemCraftedEvent event) {
         if (event.crafting.getItem() == ModItems.CANISTER) {
             event.player.addStat(AchievementHandler.APPRENTICE, 1);
         } else if (event.crafting.getItem() == ModItems.POTATO_BATTERY) {

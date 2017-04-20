@@ -1,5 +1,7 @@
 package com.R3DKn16h7.kerncraft.manual;
 
+import com.R3DKn16h7.kerncraft.capabilities.TyrociniumProgressDefaultCapability;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
@@ -32,6 +34,7 @@ public abstract class TyrociniumChymicumGui extends ManualEntry {
     }
 
     public static ManualEntry Factory() {
+
         if (lastOpened != null) return lastOpened;
         else return new TyrociniumChymicumIndexGui();
     }

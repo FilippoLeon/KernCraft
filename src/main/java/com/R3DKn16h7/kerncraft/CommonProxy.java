@@ -5,9 +5,9 @@ import com.R3DKn16h7.kerncraft.blocks.ModBlocks;
 import com.R3DKn16h7.kerncraft.crafting.ModCrafting;
 import com.R3DKn16h7.kerncraft.elements.ElementBase;
 import com.R3DKn16h7.kerncraft.events.EventHandlerCommon;
-import com.R3DKn16h7.kerncraft.events.IExampleCapability;
-import com.R3DKn16h7.kerncraft.events.TestCapabilityFactory;
-import com.R3DKn16h7.kerncraft.events.TestCapabilityStorage;
+import com.R3DKn16h7.kerncraft.capabilities.ITyrociniumProgressCapability;
+import com.R3DKn16h7.kerncraft.capabilities.TyrociniumProgressFactory;
+import com.R3DKn16h7.kerncraft.capabilities.TyrociniumProgressStorage;
 import com.R3DKn16h7.kerncraft.items.ModItems;
 import com.R3DKn16h7.kerncraft.network.KernCraftNetwork;
 import com.R3DKn16h7.kerncraft.network.ModGuiHandler;
@@ -35,7 +35,7 @@ public class CommonProxy {
 
         new KernCraftNetwork();
 
-        CapabilityManager.INSTANCE.register(IExampleCapability.class, new TestCapabilityStorage(), new TestCapabilityFactory());
+        CapabilityManager.INSTANCE.register(ITyrociniumProgressCapability.class, new TyrociniumProgressStorage(), new TyrociniumProgressFactory());
     }
 
     public void init(FMLInitializationEvent e) {

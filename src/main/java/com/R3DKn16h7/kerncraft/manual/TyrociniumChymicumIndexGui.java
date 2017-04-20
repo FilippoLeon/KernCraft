@@ -3,12 +3,12 @@ package com.R3DKn16h7.kerncraft.manual;
 import com.R3DKn16h7.kerncraft.achievements.AchievementHandler;
 import com.R3DKn16h7.kerncraft.client.gui.IAdvancedGuiContainer;
 import com.R3DKn16h7.kerncraft.client.gui.widgets.BetterButton;
-import com.R3DKn16h7.kerncraft.events.IExampleCapability;
-import com.R3DKn16h7.kerncraft.events.TestCabability;
+import com.R3DKn16h7.kerncraft.capabilities.ITyrociniumProgressCapability;
+import com.R3DKn16h7.kerncraft.capabilities.TyrociniumProgressDefaultCapability;
 import com.R3DKn16h7.kerncraft.network.KernCraftNetwork;
+import com.R3DKn16h7.kerncraft.network.MessageSyncTyrociniumProgress;
 import com.R3DKn16h7.kerncraft.network.MessageUnlock;
 import net.minecraft.client.gui.GuiButton;
-import net.minecraft.nbt.NBTTagCompound;
 
 import java.awt.*;
 import java.io.IOException;
@@ -72,24 +72,20 @@ public class TyrociniumChymicumIndexGui extends TyrociniumChymicumGui implements
                 break;
         }
 
-//        NBTTagCompound nbt = mc.player.getEntityData();
-//        nbt.setBoolean(content.toString(), true);
-//        mc.player.writeToNBT(nbt);
-
-        KernCraftNetwork.networkWrapper.sendToServer(new MessageUnlock(1));
+        if(mc.player.hasCapability(TyrociniumProgressDefaultCapability.INSTANCE, null)) {
+            ITyrociniumProgressCapability capability = mc.player.getCapability(TyrociniumProgressDefaultCapability.INSTANCE, null);
+            capability.unlockContent("first_steps");
+        }
+        KernCraftNetwork.networkWrapper.sendToServer(new MessageUnlock("first_steps"));
     }
 
     public boolean isUnlocked(Content content, int param) {
 
-        if(mc.player.hasCapability(TestCabability.INSTANCE, null)) {
-            IExampleCapability capability = mc.player.getCapability(TestCabability.INSTANCE, null);
-            capability.unlockContent(1);
+        if(mc.player.hasCapability(TyrociniumProgressDefaultCapability.INSTANCE, null)) {
+            ITyrociniumProgressCapability capability = mc.player.getCapability(TyrociniumProgressDefaultCapability.INSTANCE, null);
+            return capability.isContentUnlocked("first_steps");
         }
-//        switch (content) {
-//            case FirstSteps:
-//                NBTTagCompound nbt = mc.player.getEntityData();
-//                return nbt.hasKey(content.toString());
-//        }
+
         return false;
     }
 

@@ -26,10 +26,16 @@ public class KernCraftNetwork {
                 MessageInt.class, getNextDiscriminator(), Side.SERVER);
         networkWrapper.registerMessage(MessageSideConfigHandler.class,
                 MessageSideConfig.class, getNextDiscriminator(), Side.SERVER);
+        // Unlock player features (similar to achievements)
         networkWrapper.registerMessage(MessageUnlockHandler.class,
                 MessageUnlock.class, getNextDiscriminator(), Side.SERVER);
+        // TODO: remove this: server is notifying client of something the client already knows, redundant
         networkWrapper.registerMessage(MessageUnlockHandler.class,
                 MessageUnlock.class, getNextDiscriminator(), Side.CLIENT);
+        // Sync progress when player spawns/dies
+        networkWrapper.registerMessage(MessageSyncTyrociniumProgressHandler.class,
+                MessageSyncTyrociniumProgress.class,
+                getNextDiscriminator(), Side.CLIENT);
 
     }
 
