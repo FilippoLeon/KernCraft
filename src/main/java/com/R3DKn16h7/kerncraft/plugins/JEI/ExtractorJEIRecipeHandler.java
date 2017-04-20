@@ -1,6 +1,6 @@
 package com.R3DKn16h7.kerncraft.plugins.JEI;
 
-import com.R3DKn16h7.kerncraft.tileentities.ExtractorTileEntity;
+import com.R3DKn16h7.kerncraft.crafting.ExtractorRecipe;
 import mezz.jei.api.recipe.IRecipeHandler;
 import mezz.jei.api.recipe.IRecipeWrapper;
 
@@ -10,7 +10,7 @@ import mezz.jei.api.recipe.IRecipeWrapper;
 public class ExtractorJEIRecipeHandler implements IRecipeHandler {
     @Override
     public Class getRecipeClass() {
-        return ExtractorTileEntity.ExtractorRecipe.class;
+        return ExtractorRecipe.class;
     }
 
 
@@ -21,7 +21,7 @@ public class ExtractorJEIRecipeHandler implements IRecipeHandler {
 
     @Override
     public IRecipeWrapper getRecipeWrapper(Object recipe) {
-        ExtractorJEIRecipeWrapper ret = new ExtractorJEIRecipeWrapper((ExtractorTileEntity.ExtractorRecipe) recipe);
+        ExtractorJEIRecipeWrapper ret = new ExtractorJEIRecipeWrapper((ExtractorRecipe) recipe);
 
         return ret;
     }

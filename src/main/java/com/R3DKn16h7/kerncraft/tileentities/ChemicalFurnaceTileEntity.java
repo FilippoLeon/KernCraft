@@ -1,7 +1,11 @@
 package com.R3DKn16h7.kerncraft.tileentities;
 
+import com.R3DKn16h7.kerncraft.crafting.ISmeltingRecipe;
+import com.R3DKn16h7.kerncraft.crafting.KernCraftRecipes;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
+
+import java.util.List;
 
 public class ChemicalFurnaceTileEntity extends SmeltingTileEntity {
 
@@ -14,6 +18,24 @@ public class ChemicalFurnaceTileEntity extends SmeltingTileEntity {
 
     public ChemicalFurnaceTileEntity() {
         super(2, 2);
+    }
+
+    public int[][] inputCoords = {{4,1},{5,1}};
+    public int[][] outputCoords = {{4,3},{5,3}};
+
+    @Override
+    public int[][] getInputCoords() {
+        return inputCoords;
+    }
+
+    @Override
+    public int[][] getOutputCoords() {
+        return outputCoords;
+    }
+
+    @Override
+    public List<ISmeltingRecipe> getRecipes() {
+        return null;
     }
 
     @Override

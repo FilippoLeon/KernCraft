@@ -1,5 +1,6 @@
 package com.R3DKn16h7.kerncraft.tileentities;
 
+import com.R3DKn16h7.kerncraft.crafting.ISmeltingRecipe;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -19,7 +20,7 @@ import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.items.CapabilityItemHandler;
 
 import javax.annotation.Nullable;
-import java.util.ArrayList;
+import java.util.List;
 
 abstract public class SmeltingTileEntity
         extends MachineTileEntity
@@ -30,8 +31,6 @@ abstract public class SmeltingTileEntity
     // Are we currently smelting
     private static final float ticTime = 5f;
     //// Static constants
-    // Static register of recipes
-    static public ArrayList<ISmeltingRecipe> recipes;
     // Internal energy storage
     EnergyStorage storage;
     FluidTank tank;
@@ -52,16 +51,6 @@ abstract public class SmeltingTileEntity
         // Internal storages
         storage = new EnergyStorage(100000);
         tank = new FluidTank(16000);
-    }
-
-    /**
-     * Add new recipe to the recipes added by this machine.
-     *
-     * @return Return false if registration failed [WIP]
-     */
-    static public boolean registerRecipe(ISmeltingRecipe rec) {
-        recipes.add(rec);
-        return true;
     }
 
     @Override
@@ -201,12 +190,14 @@ abstract public class SmeltingTileEntity
         currentlySmelting = null;
     }
 
+    public abstract List<ISmeltingRecipe> getRecipes();
+
     /**
      * Find recipe that matches the input/catalyst slots
      */
     public void findRecipe() {
-        if (recipes == null) return;
-        for (ISmeltingRecipe recipe : recipes) {
+        if (getRecipes() == null) return;
+        for (ISmeltingRecipe recipe : getRecipes()) {
             if (canSmelt(recipe)) {
                 currentlySmelting = recipe;
                 setSmelting(true);

@@ -1,5 +1,6 @@
 package com.R3DKn16h7.kerncraft.manual;
 
+import com.R3DKn16h7.kerncraft.elements.Element;
 import com.R3DKn16h7.kerncraft.elements.ElementBase;
 import org.apache.commons.lang3.StringUtils;
 import org.lwjgl.opengl.GL11;
@@ -18,7 +19,7 @@ public class TyrociniumChymicumElementGui extends TyrociniumChymicumGui {
     private static final int HEADER_HEIGHT = 45;
     int MAX_ROWS = 12;
 
-    ElementBase.Element element;
+    Element element;
     int currentStartIndex = 0;
     boolean summaryPage = false;
 
@@ -27,7 +28,7 @@ public class TyrociniumChymicumElementGui extends TyrociniumChymicumGui {
 
     List<String> stlist;
 
-    TyrociniumChymicumElementGui(ElementBase.Element element) {
+    TyrociniumChymicumElementGui(Element element) {
         this.element = element;
     }
 
@@ -37,7 +38,7 @@ public class TyrociniumChymicumElementGui extends TyrociniumChymicumGui {
 
         String str = element.loadDescription();
         if (str != null) {
-            String str2 = ElementBase.Element.parseXml(str);
+            String str2 = Element.parseXml(str);
 
             stlist = fontRendererObj.listFormattedStringToWidth(str2, pagewidth);
         }

@@ -1,4 +1,4 @@
-package com.R3DKn16h7.kerncraft.tileentities;
+package com.R3DKn16h7.kerncraft.crafting;
 
 /**
  * Created by Filippo on 14/12/2016.

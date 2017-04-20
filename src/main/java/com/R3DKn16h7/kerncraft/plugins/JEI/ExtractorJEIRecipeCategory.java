@@ -25,7 +25,7 @@ public class ExtractorJEIRecipeCategory implements IRecipeCategory {
     protected static final int fuelSlot = 4;
     protected static final int outputSlotStart = 5;
     protected static final int outputSlotSize = 4;
-    public final String CATEGORY_UID = "kerncraft.extractor";
+    public static final String CATEGORY_UID = "kerncraft.extractor";
     protected final ResourceLocation backgroundLocation;
     protected final IDrawableAnimated flame;
     protected final IDrawableAnimated arrow;

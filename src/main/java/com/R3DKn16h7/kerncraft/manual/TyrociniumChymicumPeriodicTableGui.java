@@ -2,6 +2,7 @@ package com.R3DKn16h7.kerncraft.manual;
 
 import com.R3DKn16h7.kerncraft.client.gui.widgets.BetterButton;
 import com.R3DKn16h7.kerncraft.client.gui.widgets.Widget;
+import com.R3DKn16h7.kerncraft.elements.Element;
 import com.R3DKn16h7.kerncraft.elements.ElementBase;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.renderer.GlStateManager;
@@ -42,7 +43,7 @@ public class TyrociniumChymicumPeriodicTableGui extends TyrociniumChymicumGui {
         int b = 0;
         int padLeft = guiLeft + 10;
         int padTop = guiTop + 20;
-        for (ElementBase.Element element : ElementBase.getElements()) {
+        for (Element element : ElementBase.getElements()) {
             int g = element.group;
             int p = element.period;
             if (g == ElementBase.GROUP.Actinide.getValue()) {
@@ -97,7 +98,7 @@ public class TyrociniumChymicumPeriodicTableGui extends TyrociniumChymicumGui {
         for (GuiButton btn : periodicButtonList) {
             if (par1 > btn.xPosition && par1 < btn.xPosition + btn.width &&
                     par2 > btn.yPosition && par2 < btn.yPosition + btn.height) {
-                ElementBase.Element elem = ElementBase.getElement(btn.id - STARTING_ID + 1);
+                Element elem = ElementBase.getElement(btn.id - STARTING_ID + 1);
 
 
                 String formatting = elem.state.toColor();

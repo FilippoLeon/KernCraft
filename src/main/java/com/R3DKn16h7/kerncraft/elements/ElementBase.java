@@ -1,24 +1,14 @@
 package com.R3DKn16h7.kerncraft.elements;
 
 import com.R3DKn16h7.kerncraft.items.KernCraftItems;
-import com.R3DKn16h7.kerncraft.tileentities.ExtractorTileEntity;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.text.TextFormatting;
-import org.w3c.dom.Document;
-import org.w3c.dom.NodeList;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.xpath.XPath;
-import javax.xml.xpath.XPathConstants;
-import javax.xml.xpath.XPathExpression;
-import javax.xml.xpath.XPathFactory;
 import java.awt.*;
 import java.io.*;
 import java.util.ArrayList;
@@ -30,13 +20,13 @@ import java.util.List;
  */
 public class ElementBase {
     public static final int NUMBER_OF_ELEMENTS = 118;
-    public static ElementBase instance;
+    public static ElementBase INSTANCE;
     private static HashMap<String, Integer> string_to_id = new HashMap<String, Integer>();
     private static ArrayList<Element> elements;
 
     public ElementBase(String resource) {
-        if (instance != null) return;
-        instance = this;
+        if (INSTANCE != null) return;
+        INSTANCE = this;
         elements = new ArrayList<Element>(NUMBER_OF_ELEMENTS);
 
         Gson gson = new Gson();
@@ -84,7 +74,7 @@ public class ElementBase {
         return elements.get(id - 1);
     }
 
-    static public ItemStack getItem(ExtractorTileEntity.ElementStack stack) {
+    static public ItemStack getItem(ElementStack stack) {
         return getItem(stack.id, stack.quantity);
     }
 
@@ -231,155 +221,6 @@ public class ElementBase {
                     return new Color(14, 14, 14);
             }
             return null;
-        }
-    }
-
-    static public class Element {
-        public int id;
-        public String symbol;
-        public String register_name;
-        public String name;
-        public int group;
-        public int period;
-        public float mass;
-        public float density;
-        public float radius;
-        public float conductivity;
-        public float sp_heat;
-        public float th_conductivity;
-        public String color;
-        public boolean toxic;
-        public ElementState state;
-        public ElementFamily family;
-        public float half_life;
-        public String description;
-
-        Element(int id_, JsonObject js) {
-            id = id_;
-            symbol = js.get("symbol").getAsString();
-            try {
-                mass = js.get("mass").getAsFloat();
-            } catch (RuntimeException e) {
-                density = 0;
-            }
-
-            String gr = js.get("group").getAsString();
-            if (gr.equals("A")) {
-                group = GROUP.Actinide.getValue();
-            } else if (gr.equals("L")) {
-                group = GROUP.Lanthanide.getValue();
-            } else {
-                try {
-                    group = js.get("group").getAsInt();
-                } catch (RuntimeException e) {
-
-                }
-            }
-
-            family = ElementFamily.fromString(js.get("family").getAsString());
-
-            period = js.get("period").getAsInt();
-            name = js.get("english").getAsString();
-            try {
-                density = js.get("density").getAsFloat();
-            } catch (RuntimeException e) {
-                density = 0;
-            }
-            try {
-                radius = js.get("radius").getAsFloat();
-            } catch (RuntimeException e) {
-                radius = 0;
-            }
-            try {
-                conductivity = js.get("conductivity").getAsFloat();
-            } catch (RuntimeException e) {
-                conductivity = 0;
-            }
-
-            try {
-                th_conductivity = js.get("th_conductivity").getAsFloat();
-            } catch (RuntimeException e) {
-                th_conductivity = 0;
-            }
-            try {
-                sp_heat = js.get("sp_heat").getAsFloat();
-            } catch (RuntimeException e) {
-                sp_heat = 0;
-            }
-            color = js.get("color").getAsString();
-            try {
-                toxic = js.get("toxic").getAsBoolean();
-            } catch (RuntimeException e) {
-                toxic = false;
-            }
-
-            state = ElementState.fromString(js.get("state").getAsString());
-
-            try {
-                half_life = js.get("half_life").getAsFloat();
-            } catch (RuntimeException e) {
-                half_life = 0;
-            }
-
-            try {
-                description = js.get("description").getAsString();
-            } catch (RuntimeException e) {
-            }
-
-        }
-
-        public String loadDescription() {
-            String str = "";
-
-            try {
-                DataInputStream in = null;
-                System.out.println("Reading file = .xml");
-                in = new DataInputStream(getClass().getClassLoader()
-                        .getResourceAsStream("assets/kerncraft/config/elements_descriptions.xml"));
-                //in = Minecraft.getMinecraft().getResourceManager().getResource(loc).getInputStream();
-
-                DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-                DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-                Document doc = dBuilder.parse(in);
-                doc.getDocumentElement().normalize();
-
-                NodeList nList = doc.getElementsByTagName("staff");
-//                System.out.println("Root element:" + doc.getDocumentElement().getNodeName());
-
-                XPath xpath = XPathFactory.newInstance().newXPath();
-                XPathExpression expr = xpath.compile("//Element[@id=\"" + this.id + "\"]");
-                Object exprResult = expr.evaluate(doc, XPathConstants.NODESET);
-                NodeList nodeList = (NodeList) exprResult;
-                if (nodeList.getLength() > 0) {
-                    String lang = Minecraft.getMinecraft().gameSettings.language;
-//                        System.out.println("Root element :" + lang);
-                    expr = xpath.compile("//Description[@lang=\"" + lang + "\"]");
-                    exprResult = expr.evaluate(nodeList.item(0), XPathConstants.NODESET);
-                    NodeList nodeList2 = (NodeList) exprResult;
-                    if (nodeList2.getLength() > 0) {
-//                        System.out.println("Root element :" + nodeList2.item(0).getTextContent());
-                        return nodeList2.item(0).getTextContent();
-                    } else {
-
-                    }
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-
-            return str;
-        }
-
-        public static final String parseXml(String str) {
-            str = str
-                    .replaceAll("\n[ ]+", " ")
-                    .replace("[b]", "§l")
-                    .replace("[/b]", "§r")
-                    .replace("[br/]", "\n\n");
-
-
-            return str;
         }
     }
 

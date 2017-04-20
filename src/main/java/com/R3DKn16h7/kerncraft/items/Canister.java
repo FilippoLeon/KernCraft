@@ -1,9 +1,9 @@
 package com.R3DKn16h7.kerncraft.items;
 
 import com.R3DKn16h7.kerncraft.KernCraft;
+import com.R3DKn16h7.kerncraft.elements.Element;
 import com.R3DKn16h7.kerncraft.elements.ElementBase;
 import net.minecraft.client.Minecraft;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -33,7 +33,7 @@ public class Canister extends Item {
         GameRegistry.register(this);
     }
 
-    static public ElementBase.Element getElement(ItemStack stack) {
+    static public Element getElement(ItemStack stack) {
         if (stack.hasTagCompound() && stack.getTagCompound().hasKey("Element")) {
             int element_id = stack.getTagCompound().getInteger("Element");
             return ElementBase.getElement(element_id);
@@ -48,7 +48,7 @@ public class Canister extends Item {
             elapsed = 0;
             EntityPlayer entity = (EntityPlayer) entityIn;
 
-            ElementBase.Element elem = Canister.getElement(stack);
+            Element elem = Canister.getElement(stack);
 
             if(elem == null) return;
 
@@ -107,7 +107,7 @@ public class Canister extends Item {
         }
         if (stack.hasTagCompound() && stack.getTagCompound().hasKey("Element")) {
             int element_id = stack.getTagCompound().getInteger("Element");
-            ElementBase.Element element = ElementBase.getElement(element_id);
+            Element element = ElementBase.getElement(element_id);
 
             lores.add("Element: " + element.state.toColor() + element.symbol +
                     TextFormatting.RESET.toString() +

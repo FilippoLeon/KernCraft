@@ -1,5 +1,6 @@
 package com.R3DKn16h7.kerncraft.plugins.JEI;
 
+import com.R3DKn16h7.kerncraft.crafting.KernCraftRecipes;
 import com.R3DKn16h7.kerncraft.tileentities.ExtractorTileEntity;
 import mezz.jei.api.*;
 import mezz.jei.api.ingredients.IModIngredientRegistration;
@@ -26,7 +27,7 @@ public class ExtractorJEIPlugin implements IModPlugin {
         registry.addRecipeCategories(new ExtractorJEIRecipeCategory(guih));
         registry.addRecipeHandlers(new ExtractorJEIRecipeHandler());
 
-        registry.addRecipes(ExtractorTileEntity.recipes);
+        registry.addRecipes(KernCraftRecipes.EXTRACTOR_RECIPES,  ExtractorJEIRecipeCategory.CATEGORY_UID);
     }
 
     @Override

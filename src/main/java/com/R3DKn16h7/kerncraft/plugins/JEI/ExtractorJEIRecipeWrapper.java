@@ -1,8 +1,9 @@
 package com.R3DKn16h7.kerncraft.plugins.JEI;
 
 import com.R3DKn16h7.kerncraft.elements.ElementBase;
+import com.R3DKn16h7.kerncraft.elements.ElementStack;
 import com.R3DKn16h7.kerncraft.items.KernCraftItems;
-import com.R3DKn16h7.kerncraft.tileentities.ExtractorTileEntity;
+import com.R3DKn16h7.kerncraft.crafting.ExtractorRecipe;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.BlankRecipeWrapper;
 import net.minecraft.client.Minecraft;
@@ -18,9 +19,9 @@ import java.util.List;
  */
 public class ExtractorJEIRecipeWrapper extends BlankRecipeWrapper {
 
-    public ExtractorTileEntity.ExtractorRecipe recipe;
+    public ExtractorRecipe recipe;
 
-    ExtractorJEIRecipeWrapper(ExtractorTileEntity.ExtractorRecipe recipe_) {
+    ExtractorJEIRecipeWrapper(ExtractorRecipe recipe_) {
         recipe = recipe_;
     }
 
@@ -37,7 +38,7 @@ public class ExtractorJEIRecipeWrapper extends BlankRecipeWrapper {
 
         ArrayList<ItemStack> outputs = new ArrayList<ItemStack>();
 
-        for (ExtractorTileEntity.ElementStack i : recipe.outs) {
+        for (ElementStack i : recipe.outs) {
             outputs.add(ElementBase.getItem(i));
         }
         ingredients.setOutputs(ItemStack.class, outputs);
@@ -50,7 +51,7 @@ public class ExtractorJEIRecipeWrapper extends BlankRecipeWrapper {
 
         // Draw each output element
         int j = 0;
-        for (ExtractorTileEntity.ElementStack i : recipe.outs) {
+        for (ElementStack i : recipe.outs) {
             if (i.prob == 1) continue;
             String prob_string = String.format("%d%%",
                     (int) Math.floor(i.prob * 100));

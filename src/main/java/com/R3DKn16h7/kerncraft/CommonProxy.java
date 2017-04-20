@@ -2,7 +2,6 @@ package com.R3DKn16h7.kerncraft;
 
 import com.R3DKn16h7.kerncraft.achievements.AchievementHandler;
 import com.R3DKn16h7.kerncraft.blocks.KernCraftBlocks;
-import com.R3DKn16h7.kerncraft.crafting.ModCrafting;
 import com.R3DKn16h7.kerncraft.elements.ElementBase;
 import com.R3DKn16h7.kerncraft.events.EventHandlerCommon;
 import com.R3DKn16h7.kerncraft.capabilities.ITyrociniumProgressCapability;
@@ -12,8 +11,7 @@ import com.R3DKn16h7.kerncraft.items.KernCraftItems;
 import com.R3DKn16h7.kerncraft.network.KernCraftNetwork;
 import com.R3DKn16h7.kerncraft.network.ModGuiHandler;
 import com.R3DKn16h7.kerncraft.tileentities.KernCraftTileEntities;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.ItemStack;
+import com.R3DKn16h7.kerncraft.crafting.KernCraftRecipes;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.fml.common.Mod;
@@ -32,8 +30,10 @@ public class CommonProxy {
         new ElementBase("");
 
         KernCraftItems.createItems();
+        new KernCraftRecipes();
         KernCraftBlocks.createBlocks();
         KernCraftTileEntities.createEntities();
+
 
         new KernCraftNetwork();
 
@@ -42,9 +42,6 @@ public class CommonProxy {
 
     public void init(FMLInitializationEvent e) {
 
-        ModCrafting.initCrafting();
-
-
         EventHandlerCommon handler = new EventHandlerCommon();
         MinecraftForge.EVENT_BUS.register(handler);
 
@@ -52,7 +49,6 @@ public class CommonProxy {
     }
 
     public void postInit(FMLPostInitializationEvent e) {
-
         NetworkRegistry.INSTANCE.registerGuiHandler(instance, new ModGuiHandler());
     }
 }
