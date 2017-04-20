@@ -10,6 +10,7 @@ import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.EnergyStorage;
@@ -149,19 +150,34 @@ abstract public class SmeltingTileEntity
      * is possible to continue smelting.
      */
     public void progressSmelting() {
-        if (mode == 0 && !this.world.isBlockPowered(pos)) return;
-        if (mode == 1 && this.world.isBlockPowered(pos)) return;
+        // Machine cannot porocess due to redstone
+        if ((mode == 0 && !this.world.isBlockPowered(pos)) || (mode == 1 && this.world.isBlockPowered(pos))) {
+            IBlockState state = world.getBlockState(this.pos);
+            world.setBlockState(this.pos, state.withProperty(MachineBlock.POWERED, false));
+            return;
+        }
 
-        IBlockState state = world.getBlockState(this.pos);
-        world.setBlockState(this.pos, state.withProperty(MachineBlock.POWERED, true));
+        /// TODO: reenable
 
         if (inputChanged) {
             findRecipe();
             inputChanged = false;
         }
-        if (currentlySmelting == null) return;
+        if (currentlySmelting == null) {
+            IBlockState state = world.getBlockState(this.pos);
+            world.setBlockState(this.pos, state.withProperty(MachineBlock.POWERED, false));
+            return;
+        }
+
         if (canSmelt()) {
-            if (!tryProgress()) return;
+            if (!tryProgress()) {
+                IBlockState state = world.getBlockState(this.pos);
+                world.setBlockState(this.pos, state.withProperty(MachineBlock.POWERED, false));
+                return;
+            } else {
+                IBlockState state = world.getBlockState(this.pos);
+                world.setBlockState(this.pos, state.withProperty(MachineBlock.POWERED, true));
+            }
             ++progress;
             if (progress >= currentlySmelting.getCost()) {
                 progress = 0;
@@ -177,6 +193,7 @@ abstract public class SmeltingTileEntity
      */
     public void abortSmelting() {
 
+        /// TODO: reenable
         IBlockState state = world.getBlockState(this.pos);
         world.setBlockState(this.pos, state.withProperty(MachineBlock.POWERED, false));
 
@@ -287,6 +304,11 @@ abstract public class SmeltingTileEntity
         super.onDataPacket(net, pkt);
         NBTTagCompound tag = pkt.getNbtCompound();
         readFromNBT(tag);
+    }
+
+    @Override
+    public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newSate) {
+        return false;
     }
 
     @Override

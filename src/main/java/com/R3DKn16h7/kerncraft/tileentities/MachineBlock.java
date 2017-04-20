@@ -59,6 +59,11 @@ public abstract class MachineBlock extends BlockContainer {
     }
 
     @Override
+    public int getLightValue(IBlockState state, IBlockAccess world, BlockPos pos) {
+        return state.getValue(POWERED) ? 15 : 0;
+    }
+
+    @Override
     public void breakBlock(World world, BlockPos pos, IBlockState blockstate) {
 
         double x = pos.getX(), y = pos.getY(), z = pos.getZ();
