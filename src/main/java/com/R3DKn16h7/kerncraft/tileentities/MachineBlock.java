@@ -2,10 +2,12 @@ package com.R3DKn16h7.kerncraft.tileentities;
 
 import com.R3DKn16h7.kerncraft.KernCraft;
 import com.R3DKn16h7.kerncraft.items.KernCraftItems;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.BlockHorizontal;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -36,6 +38,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public abstract class MachineBlock extends BlockContainer {
 
     public static final PropertyDirection FACING = BlockHorizontal.FACING;
+    public static final PropertyBool POWERED = PropertyBool.create("powered");
 
     public int gui;
     public boolean has_gui = false;
@@ -47,12 +50,12 @@ public abstract class MachineBlock extends BlockContainer {
         this.setHardness(2.0f);
         this.setResistance(6.0f);
         this.setHarvestLevel("pickaxe", 2);
-        this.setCreativeTab(CreativeTabs.MISC);
+        this.setCreativeTab(KernCraft.KERNCRAFT_CREATIVE_TAB);
         this.isBlockContainer = true;
 
         setRegistryName(unlocalizedName);
         this.setDefaultState(this.blockState
-                .getBaseState().withProperty(FACING, EnumFacing.NORTH));
+                .getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(POWERED, false));
     }
 
     @Override
@@ -141,11 +144,11 @@ public abstract class MachineBlock extends BlockContainer {
     public void neighborChanged(IBlockState state, World worldIn,
                                 BlockPos pos, Block blockIn, BlockPos pos2) {
         if (!worldIn.isRemote) {
-            if (true && !worldIn.isBlockPowered(pos)) {
+            if (!worldIn.isBlockPowered(pos)) {
                 worldIn.scheduleUpdate(pos, this, 4);
                 setLightLevel(15);
 
-            } else if (!false && worldIn.isBlockPowered(pos)) {
+            } else if (worldIn.isBlockPowered(pos)) {
                 worldIn.scheduleUpdate(pos, this, 4);
                 setLightLevel(0);
             }
@@ -182,27 +185,34 @@ public abstract class MachineBlock extends BlockContainer {
         }
     }
 
+    @Override
     public IBlockState getStateFromMeta(int meta) {
+        boolean powered = false;
+        if(meta > 8) {
+            powered = true;
+            meta -= 8;
+        }
         EnumFacing enumfacing = EnumFacing.getFront(meta);
 
         if (enumfacing.getAxis() == EnumFacing.Axis.Y) {
             enumfacing = EnumFacing.NORTH;
         }
 
-        return this.getDefaultState().withProperty(FACING, enumfacing);
+        return this.getDefaultState().withProperty(FACING, enumfacing).withProperty(POWERED, powered);
     }
 
     /**
      * Convert the BlockState into the correct metadata value
      */
+    @Override
     public int getMetaFromState(IBlockState state) {
-        return state.getValue(FACING).getIndex();
+        return state.getValue(FACING).getIndex() + (state.getValue(POWERED) ? 8 : 0);
     }
 
+    @Override
     protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, FACING);
+        return new BlockStateContainer(this, FACING, POWERED);
     }
-
 
     @Override
     public void onBlockPlacedBy(World world, BlockPos pos,
@@ -213,10 +223,8 @@ public abstract class MachineBlock extends BlockContainer {
 
         MachineTileEntity te = (MachineTileEntity) world.getTileEntity(pos);
         NBTTagCompound nbt = stack.getTagCompound();
-        te.restoreFromNBT(nbt);
-        if (stack.hasDisplayName()) {
-            // ((ExtractorEntity) worldIn.getTileEntity(pos))
-            // .setCustomName(stack.getDisplayName());
+        if(te != null) {
+            te.restoreFromNBT(nbt);
         }
     }
 

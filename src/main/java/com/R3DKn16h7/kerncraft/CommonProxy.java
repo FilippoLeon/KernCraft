@@ -27,13 +27,6 @@ public class CommonProxy {
     @Mod.Instance(KernCraft.MODID)
     public static KernCraft instance;
 
-    public static final CreativeTabs KERNCRAFT_CREATIVE_TAB = new CreativeTabs("KernCraft") {
-        @Override
-        public ItemStack getTabIconItem() {
-            return new ItemStack(KernCraftItems.TYROCINIUM_CHYMICUM);
-        }
-    };
-
     public void preInit(FMLPreInitializationEvent e) {
 
         new ElementBase("");

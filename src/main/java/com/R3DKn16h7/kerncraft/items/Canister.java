@@ -1,5 +1,6 @@
 package com.R3DKn16h7.kerncraft.items;
 
+import com.R3DKn16h7.kerncraft.KernCraft;
 import com.R3DKn16h7.kerncraft.elements.ElementBase;
 import net.minecraft.client.Minecraft;
 import net.minecraft.creativetab.CreativeTabs;
@@ -28,7 +29,7 @@ public class Canister extends Item {
 
         this.setUnlocalizedName(base_name);
         this.setRegistryName(base_name);
-        this.setCreativeTab(CreativeTabs.MISC);
+        this.setCreativeTab(KernCraft.KERNCRAFT_CREATIVE_TAB);
         GameRegistry.register(this);
     }
 

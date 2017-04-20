@@ -46,13 +46,12 @@ public class LampBlockEntity extends BlockContainer {
         this.setHardness(2.0f);
         this.setResistance(6.0f);
         this.setHarvestLevel("pickaxe", 2);
-        this.setCreativeTab(CreativeTabs.MISC);
+        this.setCreativeTab(KernCraft.KERNCRAFT_CREATIVE_TAB);
 
         setLightLevel(0f);
         setLightOpacity(1);
         this.setDefaultState(this.blockState.getBaseState()
                 .withProperty(POWERED, 0));
-        //this.setLightLevel(1.0F);
 
         setUnlocalizedName(unlocalizedName);
         setRegistryName(unlocalizedName);
@@ -72,7 +71,6 @@ public class LampBlockEntity extends BlockContainer {
     @Override
     public int getLightValue(IBlockState state, IBlockAccess world, BlockPos pos) {
         return state.getValue(POWERED).intValue();
-        //return super.getLightValue(state, world, pos);
     }
 
     /**
@@ -128,43 +126,34 @@ public class LampBlockEntity extends BlockContainer {
     @Override
     public void onNeighborChange(IBlockAccess world, BlockPos pos, BlockPos neighbor) {
         super.onNeighborChange(world, pos, neighbor);
-//        if (!world.isRemote) {
-        System.out.println("OUpdate!");
-            LampTileEntity tileentity = (LampTileEntity) world.getTileEntity(pos);
-            tileentity.updateState();
-//        }
+
+        LampTileEntity tileentity = (LampTileEntity) world.getTileEntity(pos);
+        tileentity.updateState();
     }
 
     @Override
     public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
         super.neighborChanged(state, worldIn, pos, blockIn, fromPos);
-        System.out.println("OUpdate!");
+
         LampTileEntity tileentity = (LampTileEntity) worldIn.getTileEntity(pos);
         tileentity.updateState();
     }
 
+    @Override
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
-        if (!worldIn.isRemote) {
-            //IBlockState iblockstate = worldIn.getBlockState(pos);
-            //LampTileEntity tileentity = (LampTileEntity) worldIn.getTileEntity(pos);
 
-            //setLightOpacity(1);
-            // setLightLevel(tileentity.redstoneMode);
-            //if (this.isOn && !worldIn.isBlockPowered(pos))
-            //{
-            //   worldIn.setBlockState(pos, KernCraftTileEntities.LAMP.getDefaultState(), 2);
-            //}
-        }
     }
 
     /**
      * Get the Item that this Block should drop when harvested.
      */
     @Nullable
+    @Override
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
         return Item.getItemFromBlock(KernCraftTileEntities.LAMP);
     }
 
+    @Override
     public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state) {
         return new ItemStack(KernCraftTileEntities.LAMP);
     }
@@ -177,6 +166,7 @@ public class LampBlockEntity extends BlockContainer {
     /**
      * Convert the given metadata into a BlockState for this Block
      */
+    @Override
     public IBlockState getStateFromMeta(int meta) {
         return this.getDefaultState().withProperty(POWERED, meta);
     }
@@ -185,6 +175,7 @@ public class LampBlockEntity extends BlockContainer {
     /**
      * Convert the BlockState into the correct metadata value
      */
+    @Override
     public int getMetaFromState(IBlockState state) {
         return state.getValue(POWERED).intValue();
     }

@@ -40,3 +40,5 @@ element.family.TRANSITION.name=Transition metal
 element.family.ACTINIDES.name=Actinide
 element.family.LANTHANIDES.name=Lanthanide
 element.family.UNKNOWN.name=Unknown
+
+itemGroup.KernCraft=KernCraft

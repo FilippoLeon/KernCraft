@@ -1,5 +1,6 @@
 package com.R3DKn16h7.kerncraft.tileentities;
 
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -7,6 +8,8 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.EnergyStorage;
@@ -149,6 +152,9 @@ abstract public class SmeltingTileEntity
         if (mode == 0 && !this.world.isBlockPowered(pos)) return;
         if (mode == 1 && this.world.isBlockPowered(pos)) return;
 
+        IBlockState state = world.getBlockState(this.pos);
+        world.setBlockState(this.pos, state.withProperty(MachineBlock.POWERED, true));
+
         if (inputChanged) {
             findRecipe();
             inputChanged = false;
@@ -170,6 +176,10 @@ abstract public class SmeltingTileEntity
      *
      */
     public void abortSmelting() {
+
+        IBlockState state = world.getBlockState(this.pos);
+        world.setBlockState(this.pos, state.withProperty(MachineBlock.POWERED, false));
+
         smelting = false;
         currentlySmelting = null;
     }
