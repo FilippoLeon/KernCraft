@@ -42,7 +42,7 @@ public class StateButton extends BetterButton {
         // TODO: BETTER FIX THIS
         BlockPos pos = ((TileEntity) te).getPos();
         IntConsumer sdd = (int state) -> {
-            te.setMode(state);
+            te.setRedstoneMode(state);
             KernCraftNetwork.networkWrapper.sendToServer(new MessageRedstoneControl(state,  pos));
         };
 

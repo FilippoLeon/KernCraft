@@ -23,7 +23,7 @@ public class LampTileEntity extends TileEntity implements IRedstoneSettable, IMe
         return redstoneMode;
     }
 
-    public void setMode(int i) {
+    public void setRedstoneMode(int i) {
         redstoneMode = i;
         updateState();
     }

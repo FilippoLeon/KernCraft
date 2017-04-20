@@ -49,6 +49,8 @@ public abstract class MachineTileEntity extends TileEntity
         sideConfig.setSlotSide(slotId, side);
     }
 
+    public abstract void stop();
+
     public abstract int getTotalSlots();
 
     public ItemStackHandler getInput() {
@@ -62,9 +64,7 @@ public abstract class MachineTileEntity extends TileEntity
     @Override
     public boolean hasCapability(Capability<?> capability,
                                  EnumFacing facing) {
-        if (//capability == CapabilityEnergy.ENERGY ||
-            //capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY ||
-                capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
+        if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
             return true;
         }
         return super.hasCapability(capability, facing);
@@ -74,7 +74,6 @@ public abstract class MachineTileEntity extends TileEntity
     public <T> T getCapability(Capability<T> capability,
                                EnumFacing facing) {
         if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-            //return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(automationInput);
             EnumFacing machineFacing = world.getBlockState(getPos()).getValue(MachineBlock.FACING);
             return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(sideConfig.get(facing, machineFacing));
         }

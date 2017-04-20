@@ -1,5 +1,6 @@
 package com.R3DKn16h7.kerncraft.tileentities;
 
+import com.R3DKn16h7.kerncraft.KernCraft;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -17,7 +18,7 @@ public class TimeMachineBlockEntity extends BlockContainer {
         this.setHardness(2.0f);
         this.setResistance(6.0f);
         this.setHarvestLevel("pickaxe", 2);
-        this.setCreativeTab(CreativeTabs.MISC);
+        this.setCreativeTab(KernCraft.KERNCRAFT_CREATIVE_TAB);
 
         setUnlocalizedName(unlocalizedName);
         setRegistryName(unlocalizedName);

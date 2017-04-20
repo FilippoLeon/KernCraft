@@ -9,18 +9,14 @@ import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.EnergyStorage;
-import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.items.CapabilityItemHandler;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.ItemStackHandler;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -32,26 +28,27 @@ abstract public class SmeltingTileEntity
 
     //// Status variables
     // Are we currently smelting
-    static protected final float ticTime = 5f;
+    private static final float ticTime = 5f;
     //// Static constants
     // Static register of recipes
     static public ArrayList<ISmeltingRecipe> recipes;
     // Internal energy storage
-    public EnergyStorage storage;
-    public FluidTank tank;
+    EnergyStorage storage;
+    FluidTank tank;
     // Is the machine currently smelting
-    protected boolean smelting = false;
+    private boolean smelting = false;
     // Recipe Id currently smelting
-    protected ISmeltingRecipe currentlySmelting;
+    ISmeltingRecipe currentlySmelting;
     // Current progress oin smelting
-    protected int progress;
-    protected int storedFuel = 0;
+    private int progress;
+    int storedFuel = 0;
     //
-    protected float elapsed = 0f;
-    int mode = 0;
+    private float elapsed = 0f;
+    private int redstoneMode = 0;
 
     public SmeltingTileEntity(int inputSize, int outputSize) {
         super(inputSize, outputSize);
+
         // Internal storages
         storage = new EnergyStorage(100000);
         tank = new FluidTank(16000);
@@ -107,7 +104,7 @@ abstract public class SmeltingTileEntity
 
     @Override
     public int getRedstoneMode() {
-        return mode;
+        return redstoneMode;
     }
 
     @Override
@@ -128,14 +125,11 @@ abstract public class SmeltingTileEntity
             return CapabilityEnergy.ENERGY.cast(storage);
         } else if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
             return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(tank);
-        } else if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-            //return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(automationInput);
-//            return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(input);
         }
         return super.getCapability(capability, facing);
     }
 
-    public boolean canSmelt() {
+    private boolean canSmelt() {
         return canSmelt(currentlySmelting);
     }
 
@@ -145,38 +139,49 @@ abstract public class SmeltingTileEntity
 
     abstract public void doneSmelting();
 
+    public boolean isSmelting() {
+        return smelting;
+    }
+
+    private void setSmelting(boolean isSmelting) {
+        if(smelting != isSmelting) {
+            IBlockState state = world.getBlockState(this.pos);
+            world.setBlockState(this.pos, state.withProperty(MachineBlock.POWERED, smelting));
+        }
+        smelting = isSmelting;
+    }
+
+    public void stop() {
+        smelting = false;
+        abortSmelting();
+    }
+
     /**
      * Do "one tick" of smelting, check if recipe changed, and if it
      * is possible to continue smelting.
      */
-    public void progressSmelting() {
+    private void progressSmelting() {
         // Machine cannot porocess due to redstone
-        if ((mode == 0 && !this.world.isBlockPowered(pos)) || (mode == 1 && this.world.isBlockPowered(pos))) {
-            IBlockState state = world.getBlockState(this.pos);
-            world.setBlockState(this.pos, state.withProperty(MachineBlock.POWERED, false));
+        if ((redstoneMode == 0 && !this.world.isBlockPowered(pos)) || (redstoneMode == 1 && this.world.isBlockPowered(pos))) {
+            setSmelting(false);
             return;
         }
-
-        /// TODO: reenable
 
         if (inputChanged) {
             findRecipe();
             inputChanged = false;
         }
         if (currentlySmelting == null) {
-            IBlockState state = world.getBlockState(this.pos);
-            world.setBlockState(this.pos, state.withProperty(MachineBlock.POWERED, false));
+            setSmelting(false);
             return;
         }
 
         if (canSmelt()) {
             if (!tryProgress()) {
-                IBlockState state = world.getBlockState(this.pos);
-                world.setBlockState(this.pos, state.withProperty(MachineBlock.POWERED, false));
+                setSmelting(false);
                 return;
             } else {
-                IBlockState state = world.getBlockState(this.pos);
-                world.setBlockState(this.pos, state.withProperty(MachineBlock.POWERED, true));
+                setSmelting(true);
             }
             ++progress;
             if (progress >= currentlySmelting.getCost()) {
@@ -192,12 +197,7 @@ abstract public class SmeltingTileEntity
      *
      */
     public void abortSmelting() {
-
-        /// TODO: reenable
-        IBlockState state = world.getBlockState(this.pos);
-        world.setBlockState(this.pos, state.withProperty(MachineBlock.POWERED, false));
-
-        smelting = false;
+        setSmelting(false);
         currentlySmelting = null;
     }
 
@@ -209,7 +209,7 @@ abstract public class SmeltingTileEntity
         for (ISmeltingRecipe recipe : recipes) {
             if (canSmelt(recipe)) {
                 currentlySmelting = recipe;
-                smelting = true;
+                setSmelting(true);
                 return;
             }
         }
@@ -229,32 +229,18 @@ abstract public class SmeltingTileEntity
         }
     }
 
-
     @Override
     public void readFromNBT(NBTTagCompound nbt) {
         super.readFromNBT(nbt);
-        if (nbt.hasKey("redstoneMode")) {
-            mode = nbt.getInteger("redstoneMode");
-        }
-        if (nbt.hasKey("tank")) {
-            tank.readFromNBT(nbt.getCompoundTag("tank"));
-        }
-        if (nbt.hasKey("maxEnergyStored") && nbt.getInteger("maxEnergyStored") != storage.getMaxEnergyStored()) {
-            int temp = storage.getEnergyStored();
-            storage = new EnergyStorage( nbt.getInteger("maxEnergyStored"));
-            storage.receiveEnergy(temp,false);
-        }
-        if (nbt.hasKey("energyStored")) {
-            storage.extractEnergy(1000000000, false);
-            storage.receiveEnergy(nbt.getInteger("energyStored"),false);
-        }
+
+        restoreFromNBT(nbt);
     }
 
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
         nbt = super.writeToNBT(nbt);
 
-        nbt.setInteger("redstoneMode", mode);
+        nbt.setInteger("redstoneMode", redstoneMode);
 
         NBTTagCompound nbt_tank = new NBTTagCompound();
         tank.writeToNBT(nbt_tank);
@@ -271,7 +257,7 @@ abstract public class SmeltingTileEntity
 
         if (nbt != null) {
             if (nbt.hasKey("redstoneMode")) {
-                mode = nbt.getInteger("redstoneMode");
+                redstoneMode = nbt.getInteger("redstoneMode");
             }
             if (nbt.hasKey("tank")) {
                 tank.readFromNBT(nbt.getCompoundTag("tank"));
@@ -312,10 +298,9 @@ abstract public class SmeltingTileEntity
     }
 
     @Override
-    public void setMode(int mode) {
+    public void setRedstoneMode(int mode) {
         world.scheduleBlockUpdate(pos,this.getBlockType(),0,0);
         this.markDirty();
-        this.mode = mode;
-
+        this.redstoneMode = mode;
     }
 }

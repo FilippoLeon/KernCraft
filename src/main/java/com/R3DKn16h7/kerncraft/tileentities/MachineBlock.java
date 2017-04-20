@@ -72,6 +72,7 @@ public abstract class MachineBlock extends BlockContainer {
 
         NBTTagCompound nbt = new NBTTagCompound();
         MachineTileEntity te = (MachineTileEntity) world.getTileEntity(pos);
+        te.stop();
         nbt = te.writeToNBT(nbt);
         te_stack.setTagCompound(nbt);
 
