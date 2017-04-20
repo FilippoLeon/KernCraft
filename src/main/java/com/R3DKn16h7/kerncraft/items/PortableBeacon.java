@@ -83,8 +83,8 @@ public class PortableBeacon extends Item implements IBauble {
     @Optional.Method(modid="baubles")
     public void onWornTick(ItemStack itemstack, EntityLivingBase player) {
         if (player != null && player instanceof EntityPlayer)
-            if (((EntityPlayer) player).getActivePotionEffect(PotionHelper.getPotion(PotionHelper.Effect.SPECTRAL)) == null)
-                ((EntityPlayer) player).addPotionEffect(PotionHelper.getPotionEffect(PotionHelper.Effect.SPECTRAL, 300));
+            if (player.getActivePotionEffect(PotionHelper.getPotion(PotionHelper.Effect.SPECTRAL)) == null)
+                player.addPotionEffect(PotionHelper.getPotionEffect(PotionHelper.Effect.SPECTRAL, 300));
     }
 
     @Override

@@ -3,12 +3,18 @@ package com.R3DKn16h7.kerncraft.client.gui;
 import com.R3DKn16h7.kerncraft.client.gui.widgets.AnimatedTexturedElement;
 import com.R3DKn16h7.kerncraft.client.gui.widgets.StateButton;
 import com.R3DKn16h7.kerncraft.client.gui.widgets.Text;
+import com.R3DKn16h7.kerncraft.client.gui.widgets.TexturedElement;
+import com.R3DKn16h7.kerncraft.guicontainer.AdvancedContainer;
+import com.R3DKn16h7.kerncraft.network.KernCraftNetwork;
+import com.R3DKn16h7.kerncraft.network.MessageSideConfig;
 import com.R3DKn16h7.kerncraft.tileentities.*;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.Slot;
 import net.minecraftforge.energy.IEnergyStorage;
 
 import java.awt.*;
+import java.util.function.IntConsumer;
 
 /**
  * Created by Filippo on 18-Apr-17.
@@ -97,6 +103,67 @@ public class MachineGuiContainer extends AdvancedGuiContainer {
                 this.xSize - 2 * borderLeft, 6, Text.Alignment.MIDDLE);
         titleText.setText(titleString);
         AddWidget(titleText, true);
+
+        setupSideConfiguration();
+    }
+
+    private void setupSideConfiguration() {
+        if(!(te instanceof ISideConfigurable)) return;
+        ISideConfigurable side_te = ((ISideConfigurable) te);
+
+        // Side configuration button
+        int I = 0;
+        for(int[] ish: side_te.getInputCoords()) {
+            int T1 = I;
+            IntConsumer onSlotConfigurationChanged = (int state) -> {
+                side_te.setSlotSide(T1, state);
+                KernCraftNetwork.networkWrapper.sendToServer(new MessageSideConfig(T1, state, te.getPos()));
+                System.out.println("Click! " + state);
+            };
+            StateButton btbX = new StateButton(this, ish[0] *18 + borderLeft - 3,
+                    (ish[1] -1) * 18 + borderTop - 4, 6, 6)
+                    .addState(new StateButton.State().setTooltip("Side: Front").setTint(Color.red))
+                    .addState(new StateButton.State().setTooltip("Side: Right").setTint(Color.orange))
+                    .addState(new StateButton.State().setTooltip("Side: Back").setTint(Color.blue))
+                    .addState(new StateButton.State().setTooltip("Side: Left").setTint(Color.green))
+                    .addState(new StateButton.State().setTooltip("Side: Top").setTint(Color.cyan))
+                    .addState(new StateButton.State().setTooltip("Side: Bottom").setTint(Color.magenta))
+                    .addState(new StateButton.State().setTooltip("Side: Disabled").setTint(Color.black))
+                    .addOnStateChanged(onSlotConfigurationChanged);
+            btbX.setState(side_te.getSideConfig().getSlotSide(I++).getValue());
+            AddWidget(btbX, true);
+        }
+        for(int[] ish: side_te.getOutputCoords()) {
+            int T1 = I;
+            IntConsumer onSlotConfigurationChanged = (int state) -> {
+                side_te.setSlotSide(T1, state);
+                KernCraftNetwork.networkWrapper.sendToServer(new MessageSideConfig(T1,  state, te.getPos()));
+                System.out.println("Click! " + state);
+            };
+            StateButton btbX = new StateButton(this, ish[0] * 18 + borderLeft - 4,
+                    (ish[1] - 1) * 18 + borderTop - 4, 6, 6)
+                    .addState(new StateButton.State().setTooltip("Side: Front").setTint(Color.red))
+                    .addState(new StateButton.State().setTooltip("Side: Right").setTint(Color.orange))
+                    .addState(new StateButton.State().setTooltip("Side: Back").setTint(Color.blue))
+                    .addState(new StateButton.State().setTooltip("Side: Left").setTint(Color.green))
+                    .addState(new StateButton.State().setTooltip("Side: Top").setTint(Color.cyan))
+                    .addState(new StateButton.State().setTooltip("Side: Bottom").setTint(Color.magenta))
+                    .addState(new StateButton.State().setTooltip("Side: Disabled").setTint(Color.black))
+                    .addOnStateChanged(onSlotConfigurationChanged);
+            btbX.setState(side_te.getSideConfig().getSlotSide(I++).getValue());
+            AddWidget(btbX, true);
+        }
+    }
+
+    protected void addSlotTextures(AdvancedContainer container) {
+        for (Slot slot : container.inventorySlots) {
+            TexturedElement element = new TexturedElement(this,
+                    "kerncraft:textures/gui/container/extractor_gui.png",
+                    slot.xPos - 1, slot.yPos - 1,
+                    AdvancedContainer.xSlotSize, AdvancedContainer.ySlotSize,
+                    borderLeft + 18 * 1 - 2, borderTop + 18 * 2 - 2);
+            AddWidget(element, false);
+        }
     }
 
     @Override

@@ -1,0 +1,28 @@
+package com.R3DKn16h7.kerncraft.crafting;
+
+import com.R3DKn16h7.kerncraft.elements.ElementStack;
+import net.minecraft.item.Item;
+import net.minecraftforge.fluids.FluidStack;
+
+/**
+ * Represents the recipe for the extractor.
+ */
+public class ChemicalFurnaceRecipe implements ISmeltingRecipe {
+    public ElementStack[] inputs;
+    public ElementStack[] outputs;
+    public int energy;
+    public FluidStack fluid;
+
+    public ChemicalFurnaceRecipe(ElementStack[] inputs, ElementStack[] outputs,
+                                 int energy, FluidStack fluid) {
+        this.inputs = inputs;
+        this.outputs = outputs;
+        this.energy = energy;
+        this.fluid = fluid;
+    }
+
+    @Override
+    public int getCost() {
+        return energy;
+    }
+}

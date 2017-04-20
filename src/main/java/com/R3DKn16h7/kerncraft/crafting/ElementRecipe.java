@@ -21,7 +21,6 @@ public class ElementRecipe implements IRecipe {
     int[] qty;
 
     public ElementRecipe(Item result, NonNullList<ItemStack> ingredients, int[] id, int[] qty) {
-
         this.result = result;
         this.ingredients = ingredients;
         this.id = id;
@@ -102,10 +101,8 @@ public class ElementRecipe implements IRecipe {
             }
         }
 
-        NonNullList<ItemStack> a = NonNullList.<ItemStack>create();
+        NonNullList<ItemStack> a = NonNullList.create();
         a.add(ItemStack.EMPTY);
         return a;
-
-
     }
 }

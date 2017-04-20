@@ -9,21 +9,25 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.NonNullList;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Filippo on 20-Apr-17.
  */
 public class KernCraftRecipes {
-
     // Static register of recipes
-    static public ArrayList<ISmeltingRecipe> EXTRACTOR_RECIPES = new ArrayList<ISmeltingRecipe>();
+    static public List<ISmeltingRecipe> EXTRACTOR_RECIPES = new ArrayList<>();
+    public static List<ISmeltingRecipe> CHEMICAL_FURNACE_RECIPES = new ArrayList<>();
 
     public KernCraftRecipes() {
         RegisterCraftingRecipes();
         RegisterExtractorRecipes();
+        RegisterChemicalFurnaceRecipes();
     }
 
     private void RegisterCraftingRecipes() {
@@ -91,6 +95,21 @@ public class KernCraftRecipes {
                 10);
     }
 
+
+    private void RegisterChemicalFurnaceRecipes() {
+        addChemicalFurnaceRecipe(
+                new ElementStack[]{
+                        new ElementStack("H", 2, 0),
+                        new ElementStack("O", 1, 0),
+                },
+                new ElementStack[]{
+                    new ElementStack("Pu", 400, 0.5f),
+                    new ElementStack("Pu", 400, 0.5f),
+                },
+                100000, new FluidStack(FluidRegistry.WATER, 1000)
+        );
+    }
+
     /**
      * Add new recipe
      * @param item Principal item that will allow to extract elements.
@@ -102,6 +121,13 @@ public class KernCraftRecipes {
     static public boolean addExtractorRecipe(Item item, Item catalyst,
                                          ElementStack[] outs, int energy) {
         EXTRACTOR_RECIPES.add(new ExtractorRecipe(item, catalyst, outs, energy));
+        return true;
+    }
+
+
+    static public boolean addChemicalFurnaceRecipe(ElementStack[] inputs, ElementStack[] outputs,
+                                                   int energy, FluidStack fluid) {
+        CHEMICAL_FURNACE_RECIPES.add(new ChemicalFurnaceRecipe(inputs, outputs, energy, fluid));
         return true;
     }
 

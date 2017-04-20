@@ -1,5 +1,6 @@
 package com.R3DKn16h7.kerncraft.tileentities.utils;
 
+import com.R3DKn16h7.kerncraft.tileentities.ISideConfigurable;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -24,11 +25,13 @@ import java.util.List;
     {
         protected ItemStackHandler inputItemHandler, outputItemHandler;
         protected List<Tuple<Integer, Boolean>> slotId;
+        ISideConfigurable te;
 
         public ConfigurableItemHandler(ItemStackHandler inputItemHandler,
-                                       ItemStackHandler outputItemHandler) {
+                                       ItemStackHandler outputItemHandler, ISideConfigurable te) {
             this.inputItemHandler = inputItemHandler;
             this.outputItemHandler = outputItemHandler;
+            this.te = te;
 
             slotId = new ArrayList<>();
         }
@@ -189,6 +192,6 @@ import java.util.List;
 
         protected void onContentsChanged(int slot)
         {
-
+            te.contentChanged();
         }
     }

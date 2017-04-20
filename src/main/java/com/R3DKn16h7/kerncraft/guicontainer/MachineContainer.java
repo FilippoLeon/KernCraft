@@ -134,7 +134,6 @@ public class MachineContainer extends AdvancedContainer {
     /**
      * This handles shift clicking
      *
-     * TODO: this should be made into a super class
      * @param playerIn
      * @param fromSlot
      * @return
@@ -170,6 +169,8 @@ public class MachineContainer extends AdvancedContainer {
                 return ItemStack.EMPTY;
             slot.onTake(playerIn, current);
         }
+        te.inputChanged = true;
+
         return previous;
     }
 

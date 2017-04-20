@@ -16,7 +16,8 @@ public class MessageSyncTyrociniumProgressHandler
     @Override
     public IMessage onMessage(MessageSyncTyrociniumProgress message, MessageContext ctx) {
         if(Minecraft.getMinecraft().player.hasCapability(TyrociniumProgressDefaultCapability.INSTANCE, null)) {
-            ITyrociniumProgressCapability capability = Minecraft.getMinecraft().player.getCapability(TyrociniumProgressDefaultCapability.INSTANCE, null);
+            ITyrociniumProgressCapability capability = Minecraft.getMinecraft()
+                    .player.getCapability(TyrociniumProgressDefaultCapability.INSTANCE, null);
             capability.unpackMessage(message);
         }
 

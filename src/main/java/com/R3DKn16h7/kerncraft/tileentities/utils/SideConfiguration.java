@@ -1,5 +1,6 @@
 package com.R3DKn16h7.kerncraft.tileentities.utils;
 
+import com.R3DKn16h7.kerncraft.tileentities.ISideConfigurable;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.items.ItemStackHandler;
@@ -57,14 +58,14 @@ public class SideConfiguration {
     }
 
     public SideConfiguration(ItemStackHandler inputItemHandler,
-                             ItemStackHandler outputItemHandler) {
+                             ItemStackHandler outputItemHandler, ISideConfigurable te) {
         configurableItemHandler = new ConfigurableItemHandler[6];
 
         inputSides = new int[inputItemHandler.getSlots()];
         outputSides = new int[outputItemHandler.getSlots()];
 
         for(int i = 0; i < 6; ++i) {
-            configurableItemHandler[i] = new ConfigurableItemHandler(inputItemHandler, outputItemHandler);
+            configurableItemHandler[i] = new ConfigurableItemHandler(inputItemHandler, outputItemHandler, te);
             configurableItemHandler[i].setFromArray(inputSides, outputSides, i);
         }
     }

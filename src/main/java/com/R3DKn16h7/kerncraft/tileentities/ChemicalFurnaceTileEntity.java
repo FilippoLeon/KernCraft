@@ -35,7 +35,7 @@ public class ChemicalFurnaceTileEntity extends SmeltingTileEntity {
 
     @Override
     public List<ISmeltingRecipe> getRecipes() {
-        return null;
+        return KernCraftRecipes.CHEMICAL_FURNACE_RECIPES;
     }
 
     @Override

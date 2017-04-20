@@ -41,7 +41,7 @@ public abstract class MachineTileEntity extends TileEntity
         input = new ItemStackHandler(inputSize);
         output = new ItemStackHandler(outputSize);
 
-        sideConfig = new SideConfiguration(input, output);
+        sideConfig = new SideConfiguration(input, output, this);
     }
 
     @Override
@@ -59,6 +59,11 @@ public abstract class MachineTileEntity extends TileEntity
 
     public ItemStackHandler getOutput() {
         return output;
+    }
+
+    @Override
+    public void contentChanged() {
+        inputChanged = true;
     }
 
     @Override

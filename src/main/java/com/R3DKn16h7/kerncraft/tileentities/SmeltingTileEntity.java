@@ -1,6 +1,7 @@
 package com.R3DKn16h7.kerncraft.tileentities;
 
 import com.R3DKn16h7.kerncraft.crafting.ISmeltingRecipe;
+import com.R3DKn16h7.kerncraft.tileentities.utils.SideConfiguration;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -100,8 +101,7 @@ abstract public class SmeltingTileEntity
     public boolean hasCapability(Capability<?> capability,
                                  EnumFacing facing) {
         if (capability == CapabilityEnergy.ENERGY ||
-                capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY ||
-                capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
+                capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
             return true;
         }
         return super.hasCapability(capability, facing);
@@ -207,6 +207,11 @@ abstract public class SmeltingTileEntity
         abortSmelting();
     }
 
+    @Override
+    public SideConfiguration getSideConfig() {
+        return sideConfig;
+    }
+
     /**
      * Update entity: check if needs to smelt item
      */
@@ -285,6 +290,7 @@ abstract public class SmeltingTileEntity
 
     @Override
     public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newSate) {
+
         return false;
     }
 
@@ -294,4 +300,6 @@ abstract public class SmeltingTileEntity
         this.markDirty();
         this.redstoneMode = mode;
     }
+
+
 }
