@@ -21,18 +21,27 @@ public class MachineGuiContainer extends AdvancedGuiContainer {
     protected AnimatedTexturedElement brewing;
     protected Text progressText;
 
+    private int gridCoord(int pos) {
+        return pos >= 0 ? pos*itemStackIconSize : -pos*itemStackIconSize + itemStackIconSize/2;
+    }
+
     public MachineGuiContainer(Container container, IInventory playerInv, MachineTileEntity te) {
         super(container, playerInv, te);
 
         energyBar = new AnimatedTexturedElement(this,
-                 "kerncraft:textures/gui/container/extractor_gui.png", -1, -1,
-                 6, itemStackIconSize * 3 - 2, 176, 0, AnimatedTexturedElement.Direction.BOTTOM, 300);
+                 "kerncraft:textures/gui/container/extractor_gui.png",
+                 -1, -1,
+                 6,  gridCoord(3) - 2,
+                 176, 0,
+                AnimatedTexturedElement.Direction.BOTTOM, 300);
         energyBar.setAutoAnimated(false, 0);
         AddWidget(energyBar, true);
 
         fluidBar = new AnimatedTexturedElement(this,
                 "kerncraft:textures/gui/container/extractor_gui.png", -1 + 9, -1,
-                6, itemStackIconSize * 3 - 2, 176, 0, AnimatedTexturedElement.Direction.BOTTOM, 300);
+                6,  gridCoord(3) - 2,
+                176, 0,
+                AnimatedTexturedElement.Direction.BOTTOM, 300);
         fluidBar.setTint(Color.blue);
         fluidBar.setAutoAnimated(false, 0);
         AddWidget(fluidBar, true);
@@ -46,7 +55,8 @@ public class MachineGuiContainer extends AdvancedGuiContainer {
             IFuelUser fuel_te = ((IFuelUser) te);
             int[] pos = fuel_te.getFuelIconCoordinate();
             flame = AnimatedTexturedElement.FLAME(this,
-                    itemStackIconSize * pos[0], itemStackIconSize * pos[1]);
+                    gridCoord(pos[0]),
+                    gridCoord(pos[1]));
             flame.setAutoAnimated(false, 0);
             flame.setTint(null);
             AddWidget(flame, true);
@@ -56,18 +66,26 @@ public class MachineGuiContainer extends AdvancedGuiContainer {
             int[] pos = progr_te.getProgressIconCoordinate();
             if(pos != null) {
                 brewing = AnimatedTexturedElement.BREWING(this,
-                        itemStackIconSize * pos[0] + 1, itemStackIconSize * pos[1] + 8);
+                        gridCoord(pos[0]) + 1,
+                        gridCoord(pos[1]) + 8);
                 brewing.setAutoAnimated(false, 0);
                 brewing.setTint(null);
                 AddWidget(brewing, true);
             }
             pos = progr_te.getProgressTextCoordinate();
             if(pos != null) {
-                progressText = new Text(this, itemStackIconSize * pos[0] + 2,
-                        itemStackIconSize * pos[1], 10, 6, Text.Alignment.LEFT);
+                progressText = new Text(this,
+                        gridCoord(pos[0]),
+                        gridCoord(pos[1]) + 3,
+                        10, 6, Text.Alignment.LEFT);
                 AddWidget(progressText, true);
             }
         }
+
+        // TODO:
+        // 1. draw energy and water bar backgrounds
+        // 2. draw slot config
+        // 3. draw slot textures
 
         String titleString;
         if (te.getDisplayName() != null) {

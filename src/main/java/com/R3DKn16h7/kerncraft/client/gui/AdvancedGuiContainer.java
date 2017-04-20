@@ -23,22 +23,30 @@ public class AdvancedGuiContainer extends GuiContainer implements IAdvancedGuiCo
     public IWidget activeWidget;
 
     // Margin of gui backgound
-
     public int borderLeft = 9;
     public int borderTop = 18;
+    // Gui Id
     public int id = 0;
+    // Is the GUI using a dynamic background
     public boolean use_dynamic_background = false;
+
     protected IInventory playerInv;
     protected TileEntity te;
+
     private ArrayList<IWidget> background_widgets = new ArrayList<IWidget>();
     private ArrayList<IWidget> foreground_widgets = new ArrayList<IWidget>();
+
+    //// Background info
     // Background offset within texture
     private int offsetX = 0;
     private int offsetY = 0;
+    // Background texture
     private ResourceLocation backgroundResource;
-    private int btn_id = 0;
+    // Size of backfreound texture
     private int xBackgroundSize = 250;
     private int yBackgroundSize = 176;
+
+    private int btn_id = 0;
 
     public AdvancedGuiContainer(Container container,
                                 IInventory playerInv,

@@ -40,7 +40,7 @@ public class ChemicalFurnaceTileEntity extends SmeltingTileEntity {
 
     @Override
     public int[] getFuelIconCoordinate() {
-        return new int[]{4,5};
+        return new int[]{-4,1};
     }
 
     @Override
@@ -50,7 +50,7 @@ public class ChemicalFurnaceTileEntity extends SmeltingTileEntity {
 
     @Override
     public int[] getProgressTextCoordinate() {
-        return new int[]{3,3};
+        return new int[]{6,1};
     }
 
     @Override
