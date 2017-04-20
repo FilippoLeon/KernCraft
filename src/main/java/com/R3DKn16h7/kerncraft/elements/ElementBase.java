@@ -1,6 +1,6 @@
 package com.R3DKn16h7.kerncraft.elements;
 
-import com.R3DKn16h7.kerncraft.items.ModItems;
+import com.R3DKn16h7.kerncraft.items.KernCraftItems;
 import com.R3DKn16h7.kerncraft.tileentities.ExtractorTileEntity;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
@@ -89,7 +89,7 @@ public class ElementBase {
     }
 
     static public ItemStack getItem(int id, int qty) {
-        ItemStack is = new ItemStack(ModItems.CANISTER);
+        ItemStack is = new ItemStack(KernCraftItems.CANISTER);
         NBTTagCompound nbt = is.getTagCompound();
         if (nbt == null) {
             nbt = new NBTTagCompound();

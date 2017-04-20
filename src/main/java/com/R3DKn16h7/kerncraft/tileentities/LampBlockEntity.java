@@ -152,7 +152,7 @@ public class LampBlockEntity extends BlockContainer {
             // setLightLevel(tileentity.redstoneMode);
             //if (this.isOn && !worldIn.isBlockPowered(pos))
             //{
-            //   worldIn.setBlockState(pos, ModTileEntities.LAMP.getDefaultState(), 2);
+            //   worldIn.setBlockState(pos, KernCraftTileEntities.LAMP.getDefaultState(), 2);
             //}
         }
     }
@@ -162,15 +162,15 @@ public class LampBlockEntity extends BlockContainer {
      */
     @Nullable
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-        return Item.getItemFromBlock(ModTileEntities.LAMP);
+        return Item.getItemFromBlock(KernCraftTileEntities.LAMP);
     }
 
     public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state) {
-        return new ItemStack(ModTileEntities.LAMP);
+        return new ItemStack(KernCraftTileEntities.LAMP);
     }
 
     protected ItemStack createStackedBlock(IBlockState state) {
-        return new ItemStack(ModTileEntities.LAMP);
+        return new ItemStack(KernCraftTileEntities.LAMP);
     }
 
 

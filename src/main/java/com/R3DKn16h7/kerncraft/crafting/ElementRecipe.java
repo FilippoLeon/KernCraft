@@ -1,6 +1,6 @@
 package com.R3DKn16h7.kerncraft.crafting;
 
-import com.R3DKn16h7.kerncraft.items.ModItems;
+import com.R3DKn16h7.kerncraft.items.KernCraftItems;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -8,8 +8,6 @@ import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
-
-import javax.annotation.Nullable;
 
 /**
  * Created by Filippo on 10/12/2016.
@@ -38,7 +36,7 @@ public class ElementRecipe implements IRecipe {
         for (int i = 0; i < inv.getSizeInventory(); ++i) {
             ItemStack is = inv.getStackInSlot(i);
             if (is == ItemStack.EMPTY) continue;
-            if (is.getItem() == ModItems.CANISTER) {
+            if (is.getItem() == KernCraftItems.CANISTER) {
                 NBTTagCompound comp = is.getTagCompound();
                 if (comp != null && comp.hasKey("Element")) {
                     for (int j = 0; j < id.length; ++j) {
@@ -93,7 +91,7 @@ public class ElementRecipe implements IRecipe {
         for (int i = 0; i < inv.getSizeInventory(); ++i) {
             ItemStack is = inv.getStackInSlot(i);
             if (is == ItemStack.EMPTY) continue;
-            if (is.getItem() == ModItems.CANISTER) {
+            if (is.getItem() == KernCraftItems.CANISTER) {
 
             } else {
                 for (int j = 0; j < ingredients.size(); ++j) {

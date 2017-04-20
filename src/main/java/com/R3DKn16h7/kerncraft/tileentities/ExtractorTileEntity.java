@@ -2,7 +2,7 @@ package com.R3DKn16h7.kerncraft.tileentities;
 
 import com.R3DKn16h7.kerncraft.elements.ElementBase;
 import com.R3DKn16h7.kerncraft.items.Canister;
-import com.R3DKn16h7.kerncraft.items.ModItems;
+import com.R3DKn16h7.kerncraft.items.KernCraftItems;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -10,14 +10,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import net.minecraftforge.fluids.FluidTank;
-import net.minecraftforge.fluids.capability.IFluidHandler;
-import net.minecraftforge.fluids.capability.templates.FluidHandlerItemStack;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.ItemStackHandler;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ExtractorTileEntity extends SmeltingTileEntity
         implements ICapabilityProvider, IMessageIntReceiver {
@@ -232,7 +226,7 @@ public class ExtractorTileEntity extends SmeltingTileEntity
                     // the slot
                     if (remaining[i] > 0 && input.getStackInSlot(canisterSlot) != ItemStack.EMPTY &&
                             input.getStackInSlot(canisterSlot).getCount() > 0 &&
-                            input.getStackInSlot(canisterSlot).getItem() == ModItems.CANISTER) {
+                            input.getStackInSlot(canisterSlot).getItem() == KernCraftItems.CANISTER) {
                         remaining[i] = 0;
                         output.setStackInSlot(rec_slot, new ItemStack(input.getStackInSlot(canisterSlot).getItem(), 1));
                         input.setStackInSlot(canisterSlot, new ItemStack(input.getStackInSlot(canisterSlot).getItem(),

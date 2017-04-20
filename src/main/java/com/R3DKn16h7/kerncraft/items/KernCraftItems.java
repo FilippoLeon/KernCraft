@@ -3,7 +3,7 @@ package com.R3DKn16h7.kerncraft.items;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 
-public class ModItems {
+public class KernCraftItems {
     public static Item PORTABLE_BEACON;
     public static Canister CANISTER;
 

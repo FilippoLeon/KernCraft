@@ -10,7 +10,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ModTileEntities {
+public class KernCraftTileEntities {
     public static ExtractorBlockEntity EXTRACTOR;
     public static TileEntity EXTRACTOR_TE;
 

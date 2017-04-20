@@ -1,6 +1,6 @@
 package com.R3DKn16h7.kerncraft.plugins.JEI;
 
-import com.R3DKn16h7.kerncraft.items.ModItems;
+import com.R3DKn16h7.kerncraft.items.KernCraftItems;
 import mcp.MethodsReturnNonnullByDefault;
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.*;
@@ -103,7 +103,7 @@ public class ExtractorJEIRecipeCategory implements IRecipeCategory {
 //        if(ingredients.getInputs(ItemStack.class).size() > 1)
 //            guiItemStacks.set(catalystSlot,
 //                    ingredients.getInputs(ItemStack.class).get(++i));
-//        guiItemStacks.set(canisterSlot, new ItemStack(ModItems.CANISTER));
+//        guiItemStacks.set(canisterSlot, new ItemStack(KernCraftItems.CANISTER));
 //        //guiItemStacks.set(outputSlot, ingredients.getOutputs(ItemStack.class).get(0));
 //    }
 
@@ -124,7 +124,7 @@ public class ExtractorJEIRecipeCategory implements IRecipeCategory {
         if(((ExtractorJEIRecipeWrapper) recipeWrapper).recipe.catalyst != null)
             guiItemStacks.set(catalystSlot,
                     ingredients.getInputs(ItemStack.class).get(++i));
-        guiItemStacks.set(canisterSlot, new ItemStack(ModItems.CANISTER));
+        guiItemStacks.set(canisterSlot, new ItemStack(KernCraftItems.CANISTER));
 
         List<List<ItemStack>> outs = ingredients.getOutputs(ItemStack.class);
         int min = Math.min(outs.size(), outputSlotSize);

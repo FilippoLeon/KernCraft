@@ -5,9 +5,7 @@ import com.R3DKn16h7.kerncraft.achievements.AchievementHandler;
 import com.R3DKn16h7.kerncraft.capabilities.ITyrociniumProgressCapability;
 import com.R3DKn16h7.kerncraft.capabilities.TyrociniumProgressDefaultCapability;
 import com.R3DKn16h7.kerncraft.items.ExtraShield;
-import com.R3DKn16h7.kerncraft.items.ModItems;
-import com.R3DKn16h7.kerncraft.network.KernCraftNetwork;
-import com.R3DKn16h7.kerncraft.network.MessageSyncTyrociniumProgress;
+import com.R3DKn16h7.kerncraft.items.KernCraftItems;
 import com.R3DKn16h7.kerncraft.utils.PotionHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
@@ -101,11 +99,11 @@ public class EventHandlerCommon {
     @SubscribeEvent(priority = EventPriority.LOW)
     // LOL
     public void crafting(net.minecraftforge.fml.common.gameevent.PlayerEvent.ItemCraftedEvent event) {
-        if (event.crafting.getItem() == ModItems.CANISTER) {
+        if (event.crafting.getItem() == KernCraftItems.CANISTER) {
             event.player.addStat(AchievementHandler.APPRENTICE, 1);
-        } else if (event.crafting.getItem() == ModItems.POTATO_BATTERY) {
+        } else if (event.crafting.getItem() == KernCraftItems.POTATO_BATTERY) {
             event.player.addStat(AchievementHandler.MASTER_OF_POTATOES, 1);
-        } else if (event.crafting.getItem() == ModItems.ELECTROLYTIC_CELL) {
+        } else if (event.crafting.getItem() == KernCraftItems.ELECTROLYTIC_CELL) {
             event.player.addStat(AchievementHandler.CHEMIST, 1);
         }
     }

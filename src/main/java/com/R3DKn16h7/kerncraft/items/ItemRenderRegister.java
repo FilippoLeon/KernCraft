@@ -8,22 +8,22 @@ import net.minecraft.item.Item;
 public final class ItemRenderRegister {
 
     public static void registerItemRenderer() {
-        register(ModItems.PORTABLE_BEACON);
-        register(ModItems.CANISTER);
-        register(ModItems.ROMAN_SHIELD);
-        register(ModItems.GLASS_SHIELD);
+        register(KernCraftItems.PORTABLE_BEACON);
+        register(KernCraftItems.CANISTER);
+        register(KernCraftItems.ROMAN_SHIELD);
+        register(KernCraftItems.GLASS_SHIELD);
 
-        register(ModItems.LAB_BONNET);
-        register(ModItems.LAB_COAT);
-        register(ModItems.LAB_BOOTS);
-        register(ModItems.LAB_PANTS);
+        register(KernCraftItems.LAB_BONNET);
+        register(KernCraftItems.LAB_COAT);
+        register(KernCraftItems.LAB_BOOTS);
+        register(KernCraftItems.LAB_PANTS);
 
-        register(ModItems.TEST_ITEM);
+        register(KernCraftItems.TEST_ITEM);
 
-        register(ModItems.TYROCINIUM_CHYMICUM);
+        register(KernCraftItems.TYROCINIUM_CHYMICUM);
 
-        register(ModItems.POTATO_BATTERY);
-        register(ModItems.ELECTROLYTIC_CELL);
+        register(KernCraftItems.POTATO_BATTERY);
+        register(KernCraftItems.ELECTROLYTIC_CELL);
     }
 
 

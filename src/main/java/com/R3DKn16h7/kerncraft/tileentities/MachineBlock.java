@@ -1,7 +1,7 @@
 package com.R3DKn16h7.kerncraft.tileentities;
 
 import com.R3DKn16h7.kerncraft.KernCraft;
-import com.R3DKn16h7.kerncraft.items.ModItems;
+import com.R3DKn16h7.kerncraft.items.KernCraftItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.BlockHorizontal;
@@ -18,7 +18,6 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemBucket;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.*;
@@ -26,7 +25,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.relauncher.Side;
@@ -123,7 +121,7 @@ public abstract class MachineBlock extends BlockContainer {
             te.markDirty();
 
             return true;
-        } else if(player.getHeldItem(hand).getItem() == ModItems.POTATO_BATTERY) {
+        } else if(player.getHeldItem(hand).getItem() == KernCraftItems.POTATO_BATTERY) {
             MachineTileEntity te = (MachineTileEntity) world.getTileEntity(pos);
             if(te instanceof SmeltingTileEntity) {
                 ((SmeltingTileEntity) te).storage.receiveEnergy(100, false);

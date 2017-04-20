@@ -1,7 +1,7 @@
 package com.R3DKn16h7.kerncraft.plugins.JEI;
 
 import com.R3DKn16h7.kerncraft.elements.ElementBase;
-import com.R3DKn16h7.kerncraft.items.ModItems;
+import com.R3DKn16h7.kerncraft.items.KernCraftItems;
 import com.R3DKn16h7.kerncraft.tileentities.ExtractorTileEntity;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.BlankRecipeWrapper;
@@ -32,7 +32,7 @@ public class ExtractorJEIRecipeWrapper extends BlankRecipeWrapper {
         if(recipe.catalyst != null) inputs.add(new ItemStack(recipe.catalyst));
 
 
-        inputs.add(new ItemStack(ModItems.CANISTER));
+        inputs.add(new ItemStack(KernCraftItems.CANISTER));
         ingredients.setInputs(ItemStack.class, inputs);
 
         ArrayList<ItemStack> outputs = new ArrayList<ItemStack>();

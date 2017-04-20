@@ -3,7 +3,7 @@ package com.R3DKn16h7.kerncraft.blocks;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ModBlocks {
+public class KernCraftBlocks {
     public static TestBlock TEST_BLOCK;
 
     public static void createBlocks() {

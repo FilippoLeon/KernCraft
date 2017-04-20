@@ -8,6 +8,7 @@ public class RomanShield extends ExtraShield {
         super(name);
     }
 
+    @Override
     public boolean getIsRepairable(ItemStack toRepair, ItemStack repair) {
         return repair.getItem() == Items.IRON_INGOT ||
                 super.getIsRepairable(toRepair, repair);

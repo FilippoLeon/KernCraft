@@ -1,6 +1,6 @@
 package com.R3DKn16h7.kerncraft.achievements;
 
-import com.R3DKn16h7.kerncraft.items.ModItems;
+import com.R3DKn16h7.kerncraft.items.KernCraftItems;
 import net.minecraft.stats.Achievement;
 import net.minecraftforge.common.AchievementPage;
 
@@ -18,13 +18,13 @@ public class AchievementHandler {
     public AchievementHandler() {
 
         APPRENTICE = new Achievement("apprentice", "Apprentice",
-                0, 0, ModItems.CANISTER, null);
+                0, 0, KernCraftItems.CANISTER, null);
         MASTER_OF_POTATOES = new Achievement("mop", "Master of potatoes",
-                0, 3, ModItems.POTATO_BATTERY, APPRENTICE);
+                0, 3, KernCraftItems.POTATO_BATTERY, APPRENTICE);
         CHEMIST = new Achievement("chemist", "Chemist",
-                0, 6, ModItems.ELECTROLYTIC_CELL, MASTER_OF_POTATOES);
+                0, 6, KernCraftItems.ELECTROLYTIC_CELL, MASTER_OF_POTATOES);
         LEARNER = new Achievement("learner", "Learner",
-                0, 9, ModItems.TYROCINIUM_CHYMICUM, CHEMIST);
+                0, 9, KernCraftItems.TYROCINIUM_CHYMICUM, CHEMIST);
 
         PAGE = new AchievementPage("KernCraft", APPRENTICE, MASTER_OF_POTATOES, CHEMIST, LEARNER);
         AchievementPage.registerAchievementPage(PAGE);

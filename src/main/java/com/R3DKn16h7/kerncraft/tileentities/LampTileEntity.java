@@ -1,11 +1,8 @@
 package com.R3DKn16h7.kerncraft.tileentities;
 
-import com.R3DKn16h7.kerncraft.network.KernCraftNetwork;
-import com.R3DKn16h7.kerncraft.network.MessageInt;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
-import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
@@ -74,13 +71,13 @@ public class LampTileEntity extends TileEntity implements IRedstoneSettable, IMe
 
     public void updateState() {
         if (redstoneMode == 0 && !this.world.isBlockPowered(pos)) {
-            world.setBlockState(this.pos, ModTileEntities.LAMP.getDefaultState()
+            world.setBlockState(this.pos, KernCraftTileEntities.LAMP.getDefaultState()
                     .withProperty(LampBlockEntity.POWERED, 0));
         } else if (redstoneMode == 1 && this.world.isBlockPowered(pos)) {
-            world.setBlockState(this.pos, ModTileEntities.LAMP.getDefaultState()
+            world.setBlockState(this.pos, KernCraftTileEntities.LAMP.getDefaultState()
                     .withProperty(LampBlockEntity.POWERED, 0));
         } else {
-            world.setBlockState(this.pos, ModTileEntities.LAMP
+            world.setBlockState(this.pos, KernCraftTileEntities.LAMP
                     .getDefaultState().withProperty(LampBlockEntity.POWERED, lightLevel));
         }
 
