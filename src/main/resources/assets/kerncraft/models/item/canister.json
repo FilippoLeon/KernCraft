@@ -14,13 +14,13 @@
       "predicate": {
         "element": 2
       },
-      "model": "kerncraft:item/tyrocinium_chymicum"
+      "model": "kerncraft:item/overlay_h"
     },
     {
       "predicate": {
         "element": 3
       },
-      "model": "kerncraft:item/potato_battery"
+      "model": "kerncraft:item/overlay_h"
     }
   ],
   "display": {

@@ -2,6 +2,7 @@ package com.R3DKn16h7.kerncraft.manual;
 
 import com.R3DKn16h7.kerncraft.elements.Element;
 import com.R3DKn16h7.kerncraft.elements.ElementBase;
+import com.R3DKn16h7.kerncraft.utils.io.XmlUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.lwjgl.opengl.GL11;
 
@@ -13,11 +14,11 @@ import java.util.List;
  */
 public class TyrociniumChymicumElementGui extends TyrociniumChymicumGui {
 
-    static public final int FIRST_COL_START = 15;
-    static public final int FIRST_COL_WIDTH = 125;
+    private static final int FIRST_COL_START = 15;
+    private static final int FIRST_COL_WIDTH = 125;
     private static final int ROW_HEIGHT = 10;
     private static final int HEADER_HEIGHT = 45;
-    int MAX_ROWS = 12;
+    private static int MAX_ROWS = 12;
 
     Element element;
     int currentStartIndex = 0;
@@ -38,9 +39,9 @@ public class TyrociniumChymicumElementGui extends TyrociniumChymicumGui {
 
         String str = element.loadDescription();
         if (str != null) {
-            String str2 = Element.parseXml(str);
+            String str2 = XmlUtils.parseBBCodeIntoMCFormat(str);
 
-            stlist = fontRendererObj.listFormattedStringToWidth(str2, pagewidth);
+            stlist = fontRendererObj.listFormattedStringToWidth(str2, PAGE_WIDTH);
         }
 
     }
@@ -92,7 +93,6 @@ public class TyrociniumChymicumElementGui extends TyrociniumChymicumGui {
             superPage();
         }
     }
-
 
     @Override
     public final void superPage() {

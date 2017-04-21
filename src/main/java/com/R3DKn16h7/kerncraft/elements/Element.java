@@ -39,6 +39,7 @@ public class Element {
     public String description;
 
     Element(int id_, JsonObject js) {
+        // TODO: remove try
         id = id_;
         symbol = js.get("symbol").getAsString();
         try {
@@ -108,61 +109,47 @@ public class Element {
         try {
             description = js.get("description").getAsString();
         } catch (RuntimeException e) {
+
         }
 
     }
 
     public String loadDescription() {
-        String str = "";
-
         try {
-            DataInputStream in = null;
-            System.out.println("Reading file = .xml");
-            in = new DataInputStream(getClass().getClassLoader()
-                    .getResourceAsStream("assets/kerncraft/config/elements_descriptions.xml"));
-            //in = Minecraft.getMinecraft().getResourceManager().getResource(loc).getInputStream();
+            String fname = "assets/kerncraft/config/elements_descriptions.xml";
+            System.out.println(String.format("Reading file = \"%s.xml\" for Element %s description",
+                    fname, this.name)
+            );
+            DataInputStream in = new DataInputStream(getClass().getClassLoader()
+                    .getResourceAsStream(fname));
+
 
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(in);
             doc.getDocumentElement().normalize();
 
-            NodeList nList = doc.getElementsByTagName("staff");
-//                System.out.println("Root element:" + doc.getDocumentElement().getNodeName());
-
             XPath xpath = XPathFactory.newInstance().newXPath();
-            XPathExpression expr = xpath.compile("//Element[@id=\"" + this.id + "\"]");
+            XPathExpression expr = xpath.compile("//Element[@id='" + this.id + "']");
             Object exprResult = expr.evaluate(doc, XPathConstants.NODESET);
             NodeList nodeList = (NodeList) exprResult;
             if (nodeList.getLength() > 0) {
                 String lang = Minecraft.getMinecraft().gameSettings.language;
-//                        System.out.println("Root element :" + lang);
-                expr = xpath.compile("//Description[@lang=\"" + lang + "\"]");
+
+                expr = xpath.compile("//Description[@lang='" + lang + "']");
                 exprResult = expr.evaluate(nodeList.item(0), XPathConstants.NODESET);
                 NodeList nodeList2 = (NodeList) exprResult;
                 if (nodeList2.getLength() > 0) {
-//                        System.out.println("Root element :" + nodeList2.item(0).getTextContent());
+
                     return nodeList2.item(0).getTextContent();
                 } else {
-
+                    return "";
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
-        return str;
+        return "";
     }
 
-    public static final String parseXml(String str) {
-        str = str
-                .replaceAll("\n[ ]+", " ")
-                .replace("[b]", "§l")
-                .replace("[/b]", "§r")
-                .replace("[br/]", "\n\n");
-
-
-        return str;
-    }
 }

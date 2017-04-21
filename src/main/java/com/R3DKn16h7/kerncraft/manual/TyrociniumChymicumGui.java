@@ -1,7 +1,6 @@
 package com.R3DKn16h7.kerncraft.manual;
 
-import com.R3DKn16h7.kerncraft.capabilities.TyrociniumProgressDefaultCapability;
-import net.minecraft.client.Minecraft;
+import com.R3DKn16h7.kerncraft.manual.data.Manual;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
@@ -11,15 +10,21 @@ import java.io.IOException;
 /**
  * Created by Filippo on 08/12/2016.
  */
-public abstract class TyrociniumChymicumGui extends ManualEntry {
+public abstract class TyrociniumChymicumGui extends ManualEntryGui {
 
+    static protected final int xSize = 256;
+    static protected final int ySize = 180;
+    /**
+     * Used for Debug, so that we can reload the entire Xml at each Opening of the Book.
+     */
+    protected static final boolean REPARSE_XML_AT_EACH_OPENING = true;
+    static final int PAGE_WIDTH = 105;
     private static final int STARTING_HOME_ROW_ID = 1;
-    private static ManualEntry lastOpened;
-    protected final int xSize = 256;
-    protected final int ySize = 180;
+    protected static Manual manual = null;
+    private static ManualEntryGui lastOpened;
+    protected boolean xmlHasBeenParsed = false;
     int guiLeft;
     int guiTop;
-    int pagewidth = 105;
     private GuiButton btn;
     private GuiButton btn1;
     private GuiButton btn2;
@@ -33,9 +38,8 @@ public abstract class TyrociniumChymicumGui extends ManualEntry {
         lastOpened = this;
     }
 
-    public static ManualEntry Factory() {
-
-        if (lastOpened != null) return lastOpened;
+    public static ManualEntryGui Factory() {
+        if (!REPARSE_XML_AT_EACH_OPENING && lastOpened != null) return lastOpened;
         else return new TyrociniumChymicumIndexGui();
     }
 

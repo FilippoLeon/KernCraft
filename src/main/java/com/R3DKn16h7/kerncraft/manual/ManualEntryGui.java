@@ -9,10 +9,10 @@ import net.minecraft.client.gui.GuiScreen;
 /**
  * Created by Filippo on 08/12/2016.
  */
-public class ManualEntry extends GuiScreen implements IAdvancedGuiContainer {
+public class ManualEntryGui extends GuiScreen implements IAdvancedGuiContainer {
 
-    //static public HashMap<String, ManualEntry> pages = new HashMap<String, ManualEntry>();
-    static public ManualEntry lastVisitedPage;
+    //static public HashMap<String, ManualEntryGui> pages = new HashMap<String, ManualEntryGui>();
+    static public ManualEntryGui lastVisitedPage;
     private int btn_id = 0;
 
     @Override
@@ -82,7 +82,7 @@ public class ManualEntry extends GuiScreen implements IAdvancedGuiContainer {
 
     public void backPage() {
         if (lastVisitedPage != null) {
-            ManualEntry temp = lastVisitedPage;
+            ManualEntryGui temp = lastVisitedPage;
             lastVisitedPage = this;
             mc.displayGuiScreen(temp);
         }

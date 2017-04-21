@@ -1,12 +1,12 @@
 package com.R3DKn16h7.kerncraft.manual;
 
 import com.R3DKn16h7.kerncraft.achievements.AchievementHandler;
-import com.R3DKn16h7.kerncraft.client.gui.IAdvancedGuiContainer;
-import com.R3DKn16h7.kerncraft.client.gui.widgets.BetterButton;
 import com.R3DKn16h7.kerncraft.capabilities.ITyrociniumProgressCapability;
 import com.R3DKn16h7.kerncraft.capabilities.TyrociniumProgressDefaultCapability;
+import com.R3DKn16h7.kerncraft.client.gui.IAdvancedGuiContainer;
+import com.R3DKn16h7.kerncraft.client.gui.widgets.BetterButton;
+import com.R3DKn16h7.kerncraft.manual.data.Manual;
 import com.R3DKn16h7.kerncraft.network.KernCraftNetwork;
-import com.R3DKn16h7.kerncraft.network.MessageSyncTyrociniumProgress;
 import com.R3DKn16h7.kerncraft.network.MessageUnlock;
 import net.minecraft.client.gui.GuiButton;
 
@@ -17,11 +17,13 @@ import java.io.IOException;
  * Created by Filippo on 08/12/2016.
  */
 public class TyrociniumChymicumIndexGui extends TyrociniumChymicumGui implements IAdvancedGuiContainer {
-
     BetterButton PERIODIC_TABLE_BUTTON;
     BetterButton PERIODIC_TABLE_FIRST_STEPS;
 
     public TyrociniumChymicumIndexGui() {
+        if (REPARSE_XML_AT_EACH_OPENING || !xmlHasBeenParsed) {
+            manual = new Manual("assets/kerncraft/config/manual_pages.xml");
+        }
     }
 
     @Override
@@ -35,7 +37,7 @@ public class TyrociniumChymicumIndexGui extends TyrociniumChymicumGui implements
 
         PERIODIC_TABLE_BUTTON = new BetterButton(this,
                 guiLeft + marginLeft, guiTop + marginTop + buttonHeight * i++)
-                .setSize(pagewidth, buttonHeight)
+                .setSize(PAGE_WIDTH, buttonHeight)
                 .setText("Periodic Table")
                 .setTextColor(Color.black, false)
                 .setTransparent()
@@ -44,7 +46,7 @@ public class TyrociniumChymicumIndexGui extends TyrociniumChymicumGui implements
         if (isUnlocked(Content.FirstSteps, 0)) {
             PERIODIC_TABLE_FIRST_STEPS = new BetterButton(this,
                     guiLeft + 10, guiTop + marginTop + buttonHeight * i++)
-                    .setSize(pagewidth, buttonHeight)
+                    .setSize(PAGE_WIDTH, buttonHeight)
                     .setText("First steps")
                     .setTransparent()
                     .setTextColor(Color.black, false)

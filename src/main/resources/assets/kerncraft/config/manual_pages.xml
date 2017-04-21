@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Manual>
+    <Chapter name="first_steps" unlockedWith="first_steps">
+        <Entry name="beginner_chemist">
+            Description a
+        </Entry>
+        <Entry name="intermediate_chemist">
+            Description b
+        </Entry>
+    </Chapter>
+</Manual>
