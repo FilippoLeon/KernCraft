@@ -1,10 +1,9 @@
 package com.R3DKn16h7.kerncraft.client.gui.widgets;
 
-import com.R3DKn16h7.kerncraft.client.gui.IAdvancedGuiContainer;
+import com.R3DKn16h7.kerncraft.client.gui.IAdvancedGui;
 import com.R3DKn16h7.kerncraft.network.KernCraftNetwork;
 import com.R3DKn16h7.kerncraft.network.MessageRedstoneControl;
 import com.R3DKn16h7.kerncraft.tileentities.IRedstoneSettable;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -23,21 +22,21 @@ public class StateButton extends BetterButton {
     public ArrayList<State> states = new ArrayList<State>();
     private IntConsumer OnStateChangedConsumer;
 
-    public StateButton(IAdvancedGuiContainer container, int id, int x, int y,
+    public StateButton(IAdvancedGui container, int id, int x, int y,
                        int widthIn, int heightIn) {
         super(container, id, x, y, widthIn, heightIn);
     }
 
-    public StateButton(IAdvancedGuiContainer container, int x, int y,
+    public StateButton(IAdvancedGui container, int x, int y,
                        int widthIn, int heightIn) {
         super(container, x, y, widthIn, heightIn);
     }
 
-    public StateButton(IAdvancedGuiContainer container, int x, int y) {
+    public StateButton(IAdvancedGui container, int x, int y) {
         this(container, x, y, 200, 20);
     }
 
-    public static StateButton REDSTONE_MODE(IAdvancedGuiContainer container,
+    public static StateButton REDSTONE_MODE(IAdvancedGui container,
                                             IRedstoneSettable te) {
         // TODO: BETTER FIX THIS
         BlockPos pos = te.getPos();

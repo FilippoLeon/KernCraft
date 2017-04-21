@@ -7,7 +7,7 @@ import net.minecraft.client.gui.GuiButton;
 /**
  * Created by Filippo on 10/12/2016.
  */
-public interface IAdvancedGuiContainer {
+public interface IAdvancedGui {
     void add(GuiButton btn);
 
     int nextId();

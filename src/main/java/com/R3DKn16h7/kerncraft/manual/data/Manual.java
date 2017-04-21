@@ -14,8 +14,8 @@ import java.util.List;
 /**
  * Created by Filippo on 21-Apr-17.
  */
-public class Manual {
-    List<ManualChapter> manualChapterList = new ArrayList<>();
+public class Manual implements IManualEntry {
+    public List<IManualEntry> manualChapterList = new ArrayList<>();
     Document doc = null;
 
     public Manual(String fileName) {
@@ -42,7 +42,7 @@ public class Manual {
                     //calls this method for all the children which is Element
                     System.out.println(String.format("Reading chapter \"%s\"",
                             currentNode.getAttributes().getNamedItem("name").getNodeValue()));
-                    manualChapterList.add(new ManualChapter(currentNode, I++));
+                    manualChapterList.add(new ManualChapter(currentNode, I++, this));
                 }
             }
 
@@ -70,4 +70,33 @@ public class Manual {
         }
     }
 
+    @Override
+    public boolean isLocked() {
+        return false;
+    }
+
+    @Override
+    public int getNumberOfChilds() {
+        return manualChapterList.size();
+    }
+
+    @Override
+    public List<IManualEntry> getChilds() {
+        return manualChapterList;
+    }
+
+    @Override
+    public String getTitle() {
+        return "Index";
+    }
+
+    @Override
+    public IManualEntry getParent() {
+        return null;
+    }
+
+    @Override
+    public int getIndex() {
+        return 0;
+    }
 }

@@ -152,4 +152,7 @@ public class Element {
         return "";
     }
 
+    public String getLocalizedName() {
+        return name;
+    }
 }

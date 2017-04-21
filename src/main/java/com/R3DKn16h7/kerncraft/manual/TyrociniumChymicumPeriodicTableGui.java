@@ -20,7 +20,8 @@ import java.util.List;
 public class TyrociniumChymicumPeriodicTableGui extends TyrociniumChymicumGui {
 
     static int STARTING_ID = 20;
-    private ArrayList<GuiButton> periodicButtonList = new ArrayList<GuiButton>(ElementBase.NUMBER_OF_ELEMENTS);
+    private ArrayList<GuiButton> periodicButtonList =
+            new ArrayList<>(ElementBase.NUMBER_OF_ELEMENTS);
 
     public TyrociniumChymicumPeriodicTableGui() {
 
@@ -90,9 +91,13 @@ public class TyrociniumChymicumPeriodicTableGui extends TyrociniumChymicumGui {
     }
 
     @Override
+    public String getTitle() {
+        return "Periodic table of elements";
+    }
+
+    @Override
     public void drawScreen(int par1, int par2, float par3) {
         super.drawScreen(par1, par2, par3);
-
 
         List<String> str = new ArrayList<String>();
         for (GuiButton btn : periodicButtonList) {
@@ -109,7 +114,6 @@ public class TyrociniumChymicumPeriodicTableGui extends TyrociniumChymicumGui {
             }
         }
         drawHoveringText(str, par1, par2);
-
     }
 
 }

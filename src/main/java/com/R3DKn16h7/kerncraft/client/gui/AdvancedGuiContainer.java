@@ -18,7 +18,7 @@ import java.util.List;
 /**
  * Created by Filippo on 27/11/2016.
  */
-public class AdvancedGuiContainer extends GuiContainer implements IAdvancedGuiContainer {
+public class AdvancedGuiContainer extends GuiContainer implements IAdvancedGui {
 
     public IWidget activeWidget;
 

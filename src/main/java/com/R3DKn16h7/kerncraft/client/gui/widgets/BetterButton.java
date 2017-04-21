@@ -1,6 +1,6 @@
 package com.R3DKn16h7.kerncraft.client.gui.widgets;
 
-import com.R3DKn16h7.kerncraft.client.gui.IAdvancedGuiContainer;
+import com.R3DKn16h7.kerncraft.client.gui.IAdvancedGui;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
@@ -27,7 +27,7 @@ public class BetterButton extends GuiButton implements IWidget {
     Widget.Alignment alignment = Widget.Alignment.LEFT;
     private int yRelPosition;
     private int xRelPosition;
-    private IAdvancedGuiContainer container;
+    private IAdvancedGui container;
     private int xIcon;
     private int yIcon;
     private int xIconSize;
@@ -44,7 +44,7 @@ public class BetterButton extends GuiButton implements IWidget {
     private String tooltip;
     private Runnable runnable;
 
-    public BetterButton(IAdvancedGuiContainer container, int id, int x, int y,
+    public BetterButton(IAdvancedGui container, int id, int x, int y,
                         int widthIn, int heightIn) {
         super(id, x, y, widthIn, heightIn, "");
         this.container = container;
@@ -52,7 +52,7 @@ public class BetterButton extends GuiButton implements IWidget {
         this.yRelPosition = y;
     }
 
-    public BetterButton(IAdvancedGuiContainer container, int x, int y,
+    public BetterButton(IAdvancedGui container, int x, int y,
                         int widthIn, int heightIn) {
         super(container.nextId(), x, y, widthIn, heightIn, "");
         this.container = container;
@@ -60,7 +60,7 @@ public class BetterButton extends GuiButton implements IWidget {
         this.yRelPosition = y;
     }
 
-    public BetterButton(IAdvancedGuiContainer container, int x, int y) {
+    public BetterButton(IAdvancedGui container, int x, int y) {
         this(container, x, y, 200, 20);
     }
 

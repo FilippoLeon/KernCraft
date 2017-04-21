@@ -9,13 +9,15 @@ import java.util.List;
 /**
  * Created by Filippo on 21-Apr-17.
  */
-public class ManualChapter {
-    List<ManualEntry> manualEntryList = new ArrayList<>();
-    String name = null;
+public class ManualChapter implements IManualEntry {
+    private final Manual parent;
+    public String name = null;
+    List<IManualEntry> manualEntryList = new ArrayList<>();
     String unlocksWith = null;
     private int index;
 
-    public ManualChapter(Node chapterNode, int index) {
+    public ManualChapter(Node chapterNode, int index, Manual parent) {
+        this.parent = parent;
         name = chapterNode.getAttributes().getNamedItem("name").getNodeValue();
         this.index = index;
         if (chapterNode.getAttributes().getNamedItem("unlockedWith") != null) {
@@ -32,5 +34,35 @@ public class ManualChapter {
                 manualEntryList.add(new ManualEntry(currentNode, I++, this));
             }
         }
+    }
+
+    @Override
+    public boolean isLocked() {
+        return false;
+    }
+
+    @Override
+    public int getNumberOfChilds() {
+        return manualEntryList.size();
+    }
+
+    @Override
+    public List<IManualEntry> getChilds() {
+        return manualEntryList;
+    }
+
+    @Override
+    public String getTitle() {
+        return name;
+    }
+
+    @Override
+    public IManualEntry getParent() {
+        return parent;
+    }
+
+    @Override
+    public int getIndex() {
+        return index;
     }
 }

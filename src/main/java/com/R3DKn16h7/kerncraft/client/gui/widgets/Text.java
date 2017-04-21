@@ -1,6 +1,6 @@
 package com.R3DKn16h7.kerncraft.client.gui.widgets;
 
-import com.R3DKn16h7.kerncraft.client.gui.IAdvancedGuiContainer;
+import com.R3DKn16h7.kerncraft.client.gui.IAdvancedGui;
 import net.minecraft.client.gui.FontRenderer;
 
 /**
@@ -17,7 +17,7 @@ public class Text extends Widget {
     private boolean shadow = false;
     private int textColor = 4210752;
 
-    public Text(IAdvancedGuiContainer container, int xPosition, int yPosition,
+    public Text(IAdvancedGui container, int xPosition, int yPosition,
                 int xSize, int ySize,
                 Alignment alignment, Ellipsis ellipsis) {
         super(container, xPosition, yPosition, xSize, ySize);
@@ -25,7 +25,7 @@ public class Text extends Widget {
         this.ellipsis = ellipsis;
     }
 
-    public Text(IAdvancedGuiContainer container, int xPosition, int yPosition,
+    public Text(IAdvancedGui container, int xPosition, int yPosition,
                 int xSize, int ySize,
                 Alignment alignment) {
         super(container, xPosition, yPosition, xSize, ySize);
@@ -33,7 +33,7 @@ public class Text extends Widget {
         this.ellipsis = Ellipsis.OVERFLOW;
     }
 
-    public Text(IAdvancedGuiContainer container, int xPosition, int yPosition,
+    public Text(IAdvancedGui container, int xPosition, int yPosition,
                 Alignment alignment) {
         super(container, xPosition, yPosition, 0, TEXT_DEFAULT_HEIGHT);
         this.adaptive_size = true;

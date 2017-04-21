@@ -8,4 +8,12 @@
             Description b
         </Entry>
     </Chapter>
+    <Chapter name="second_steps" unlockedWith="second_steps">
+        <Entry name="expert_chemist">
+            Description c
+        </Entry>
+        <Entry name="kinda_master_chemist">
+            Description d
+        </Entry>
+    </Chapter>
 </Manual>

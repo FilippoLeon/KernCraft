@@ -47,6 +47,11 @@ public class TyrociniumChymicumElementGui extends TyrociniumChymicumGui {
     }
 
     @Override
+    public String getTitle() {
+        return element.getLocalizedName();
+    }
+
+    @Override
     public final void previousPage() {
         if (summaryPage) {
             summaryPage = false;

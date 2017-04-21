@@ -1,6 +1,6 @@
 package com.R3DKn16h7.kerncraft.manual;
 
-import com.R3DKn16h7.kerncraft.client.gui.IAdvancedGuiContainer;
+import com.R3DKn16h7.kerncraft.client.gui.IAdvancedGui;
 import com.R3DKn16h7.kerncraft.client.gui.widgets.IWidget;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
@@ -9,9 +9,8 @@ import net.minecraft.client.gui.GuiScreen;
 /**
  * Created by Filippo on 08/12/2016.
  */
-public class ManualEntryGui extends GuiScreen implements IAdvancedGuiContainer {
+public abstract class ManualEntryGui extends GuiScreen implements IAdvancedGui {
 
-    //static public HashMap<String, ManualEntryGui> pages = new HashMap<String, ManualEntryGui>();
     static public ManualEntryGui lastVisitedPage;
     private int btn_id = 0;
 

@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * Created by Filippo on 27/11/2016.
  */
-public class AdvancedGui extends GuiScreen implements IAdvancedGuiContainer {
+public class AdvancedGui extends GuiScreen implements IAdvancedGui {
     public IWidget activeWidget;
 
     // Margin of gui backgound

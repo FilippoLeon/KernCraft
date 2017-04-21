@@ -1,6 +1,6 @@
 package com.R3DKn16h7.kerncraft.client.gui.widgets;
 
-import com.R3DKn16h7.kerncraft.client.gui.IAdvancedGuiContainer;
+import com.R3DKn16h7.kerncraft.client.gui.IAdvancedGui;
 
 import java.util.List;
 
@@ -14,11 +14,11 @@ public class Widget implements IWidget {
     public int yPosition;
     public int xSize;
     public int ySize;
-    protected IAdvancedGuiContainer container;
+    protected IAdvancedGui container;
     private Anchor anchor;
     private String tooltip;
 
-    Widget(IAdvancedGuiContainer container, int xPosition, int yPosition,
+    Widget(IAdvancedGui container, int xPosition, int yPosition,
            int xSize, int ySize,
            Anchor anchor) {
         this.container = container;
@@ -29,7 +29,7 @@ public class Widget implements IWidget {
         this.anchor = anchor;
     }
 
-    Widget(IAdvancedGuiContainer container, int xPosition, int yPosition,
+    Widget(IAdvancedGui container, int xPosition, int yPosition,
            int xSize, int ySize) {
         this.container = container;
         this.xPosition = xPosition + container.getBorderLeft();
