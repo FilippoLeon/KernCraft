@@ -27,4 +27,6 @@ public interface IElementContainer extends INBTSerializable<NBTTagCompound> {
     int getMaxNumberOfElements();
 
     Map<Integer, Integer> getElementMap();
+
+    void removeAllOf(int id);
 }

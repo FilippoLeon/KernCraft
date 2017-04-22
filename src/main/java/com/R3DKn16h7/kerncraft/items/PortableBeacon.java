@@ -6,7 +6,7 @@ import com.R3DKn16h7.kerncraft.KernCraft;
 import com.R3DKn16h7.kerncraft.capabilities.ElementCapabilities;
 import com.R3DKn16h7.kerncraft.capabilities.ElementContainerProvider;
 import com.R3DKn16h7.kerncraft.capabilities.IElementContainer;
-import com.R3DKn16h7.kerncraft.utils.PotionHelper;
+import com.R3DKn16h7.kerncraft.utils.PotionImprovedHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.IMob;
@@ -50,8 +50,8 @@ public class PortableBeacon extends Item implements IBauble {
                          Entity entityIn, int itemSlot, boolean isSelected) {
 
         if (entityIn != null && entityIn instanceof EntityPlayer)
-            if (((EntityPlayer) entityIn).getActivePotionEffect(PotionHelper.getPotion(PotionHelper.Effect.HASTE)) == null)
-                ((EntityPlayer) entityIn).addPotionEffect(PotionHelper.getPotionEffect(PotionHelper.Effect.HASTE, 300));
+            if (((EntityPlayer) entityIn).getActivePotionEffect(PotionImprovedHelper.getPotion(PotionImprovedHelper.HASTE)) == null)
+                ((EntityPlayer) entityIn).addPotionEffect(PotionImprovedHelper.getPotionEffect(PotionImprovedHelper.HASTE, 300));
     }
 
     @Override
@@ -73,19 +73,19 @@ public class PortableBeacon extends Item implements IBauble {
     public EnumActionResult onItemUse(EntityPlayer player,
                                       World world, BlockPos pos, EnumHand hand,
                                       EnumFacing facing, float hitX, float hitY, float hitZ) {
-        if (player.getHeldItem(hand).hasCapability(ElementCapabilities.CAPABILITY_ELEMENT_CONTAINER, null)) {
-            IElementContainer cap = player.getHeldItem(hand).getCapability(
-                    ElementCapabilities.CAPABILITY_ELEMENT_CONTAINER, null
-            );
-            cap.addAmountOf(1, 100, false);
-        }
+//        if (player.getHeldItem(hand).hasCapability(ElementCapabilities.CAPABILITY_ELEMENT_CONTAINER, null)) {
+//            IElementContainer cap = player.getHeldItem(hand).getCapability(
+//                    ElementCapabilities.CAPABILITY_ELEMENT_CONTAINER, null
+//            );
+//            cap.addAmountOf(1, 100, false);
+//        }
 
 
         // TODO DEPRECATED
         if (!world.isRemote) {
 
-            player.addPotionEffect(PotionHelper.getPotionEffect(
-                    PotionHelper.Effect.HASTE, 300)
+            player.addPotionEffect(PotionImprovedHelper.getPotionEffect(
+                    PotionImprovedHelper.HASTE, 300)
             );
             return EnumActionResult.SUCCESS;
         }
@@ -108,7 +108,7 @@ public class PortableBeacon extends Item implements IBauble {
                 EntityLivingBase entityLivingBase = (EntityLivingBase) entity;
                 if (entityLivingBase instanceof IMob) {
                     IMob mod = (IMob) entityLivingBase;
-                    entityLivingBase.addPotionEffect(PotionHelper.getPotionEffect(PotionHelper.Effect.WITHER, 300));
+                    entityLivingBase.addPotionEffect(PotionImprovedHelper.getPotionEffect(PotionImprovedHelper.WITHER, 300));
                 }
             }
             return true;
@@ -134,8 +134,8 @@ public class PortableBeacon extends Item implements IBauble {
     @Optional.Method(modid="baubles")
     public void onWornTick(ItemStack itemstack, EntityLivingBase player) {
         if (player != null && player instanceof EntityPlayer)
-            if (player.getActivePotionEffect(PotionHelper.getPotion(PotionHelper.Effect.SPECTRAL)) == null)
-                player.addPotionEffect(PotionHelper.getPotionEffect(PotionHelper.Effect.SPECTRAL, 300));
+            if (player.getActivePotionEffect(PotionImprovedHelper.getPotion(PotionImprovedHelper.SPECTRAL)) == null)
+                player.addPotionEffect(PotionImprovedHelper.getPotionEffect(PotionImprovedHelper.SPECTRAL, 300));
     }
 
     @Override

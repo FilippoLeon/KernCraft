@@ -1,6 +1,7 @@
 package com.R3DKn16h7.kerncraft;
 
 import com.R3DKn16h7.kerncraft.elements.ElementBase;
+import com.R3DKn16h7.kerncraft.items.Canister;
 import com.R3DKn16h7.kerncraft.items.KernCraftItems;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
@@ -33,7 +34,7 @@ public class KernCraft {
 
             if(MOD_CONFIG_DISPLAY_ALL_ELEMENTS) {
                 for (int i = 1; i <= ElementBase.NUMBER_OF_ELEMENTS; ++i) {
-                    p_78018_1_.add(KernCraftItems.CANISTER.getElementItemStack(i, -1));
+                    p_78018_1_.add(Canister.getElementItemStack(i, -1));
                 }
             }
         }

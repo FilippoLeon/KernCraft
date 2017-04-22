@@ -2,11 +2,13 @@ package com.R3DKn16h7.kerncraft.capabilities;
 
 import com.R3DKn16h7.kerncraft.elements.Element;
 import com.R3DKn16h7.kerncraft.elements.ElementBase;
-import net.minecraft.client.Minecraft;
+import com.R3DKn16h7.kerncraft.utils.PlayerHelper;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
-import org.lwjgl.input.Keyboard;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.List;
 import java.util.Map;
@@ -20,33 +22,110 @@ public class ElementCapabilities {
     public static Capability<IElementContainer>
             CAPABILITY_ELEMENT_CONTAINER = null;
 
-    public static void addTooltip(ItemStack stack, List<String> listOfTooltipInfo) {
-        if (stack.hasCapability(CAPABILITY_ELEMENT_CONTAINER, null)) {
-            IElementContainer cap =
-                    stack.getCapability(CAPABILITY_ELEMENT_CONTAINER, null);
+    public static boolean hasCapability(ItemStack stack) {
+        return stack.hasCapability(CAPABILITY_ELEMENT_CONTAINER, null);
+    }
 
+    public static IElementContainer getCapability(ItemStack stack) {
+        return stack.getCapability(CAPABILITY_ELEMENT_CONTAINER, null);
+    }
 
-            boolean isCtrlKeyDown = Keyboard.isKeyDown(Keyboard.KEY_LCONTROL) ||
-                    Keyboard.isKeyDown(Keyboard.KEY_RCONTROL);
-            if (!isCtrlKeyDown && Minecraft.IS_RUNNING_ON_MAC)
-                isCtrlKeyDown = Keyboard.isKeyDown(Keyboard.KEY_LMETA) ||
-                        Keyboard.isKeyDown(Keyboard.KEY_RMETA);
+    public static void addTooltip(ItemStack stack,
+                                  List<String> listOfTooltipInfo) {
+        if (hasCapability(stack)) {
+            IElementContainer cap = getCapability(stack);
 
             listOfTooltipInfo.add(String.format("Elements: %d/%d",
-                    cap.getNumberOfElements(), +cap.getMaxNumberOfElements()));
+                    cap.getNumberOfElements(), cap.getMaxNumberOfElements()));
             listOfTooltipInfo.add(String.format("Amount: %d/%d",
                     cap.getTotalAmount(), cap.getCapacity()));
 
-            if (isCtrlKeyDown) {
+            if (PlayerHelper.isCtrlKeyDown()) {
                 for (Map.Entry entry : cap.getElementMap().entrySet()) {
                     Element elem = ElementBase.getElement(((Integer) entry.getKey()));
                     String elemStr = elem.toSymbol();
-                    listOfTooltipInfo.add(String.format("%d u of %s",
+                    listOfTooltipInfo.add(String.format("* %d u of %s",
                             entry.getValue(), elemStr));
                 }
             } else {
                 listOfTooltipInfo.add("Hold ctrl for more stuff.");
             }
         }
+    }
+
+
+    public static int amountThatCanBeTansfered(IElementContainer from,
+                                               IElementContainer to,
+                                               int id, int i) {
+        int removable = from.removeAmountOf(id, 100, true);
+        return to.addAmountOf(
+                id, removable, true
+        );
+    }
+
+    public static int transferAmount(IElementContainer from,
+                                     IElementContainer to,
+                                     int id, int transferable) {
+        from.removeAmountOf(id, transferable, false);
+        return to.addAmountOf(
+                id, transferable, false
+        );
+    }
+
+    @SideOnly(Side.CLIENT)
+    public static void addDetailedTooltipForSingleElement(ItemStack stack,
+                                                          List<String> tooltipList) {
+        if (!hasCapability(stack)) return;
+
+        IElementContainer cap = getCapability(stack);
+
+        Element element = getFirstElement(cap);
+        if (element == null) return;
+
+        tooltipList.add(String.format("Element: %s (%s%s) - %d",
+                element.getLocalizedName(), element.toSymbol(), TextFormatting.GRAY, element.id));
+
+        if (PlayerHelper.isCtrlKeyDown()) {
+            tooltipList.add(String.format("Mass: %s", element.mass));
+            tooltipList.add(String.format("Toxic: %s",
+                    element.toxic ?
+                            TextFormatting.RED + "yes" :
+                            TextFormatting.GREEN + "no"
+                    )
+            );
+            tooltipList.add(String.format("Radioactive: %s",
+                    element.half_life > 0 ?
+                            TextFormatting.RED + "yes" +
+                                    TextFormatting.RESET +
+                                    String.format(
+                                            " (half-life: %.2e s)",
+                                            element.half_life
+                                    ) :
+                            TextFormatting.GREEN + "no")
+            );
+        } else {
+            tooltipList.add("Hold ctrl for more stuff...");
+        }
+        int amount = cap.getTotalAmount();
+        if (amount > 0) {
+            tooltipList.add(String.format("Quantity: %d", amount));
+        }
+
+    }
+
+    static public Element getFirstElement(IElementContainer cap) {
+        if (cap.getNumberOfElements() > 0) {
+            return ElementBase.getElement(cap.getElements()[0]);
+        }
+        return null;
+    }
+
+    @Deprecated
+    static public Element getFirstElement(ItemStack stack) {
+        if (hasCapability(stack)) {
+            IElementContainer cap = getCapability(stack);
+            return getFirstElement(cap);
+        }
+        return null;
     }
 }

@@ -1,19 +1,15 @@
 package com.R3DKn16h7.kerncraft.tileentities;
 
+import com.R3DKn16h7.kerncraft.capabilities.ElementCapabilities;
+import com.R3DKn16h7.kerncraft.capabilities.IElementContainer;
 import com.R3DKn16h7.kerncraft.crafting.ChemicalFurnaceRecipe;
 import com.R3DKn16h7.kerncraft.crafting.ISmeltingRecipe;
 import com.R3DKn16h7.kerncraft.crafting.KernCraftRecipes;
-import com.R3DKn16h7.kerncraft.elements.ElementBase;
 import com.R3DKn16h7.kerncraft.elements.ElementStack;
-import com.R3DKn16h7.kerncraft.items.Canister;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.items.ItemStackHandler;
 
-import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,13 +21,28 @@ public class ChemicalFurnaceTileEntity extends SmeltingTileEntity {
     static final public int outputSlotStart = 0;
     static final public int outputSlotSize = 2;
     static final public int totalSlots = 4;
+    public int[][] inputCoords = {{4,1},{5,1}};
+    public int[][] outputCoords = {{4,3},{5,3}};
 
     public ChemicalFurnaceTileEntity() {
         super(2, 2);
     }
 
-    public int[][] inputCoords = {{4,1},{5,1}};
-    public int[][] outputCoords = {{4,3},{5,3}};
+    static private List<Integer> itemStackHandlerMatchesElementStack(ItemStackHandler stackHandler,
+                                                                     ElementStack elem) {
+        List<Integer> match = new ArrayList<>();
+        for (int i = 0; i < stackHandler.getSlots(); ++i) {
+            ItemStack stack = stackHandler.getStackInSlot(i);
+
+            if (stack != ItemStack.EMPTY
+                    && ElementCapabilities.hasCapability(stack)
+                    && ElementCapabilities.getCapability(stack).getAmountOf(elem.id) >= elem.quantity
+                    ) {
+                match.add(i);
+            }
+        }
+        return match;
+    }
 
     @Override
     public int[][] getInputCoords() {
@@ -104,17 +115,6 @@ public class ChemicalFurnaceTileEntity extends SmeltingTileEntity {
         return true;
     }
 
-    static private List<Integer> itemStackHandlerMatchesElementStack(ItemStackHandler stackHandler, ElementStack elem) {
-        List<Integer> match = new ArrayList<>();
-        for(int i = 0; i < stackHandler.getSlots(); ++i) {
-            ItemStack stack = stackHandler.getStackInSlot(i);
-            if(stack != ItemStack.EMPTY && elem.isContainedInStack(stack)) {
-                match.add(i);
-            }
-        }
-        return match;
-    }
-
     @Override
     public boolean tryProgress() {
 
@@ -126,7 +126,7 @@ public class ChemicalFurnaceTileEntity extends SmeltingTileEntity {
         ChemicalFurnaceRecipe chemrec = ((ChemicalFurnaceRecipe) currentlySmelting);
 
         if(chemrec.fluid != null) {
-            if (getFluid().isFluidEqual(chemrec.fluid) || getFluid() == null) {
+            if (getFluid() == null || getFluid().isFluidEqual(chemrec.fluid)) {
                 if (chemrec.fluid.amount < 0) {
                     if(-chemrec.fluid.amount > getFluid().amount) return;
                     FluidStack positiveFluid = new FluidStack(chemrec.fluid, -chemrec.fluid.amount);
@@ -143,13 +143,12 @@ public class ChemicalFurnaceTileEntity extends SmeltingTileEntity {
         for(ElementStack elem: chemrec.inputs) {
             int to_remove = elem.quantity;
             for(int i = 0; i < input.getSlots(); ++i) {
-                if(elem.isContainedInStackAnyQuantity(input.getStackInSlot(i))) {
-                    int canBeRemoved = Math.min(to_remove, ElementStack.getQuantity(input.getStackInSlot(i)));
-                    ElementStack.removeFromStack(input.getStackInSlot(i), canBeRemoved);
-
-                    to_remove -= canBeRemoved;
+                ItemStack stack = input.getStackInSlot(i);
+                if (ElementCapabilities.hasCapability(stack)) {
+                    IElementContainer cap = ElementCapabilities.getCapability(stack);
+                    to_remove -= cap.removeAmountOf(elem.id, to_remove, false);
                     if(to_remove <= 0) {
-                        continue;
+                        break;
                     }
                 }
             }

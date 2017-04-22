@@ -6,7 +6,7 @@ import com.R3DKn16h7.kerncraft.capabilities.ITyrociniumProgressCapability;
 import com.R3DKn16h7.kerncraft.capabilities.TyrociniumProgressDefaultCapability;
 import com.R3DKn16h7.kerncraft.items.ExtraShield;
 import com.R3DKn16h7.kerncraft.items.KernCraftItems;
-import com.R3DKn16h7.kerncraft.utils.PotionHelper;
+import com.R3DKn16h7.kerncraft.utils.PotionImprovedHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
@@ -58,11 +58,11 @@ public class EventHandlerCommon {
             if (e.getSource().getSourceOfDamage() instanceof EntityArrow) {
                 EntityArrow a = (EntityArrow) e.getSource().getSourceOfDamage();
                 EntityLiving lv = (EntityLiving) a.shootingEntity;
-                lv.addPotionEffect(new PotionEffect(Potion.getPotionById(PotionHelper.Effect.SPECTRAL),
+                lv.addPotionEffect(new PotionEffect(Potion.getPotionById(PotionImprovedHelper.SPECTRAL),
                         500, 300));
             } else if (e.getSource().getSourceOfDamage() instanceof EntityLiving) {
                 EntityLiving lv = (EntityLiving) e.getSource().getSourceOfDamage();
-                lv.addPotionEffect(new PotionEffect(Potion.getPotionById(PotionHelper.Effect.SPECTRAL),
+                lv.addPotionEffect(new PotionEffect(Potion.getPotionById(PotionImprovedHelper.SPECTRAL),
                         500, 300));
             }
         } else {

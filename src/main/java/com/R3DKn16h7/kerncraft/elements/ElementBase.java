@@ -1,16 +1,17 @@
 package com.R3DKn16h7.kerncraft.elements;
 
-import com.R3DKn16h7.kerncraft.items.KernCraftItems;
+import com.R3DKn16h7.kerncraft.items.Canister;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.text.TextFormatting;
 
 import java.awt.*;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -24,24 +25,26 @@ public class ElementBase {
     private static HashMap<String, Integer> string_to_id = new HashMap<String, Integer>();
     private static ArrayList<Element> elements;
 
-    public ElementBase(String resource) {
+    public ElementBase() {
         if (INSTANCE != null) return;
         INSTANCE = this;
-        elements = new ArrayList<Element>(NUMBER_OF_ELEMENTS);
+
+        elements = new ArrayList<>(NUMBER_OF_ELEMENTS);
 
         Gson gson = new Gson();
-        //ResourceLocation loc = new ResourceLocation("kerncraft:config/elements.json");
+
         InputStreamReader in = null;
         try {
             System.out.println("Reading file = .txt");
             in = new InputStreamReader(getClass().getClassLoader()
-                    .getResourceAsStream("assets/kerncraft/config/elements.json"), "UTF-8");
+                    .getResourceAsStream("assets/kerncraft/config/elements.json"),
+                    "UTF-8");
             //in = Minecraft.getMinecraft().getResourceManager().getResource(loc).getInputStream();
         } catch (IOException e1) {
             // TODO Auto-generated catch block
             e1.printStackTrace();
         }
-        //BufferedReader reader = new BufferedReader(new InputStreamReader(in))
+
         BufferedReader reader = new BufferedReader(in);
 
         JsonElement je = gson.fromJson(reader, JsonElement.class);
@@ -51,8 +54,6 @@ public class ElementBase {
         for (HashMap.Entry<String, JsonElement> j : json.entrySet()) {
             String symb = j.getValue().getAsJsonObject().get("symbol").getAsString();
             Integer id = Integer.parseInt(j.getKey());
-
-            // System.out.println(symb + " (id = " + id + ") added...");
 
             JsonObject js = j.getValue().getAsJsonObject();
             elements.add(new Element(id, js));
@@ -75,22 +76,7 @@ public class ElementBase {
     }
 
     static public ItemStack getItem(ElementStack stack) {
-        return getItem(stack.id, stack.quantity);
-    }
-
-    static public ItemStack getItem(int id, int qty) {
-        ItemStack is = new ItemStack(KernCraftItems.CANISTER);
-        NBTTagCompound nbt = is.getTagCompound();
-        if (nbt == null) {
-            nbt = new NBTTagCompound();
-        }
-
-        nbt.setInteger("Element", id);
-        nbt.setInteger("Quantity", qty);
-
-        is.setTagCompound(nbt);
-
-        return is;
+        return Canister.getElementItemStack(stack.id, stack.quantity);
     }
 
     static public Color StringToColor(String str) {
@@ -223,6 +209,4 @@ public class ElementBase {
             return null;
         }
     }
-
-
 }

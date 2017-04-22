@@ -94,18 +94,24 @@ public class ElementContainerDefaultCapability
         int[] elem = new int[containedElements.size()];
         int i = 0;
         for (Map.Entry entry : containedElements.entrySet()) {
-            elem[i++] = ((Integer) entry.getValue());
+            elem[i++] = ((Integer) entry.getKey());
         }
         return elem;
     }
 
     @Override
+    public void removeAllOf(int id) {
+        containedElements.remove(id);
+    }
+
+    @Override
     public int getAmountOf(int i) {
-        return containedElements.get(i);
+        return containedElements.getOrDefault(i, 0);
     }
 
     @Override
     public int addAmountOf(int id, int amount, boolean simulate) {
+        if (id <= 0 || id > ElementBase.NUMBER_OF_ELEMENTS) return 0;
         if (getNumberOfElements() >= maxCapacity && containedElements.containsKey(id)) {
             return 0;
         }
@@ -114,7 +120,7 @@ public class ElementContainerDefaultCapability
         if (!simulate) {
             Element elem = ElementBase.getElement(id);
             if (elem.reachedCriticalMass(contained + canBeAdded)) {
-                double x = 0, y = 0, z = 0;
+//                double x = 0, y = 0, z = 0;
 //                itemStack.get
 //                containedElements.put(id, 0);
 
@@ -132,7 +138,11 @@ public class ElementContainerDefaultCapability
         int contained;
         contained = containedElements.getOrDefault(id, 0);
         if (!simulate) {
-            containedElements.put(id, contained - Math.min(contained, amount));
+            if (contained - Math.min(contained, amount) == 0) {
+                containedElements.remove(id);
+            } else {
+                containedElements.put(id, contained - Math.min(contained, amount));
+            }
         }
         return Math.min(amount, contained);
     }

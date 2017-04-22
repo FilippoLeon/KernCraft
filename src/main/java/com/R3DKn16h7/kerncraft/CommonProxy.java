@@ -25,7 +25,7 @@ public class CommonProxy {
 
     public void preInit(FMLPreInitializationEvent e) {
 
-        new ElementBase("");
+        new ElementBase();
 
         KernCraftItems.createItems();
         new KernCraftRecipes();

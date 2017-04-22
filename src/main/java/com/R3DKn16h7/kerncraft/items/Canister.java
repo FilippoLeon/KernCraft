@@ -2,12 +2,12 @@ package com.R3DKn16h7.kerncraft.items;
 
 import com.R3DKn16h7.kerncraft.KernCraft;
 import com.R3DKn16h7.kerncraft.capabilities.ElementCapabilities;
+import com.R3DKn16h7.kerncraft.capabilities.ElementContainerProvider;
 import com.R3DKn16h7.kerncraft.capabilities.IElementContainer;
 import com.R3DKn16h7.kerncraft.elements.Element;
 import com.R3DKn16h7.kerncraft.elements.ElementBase;
-import com.R3DKn16h7.kerncraft.elements.ElementStack;
 import com.R3DKn16h7.kerncraft.utils.PlayerHelper;
-import net.minecraft.client.Minecraft;
+import com.R3DKn16h7.kerncraft.utils.PotionImprovedHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -15,17 +15,14 @@ import net.minecraft.item.IItemPropertyGetter;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.potion.Potion;
-import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
+import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import org.lwjgl.input.Keyboard;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -47,7 +44,12 @@ public class Canister extends Item {
                                @Nullable EntityLivingBase entityIn)
             {
                 // TODO: only on shift
-                return ElementStack.getElementId(stack);
+                if (ElementCapabilities.hasCapability(stack)) {
+                    IElementContainer cap = ElementCapabilities.getCapability(stack);
+                    if (cap.getNumberOfElements() <= 0) return 0;
+                    return ElementCapabilities.getFirstElement(cap).id;
+                }
+                return 0;
             }
         });
 
@@ -60,14 +62,6 @@ public class Canister extends Item {
         GameRegistry.register(this);
     }
 
-    static public Element getElement(ItemStack stack) {
-        if (stack.hasTagCompound() && stack.getTagCompound().hasKey("Element")) {
-            int element_id = stack.getTagCompound().getInteger("Element");
-            return ElementBase.getElement(element_id);
-        }
-        return null;
-    }
-
     public static ItemStack getElementItemStack(int i) {
         return getElementItemStack(i, 0);
     }
@@ -75,15 +69,18 @@ public class Canister extends Item {
     public static ItemStack getElementItemStack(int i, int amount) {
         ItemStack itemStack = new ItemStack(KernCraftItems.CANISTER);
 
-        if (i > 0) {
-            NBTTagCompound nbt = new NBTTagCompound();
-            nbt.setInteger("Element", i);
-            nbt.setInteger("Quantity",
-                    amount >= 0 ? amount : CAPACITY
-            );
-            itemStack.setTagCompound(nbt);
+        if (i > 0 && i <= ElementBase.NUMBER_OF_ELEMENTS) {
+            IElementContainer cap = ElementCapabilities.getCapability(itemStack);
+            int amount2 = amount >= 0 ? amount : cap.getCapacity();
+            cap.addAmountOf(i, amount2, false);
         }
         return itemStack;
+    }
+
+    @Nullable
+    @Override
+    public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable NBTTagCompound nbt) {
+        return new ElementContainerProvider(1, 1000);
     }
 
     @Override
@@ -92,66 +89,59 @@ public class Canister extends Item {
         if (elapsed > waitTime && entityIn != null && entityIn instanceof EntityPlayer) {
             elapsed = 0;
             EntityPlayer entity = (EntityPlayer) entityIn;
+            IElementContainer cap = ElementCapabilities.getCapability(stack);
 
-            Element elem = Canister.getElement(stack);
 
-            if(elem == null) return;
+            if (cap.getNumberOfElements() == 0) return;
 
-            int qty = 0;
-
-            NBTTagCompound nbt = null;
-            if (stack.hasTagCompound()) {
-                nbt = stack.getTagCompound();
-                if (nbt.hasKey("Quantity")) {
-                    qty = nbt.getInteger("Quantity");
-                }
-            }
+            int qty = cap.getTotalAmount();
 
             if(qty == 0) return;
 
+            Element elem = ElementCapabilities.getFirstElement(stack);
             if ( elem.toxic || elem.half_life > 0 ) {
-                Potion poison_pot = Potion.getPotionFromResourceLocation("poison");
-                if (entity.getActivePotionEffect(poison_pot) == null) {
-                    entity.addPotionEffect(new PotionEffect(poison_pot, 50));
+                if (PotionImprovedHelper.hasPotionEffect(entity,
+                        PotionImprovedHelper.POISON) == null) {
+                    PotionImprovedHelper.addPotionEffect(entity,
+                            PotionImprovedHelper.POISON, 70);
                 }
             }
             if( elem.half_life > 0) {
                 float ticTime = 0.1f;
                 int new_qty = (int) Math.floor((float)
-                                qty * (1.0f - ticTime / elem.half_life * 1e9 * 0.693f)
+                        qty * (ticTime / elem.half_life * 1e9 * 0.693f)
                  );
-                new_qty = Math.max(0, new_qty);
-                nbt.setInteger("Quantity", new_qty);
-
+                cap.removeAmountOf(elem.id, new_qty, false);
             }
-            if(elem.symbol.matches("Pu") && qty > 70) {
+            if (elem.reachedCriticalMass(qty)) {
                 double x = entityIn.posX, y = entityIn.posY, z = entityIn.posZ;
                 worldIn.createExplosion(null, x,y,z,10,true);
-                nbt.setInteger("Quantity", 0);
+                cap.removeAllOf(elem.id);
             }
-            stack.setTagCompound(nbt);
         }
         ++elapsed;
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
+    public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn,
+                                                    EnumHand handIn) {
 
         ItemStack itemStack = playerIn.getHeldItem(handIn);
         ItemStack otherHandStack = playerIn.getHeldItem(PlayerHelper.otherHand(handIn));
-        if (otherHandStack.hasCapability(ElementCapabilities.CAPABILITY_ELEMENT_CONTAINER, null)) {
-            IElementContainer cap = otherHandStack.getCapability(ElementCapabilities.CAPABILITY_ELEMENT_CONTAINER, null);
+        if (ElementCapabilities.hasCapability(otherHandStack)) {
+            IElementContainer otherCap = ElementCapabilities.getCapability(otherHandStack);
+            IElementContainer cap2 = ElementCapabilities.getCapability(itemStack);
 
-            int removable = ElementStack.removeFromStack(itemStack, 100, true);
-            int addable = cap.addAmountOf(
-                    ElementStack.getElementId(itemStack),
-                    removable, true
-            );
-            ElementStack.removeFromStack(itemStack, addable, false);
-            cap.addAmountOf(
-                    ElementStack.getElementId(itemStack),
-                    addable + 10, false
-            );
+            if (cap2.getNumberOfElements() >= 1) {
+                int id = ElementCapabilities.getFirstElement(cap2).id;
+
+                int transferable = ElementCapabilities.amountThatCanBeTansfered(
+                        cap2, otherCap,
+                        id, 100
+                );
+                ElementCapabilities.transferAmount(cap2, otherCap, id, transferable);
+            }
+
         }
 
         return super.onItemRightClick(worldIn, playerIn, handIn);
@@ -159,46 +149,18 @@ public class Canister extends Item {
 
     @Override
     public boolean showDurabilityBar(ItemStack stack) {
-        return stack.hasTagCompound() && stack.getTagCompound().hasKey("Element");
+        return ElementCapabilities.getCapability(stack).getNumberOfElements() > 0;
     }
 
     @Override
     public double getDurabilityForDisplay(ItemStack stack) {
-        return 1.0 - (double) stack.getTagCompound().getInteger("Quantity") / CAPACITY;
+        IElementContainer cap = ElementCapabilities.getCapability(stack);
+        return 1.0 - (double) cap.getTotalAmount() / cap.getTotalAmount();
     }
 
-    @SuppressWarnings({"unchecked", "rawtypes"})
     @Override
-    public void addInformation(ItemStack stack, EntityPlayer player, List lores, boolean b) {
-        if (stack.hasTagCompound() && stack.getTagCompound().hasKey("Uses")) {
-            lores.add(Integer.toString(stack.getTagCompound().getInteger("Uses")));
-        }
-        if (stack.hasTagCompound() && stack.getTagCompound().hasKey("Element")) {
-            int element_id = stack.getTagCompound().getInteger("Element");
-            Element element = ElementBase.getElement(element_id);
-
-            lores.add("Element: " + element.toSymbol() +
-                    " ("
-                    + element.id + ")");
-
-            boolean isCtrlKeyDown = Keyboard.isKeyDown(Keyboard.KEY_LCONTROL) || Keyboard.isKeyDown(Keyboard.KEY_RCONTROL);
-            if (!isCtrlKeyDown && Minecraft.IS_RUNNING_ON_MAC)
-                isCtrlKeyDown = Keyboard.isKeyDown(Keyboard.KEY_LMETA) || Keyboard.isKeyDown(Keyboard.KEY_RMETA);
-
-            if (isCtrlKeyDown) {
-                lores.add("Mass: " + element.mass);
-                lores.add("Toxic: " + (element.toxic ? TextFormatting.RED + "yes" : TextFormatting.GREEN + "no"));
-                lores.add("Radioactive: " + (element.half_life > 0 ?
-                        TextFormatting.RED + "yes" +
-                                TextFormatting.RESET + " (half-life: " +
-                                String.format("%.2e", element.half_life) + " s)" :
-                        TextFormatting.GREEN + "no"));
-            } else {
-                lores.add("Hold ctrl for more stuff.");
-            }
-        }
-        if (stack.hasTagCompound() && stack.getTagCompound().hasKey("Quantity")) {
-            lores.add("Quantity: " + Integer.toString(stack.getTagCompound().getInteger("Quantity")));
-        }
+    public void addInformation(ItemStack stack, EntityPlayer player,
+                               List<String> tooltipList, boolean b) {
+        ElementCapabilities.addDetailedTooltipForSingleElement(stack, tooltipList);
     }
 }

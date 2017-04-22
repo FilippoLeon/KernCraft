@@ -4,19 +4,15 @@ import com.R3DKn16h7.kerncraft.network.KernCraftNetwork;
 import com.R3DKn16h7.kerncraft.network.MessageSyncTyrociniumProgress;
 import com.R3DKn16h7.kerncraft.network.MessageUnlock;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
-import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 /**
@@ -100,10 +96,6 @@ public class TyrociniumProgressDefaultCapability
     @Override
     public void unpackMessage(MessageSyncTyrociniumProgress message) {
         lockingMap = new HashMap<>(message.unlocksMap);
-
-//        for(Map.Entry<String, Boolean> entry : lockingMap.entrySet()) {
-//            System.out.println(entry.getKey() + " -- " + entry.getValue());
-//        }
     }
 
     @Override

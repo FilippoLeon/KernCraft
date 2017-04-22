@@ -1,8 +1,9 @@
 package com.R3DKn16h7.kerncraft.plugins.JEI;
 
+import com.R3DKn16h7.kerncraft.capabilities.ElementCapabilities;
+import com.R3DKn16h7.kerncraft.capabilities.IElementContainer;
 import mezz.jei.api.ISubtypeRegistry;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 
 import javax.annotation.Nullable;
 
@@ -14,11 +15,12 @@ public class ElementJEISubtypeInterpreter implements ISubtypeRegistry.ISubtypeIn
     @Nullable
     @Override
     public String getSubtypeInfo(ItemStack itemStack) {
-        if ( itemStack.hasTagCompound()) {
-            NBTTagCompound nbt =  itemStack.getTagCompound();
-            if (nbt.hasKey("Element")) {
-                return String.format("%d", nbt.getInteger("Element"));
-            }
+        if (ElementCapabilities.hasCapability(itemStack)) {
+            IElementContainer cap = ElementCapabilities.getCapability(itemStack);
+            if (cap.getNumberOfElements() <= 0) return "empty";
+            return String.format("%d",
+                    ElementCapabilities.getFirstElement(cap).id
+            );
         }
         return "empty";
     }
