@@ -1,5 +1,8 @@
 package com.R3DKn16h7.kerncraft.capabilities;
 
+import com.R3DKn16h7.kerncraft.elements.Element;
+import com.R3DKn16h7.kerncraft.elements.ElementBase;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
 import java.util.HashMap;
@@ -14,13 +17,22 @@ public class ElementContainerDefaultCapability
     Map<Integer, Integer> containedElements;
     int maxNumElements;
     private int maxCapacity;
+    private ItemStack itemStack;
+    // TODO: handle strong containers that don't explode etc...
+
 
     public ElementContainerDefaultCapability() {
-        this(1, 1000);
+        this(1, 1000, null);
     }
 
     public ElementContainerDefaultCapability(int maxNumElements,
                                              int maxCapacity) {
+        this(maxNumElements, maxCapacity, null);
+    }
+
+    public ElementContainerDefaultCapability(int maxNumElements,
+                                             int maxCapacity, ItemStack itemStack) {
+        this.itemStack = itemStack;
         containedElements = new HashMap<>();
         this.maxNumElements = maxNumElements;
         this.maxCapacity = maxCapacity;
@@ -100,6 +112,16 @@ public class ElementContainerDefaultCapability
         int contained = containedElements.getOrDefault(id, 0);
         int canBeAdded = Math.min(maxCapacity - getTotalAmount(), amount);
         if (!simulate) {
+            Element elem = ElementBase.getElement(id);
+            if (elem.reachedCriticalMass(contained + canBeAdded)) {
+                double x = 0, y = 0, z = 0;
+//                itemStack.get
+//                containedElements.put(id, 0);
+
+//                Minecraft.getMinecraft().world.createExplosion( Minecraft.getMinecraft().player, x,y,z+10,10,true);
+//                nbt.setInteger("Quantity", 0);
+            }
+
             containedElements.put(id, contained + canBeAdded);
         }
         return canBeAdded;

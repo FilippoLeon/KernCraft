@@ -150,7 +150,7 @@ public class Canister extends Item {
             ElementStack.removeFromStack(itemStack, addable, false);
             cap.addAmountOf(
                     ElementStack.getElementId(itemStack),
-                    addable, false
+                    addable + 10, false
             );
         }
 

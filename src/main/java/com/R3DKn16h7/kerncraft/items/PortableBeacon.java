@@ -63,7 +63,7 @@ public class PortableBeacon extends Item implements IBauble {
     public double getDurabilityForDisplay(ItemStack stack) {
         if (stack.hasCapability(ElementCapabilities.CAPABILITY_ELEMENT_CONTAINER, null)) {
             IElementContainer cap = stack.getCapability(ElementCapabilities.CAPABILITY_ELEMENT_CONTAINER, null);
-            return cap.getTotalAmount() / cap.getCapacity();
+            return 1. - cap.getTotalAmount() / cap.getCapacity();
 
         }
         return 0;

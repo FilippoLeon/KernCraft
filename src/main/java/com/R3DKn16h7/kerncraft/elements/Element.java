@@ -160,4 +160,8 @@ public class Element {
     public String toSymbol() {
         return state.toColor() + symbol + TextFormatting.RESET.toString();
     }
+
+    public boolean reachedCriticalMass(int quantity) {
+        return symbol.matches("Pu") && quantity > 70;
+    }
 }
