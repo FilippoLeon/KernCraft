@@ -11,6 +11,8 @@ import java.util.List;
 
 /**
  * Created by Filippo on 08/12/2016.
+ *
+ * The GUI that is displayed when an Element is viewed.
  */
 public class TyrociniumChymicumElementGui extends TyrociniumChymicumGui {
 
@@ -19,15 +21,10 @@ public class TyrociniumChymicumElementGui extends TyrociniumChymicumGui {
     private static final int ROW_HEIGHT = 10;
     private static final int HEADER_HEIGHT = 45;
     private static int MAX_ROWS = 12;
-
-    Element element;
-    int currentStartIndex = 0;
-    boolean summaryPage = false;
-
-    int start = 0;
-    int size = 19;
-
-    List<String> stlist;
+    List<String> listOfStringToDisplay;
+    private Element element;
+    private int currentStartIndex = 0;
+    private boolean summaryPage = false;
 
     TyrociniumChymicumElementGui(Element element) {
         this.element = element;
@@ -41,7 +38,7 @@ public class TyrociniumChymicumElementGui extends TyrociniumChymicumGui {
         if (str != null) {
             String str2 = XmlUtils.parseBBCodeIntoMCFormat(str);
 
-            stlist = fontRendererObj.listFormattedStringToWidth(str2, PAGE_WIDTH);
+            listOfStringToDisplay = fontRendererObj.listFormattedStringToWidth(str2, PAGE_WIDTH);
         }
 
     }
@@ -55,12 +52,13 @@ public class TyrociniumChymicumElementGui extends TyrociniumChymicumGui {
     public final void previousPage() {
         if (summaryPage) {
             summaryPage = false;
-        } else if (stlist != null && currentStartIndex >= 2 * MAX_ROWS) {
+        } else if (listOfStringToDisplay != null && currentStartIndex >= 2 * MAX_ROWS) {
             currentStartIndex -= 2 * MAX_ROWS;
         } else if (element.id > 1) {
             super.previousPage();
             mc.displayGuiScreen(
-                    new TyrociniumChymicumElementGui(ElementBase.getElement(element.id - 1)
+                    new TyrociniumChymicumElementGui(
+                            ElementBase.getElement(element.id - 1)
                     ));
         } else {
             superPage();
@@ -79,20 +77,22 @@ public class TyrociniumChymicumElementGui extends TyrociniumChymicumGui {
     public void endPage() {
         super.endPage();
         mc.displayGuiScreen(
-                new TyrociniumChymicumElementGui(ElementBase.getElement(ElementBase.NUMBER_OF_ELEMENTS)
+                new TyrociniumChymicumElementGui(
+                        ElementBase.getElement(ElementBase.NUMBER_OF_ELEMENTS)
                 ));
     }
 
     @Override
     public final void nextPage() {
-        if (stlist != null && currentStartIndex + 2 * MAX_ROWS < stlist.size()) {
+        if (listOfStringToDisplay != null && currentStartIndex + 2 * MAX_ROWS < listOfStringToDisplay.size()) {
             currentStartIndex += 2 * MAX_ROWS;
         } else if (!summaryPage) {
             summaryPage = true;
-        } else if (summaryPage && element.id < ElementBase.NUMBER_OF_ELEMENTS) {
+        } else if (element.id < ElementBase.NUMBER_OF_ELEMENTS) {
             super.nextPage();
             mc.displayGuiScreen(
-                    new TyrociniumChymicumElementGui(ElementBase.getElement(element.id + 1)
+                    new TyrociniumChymicumElementGui(
+                            ElementBase.getElement(element.id + 1)
                     ));
         } else {
             superPage();
@@ -111,7 +111,6 @@ public class TyrociniumChymicumElementGui extends TyrociniumChymicumGui {
 
         GL11.glPushMatrix();
         GL11.glScalef(3, 3, 3);
-
 
         String ids = Integer.toString(element.id);
 
@@ -169,9 +168,9 @@ public class TyrociniumChymicumElementGui extends TyrociniumChymicumGui {
             return;
         }
 
-        if (stlist == null) return;
+        if (listOfStringToDisplay == null) return;
         int ix = currentStartIndex;
-        if (ix >= stlist.size()) return;
+        if (ix >= listOfStringToDisplay.size()) return;
         for (int col = 0; col < 2; ++col) {
             for (int row = 0; row < MAX_ROWS; ++row) {
 //                int l = element.description.length();
@@ -180,12 +179,12 @@ public class TyrociniumChymicumElementGui extends TyrociniumChymicumGui {
                 //String str = element.description.substring(start, end);
                 //if(str.equals("")) break;
                 //fontRendererObj.drawString(str, guiLeft + 15 + 125*col, guiTop + 45 + row * 10, 0x555555);
-                fontRendererObj.drawString(stlist.get(ix++),
+                fontRendererObj.drawString(listOfStringToDisplay.get(ix++),
                         guiLeft + FIRST_COL_START + FIRST_COL_WIDTH * col, guiTop + HEADER_HEIGHT
                                 + row * ROW_HEIGHT,
                         0x555555);
 
-                if (ix >= stlist.size()) return;
+                if (ix >= listOfStringToDisplay.size()) return;
 
                 //drawString(fontRendererObj, str, guiLeft + 15 + 125*col, guiTop + 45 + row * 10, 0x555555);
                 //start += size;

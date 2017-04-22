@@ -7,6 +7,7 @@ import com.R3DKn16h7.kerncraft.manual.data.Manual;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
+import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
 import java.io.IOException;
@@ -30,13 +31,13 @@ public abstract class TyrociniumChymicumGui extends ManualEntryGui {
     int guiLeft;
     int guiTop;
     Text title;
-    private GuiButton btn;
-    private GuiButton btn1;
-    private GuiButton btn2;
-    private GuiButton btn3;
+    private BetterButton btn;
+    private BetterButton btn1;
+    private BetterButton btn2;
+    private BetterButton btn3;
     private BetterButton btn4;
-    private GuiButton btn5;
-    private GuiButton btn6;
+    private BetterButton btn5;
+    private BetterButton btn6;
 
     TyrociniumChymicumGui() {
         super();
@@ -59,52 +60,111 @@ public abstract class TyrociniumChymicumGui extends ManualEntryGui {
         int ID = STARTING_HOME_ROW_ID;
         int SPACE = 30;
         int size = 20;
-        int r = (xSize - (6 * (SPACE - size) + 7 * size)) / 2 + guiLeft;
-        int ypos = (height - ySize) / 2 + ySize - 10;
-
-        btn3 = new GuiButton(ID++, r, ypos, "<--");
-        btn3.setWidth(size);
-        add(btn3);
-        btn5 = new GuiButton(ID++, r += SPACE, ypos, "<<");
-        btn5.setWidth(size);
-        add(btn5);
-        btn = new GuiButton(ID++, r += SPACE, ypos, "<");
-        btn.setWidth(size);
-        add(btn);
-        btn2 = new GuiButton(ID++, r += SPACE, ypos, "^");
-        btn2.setWidth(size);
-        add(btn2);
-        btn1 = new GuiButton(ID++, r += SPACE, ypos, ">");
-        btn1.setWidth(size);
-        add(btn1);
-        btn6 = new GuiButton(ID++, r += SPACE, ypos, ">>");
-        btn6.setWidth(size);
-        add(btn6);
-//        btn4 = new GuiButton(ID, r += SPACE, ypos, "HOME");
-//        btn4.setWidth(size);
-//        add(btn4);
+        int r = (xSize - (6 * (SPACE - size) + 7 * size)) / 2 + guiLeft - 1;
+        int ypos = (height - ySize) / 2 + ySize - 15;
 
         int texX = 60;
-        btn4 = new BetterButton(this,
-                r + SPACE, ypos)
+        btn3 = new BetterButton(this,
+                r, ypos)
                 .setSize(size, size * 2)
+                .setTransparent()
+                .setText("")
+                .setIcon("kerncraft:textures/gui/manual.png",
+                        texX, 200, size, size)
+                .setTextColor(Color.black, false)
+                .setTooltip("Back")
+                .setMargin(0, 0);
+        btn3.setWidth(size);
+        btn3.init();
+
+        btn5 = new BetterButton(this,
+                r += SPACE, ypos)
+                .setSize(size, size * 2)
+                .setTransparent()
                 .setText("")
                 .setIcon("kerncraft:textures/gui/manual.png",
                         texX += size, 200, size, size)
                 .setTextColor(Color.black, false)
+                .setTooltip("Goto begin")
+                .setMargin(0, 0);
+        btn5.setWidth(size);
+        btn5.init();
+
+        btn = new BetterButton(this,
+                r += SPACE, ypos)
+                .setSize(size, size * 2)
+                .setTransparent()
+                .setText("")
+                .setIcon("kerncraft:textures/gui/manual.png",
+                        texX += size, 200, size, size)
+                .setTextColor(Color.black, false)
+                .setTooltip("Previous")
+                .setMargin(0, 0);
+        btn.setWidth(size);
+        btn.init();
+
+        btn2 = new BetterButton(this,
+                r += SPACE, ypos)
+                .setSize(size, size * 2)
+                .setTransparent()
+                .setText("")
+                .setIcon("kerncraft:textures/gui/manual.png",
+                        texX += size, 200, size, size)
+                .setTextColor(Color.black, false)
+                .setTooltip("Super")
+                .setMargin(0, 0);
+        btn2.setWidth(size);
+        btn2.init();
+
+        btn1 = new BetterButton(this,
+                r += SPACE, ypos)
+                .setSize(size, size * 2)
+                .setTransparent()
+                .setText("")
+                .setIcon("kerncraft:textures/gui/manual.png",
+                        texX += size, 200, size, size)
+                .setTextColor(Color.black, false)
+                .setTooltip("Next")
+                .setMargin(0, 0);
+        btn1.setWidth(size);
+        btn1.init();
+
+        btn6 = new BetterButton(this,
+                r += SPACE, ypos)
+                .setSize(size, size * 2)
+                .setTransparent()
+                .setText("")
+                .setIcon("kerncraft:textures/gui/manual.png",
+                        texX += size, 200, size, size)
+                .setTextColor(Color.black, false)
+                .setTooltip("Goto end")
+                .setMargin(0, 0);
+        btn6.setWidth(size);
+        btn6.init();
+
+        btn4 = new BetterButton(this,
+                r += SPACE, ypos)
+                .setSize(size, size * 2)
+                .setTransparent()
+                .setText("")
+                .setIcon("kerncraft:textures/gui/manual.png",
+                        texX += size, 200, size, size)
+                .setTextColor(Color.black, false)
+                .setTint(Color.blue)
+                .setTooltip("Home")
                 .setMargin(0, 0);
         btn4.setWidth(size);
         btn4.init();
-        add(btn4);
 
-        Text title = new Text(this, 0, 0, 200, 60, Widget.Alignment.MIDDLE);
-        title.setText("sadasdsd");
+        title = new Text(this, (int) (guiLeft / 1.5), (int) ((guiTop - 55) / 1.5f),
+                ySize, 60, Widget.Alignment.MIDDLE);
+        title.setShadow(true);
         title.init();
     }
 
     @Override
     protected void actionPerformed(GuiButton button) throws IOException {
-        super.actionPerformed(button);
+//        super.actionPerformed(button);
 
         if (button == btn5) {
             beginningPage();
@@ -153,7 +213,11 @@ public abstract class TyrociniumChymicumGui extends ManualEntryGui {
         // Fall back to super
         super.drawScreen(par1, par2, par3);
 
-        title.draw();
+        GL11.glPushMatrix();
+        GL11.glScalef(1.5f, 1.5f, 1.5f);
+        title.setText(getTitle());
+        if (title != null) title.draw();
+        GL11.glPopMatrix();
     }
 
 }

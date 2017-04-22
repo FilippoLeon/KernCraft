@@ -61,6 +61,7 @@ public class BetterButton extends GuiButton implements IWidget {
     }
 
     public BetterButton(IAdvancedGui container, int x, int y) {
+
         this(container, x, y, 200, 20);
     }
 
@@ -125,7 +126,6 @@ public class BetterButton extends GuiButton implements IWidget {
         if (hover) {
             this.textHoverColor = textColor;
         } else {
-
             this.textColor = textColor;
         }
         return this;
@@ -184,7 +184,9 @@ public class BetterButton extends GuiButton implements IWidget {
             int j = 14737632;
             if (textColor != null) j = textColor.getRGB();
 
-            if (packedFGColour != 0) {
+            if (has_icon && !this.hovered) {
+                j = 10526880;
+            } else if (packedFGColour != 0) {
                 j = packedFGColour;
             } else if (!this.enabled) {
                 j = 10526880;
@@ -210,6 +212,7 @@ public class BetterButton extends GuiButton implements IWidget {
             }
 
             if (has_icon) {
+                GlStateManager.resetColor();
                 mc.getTextureManager().bindTexture(ICON_TEXTURES);
                 if (this.displayString.equals("") && Text.Alignment.MIDDLE == alignment) {
                     this.drawTexturedModalRect(xAbsPosition + (this.width - 16) / 2, yAbsPosition + (this.height - 16) / 2,
@@ -221,7 +224,6 @@ public class BetterButton extends GuiButton implements IWidget {
                             xIconSize, yIconSize);
                 }
             }
-            GlStateManager.resetColor();
         }
     }
 
@@ -235,6 +237,9 @@ public class BetterButton extends GuiButton implements IWidget {
         return yPosition;
     }
 
+    /**
+     * A button is automatically added to the container
+     */
     @Override
     public void init() {
         container.add(this);
