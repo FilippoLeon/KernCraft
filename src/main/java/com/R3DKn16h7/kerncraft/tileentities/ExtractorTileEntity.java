@@ -178,11 +178,11 @@ public class ExtractorTileEntity extends SmeltingTileEntity
                     // Try to add element to item in canister slot.
                     // If you can, pull the stack down
                     IElementContainer cap = ElementCapabilities.getCapability(containerStack);
-                    int tryAdd = cap.addAmountOf(rec_out.id, rec_out.quantity, true);
-                    if (tryAdd >= 0) {
+                    int tryAdd = cap.addAmountOf(rec_out.id, remaining[i], true);
+                    if (tryAdd > 0) {
                         ItemStack newStack = containerStack.splitStack(1);
                         IElementContainer newCap = ElementCapabilities.getCapability(newStack);
-                        remaining[i] -= newCap.addAmountOf(rec_out.id, rec_out.quantity, false);
+                        remaining[i] -= newCap.addAmountOf(rec_out.id, remaining[i], false);
                         output.setStackInSlot(rec_slot, newStack);
                     }
                     if (remaining[i] <= 0) {

@@ -18,7 +18,6 @@ import net.minecraftforge.energy.EnergyStorage;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
-import net.minecraftforge.items.CapabilityItemHandler;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -35,13 +34,13 @@ abstract public class SmeltingTileEntity
     // Internal energy storage
     EnergyStorage storage;
     FluidTank tank;
-    // Is the machine currently smelting
-    private boolean smelting = false;
     // Recipe Id currently smelting
     ISmeltingRecipe currentlySmelting;
+    int storedFuel = 0;
+    // Is the machine currently smelting
+    private boolean smelting = false;
     // Current progress oin smelting
     private int progress;
-    int storedFuel = 0;
     //
     private float elapsed = 0f;
     private int redstoneMode = 0;
@@ -52,8 +51,6 @@ abstract public class SmeltingTileEntity
         // Internal storages
         storage = new EnergyStorage(100000);
         tank = new FluidTank(16000);
-
-        setSmelting(false);
     }
 
     @Override
@@ -97,6 +94,13 @@ abstract public class SmeltingTileEntity
     @Override
     public int getRedstoneMode() {
         return redstoneMode;
+    }
+
+    @Override
+    public void setRedstoneMode(int mode) {
+        world.scheduleBlockUpdate(pos, this.getBlockType(), 0, 0);
+        this.markDirty();
+        this.redstoneMode = mode;
     }
 
     @Override
@@ -219,11 +223,13 @@ abstract public class SmeltingTileEntity
      */
     @Override
     public void update() {
-        if (elapsed > ticTime) {
-            progressSmelting();
-            elapsed = 0;
-        } else {
-            elapsed += 1;
+        if (!world.isRemote) {
+            if (elapsed > ticTime) {
+                progressSmelting();
+                elapsed = 0;
+            } else {
+                elapsed += 1;
+            }
         }
     }
 
@@ -294,13 +300,6 @@ abstract public class SmeltingTileEntity
     public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newSate) {
 
         return false;
-    }
-
-    @Override
-    public void setRedstoneMode(int mode) {
-        world.scheduleBlockUpdate(pos,this.getBlockType(),0,0);
-        this.markDirty();
-        this.redstoneMode = mode;
     }
 
 
