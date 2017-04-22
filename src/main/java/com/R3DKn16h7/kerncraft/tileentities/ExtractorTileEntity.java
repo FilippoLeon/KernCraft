@@ -1,14 +1,13 @@
 package com.R3DKn16h7.kerncraft.tileentities;
 
-import com.R3DKn16h7.kerncraft.crafting.KernCraftRecipes;
-import com.R3DKn16h7.kerncraft.elements.ElementStack;
-import com.R3DKn16h7.kerncraft.items.Canister;
-import com.R3DKn16h7.kerncraft.items.KernCraftItems;
+import com.R3DKn16h7.kerncraft.capabilities.ElementCapabilities;
+import com.R3DKn16h7.kerncraft.capabilities.IElementContainer;
 import com.R3DKn16h7.kerncraft.crafting.ExtractorRecipe;
 import com.R3DKn16h7.kerncraft.crafting.ISmeltingRecipe;
+import com.R3DKn16h7.kerncraft.crafting.KernCraftRecipes;
+import com.R3DKn16h7.kerncraft.elements.ElementStack;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 
@@ -26,14 +25,20 @@ public class ExtractorTileEntity extends SmeltingTileEntity
     static final public int totalSlots = 8;
     //// Static constants
     static private final int consumedEnergyPerFuelRefill = 100;
-    static private int generatedFuelPerEnergyDrain = 100;
     static private final int consumedFuelPerTic = 20;
-
+    static private int generatedFuelPerEnergyDrain = 100;
     public int[][] inputCoords = {{1,1},{3,1},{8,1},{1,3}};
     public int[][] outputCoords = {{5,3},{6,3},{7,3},{8,3}};
 
+    public ExtractorTileEntity() {
+        super(4, 4);
+
+        generatedFuelPerEnergyDrain = TileEntityFurnace.getItemBurnTime(new ItemStack(Items.COAL));
+    }
+
     @Override
     public int[][] getInputCoords() {return inputCoords; }
+
     @Override
     public int[][] getOutputCoords() {return outputCoords; }
 
@@ -55,12 +60,6 @@ public class ExtractorTileEntity extends SmeltingTileEntity
     @Override
     public List<ISmeltingRecipe> getRecipes() {
         return KernCraftRecipes.EXTRACTOR_RECIPES;
-    }
-
-    public ExtractorTileEntity() {
-        super(4, 4);
-
-        generatedFuelPerEnergyDrain = TileEntityFurnace.getItemBurnTime(new ItemStack(Items.COAL));
     }
 
     @Override
@@ -95,7 +94,8 @@ public class ExtractorTileEntity extends SmeltingTileEntity
         ExtractorRecipe recipe = ((ExtractorRecipe) currentlySmelting);
         if (storedFuel < consumedFuelPerTic) {
             ItemStack fuelItem = input.getStackInSlot(fuelSlot);
-            int fuel = TileEntityFurnace.getItemBurnTime(fuelItem); //GameRegistry.getFuelValue(fuelItem);
+            int fuel = TileEntityFurnace.getItemBurnTime(fuelItem);
+            //GameRegistry.getFuelValue(fuelItem);
             if (storage.getEnergyStored() > consumedEnergyPerFuelRefill) {
                 storage.extractEnergy(consumedEnergyPerFuelRefill, false);
                 storedFuel += generatedFuelPerEnergyDrain;
@@ -120,69 +120,40 @@ public class ExtractorTileEntity extends SmeltingTileEntity
     public void doneSmelting() {
         ExtractorRecipe recipe = ((ExtractorRecipe) currentlySmelting);
 
-        input.setStackInSlot(inputSlot, new ItemStack(input.getStackInSlot(inputSlot).getItem(),
-                input.getStackInSlot(inputSlot).getCount() - 1));
-        if (input.getStackInSlot(inputSlot).getCount() == 0) input.setStackInSlot(inputSlot, ItemStack.EMPTY);
+        input.getStackInSlot(inputSlot).splitStack(1);
         if (recipe.catalyst != null) {
-            input.setStackInSlot(catalystSlot, new ItemStack(input.getStackInSlot(catalystSlot).getItem(),
-                    input.getStackInSlot(catalystSlot).getCount() - 1));
-            if (input.getStackInSlot(catalystSlot).getCount() == 0) input.setStackInSlot(catalystSlot, ItemStack.EMPTY);
+            input.getStackInSlot(catalystSlot).splitStack(1);
         }
 
         // For each Element output, flag telling if this has already been produced
         int[] remaining = new int[recipe.outs.length];
         for (int i = 0; i < recipe.outs.length; ++i) {
-            remaining[i] = recipe.outs[i].quantity;
+            remaining[i] = recipe.outs[i].quantity * (Math.random() < recipe.outs[i].prob ? 1 : 0);
         }
 
-        // Place outputs in canisters, only if output can be placed (i.e. there isn't another element inside.
+        // Place outputs in canisters, only if output can be placed
+        // (i.e. there isn't another element inside.
         // Try each output slot
         for (int rec_slot = 0; rec_slot < outputSlotSize; ++rec_slot) {
             ItemStack out = output.getStackInSlot(rec_slot);
-            if (out == ItemStack.EMPTY) {
+            if (out == ItemStack.EMPTY || !ElementCapabilities.hasCapability(out)) {
                 continue;
             }
 
-            NBTTagCompound nbt;
-            if (out.hasTagCompound()) {
-                nbt = out.getTagCompound();
-            } else {
-                nbt = new NBTTagCompound();
-            }
+            IElementContainer cap = ElementCapabilities.getCapability(out);
 
             // Try each generated element
-            int i = 0;
+            int recipeElementNumber = 0;
             for (ElementStack rec_out : recipe.outs) {
                 // If all output has been produced break
-                if (remaining[i] <= 0) {
-                    ++i;
+                if (remaining[recipeElementNumber] <= 0) {
+                    ++recipeElementNumber;
                     continue;
                 }
-                if (nbt.hasKey("Element")) {
-                    int elemId = nbt.getInteger("Element");
-                    int qty = nbt.getInteger("Quantity");
-                    if (elemId == rec_out.id) {
-                        if (remaining[i] + qty <= Canister.CAPACITY) {
-                            nbt.setInteger("Quantity", remaining[i] + qty);
-                            remaining[i] = 0;
-                            out.setTagCompound(nbt);
-                            break;
-                        } else {
-                            remaining[i] -= Canister.CAPACITY - qty;
-                            nbt.setInteger("Quantity", Canister.CAPACITY);
-                            out.setTagCompound(nbt);
-                        }
-                    }
-                } else {
-                    nbt.setInteger("Element", rec_out.id);
-                    nbt.setInteger("Quantity", rec_out.quantity);
-                    out.setTagCompound(nbt);
-                    remaining[i] = 0;
-                    break;
-                }
-                ++i;
-            }
 
+                remaining[recipeElementNumber] -= cap.addAmountOf(rec_out.id, remaining[recipeElementNumber], false);
+                ++recipeElementNumber;
+            }
         }
 
         // If there is a CANISTER in CANISTER slot, pull if to the output slot and
@@ -191,6 +162,7 @@ public class ExtractorTileEntity extends SmeltingTileEntity
         for (int rec_slot = 0; rec_slot < outputSlotSize; ++rec_slot) {
 
             ItemStack out = output.getStackInSlot(rec_slot);
+
             if (out == ItemStack.EMPTY) {
                 // Try each element
                 int i = 0;
@@ -198,18 +170,22 @@ public class ExtractorTileEntity extends SmeltingTileEntity
 
                     // If Element has not been produced and there is a CANISTER in
                     // the slot
-                    if (remaining[i] > 0 && input.getStackInSlot(canisterSlot) != ItemStack.EMPTY &&
-                            input.getStackInSlot(canisterSlot).getCount() > 0 &&
-                            input.getStackInSlot(canisterSlot).getItem() == KernCraftItems.CANISTER) {
-                        remaining[i] = 0;
-                        output.setStackInSlot(rec_slot, new ItemStack(input.getStackInSlot(canisterSlot).getItem(), 1));
-                        input.setStackInSlot(canisterSlot, new ItemStack(input.getStackInSlot(canisterSlot).getItem(),
-                                input.getStackInSlot(canisterSlot).getCount() - 1));
-                        if (input.getStackInSlot(canisterSlot).getCount() == 0) input.setStackInSlot(canisterSlot,  ItemStack.EMPTY);
-                        NBTTagCompound nbt = new NBTTagCompound();
-                        nbt.setInteger("Element", rec_out.id);
-                        nbt.setInteger("Quantity", rec_out.quantity);
-                        output.getStackInSlot(rec_slot).setTagCompound(nbt);
+                    ItemStack containerStack = input.getStackInSlot(canisterSlot);
+                    if (containerStack == ItemStack.EMPTY || !ElementCapabilities.hasCapability(containerStack)) {
+                        continue;
+                    }
+
+                    // Try to add element to item in canister slot.
+                    // If you can, pull the stack down
+                    IElementContainer cap = ElementCapabilities.getCapability(containerStack);
+                    int tryAdd = cap.addAmountOf(rec_out.id, rec_out.quantity, true);
+                    if (tryAdd >= 0) {
+                        ItemStack newStack = containerStack.splitStack(1);
+                        IElementContainer newCap = ElementCapabilities.getCapability(newStack);
+                        remaining[i] -= newCap.addAmountOf(rec_out.id, rec_out.quantity, false);
+                        output.setStackInSlot(rec_slot, newStack);
+                    }
+                    if (remaining[i] <= 0) {
                         break;
                     }
 
