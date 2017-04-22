@@ -66,7 +66,7 @@ public abstract class TyrociniumChymicumGui extends ManualEntryGui {
         int texX = 60;
         btn3 = new BetterButton(this,
                 r, ypos)
-                .setSize(size, size * 2)
+                .setSize(size, size)
                 .setTransparent()
                 .setText("")
                 .setIcon("kerncraft:textures/gui/manual.png",
@@ -79,7 +79,7 @@ public abstract class TyrociniumChymicumGui extends ManualEntryGui {
 
         btn5 = new BetterButton(this,
                 r += SPACE, ypos)
-                .setSize(size, size * 2)
+                .setSize(size, size)
                 .setTransparent()
                 .setText("")
                 .setIcon("kerncraft:textures/gui/manual.png",
@@ -92,7 +92,7 @@ public abstract class TyrociniumChymicumGui extends ManualEntryGui {
 
         btn = new BetterButton(this,
                 r += SPACE, ypos)
-                .setSize(size, size * 2)
+                .setSize(size, size)
                 .setTransparent()
                 .setText("")
                 .setIcon("kerncraft:textures/gui/manual.png",
@@ -105,7 +105,7 @@ public abstract class TyrociniumChymicumGui extends ManualEntryGui {
 
         btn2 = new BetterButton(this,
                 r += SPACE, ypos)
-                .setSize(size, size * 2)
+                .setSize(size, size)
                 .setTransparent()
                 .setText("")
                 .setIcon("kerncraft:textures/gui/manual.png",
@@ -118,7 +118,7 @@ public abstract class TyrociniumChymicumGui extends ManualEntryGui {
 
         btn1 = new BetterButton(this,
                 r += SPACE, ypos)
-                .setSize(size, size * 2)
+                .setSize(size, size)
                 .setTransparent()
                 .setText("")
                 .setIcon("kerncraft:textures/gui/manual.png",
@@ -131,7 +131,7 @@ public abstract class TyrociniumChymicumGui extends ManualEntryGui {
 
         btn6 = new BetterButton(this,
                 r += SPACE, ypos)
-                .setSize(size, size * 2)
+                .setSize(size, size)
                 .setTransparent()
                 .setText("")
                 .setIcon("kerncraft:textures/gui/manual.png",
@@ -144,7 +144,7 @@ public abstract class TyrociniumChymicumGui extends ManualEntryGui {
 
         btn4 = new BetterButton(this,
                 r += SPACE, ypos)
-                .setSize(size, size * 2)
+                .setSize(size, size)
                 .setTransparent()
                 .setText("")
                 .setIcon("kerncraft:textures/gui/manual.png",
@@ -191,11 +191,7 @@ public abstract class TyrociniumChymicumGui extends ManualEntryGui {
     }
 
     public void drawBackground(int par1, int par2, float par3) {
-        // Draw title paper
-        this.mc.getTextureManager().bindTexture(
-                new ResourceLocation("kerncraft:textures/gui/title_paper.png")
-        );
-        this.drawTexturedModalRect(guiLeft + (xSize - 184) / 2, guiTop - 40, 0, 0, 184, 60);
+
     }
 
     @Override
@@ -206,6 +202,12 @@ public abstract class TyrociniumChymicumGui extends ManualEntryGui {
                 new ResourceLocation("kerncraft:textures/gui/manual.png")
         );
         this.drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
+
+        // Draw title paper
+        this.mc.getTextureManager().bindTexture(
+                new ResourceLocation("kerncraft:textures/gui/title_paper.png")
+        );
+        this.drawTexturedModalRect(guiLeft + (xSize - 184) / 2, guiTop - 40, 0, 0, 184, 60);
 
         // Fall back to super background
         this.drawBackground(par1, par2, par3);

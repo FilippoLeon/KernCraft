@@ -3,7 +3,6 @@ package com.R3DKn16h7.kerncraft.network;
 import com.R3DKn16h7.kerncraft.achievements.AchievementHandler;
 import com.R3DKn16h7.kerncraft.capabilities.ITyrociniumProgressCapability;
 import com.R3DKn16h7.kerncraft.capabilities.TyrociniumProgressDefaultCapability;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.text.TextComponentString;
@@ -17,12 +16,12 @@ import net.minecraftforge.fml.relauncher.Side;
  */
 public class MessageUnlockHandler implements IMessageHandler<MessageUnlock, IMessage> {
 
+
     @Override
     public IMessage onMessage(MessageUnlock message, MessageContext ctx) {
         if(ctx.side == Side.SERVER) {
-            System.out.println("Recv. unlock message from client");
+            System.out.println(String.format("Recv. unlock message '%s' from client", message.message));
             EntityPlayer player = ctx.getServerHandler().playerEntity;
-
 
             if (player.hasCapability(TyrociniumProgressDefaultCapability.INSTANCE, null)) {
                 ITyrociniumProgressCapability capability = player.getCapability(TyrociniumProgressDefaultCapability.INSTANCE, null);
@@ -33,29 +32,16 @@ public class MessageUnlockHandler implements IMessageHandler<MessageUnlock, IMes
                     return null;
                 }
 
+                if (AchievementHandler.achievementUnlocks.containsKey(message.message)) {
+                    player.addStat(AchievementHandler.achievementUnlocks.get(message.message), 1);
+                }
                 if (capability != null && capability.isContentLocked(message.message)) {
-                    if (message.message == "first_steps") {
-                        player.addStat(AchievementHandler.LEARNER, 1);
-                    }
 
                     capability.unlockContent(message.message);
                     player.sendMessage(new TextComponentString("Server just Unlocked: " + message.message));
                 }
             }
         }
-//            KernCraftNetwork.networkWrapper.sendToAll(new MessageUnlock(1));
-//        } else {
-//            System.out.println("Recv. unlock message from server");
-//            EntityPlayer player = Minecraft.getMinecraft().player;
-//            if(player.hasCapability(TyrociniumProgressDefaultCapability.INSTANCE, null)) {
-//                ITyrociniumProgressCapability capability = player.getCapability(TyrociniumProgressDefaultCapability.INSTANCE, null);
-//                if(capability.isContentLocked(1)) {
-//                    capability.unlockContent(1);
-//                    player.sendMessage(new TextComponentString("Client Unlocked stuff"));
-//                }
-//            }
-//        }
-
         return null;
     }
 

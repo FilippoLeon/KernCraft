@@ -1,6 +1,5 @@
 package com.R3DKn16h7.kerncraft.manual;
 
-import com.R3DKn16h7.kerncraft.achievements.AchievementHandler;
 import com.R3DKn16h7.kerncraft.capabilities.ITyrociniumProgressCapability;
 import com.R3DKn16h7.kerncraft.capabilities.TyrociniumProgressDefaultCapability;
 import com.R3DKn16h7.kerncraft.client.gui.IAdvancedGui;
@@ -32,6 +31,7 @@ public class TyrociniumChymicumIndexGui extends TyrociniumChymicumGui implements
     Map<BetterButton, Integer> dynamicallyGeneratedButtons = new HashMap<>();
     private IManualEntry entry;
 
+
     public TyrociniumChymicumIndexGui() {
         this(manual, 0);
     }
@@ -50,9 +50,10 @@ public class TyrociniumChymicumIndexGui extends TyrociniumChymicumGui implements
         super.initGui();
         int I = 0;
 
+        int BUTTON_SPACING = BUTTON_HEIGHT;
         if (depth == 0) {
             PERIODIC_TABLE_BUTTON = new BetterButton(this,
-                    guiLeft + MARGIN_LEFT, guiTop + MARGIN_TOP + BUTTON_HEIGHT * I++)
+                    guiLeft + MARGIN_LEFT, guiTop + MARGIN_TOP + BUTTON_SPACING * I++)
                     .setSize(PAGE_WIDTH, BUTTON_HEIGHT)
                     .setText("Periodic Table")
                     .setTextColor(Color.black, false)
@@ -64,7 +65,7 @@ public class TyrociniumChymicumIndexGui extends TyrociniumChymicumGui implements
         for (int j = 0; j < entry.getNumberOfChilds(); ++j) {
             if (!entries.get(j).isLocked()) {
                 BetterButton chapterButton = new BetterButton(this,
-                        guiLeft + 10, guiTop + MARGIN_TOP + BUTTON_HEIGHT * I++)
+                        guiLeft + 10, guiTop + MARGIN_TOP + BUTTON_SPACING * I++)
                         .setSize(PAGE_WIDTH, BUTTON_HEIGHT)
                         .setText(entries.get(j).getTitle())
                         .setTransparent()
@@ -123,7 +124,9 @@ public class TyrociniumChymicumIndexGui extends TyrociniumChymicumGui implements
     @Override
     public void superPage() {
         if (depth > 0) {
-            mc.displayGuiScreen(new TyrociniumChymicumIndexGui(entry.getParent(), depth - 1));
+            mc.displayGuiScreen(
+                    new TyrociniumChymicumIndexGui(entry.getParent(), depth - 1)
+            );
         }
     }
 
@@ -133,7 +136,7 @@ public class TyrociniumChymicumIndexGui extends TyrociniumChymicumGui implements
 
         if (button == PERIODIC_TABLE_BUTTON) {
             mc.displayGuiScreen(new TyrociniumChymicumPeriodicTableGui());
-            unlock(Content.FirstSteps);
+            unlock("first_steps");
         } else if (dynamicallyGeneratedButtons.containsKey(button)) {
 
             int indexInEntry = dynamicallyGeneratedButtons.get(button);
@@ -150,28 +153,15 @@ public class TyrociniumChymicumIndexGui extends TyrociniumChymicumGui implements
         }
     }
 
-    protected void unlock(Content content) {
-        switch (content) {
-            case FirstSteps:
-                mc.player.addStat(AchievementHandler.LEARNER, 1);
-                break;
-        }
-
+    protected void unlock(String str) {
+        // Locally set Capability on client
         if(mc.player.hasCapability(TyrociniumProgressDefaultCapability.INSTANCE, null)) {
-            ITyrociniumProgressCapability capability = mc.player.getCapability(TyrociniumProgressDefaultCapability.INSTANCE, null);
-            capability.unlockContent("first_steps");
+            ITyrociniumProgressCapability capability =
+                    mc.player.getCapability(TyrociniumProgressDefaultCapability.INSTANCE, null);
+            capability.unlockContent(str);
         }
-        KernCraftNetwork.networkWrapper.sendToServer(new MessageUnlock("first_steps"));
-    }
-
-    public boolean isUnlocked(Content content, int param) {
-
-        if(mc.player.hasCapability(TyrociniumProgressDefaultCapability.INSTANCE, null)) {
-            ITyrociniumProgressCapability capability = mc.player.getCapability(TyrociniumProgressDefaultCapability.INSTANCE, null);
-            return capability.isContentUnlocked("first_steps");
-        }
-
-        return false;
+        // Sync unlock to Server
+        KernCraftNetwork.networkWrapper.sendToServer(new MessageUnlock(str));
     }
 
     @Override
@@ -179,18 +169,4 @@ public class TyrociniumChymicumIndexGui extends TyrociniumChymicumGui implements
         return entry.getTitle();
     }
 
-    private enum Content {
-        FirstSteps("kernkraft_first_steps_unlocked");
-
-        public String nbtKey;
-
-        Content(String nbtKey) {
-            this.nbtKey = nbtKey;
-        }
-
-        public String toString() {
-            return nbtKey;
-        }
-
-    }
 }

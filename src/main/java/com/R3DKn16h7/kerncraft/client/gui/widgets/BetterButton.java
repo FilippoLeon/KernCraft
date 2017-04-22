@@ -77,7 +77,8 @@ public class BetterButton extends GuiButton implements IWidget {
     }
 
     public BetterButton setSize(int xSize, int ySize) {
-
+        this.width = xSize;
+        this.height = ySize;
         return this;
     }
 

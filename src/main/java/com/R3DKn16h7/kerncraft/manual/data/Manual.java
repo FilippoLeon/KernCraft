@@ -20,8 +20,6 @@ public class Manual implements IManualEntry {
 
     public Manual(String fileName) {
         parseXml(fileName);
-
-        System.out.println(getDescription("first_steps", "beginner_chemist"));
     }
 
     private void parseXml(String fileName) {
@@ -51,7 +49,7 @@ public class Manual implements IManualEntry {
         }
     }
 
-    private String getDescription(String chapter, String entry) {
+    public String getDescription(String chapter, String entry) {
 
         XPath xpath = XPathFactory.newInstance().newXPath();
         NodeList nodeList;
