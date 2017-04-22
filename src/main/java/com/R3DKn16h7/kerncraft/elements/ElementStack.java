@@ -5,6 +5,8 @@ import net.minecraft.nbt.NBTTagCompound;
 
 /**
  * Created by Filippo on 20-Apr-17.
+ *
+ * This is used to specify custom recipes.
  */
 public class ElementStack {
     public int id;
@@ -31,27 +33,6 @@ public class ElementStack {
         prob = prob_;
     }
 
-    public boolean isContainedInStack(ItemStack stack) {
-        if(stack.hasTagCompound()) {
-            NBTTagCompound nbt = stack.getTagCompound();
-            if (nbt.hasKey("Element") && nbt.getInteger("Element") == id &&
-                    quantity > 0 && nbt.hasKey("Quantity") && nbt.getInteger("Quantity") >= quantity) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public boolean isContainedInStackAnyQuantity(ItemStack stack) {
-        if(stack.hasTagCompound()) {
-            NBTTagCompound nbt = stack.getTagCompound();
-            if (nbt.hasKey("Element") && nbt.getInteger("Element") == id) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     public static int getQuantity(ItemStack stack) {
         if(stack.hasTagCompound()) {
             NBTTagCompound nbt = stack.getTagCompound();
@@ -62,13 +43,23 @@ public class ElementStack {
         return 0;
     }
 
-    public static void removeFromStack(ItemStack stack, int removedQuantity) {
+    public static int removeFromStack(ItemStack stack, int removedQuantity) {
+        return removeFromStack(stack, removedQuantity, false);
+    }
+
+    public static int removeFromStack(ItemStack stack, int removedQuantity, boolean simulate) {
+        int removable = 0;
         if(stack.hasTagCompound()) {
             NBTTagCompound nbt = stack.getTagCompound();
             if (nbt.hasKey("Element") && nbt.hasKey("Quantity")) {
-                nbt.setInteger("Quantity", nbt.getInteger("Quantity") - removedQuantity);
+                removable = Math.min(removedQuantity, nbt.getInteger("Quantity"));
+
+                if (!simulate) {
+                    nbt.setInteger("Quantity", nbt.getInteger("Quantity") - removable);
+                }
             }
         }
+        return removable;
     }
 
     public static Integer getElementId(ItemStack stack) {
@@ -79,5 +70,26 @@ public class ElementStack {
             }
         }
         return 0;
+    }
+
+    public boolean isContainedInStack(ItemStack stack) {
+        if (stack.hasTagCompound()) {
+            NBTTagCompound nbt = stack.getTagCompound();
+            if (nbt.hasKey("Element") && nbt.getInteger("Element") == id &&
+                    quantity > 0 && nbt.hasKey("Quantity") && nbt.getInteger("Quantity") >= quantity) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean isContainedInStackAnyQuantity(ItemStack stack) {
+        if (stack.hasTagCompound()) {
+            NBTTagCompound nbt = stack.getTagCompound();
+            if (nbt.hasKey("Element") && nbt.getInteger("Element") == id) {
+                return true;
+            }
+        }
+        return false;
     }
 }

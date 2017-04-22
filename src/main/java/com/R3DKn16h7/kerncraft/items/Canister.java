@@ -1,23 +1,25 @@
 package com.R3DKn16h7.kerncraft.items;
 
 import com.R3DKn16h7.kerncraft.KernCraft;
+import com.R3DKn16h7.kerncraft.capabilities.ElementCapabilities;
+import com.R3DKn16h7.kerncraft.capabilities.IElementContainer;
 import com.R3DKn16h7.kerncraft.elements.Element;
 import com.R3DKn16h7.kerncraft.elements.ElementBase;
 import com.R3DKn16h7.kerncraft.elements.ElementStack;
+import com.R3DKn16h7.kerncraft.utils.PlayerHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
 import net.minecraft.item.IItemPropertyGetter;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemElytra;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -30,6 +32,7 @@ import java.util.List;
 
 public class Canister extends Item {
     public final static String base_name = "canister";
+    // TODO: move to NBT
     public final static int CAPACITY = 1000;
     final int waitTime = 20;
     int elapsed = 0;
@@ -37,10 +40,11 @@ public class Canister extends Item {
     public Canister() {
         super();
 
-        this.addPropertyOverride(new ResourceLocation("element"), new IItemPropertyGetter()
-        {
+        this.addPropertyOverride(new ResourceLocation("element"),
+                new IItemPropertyGetter() {
             @SideOnly(Side.CLIENT)
-            public float apply(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn)
+            public float apply(ItemStack stack, @Nullable World worldIn,
+                               @Nullable EntityLivingBase entityIn)
             {
                 // TODO: only on shift
                 return ElementStack.getElementId(stack);
@@ -54,10 +58,7 @@ public class Canister extends Item {
 //        setHasSubtypes(true);
 
         GameRegistry.register(this);
-
     }
-
-
 
     static public Element getElement(ItemStack stack) {
         if (stack.hasTagCompound() && stack.getTagCompound().hasKey("Element")) {
@@ -65,6 +66,24 @@ public class Canister extends Item {
             return ElementBase.getElement(element_id);
         }
         return null;
+    }
+
+    public static ItemStack getElementItemStack(int i) {
+        return getElementItemStack(i, 0);
+    }
+
+    public static ItemStack getElementItemStack(int i, int amount) {
+        ItemStack itemStack = new ItemStack(KernCraftItems.CANISTER);
+
+        if (i > 0) {
+            NBTTagCompound nbt = new NBTTagCompound();
+            nbt.setInteger("Element", i);
+            nbt.setInteger("Quantity",
+                    amount >= 0 ? amount : CAPACITY
+            );
+            itemStack.setTagCompound(nbt);
+        }
+        return itemStack;
     }
 
     @Override
@@ -116,6 +135,29 @@ public class Canister extends Item {
     }
 
     @Override
+    public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
+
+        ItemStack itemStack = playerIn.getHeldItem(handIn);
+        ItemStack otherHandStack = playerIn.getHeldItem(PlayerHelper.otherHand(handIn));
+        if (otherHandStack.hasCapability(ElementCapabilities.CAPABILITY_ELEMENT_CONTAINER, null)) {
+            IElementContainer cap = otherHandStack.getCapability(ElementCapabilities.CAPABILITY_ELEMENT_CONTAINER, null);
+
+            int removable = ElementStack.removeFromStack(itemStack, 100, true);
+            int addable = cap.addAmountOf(
+                    ElementStack.getElementId(itemStack),
+                    removable, true
+            );
+            ElementStack.removeFromStack(itemStack, addable, false);
+            cap.addAmountOf(
+                    ElementStack.getElementId(itemStack),
+                    addable, false
+            );
+        }
+
+        return super.onItemRightClick(worldIn, playerIn, handIn);
+    }
+
+    @Override
     public boolean showDurabilityBar(ItemStack stack) {
         return stack.hasTagCompound() && stack.getTagCompound().hasKey("Element");
     }
@@ -135,8 +177,7 @@ public class Canister extends Item {
             int element_id = stack.getTagCompound().getInteger("Element");
             Element element = ElementBase.getElement(element_id);
 
-            lores.add("Element: " + element.state.toColor() + element.symbol +
-                    TextFormatting.RESET.toString() +
+            lores.add("Element: " + element.toSymbol() +
                     " ("
                     + element.id + ")");
 
@@ -159,21 +200,5 @@ public class Canister extends Item {
         if (stack.hasTagCompound() && stack.getTagCompound().hasKey("Quantity")) {
             lores.add("Quantity: " + Integer.toString(stack.getTagCompound().getInteger("Quantity")));
         }
-    }
-
-    public static ItemStack getElementItemStack(int i) {
-        return getElementItemStack(i, 0);
-    }
-
-    public static ItemStack getElementItemStack(int i, int amount) {
-        ItemStack itemStack = new ItemStack(KernCraftItems.CANISTER);
-
-        if(i > 0) {
-            NBTTagCompound nbt = new NBTTagCompound();
-            nbt.setInteger("Element", i);
-            nbt.setInteger("Quantity", amount >= 0 ? amount : KernCraftItems.CANISTER.CAPACITY);
-            itemStack.setTagCompound(nbt);
-        }
-        return itemStack;
     }
 }

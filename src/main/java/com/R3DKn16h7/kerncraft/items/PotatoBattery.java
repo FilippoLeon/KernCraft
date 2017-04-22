@@ -1,11 +1,13 @@
 package com.R3DKn16h7.kerncraft.items;
 
-import baubles.api.BaubleType;
-import baubles.api.IBauble;
+import net.darkhax.tesla.api.ITeslaConsumer;
+import net.darkhax.tesla.capability.TeslaCapabilities;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.item.Item;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumHand;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class PotatoBattery extends EnergyContainerItem {
@@ -21,4 +23,13 @@ public class PotatoBattery extends EnergyContainerItem {
         GameRegistry.register(this);
     }
 
+    @Override
+    public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
+        ITeslaConsumer cap =
+                playerIn.getHeldItem(handIn).getCapability(TeslaCapabilities.CAPABILITY_CONSUMER, null);
+
+        cap.givePower(100, false);
+
+        return super.onItemRightClick(worldIn, playerIn, handIn);
+    }
 }

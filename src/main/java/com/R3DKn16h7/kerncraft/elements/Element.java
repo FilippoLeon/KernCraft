@@ -2,6 +2,7 @@ package com.R3DKn16h7.kerncraft.elements;
 
 import com.google.gson.JsonObject;
 import net.minecraft.client.Minecraft;
+import net.minecraft.util.text.TextFormatting;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 
@@ -154,5 +155,9 @@ public class Element {
 
     public String getLocalizedName() {
         return name;
+    }
+
+    public String toSymbol() {
+        return state.toColor() + symbol + TextFormatting.RESET.toString();
     }
 }

@@ -20,12 +20,13 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerPickupXpEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
+
 //import net.minecraftforge.fml.common.gameevent.PlayerEvent;
-import net.minecraftforge.event.entity.player.PlayerEvent;
 
 
 public class EventHandlerCommon {
@@ -79,6 +80,11 @@ public class EventHandlerCommon {
             );
         }
     }
+
+//    @SubscribeEvent(priority = EventPriority.LOW)
+//    public void attachToItemStack(AttachCapabilitiesEvent<ItemStack> event) {
+//
+//    }
 
     @SubscribeEvent(priority = EventPriority.LOW)
     public void respawning(PlayerEvent.Clone event) {
