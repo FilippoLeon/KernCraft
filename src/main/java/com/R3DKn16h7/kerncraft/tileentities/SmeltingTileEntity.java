@@ -40,7 +40,7 @@ abstract public class SmeltingTileEntity
     // Is the machine currently smelting
     private boolean smelting = false;
     // Current progress oin smelting
-    private int progress;
+    private float progress;
     //
     private float elapsed = 0f;
     private int redstoneMode = 0;
@@ -55,8 +55,7 @@ abstract public class SmeltingTileEntity
 
     @Override
     public float getProgressPercent() {
-        if (currentlySmelting == null) return 0f;
-        return progress / (float) currentlySmelting.getCost();
+        return progress;
     }
     @Override
     public float getFuelStoredPercent() {
@@ -178,8 +177,8 @@ abstract public class SmeltingTileEntity
             } else {
                 setSmelting(true);
             }
-            ++progress;
-            if (progress >= currentlySmelting.getCost()) {
+            progress += 1. / (double) currentlySmelting.getCost();
+            if (progress >= 1.) {
                 progress = 0;
                 doneSmelting();
             }
@@ -226,6 +225,7 @@ abstract public class SmeltingTileEntity
         if (!world.isRemote) {
             if (elapsed > ticTime) {
                 progressSmelting();
+                world.scheduleBlockUpdate(getPos(), blockType, 0, 0);
                 elapsed = 0;
             } else {
                 elapsed += 1;
@@ -252,6 +252,8 @@ abstract public class SmeltingTileEntity
 
         nbt.setInteger("energyStored", storage.getEnergyStored());
         nbt.setInteger("maxEnergyStored", storage.getMaxEnergyStored());
+        nbt.setInteger("fuel", storedFuel);
+        nbt.setFloat("progress", progress);
         return nbt;
     }
 
@@ -274,6 +276,12 @@ abstract public class SmeltingTileEntity
             if (nbt.hasKey("energyStored")) {
                 storage.extractEnergy(1000000000, false);
                 storage.receiveEnergy(nbt.getInteger("energyStored"),false);
+            }
+            if (nbt.hasKey("fuel")) {
+                storedFuel = nbt.getInteger("fuel");
+            }
+            if (nbt.hasKey("progress")) {
+                progress = nbt.getFloat("progress");
             }
         }
     }

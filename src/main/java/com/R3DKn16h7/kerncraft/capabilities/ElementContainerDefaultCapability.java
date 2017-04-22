@@ -112,7 +112,7 @@ public class ElementContainerDefaultCapability
     @Override
     public int addAmountOf(int id, int amount, boolean simulate) {
         if (id <= 0 || id > ElementBase.NUMBER_OF_ELEMENTS) return 0;
-        if (getNumberOfElements() >= maxCapacity && !containedElements.containsKey(id)) {
+        if (getNumberOfElements() >= maxNumElements && !containedElements.containsKey(id)) {
             return 0;
         }
         int contained = containedElements.getOrDefault(id, 0);

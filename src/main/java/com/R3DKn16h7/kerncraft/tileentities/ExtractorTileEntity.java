@@ -156,37 +156,47 @@ public class ExtractorTileEntity extends SmeltingTileEntity
             }
         }
 
+        boolean finished = true;
+        for (int aRemaining : remaining) {
+            if (aRemaining > 0) finished = false;
+        }
+        if (finished) return;
+
         // If there is a CANISTER in CANISTER slot, pull if to the output slot and
         // fill it with element
         // Try each output slot
         for (int rec_slot = 0; rec_slot < outputSlotSize; ++rec_slot) {
 
-            ItemStack out = output.getStackInSlot(rec_slot);
 
+            ItemStack out = output.getStackInSlot(rec_slot);
             if (out == ItemStack.EMPTY) {
                 // Try each element
                 int i = 0;
                 for (ElementStack rec_out : recipe.outs) {
 
-                    // If Element has not been produced and there is a CANISTER in
-                    // the slot
-                    ItemStack containerStack = input.getStackInSlot(canisterSlot);
-                    if (containerStack == ItemStack.EMPTY || !ElementCapabilities.hasCapability(containerStack)) {
-                        continue;
-                    }
+                    if (out == ItemStack.EMPTY) {
+                        // If Element has not been produced and there is a CANISTER in
+                        // the slot
+                        ItemStack containerStack = input.getStackInSlot(canisterSlot);
+                        if (containerStack == ItemStack.EMPTY || !ElementCapabilities.hasCapability(containerStack)) {
+                            ++i;
+                            continue;
+                        }
 
-                    // Try to add element to item in canister slot.
-                    // If you can, pull the stack down
-                    IElementContainer cap = ElementCapabilities.getCapability(containerStack);
-                    int tryAdd = cap.addAmountOf(rec_out.id, remaining[i], true);
-                    if (tryAdd > 0) {
-                        ItemStack newStack = containerStack.splitStack(1);
-                        IElementContainer newCap = ElementCapabilities.getCapability(newStack);
-                        remaining[i] -= newCap.addAmountOf(rec_out.id, remaining[i], false);
-                        output.setStackInSlot(rec_slot, newStack);
-                    }
-                    if (remaining[i] <= 0) {
-                        break;
+                        // Try to add element to item in canister slot.
+                        // If you can, pull the stack down
+                        IElementContainer cap = ElementCapabilities.getCapability(containerStack);
+                        int tryAdd = cap.addAmountOf(rec_out.id, remaining[i], true);
+                        if (tryAdd > 0) {
+                            ItemStack newStack = containerStack.splitStack(1);
+                            IElementContainer newCap = ElementCapabilities.getCapability(newStack);
+                            remaining[i] -= newCap.addAmountOf(rec_out.id, remaining[i], false);
+                            output.setStackInSlot(rec_slot, newStack);
+                            out = newStack;
+                        }
+                    } else {
+                        IElementContainer cap = ElementCapabilities.getCapability(out);
+                        remaining[i] -= cap.addAmountOf(rec_out.id, remaining[i], false);
                     }
 
                     ++i;
