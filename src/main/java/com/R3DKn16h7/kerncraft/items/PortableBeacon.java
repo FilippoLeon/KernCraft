@@ -6,10 +6,10 @@ import com.R3DKn16h7.kerncraft.KernCraft;
 import com.R3DKn16h7.kerncraft.capabilities.ElementCapabilities;
 import com.R3DKn16h7.kerncraft.capabilities.ElementContainerProvider;
 import com.R3DKn16h7.kerncraft.capabilities.IElementContainer;
+import com.R3DKn16h7.kerncraft.elements.ElementBase;
 import com.R3DKn16h7.kerncraft.utils.PotionImprovedHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -24,7 +24,9 @@ import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import javax.annotation.Nullable;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Portable beacon that doesn't need to be placed in the world.
@@ -33,6 +35,7 @@ import java.util.List;
  */
 @Optional.Interface(iface = "baubles.api.IBauble", modid = "baubles")
 public class PortableBeacon extends Item implements IBauble {
+    static final Map<Integer, Effect> effectMap = new HashMap<>();
     public static String unlocalizedName = "portable_beacon";
 
     public PortableBeacon() {
@@ -43,15 +46,40 @@ public class PortableBeacon extends Item implements IBauble {
         this.setCreativeTab(KernCraft.KERNCRAFT_CREATIVE_TAB);
         this.setMaxStackSize(1);
         GameRegistry.register(this);
+
+        addEffect("He", Target.Self, PotionImprovedHelper.HASTE, 300, 1);
+        addEffect("U", Target.HittedEntity, PotionImprovedHelper.WITHER, 300, 0);
+        addEffect("C", Target.OnUse, PotionImprovedHelper.REGENERATION, 300, 0);
+    }
+
+    public void addEffect(String name, Target target, int effect, int duration, int amplifier) {
+        effectMap.put(ElementBase.symbolToId(name),
+                new Effect(target, effect, duration, amplifier));
     }
 
     @Override
     public void onUpdate(ItemStack stack, World worldIn,
                          Entity entityIn, int itemSlot, boolean isSelected) {
+        tryApplyEffect(entityIn, stack, Target.Self);
+    }
 
-        if (entityIn != null && entityIn instanceof EntityPlayer)
-            if (((EntityPlayer) entityIn).getActivePotionEffect(PotionImprovedHelper.getPotion(PotionImprovedHelper.HASTE)) == null)
-                ((EntityPlayer) entityIn).addPotionEffect(PotionImprovedHelper.getPotionEffect(PotionImprovedHelper.HASTE, 300));
+    private void tryApplyEffect(Entity entityIn, ItemStack stack, Target target) {
+        IElementContainer cap = ElementCapabilities.getCapability(stack);
+        if (entityIn != null
+                && entityIn instanceof EntityLivingBase
+                && ElementCapabilities.hasCapability(stack)) {
+            EntityLivingBase player = ((EntityLivingBase) entityIn);
+            for (int i : cap.getElements()) {
+                if (!effectMap.containsKey(i)) continue;
+                Effect eff = effectMap.get(i);
+                if (eff.target != target) continue;
+                if (!PotionImprovedHelper.hasPotionEffectBool(player, eff.effect)
+                        && cap.removeAmountOf(i, 4, true) == 4) {
+                    cap.removeAmountOf(i, 4, false);
+                    PotionImprovedHelper.addPotionEffect(player, eff.effect, eff.duration, eff.amplifier);
+                }
+            }
+        }
     }
 
     @Override
@@ -61,8 +89,8 @@ public class PortableBeacon extends Item implements IBauble {
 
     @Override
     public double getDurabilityForDisplay(ItemStack stack) {
-        if (stack.hasCapability(ElementCapabilities.CAPABILITY_ELEMENT_CONTAINER, null)) {
-            IElementContainer cap = stack.getCapability(ElementCapabilities.CAPABILITY_ELEMENT_CONTAINER, null);
+        if (ElementCapabilities.hasCapability(stack)) {
+            IElementContainer cap = ElementCapabilities.getCapability(stack);
             return 1. - cap.getTotalAmount() / cap.getCapacity();
 
         }
@@ -73,25 +101,14 @@ public class PortableBeacon extends Item implements IBauble {
     public EnumActionResult onItemUse(EntityPlayer player,
                                       World world, BlockPos pos, EnumHand hand,
                                       EnumFacing facing, float hitX, float hitY, float hitZ) {
-//        if (player.getHeldItem(hand).hasCapability(ElementCapabilities.CAPABILITY_ELEMENT_CONTAINER, null)) {
-//            IElementContainer cap = player.getHeldItem(hand).getCapability(
-//                    ElementCapabilities.CAPABILITY_ELEMENT_CONTAINER, null
-//            );
-//            cap.addAmountOf(1, 100, false);
-//        }
-
-
         // TODO DEPRECATED
         if (!world.isRemote) {
+            tryApplyEffect(player, player.getHeldItem(hand), Target.OnUse);
 
-            player.addPotionEffect(PotionImprovedHelper.getPotionEffect(
-                    PotionImprovedHelper.HASTE, 300)
-            );
             return EnumActionResult.SUCCESS;
         }
         return EnumActionResult.FAIL;
     }
-
 
     @Nullable
     @Override
@@ -104,13 +121,7 @@ public class PortableBeacon extends Item implements IBauble {
     public boolean onLeftClickEntity(ItemStack stack, EntityPlayer player, Entity entity) {
         // TODO DEPRECATED
         if (!player.world.isRemote) {
-            if (entity instanceof EntityLivingBase) {
-                EntityLivingBase entityLivingBase = (EntityLivingBase) entity;
-                if (entityLivingBase instanceof IMob) {
-                    IMob mod = (IMob) entityLivingBase;
-                    entityLivingBase.addPotionEffect(PotionImprovedHelper.getPotionEffect(PotionImprovedHelper.WITHER, 300));
-                }
-            }
+            tryApplyEffect(entity, stack, Target.HittedEntity);
             return true;
         }
         return false;
@@ -133,9 +144,7 @@ public class PortableBeacon extends Item implements IBauble {
     @Override
     @Optional.Method(modid="baubles")
     public void onWornTick(ItemStack itemstack, EntityLivingBase player) {
-        if (player != null && player instanceof EntityPlayer)
-            if (player.getActivePotionEffect(PotionImprovedHelper.getPotion(PotionImprovedHelper.SPECTRAL)) == null)
-                player.addPotionEffect(PotionImprovedHelper.getPotionEffect(PotionImprovedHelper.SPECTRAL, 300));
+        tryApplyEffect(player, itemstack, Target.Self);
     }
 
     @Override
@@ -166,5 +175,30 @@ public class PortableBeacon extends Item implements IBauble {
     @Optional.Method(modid="baubles")
     public boolean willAutoSync(ItemStack itemstack, EntityLivingBase player) {
         return false;
+    }
+
+    enum Target {
+        HittedEntity,
+        Self,
+        OnUse,
+    }
+
+    class Effect {
+        int amplifier;
+        Target target;
+        int effect;
+        int duration;
+
+        Effect(Target target, int effect, int duration) {
+            this(target, effect, duration, 0);
+        }
+
+        Effect(Target target, int effect, int duration, int amplifier) {
+            this.effect = effect;
+            this.target = target;
+            this.duration = duration;
+            this.amplifier = amplifier;
+
+        }
     }
 }

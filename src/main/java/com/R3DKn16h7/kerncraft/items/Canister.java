@@ -88,8 +88,8 @@ public class Canister extends Item {
     @Override
     public void onUpdate(ItemStack stack, World worldIn,
                          Entity entityIn, int itemSlot, boolean isSelected) {
-        if (elapsed > waitTime && entityIn != null && entityIn instanceof EntityPlayer) {
-            elapsed = 0;
+        if (/*elapsed > waitTime &&*/ entityIn != null && entityIn instanceof EntityPlayer) {
+//            elapsed = 0;
             EntityPlayer entity = (EntityPlayer) entityIn;
             IElementContainer cap = ElementCapabilities.getCapability(stack);
 
@@ -117,11 +117,11 @@ public class Canister extends Item {
             }
             if (elem.reachedCriticalMass(qty)) {
                 double x = entityIn.posX, y = entityIn.posY, z = entityIn.posZ;
-                worldIn.createExplosion(null, x,y,z,10,true);
+                worldIn.createExplosion(entityIn, x, y, z, 10, true);
                 cap.removeAllOf(elem.id);
             }
         }
-        ++elapsed;
+//        ++elapsed;
     }
 
     @Override
