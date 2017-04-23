@@ -16,6 +16,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.EnergyStorage;
+import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
@@ -226,7 +227,7 @@ abstract public class SmeltingTileEntity
         if (!world.isRemote) {
             if (elapsed > ticTime) {
                 progressSmelting();
-                world.scheduleBlockUpdate(getPos(), blockType, 0, 1000);
+//                world.scheduleBlockUpdate(getPos(), blockType, 0, 1000);
                 elapsed = 0;
             } else {
                 elapsed += 1;
@@ -240,13 +241,17 @@ abstract public class SmeltingTileEntity
                 return storedFuel;
             case SmeltingContainer.PROGRESS_ID:
                 return (int) Math.floor(progress * 100);
-            case 2:
-//                return this.cookTime;
-            case 3:
-//                return this.totalCookTime;
-            default:
-                return 0;
+            case SmeltingContainer.FLUID_AMOUNT:
+                return this.tank.getFluidAmount();
+            case SmeltingContainer.ENERGY:
+                return this.getEnergyStored();
+            case SmeltingContainer.REDSTONE_MODE:
+                return this.getRedstoneMode();
         }
+        if (id < 0) {
+            return sideConfig.getSlotSide(-id).getValue();
+        }
+        return 0;
     }
 
     public void setField(int id, int value) {
@@ -257,16 +262,30 @@ abstract public class SmeltingTileEntity
             case SmeltingContainer.PROGRESS_ID:
                 this.progress = value / 100.f;
                 break;
-            case 2:
-//                this.cookTime = value;
+            case SmeltingContainer.FLUID_AMOUNT:
+                this.tank.setFluid(new FluidStack(FluidRegistry.LAVA, value));
                 break;
-            case 3:
-//                this.totalCookTime = value;
+            case SmeltingContainer.ENERGY:
+                this.storage.receiveEnergy(value - this.storage.getEnergyStored(), false);
+                break;
+            case SmeltingContainer.REDSTONE_MODE:
+                this.setRedstoneMode(value);
+                break;
+        }
+        if (id < 0) {
+            sideConfig.setSlotSide(-id, value);
         }
     }
 
     public int getFieldCount() {
         return SmeltingContainer.FIELDS;
+    }
+
+    @Override
+    public void onLoad() {
+        super.onLoad();
+
+        inputChanged = true;
     }
 
     @Override

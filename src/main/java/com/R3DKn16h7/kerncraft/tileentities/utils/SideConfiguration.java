@@ -10,37 +10,28 @@ import net.minecraftforge.items.ItemStackHandler;
  */
 public class SideConfiguration {
 
+    public static final int NUMBER_OF_SIDES = 6;
+    private final int size;
+    public ConfigurableItemHandler[] configurableItemHandler;
     private int[] inputSides;
     private int[] outputSides;
-    public ConfigurableItemHandler[] configurableItemHandler;
 
-    public enum EnumSide {
-        Disabled(6),
-        Front(0),
-        Right(1),
-        Back(2),
-        Left(3),
-        Top(4),
-        Bottom(5);
+    public SideConfiguration(ItemStackHandler inputItemHandler,
+                             ItemStackHandler outputItemHandler, ISideConfigurable te) {
+        configurableItemHandler = new ConfigurableItemHandler[NUMBER_OF_SIDES];
 
-        private final int value;
+        inputSides = new int[inputItemHandler.getSlots()];
+        outputSides = new int[outputItemHandler.getSlots()];
+        size = inputItemHandler.getSlots() + outputItemHandler.getSlots();
 
-        EnumSide(int value) {
-            this.value = value;
+        for (int i = 0; i < NUMBER_OF_SIDES; ++i) {
+            configurableItemHandler[i] = new ConfigurableItemHandler(inputItemHandler, outputItemHandler, te);
+            configurableItemHandler[i].setFromArray(inputSides, outputSides, i);
         }
+    }
 
-        public int getValue() {
-            return value;
-        }
-
-        public static EnumSide fromInt(int i) {
-            for (EnumSide b : EnumSide.values()) {
-                if (b.getValue() == i) {
-                    return b;
-                }
-            }
-            return null;
-        }
+    public int getSize() {
+        return size;
     }
 
     // TODO: use entity facing to obtain correct positioning
@@ -57,19 +48,6 @@ public class SideConfiguration {
         }
     }
 
-    public SideConfiguration(ItemStackHandler inputItemHandler,
-                             ItemStackHandler outputItemHandler, ISideConfigurable te) {
-        configurableItemHandler = new ConfigurableItemHandler[6];
-
-        inputSides = new int[inputItemHandler.getSlots()];
-        outputSides = new int[outputItemHandler.getSlots()];
-
-        for(int i = 0; i < 6; ++i) {
-            configurableItemHandler[i] = new ConfigurableItemHandler(inputItemHandler, outputItemHandler, te);
-            configurableItemHandler[i].setFromArray(inputSides, outputSides, i);
-        }
-    }
-
     public void setSlotSide(int slot_id, int side) {
         if(slot_id < inputSides.length) inputSides[slot_id] = side;
         else if(slot_id >= inputSides.length) outputSides[slot_id - inputSides.length] = side;
@@ -77,7 +55,7 @@ public class SideConfiguration {
             System.out.println("Error, invalid slot!");
         }
 
-        for(int i = 0; i < 6; ++i) {
+        for (int i = 0; i < NUMBER_OF_SIDES; ++i) {
             configurableItemHandler[i].setFromArray(inputSides, outputSides, i);
         }
     }
@@ -102,8 +80,37 @@ public class SideConfiguration {
         inputSides = nbt.getIntArray("inputSides");
         outputSides = nbt.getIntArray("outputSides");
 
-        for(int i = 0; i < 6; ++i) {
+        for (int i = 0; i < NUMBER_OF_SIDES; ++i) {
             configurableItemHandler[i].setFromArray(inputSides, outputSides, i);
+        }
+    }
+
+    public enum EnumSide {
+        Disabled(NUMBER_OF_SIDES),
+        Front(0),
+        Right(1),
+        Back(2),
+        Left(3),
+        Top(4),
+        Bottom(5);
+
+        private final int value;
+
+        EnumSide(int value) {
+            this.value = value;
+        }
+
+        public static EnumSide fromInt(int i) {
+            for (EnumSide b : EnumSide.values()) {
+                if (b.getValue() == i) {
+                    return b;
+                }
+            }
+            return null;
+        }
+
+        public int getValue() {
+            return value;
         }
     }
 }
