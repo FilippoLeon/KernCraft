@@ -70,6 +70,7 @@ public class ElementBase {
         return string_to_id.get(s);
     }
 
+
     static public Element getElement(int id) {
         if (id < 1) return null;
         return elements.get(id - 1);
