@@ -44,10 +44,12 @@ public class Canister extends Item {
                                @Nullable EntityLivingBase entityIn)
             {
                 // TODO: only on shift
-                if (ElementCapabilities.hasCapability(stack)) {
-                    IElementContainer cap = ElementCapabilities.getCapability(stack);
-                    if (cap.getNumberOfElements() <= 0) return 0;
-                    return ElementCapabilities.getFirstElement(cap).id;
+                if (PlayerHelper.isCtrlKeyDown()) {
+                    if (ElementCapabilities.hasCapability(stack)) {
+                        IElementContainer cap = ElementCapabilities.getCapability(stack);
+                        if (cap.getNumberOfElements() <= 0) return 0;
+                        return ElementCapabilities.getFirstElement(cap).id;
+                    }
                 }
                 return 0;
             }
@@ -126,22 +128,24 @@ public class Canister extends Item {
     public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn,
                                                     EnumHand handIn) {
 
-        ItemStack itemStack = playerIn.getHeldItem(handIn);
-        ItemStack otherHandStack = playerIn.getHeldItem(PlayerHelper.otherHand(handIn));
-        if (ElementCapabilities.hasCapability(otherHandStack)) {
-            IElementContainer otherCap = ElementCapabilities.getCapability(otherHandStack);
-            IElementContainer cap2 = ElementCapabilities.getCapability(itemStack);
+        if (PlayerHelper.isCtrlKeyDown() ? handIn.equals(EnumHand.MAIN_HAND) : handIn.equals(EnumHand.OFF_HAND)) {
+            ItemStack itemStack = playerIn.getHeldItem(handIn);
+            ItemStack otherHandStack = playerIn.getHeldItem(PlayerHelper.otherHand(handIn));
+            if (ElementCapabilities.hasCapability(otherHandStack)) {
+                IElementContainer otherCap = ElementCapabilities.getCapability(otherHandStack);
+                IElementContainer cap2 = ElementCapabilities.getCapability(itemStack);
 
-            if (cap2.getNumberOfElements() >= 1) {
-                int id = ElementCapabilities.getFirstElement(cap2).id;
+                if (cap2.getNumberOfElements() >= 1) {
+                    int id = ElementCapabilities.getFirstElement(cap2).id;
 
-                int transferable = ElementCapabilities.amountThatCanBeTansfered(
-                        cap2, otherCap,
-                        id, 100
-                );
-                ElementCapabilities.transferAmount(cap2, otherCap, id, transferable);
+                    int transferable = ElementCapabilities.amountThatCanBeTansfered(
+                            cap2, otherCap,
+                            id, 100
+                    );
+                    ElementCapabilities.transferAmount(cap2, otherCap, id, transferable);
+                }
+
             }
-
         }
 
         return super.onItemRightClick(worldIn, playerIn, handIn);
@@ -156,6 +160,14 @@ public class Canister extends Item {
     public double getDurabilityForDisplay(ItemStack stack) {
         IElementContainer cap = ElementCapabilities.getCapability(stack);
         return 1.0 - (double) cap.getTotalAmount() / cap.getTotalAmount();
+    }
+
+    @Override
+    public int getItemStackLimit(ItemStack stack) {
+        if (ElementCapabilities.hasCapability(stack)) {
+            return ElementCapabilities.getCapability(stack).getNumberOfElements() > 0 ? 1 : 64;
+        }
+        return 64;
     }
 
     @Override

@@ -103,12 +103,33 @@ public class ElementCapabilities {
                                     ) :
                             TextFormatting.GREEN + "no")
             );
-        } else {
-            tooltipList.add("Hold ctrl for more stuff...");
         }
+
         int amount = cap.getTotalAmount();
+        int maxAmount = cap.getCapacity();
         if (amount > 0) {
-            tooltipList.add(String.format("Quantity: %d", amount));
+            tooltipList.add(String.format("Quantity: %d/%d", amount, maxAmount));
+        }
+
+        if (PlayerHelper.isCtrlKeyDown()) {
+            tooltipList.add(String.format("%s%sRight Click to transfer from\n" +
+                            "off hand to main hand. Hold\n" +
+                            "%sCTRL%s and Right Click to transfer\n" +
+                            "from main hand to off hand.",
+                    com.mojang.realmsclient.gui.ChatFormatting.ITALIC,
+                    TextFormatting.GRAY.toString(),
+                    TextFormatting.AQUA.toString(),
+                    TextFormatting.GRAY.toString()
+                    )
+            );
+        } else {
+            tooltipList.add(String.format("%s%sHold %sCTRL%s for more stuff...",
+                    TextFormatting.ITALIC.toString(),
+                    TextFormatting.GRAY.toString(),
+                    TextFormatting.AQUA.toString(),
+                    TextFormatting.GRAY.toString()
+                    )
+            );
         }
 
     }
