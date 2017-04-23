@@ -1,6 +1,5 @@
 package com.R3DKn16h7.kerncraft.tileentities;
 
-import com.R3DKn16h7.kerncraft.tileentities.utils.ConfigurableItemHandler;
 import com.R3DKn16h7.kerncraft.tileentities.utils.SideConfiguration;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.nbt.NBTTagCompound;
@@ -13,11 +12,9 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.items.CapabilityItemHandler;
-import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 
 import javax.annotation.Nullable;
-import java.awt.*;
 
 /**
  * Created by Filippo on 14/12/2016.
@@ -27,12 +24,11 @@ public abstract class MachineTileEntity extends TileEntity
 
     public final ItemStackHandler input;
     public final ItemStackHandler output;
+    public final SideConfiguration sideConfig;
     private final int inputSize;
     private final int outputSize;
     // Has the input changed since last check?
     public boolean inputChanged = false;
-
-    public final SideConfiguration sideConfig;
 
     public MachineTileEntity(int inputSize, int outputSize) {
         super();

@@ -1,6 +1,5 @@
 package com.R3DKn16h7.kerncraft.guicontainer;
 
-import com.R3DKn16h7.kerncraft.tileentities.ExtractorTileEntity;
 import com.R3DKn16h7.kerncraft.tileentities.MachineTileEntity;
 import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.entity.player.EntityPlayer;
@@ -14,10 +13,10 @@ import net.minecraftforge.fml.common.FMLCommonHandler;
 /**
  * Created by Filippo on 18-Apr-17.
  */
-public class MachineContainer extends AdvancedContainer {
-    private MachineTileEntity te;
+public class MachineContainer<T extends MachineTileEntity> extends AdvancedContainer {
+    protected T te;
 
-    public MachineContainer(IInventory playerInv, MachineTileEntity te) {
+    public MachineContainer(IInventory playerInv, T te) {
         this.te = te;
 
         Packet packet = te.getUpdatePacket();
@@ -30,7 +29,6 @@ public class MachineContainer extends AdvancedContainer {
     public boolean canInteractWith(EntityPlayer playerIn) {
         return true;
     }
-
 
     /**
      * Merges provided ItemStack with the first avaliable one in the container/player inventor between minIndex

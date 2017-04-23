@@ -1,14 +1,12 @@
 package com.R3DKn16h7.kerncraft.guicontainer;
 
 import com.R3DKn16h7.kerncraft.tileentities.ChemicalFurnaceTileEntity;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
-import net.minecraft.item.ItemStack;
 import net.minecraftforge.items.IItemHandler;
 
 
-public class ChemicalFurnaceContainer extends MachineContainer {
+public class ChemicalFurnaceContainer extends SmeltingContainer {
 
     /***
      *

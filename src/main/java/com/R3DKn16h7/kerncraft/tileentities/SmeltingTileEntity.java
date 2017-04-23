@@ -1,6 +1,7 @@
 package com.R3DKn16h7.kerncraft.tileentities;
 
 import com.R3DKn16h7.kerncraft.crafting.ISmeltingRecipe;
+import com.R3DKn16h7.kerncraft.guicontainer.SmeltingContainer;
 import com.R3DKn16h7.kerncraft.tileentities.utils.SideConfiguration;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Items;
@@ -29,21 +30,21 @@ abstract public class SmeltingTileEntity
 
     //// Status variables
     // Are we currently smelting
-    private static final float ticTime = 5f;
+    static final float ticTime = 5f;
+    // Is the machine currently smelting
+    protected boolean smelting = false;
+    // Current progress oin smelting
+    protected float progress;
+    //
+    protected float elapsed = 0f;
+    protected int redstoneMode = 0;
     //// Static constants
     // Internal energy storage
     EnergyStorage storage;
     FluidTank tank;
+    int storedFuel = 0;
     // Recipe Id currently smelting
     ISmeltingRecipe currentlySmelting;
-    int storedFuel = 0;
-    // Is the machine currently smelting
-    private boolean smelting = false;
-    // Current progress oin smelting
-    private float progress;
-    //
-    private float elapsed = 0f;
-    private int redstoneMode = 0;
 
     public SmeltingTileEntity(int inputSize, int outputSize) {
         super(inputSize, outputSize);
@@ -225,12 +226,47 @@ abstract public class SmeltingTileEntity
         if (!world.isRemote) {
             if (elapsed > ticTime) {
                 progressSmelting();
-                world.scheduleBlockUpdate(getPos(), blockType, 0, 0);
+                world.scheduleBlockUpdate(getPos(), blockType, 0, 1000);
                 elapsed = 0;
             } else {
                 elapsed += 1;
             }
         }
+    }
+
+    public int getField(int id) {
+        switch (id) {
+            case SmeltingContainer.FUEL_ID:
+                return storedFuel;
+            case SmeltingContainer.PROGRESS_ID:
+                return (int) Math.floor(progress * 100);
+            case 2:
+//                return this.cookTime;
+            case 3:
+//                return this.totalCookTime;
+            default:
+                return 0;
+        }
+    }
+
+    public void setField(int id, int value) {
+        switch (id) {
+            case SmeltingContainer.FUEL_ID:
+                this.storedFuel = value;
+                break;
+            case SmeltingContainer.PROGRESS_ID:
+                this.progress = value / 100.f;
+                break;
+            case 2:
+//                this.cookTime = value;
+                break;
+            case 3:
+//                this.totalCookTime = value;
+        }
+    }
+
+    public int getFieldCount() {
+        return SmeltingContainer.FIELDS;
     }
 
     @Override
