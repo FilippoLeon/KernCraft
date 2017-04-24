@@ -32,6 +32,7 @@ abstract public class SmeltingTileEntity
     //// Status variables
     // Are we currently smelting
     static final float ticTime = 5f;
+    public FluidTank tank;
     // Is the machine currently smelting
     protected boolean smelting = false;
     // Current progress oin smelting
@@ -42,7 +43,6 @@ abstract public class SmeltingTileEntity
     //// Static constants
     // Internal energy storage
     EnergyStorage storage;
-    FluidTank tank;
     int storedFuel = 0;
     // Recipe Id currently smelting
     ISmeltingRecipe currentlySmelting;
