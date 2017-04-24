@@ -16,6 +16,7 @@ Soon:
     - NEW: add element transferer
     - NEW: magnetostatic battery
     - add oreDIct integration for recipes
+    - localization for element
 
 Soonish:
     - write manual pages
@@ -26,4 +27,5 @@ Soonish:
     - air compressor?
 
 Maybe never:
+    - isotopes and molecules
     - sounds

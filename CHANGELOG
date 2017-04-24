@@ -5,6 +5,7 @@
     * Fix potato battery
     * Deprecate addAmount to ElementContainer to specify Entity, check if crit. mass reached
     * Add chem. furn. JEI integration
+    * Refactoring Element
 
 2017-04-23  F. <>
     * KernCraft is in a decent state

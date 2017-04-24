@@ -101,17 +101,17 @@ public class Canister extends Item {
             if(qty == 0) return;
 
             Element elem = ElementCapabilities.getFirstElement(stack);
-            if ( elem.toxic || elem.half_life > 0 ) {
+            if (elem.toxic || elem.halfLife > 0) {
                 if (PotionImprovedHelper.hasPotionEffect(entity,
                         PotionImprovedHelper.POISON) == null) {
                     PotionImprovedHelper.addPotionEffect(entity,
                             PotionImprovedHelper.POISON, 70);
                 }
             }
-            if( elem.half_life > 0) {
+            if (elem.halfLife > 0) {
                 float ticTime = 0.1f;
                 int new_qty = (int) Math.floor((float)
-                        qty * (ticTime / elem.half_life * 1e9 * 0.693f)
+                        qty * (ticTime / elem.halfLife * 1e9 * 0.693f)
                  );
                 cap.removeAmountOf(elem.id, new_qty, false);
             }

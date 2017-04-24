@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Elements>
-    <Element id="1">
+    <Element name="hydrogen">
         <Description lang="en_us">
             Hydrogen is the simplest element you can think of. In its common
             form it's made out of a single Proton. However, it can be found
@@ -20,7 +20,7 @@
             If you do not believe me, look up the Wikipedia page for Hindenburg disaster.
         </Description>
     </Element>
-    <Element id="2">
+    <Element name="helium">
         <Description lang="en_us">
 
         </Description>

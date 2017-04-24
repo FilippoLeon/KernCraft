@@ -94,12 +94,12 @@ public class ElementCapabilities {
                     )
             );
             tooltipList.add(String.format("Radioactive: %s",
-                    element.half_life > 0 ?
+                    element.halfLife > 0 ?
                             TextFormatting.RED + "yes" +
                                     TextFormatting.RESET +
                                     String.format(
                                             " (half-life: %.2e s)",
-                                            element.half_life
+                                            element.halfLife
                                     ) :
                             TextFormatting.GREEN + "no")
             );

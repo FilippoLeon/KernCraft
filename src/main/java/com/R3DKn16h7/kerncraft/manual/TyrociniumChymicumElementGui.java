@@ -137,7 +137,7 @@ public class TyrociniumChymicumElementGui extends TyrociniumChymicumGui {
                 guiLeft + 15 + 125, guiTop + 10, element.family.toColor().getRGB());
         fontRendererObj.drawString("Period " + element.period,
                 guiLeft + 15 + 125, guiTop + 20, 0x222222);
-        fontRendererObj.drawString(element.half_life > 0 ? "Unstable" : "",
+        fontRendererObj.drawString(element.halfLife > 0 ? "Unstable" : "",
                 guiLeft + 50, guiTop + 30, new Color(121, 116, 18).getRGB());
         //drawString(fontRendererObj , StringUtils.capitalize(element.name), guiLeft + 50, guiTop + 10, 0xdddddd);
         //drawString(fontRendererObj , StringUtils.capitalize(element.toxic ? "true" : "False"), guiLeft + 50, guiTop + 20, 0xdddddd);
@@ -157,10 +157,10 @@ public class TyrociniumChymicumElementGui extends TyrociniumChymicumGui {
             fontRendererObj.drawString("Color: " + element.color,
                     guiLeft + FIRST_COL_START, guiTop + HEADER_HEIGHT + col++ * ROW_HEIGHT, 0x555555);
             col = 0;
-            fontRendererObj.drawString("Stable: " + (element.half_life > 0 ? "no" : "yes"),
+            fontRendererObj.drawString("Stable: " + (element.halfLife > 0 ? "no" : "yes"),
                     guiLeft + FIRST_COL_START + FIRST_COL_WIDTH, guiTop + HEADER_HEIGHT + col++ * ROW_HEIGHT, 0x555555);
-            if (element.half_life > 0) {
-                fontRendererObj.drawString(String.format("Half-life: %.2e", element.half_life),
+            if (element.halfLife > 0) {
+                fontRendererObj.drawString(String.format("Half-life: %.2e", element.halfLife),
                         guiLeft + FIRST_COL_START + FIRST_COL_WIDTH, guiTop + HEADER_HEIGHT + col++ * ROW_HEIGHT, 0x555555);
             }
             fontRendererObj.drawString("Toxic: " + (element.toxic ? "yes" : "no"),
@@ -173,10 +173,10 @@ public class TyrociniumChymicumElementGui extends TyrociniumChymicumGui {
         if (ix >= listOfStringToDisplay.size()) return;
         for (int col = 0; col < 2; ++col) {
             for (int row = 0; row < MAX_ROWS; ++row) {
-//                int l = element.description.length();
+//                int l = element.shortDescription.length();
                 //if(start >=l ) break;
                 //int end = Math.min(start + size, l);
-                //String str = element.description.substring(start, end);
+                //String str = element.shortDescription.substring(start, end);
                 //if(str.equals("")) break;
                 //fontRendererObj.drawString(str, guiLeft + 15 + 125*col, guiTop + 45 + row * 10, 0x555555);
                 fontRendererObj.drawString(listOfStringToDisplay.get(ix++),
@@ -190,7 +190,7 @@ public class TyrociniumChymicumElementGui extends TyrociniumChymicumGui {
                 //start += size;
             }
         }
-        //fontRendererObj.drawSplitString(element.description, guiLeft + 15, guiTop + 45, 120, 0x555555);
+        //fontRendererObj.drawSplitString(element.shortDescription, guiLeft + 15, guiTop + 45, 120, 0x555555);
     }
 
 }

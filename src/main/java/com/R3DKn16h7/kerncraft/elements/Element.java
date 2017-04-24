@@ -17,137 +17,210 @@ import java.io.DataInputStream;
 /**
  * Created by Filippo on 20-Apr-17.
  *
- * Represent a single element.
+ * Represent a single element. Contains all the information of a single
+ * element of the Periodic Table, including all details such as group, mass,
+ * (short) shortDescription, color, ...
+ *
+ * This is instantiated only once and then it is just retrieved and
+ * used. Never modified.
+ *
+ * TODO: support for shortDescription and name localization
  */
 public class Element {
-    public int id;
-    public String symbol;
-    public String register_name;
-    public String name;
-    public int group;
-    public int period;
-    public float mass;
-    public float density;
-    public float radius;
-    public float conductivity;
-    public float sp_heat;
-    public float th_conductivity;
-    public String color;
-    public boolean toxic;
-    public ElementBase.ElementState state;
-    public ElementBase.ElementFamily family;
-    public float half_life;
-    public String description;
+    /**
+     * Unique identifier, also known as atomic number.
+     */
+    public final int id;
+    /**
+     * Short symbol in the form H, He, ..
+     */
+    public final String symbol;
+    /**
+     * Unlocalized name, also registry name and unique identifier.
+     */
+    public final String name;
+    public final int group;
+    public final int period;
+    public final float mass;
+    public final float density;
+    public final float radius;
+    public final float conductivity;
+    public final float specificHeat;
+    public final float thermalConductivity;
+    public final String color;
+    public final boolean toxic;
+    /**
+     * State at room temperature.
+     */
+    public final ElementBase.ElementState state;
+    public final ElementBase.ElementFamily family;
+    /**
+     * Denotes the half life of the element. A value of -1 indicates
+     * that the element is stable.
+     */
+    public final float halfLife;
+    /**
+     * A very short description of the element. The length shall
+     * not bee to big. Use the Xml representation to obatin the
+     * long, localized description.
+     * <p>
+     * TODO: probably
+     */
+    public final String shortDescription;
+    /**
+     * Amount at which the element does: Kaboooooooooom! The value
+     * -1 indicates a stable element.
+     */
+    private final int criticalMass;
 
-    Element(int id_, JsonObject js) {
-        // TODO: remove try
-        id = id_;
-        symbol = js.get("symbol").getAsString();
+    Element(int atomicNumber, JsonObject jsonObject) {
+        this.id = atomicNumber;
+        this.name = jsonObject.get("english").getAsString();
+        this.symbol = jsonObject.get("symbol").getAsString();
+
+        String gr = jsonObject.get("group").getAsString();
+        switch (gr) {
+            case "A":
+                this.group = ElementBase.GROUP.Actinide.getValue();
+                break;
+            case "L":
+                this.group = ElementBase.GROUP.Lanthanide.getValue();
+                break;
+            default:
+                this.group = tryGetAsIntOrDefault("group", 1, jsonObject);
+                break;
+        }
+        this.family = ElementBase.ElementFamily.fromString(
+                jsonObject.get("family").getAsString()
+        );
+        this.period = tryGetAsIntOrDefault("period", 0, jsonObject);
+
+        // TODO: remove error if key not present and mark element with no data as mystery property
+        this.mass = tryGetAsFloatOrDefault("mass", 1, jsonObject);
+        this.density = tryGetAsFloatOrDefault("density", 1, jsonObject);
+        this.radius = tryGetAsFloatOrDefault("radius", 1, jsonObject);
+        this.conductivity = tryGetAsFloatOrDefault("conductivity", 1, jsonObject);
+        this.thermalConductivity = tryGetAsFloatOrDefault("thermalConductivity", 1, jsonObject);
+        this.specificHeat = tryGetAsFloatOrDefault("specificHeat", 1, jsonObject);
+        this.halfLife = tryGetAsFloatOrDefault("halfLife", -1, jsonObject, false);
+        this.criticalMass = tryGetAsIntOrDefault("criticalMass", -1, jsonObject, false);
+
+        color = jsonObject.get("color").getAsString();
+
+        this.toxic = tryGetAsBoolOrDefault("toxic", false, jsonObject);
+
+        state = ElementBase.ElementState.fromString(jsonObject.get("state").getAsString());
+
+        // TODO: Use i18n for this
+        String temp = null;
         try {
-            mass = js.get("mass").getAsFloat();
-        } catch (RuntimeException e) {
-            density = 0;
-        }
-
-        String gr = js.get("group").getAsString();
-        if (gr.equals("A")) {
-            group = ElementBase.GROUP.Actinide.getValue();
-        } else if (gr.equals("L")) {
-            group = ElementBase.GROUP.Lanthanide.getValue();
-        } else {
-            try {
-                group = js.get("group").getAsInt();
-            } catch (RuntimeException e) {
-
-            }
-        }
-
-        family = ElementBase.ElementFamily.fromString(js.get("family").getAsString());
-
-        period = js.get("period").getAsInt();
-        name = js.get("english").getAsString();
-        try {
-            density = js.get("density").getAsFloat();
-        } catch (RuntimeException e) {
-            density = 0;
-        }
-        try {
-            radius = js.get("radius").getAsFloat();
-        } catch (RuntimeException e) {
-            radius = 0;
-        }
-        try {
-            conductivity = js.get("conductivity").getAsFloat();
-        } catch (RuntimeException e) {
-            conductivity = 0;
-        }
-
-        try {
-            th_conductivity = js.get("th_conductivity").getAsFloat();
-        } catch (RuntimeException e) {
-            th_conductivity = 0;
-        }
-        try {
-            sp_heat = js.get("sp_heat").getAsFloat();
-        } catch (RuntimeException e) {
-            sp_heat = 0;
-        }
-        color = js.get("color").getAsString();
-        try {
-            toxic = js.get("toxic").getAsBoolean();
-        } catch (RuntimeException e) {
-            toxic = false;
-        }
-
-        state = ElementBase.ElementState.fromString(js.get("state").getAsString());
-
-        try {
-            half_life = js.get("half_life").getAsFloat();
-        } catch (RuntimeException e) {
-            half_life = 0;
-        }
-
-        try {
-            description = js.get("description").getAsString();
+            temp = jsonObject.get("description").getAsString();
         } catch (RuntimeException e) {
 
         }
-
+        shortDescription = temp;
     }
 
-    public String loadDescription() {
+    static float tryGetAsFloatOrDefault(String key, float defaultValue,
+                                        JsonObject jsonObject) {
+        return tryGetAsFloatOrDefault(key, defaultValue, jsonObject, true);
+    }
+
+    static float tryGetAsFloatOrDefault(String key, float defaultValue,
+                                        JsonObject jsonObject, boolean warnIfError) {
         try {
-            String fname = "assets/kerncraft/config/elements_descriptions.xml";
-            System.out.println(String.format("Reading file = \"%s.xml\" for Element %s description",
-                    fname, this.name)
+            return jsonObject.get(key).getAsFloat();
+        } catch (RuntimeException e) {
+            if (warnIfError == true) {
+                System.err.println(
+                        String.format("Error parsing Element Json, string '%s' " +
+                                        "of key '%s' not convertible to float.",
+                                jsonObject.get(key), key
+                        )
+                );
+            }
+            return defaultValue;
+        }
+    }
+
+    static int tryGetAsIntOrDefault(String key, int defaultValue,
+                                    JsonObject jsonObject) {
+        return tryGetAsIntOrDefault(key, defaultValue, jsonObject, true);
+    }
+
+    static int tryGetAsIntOrDefault(String key, int defaultValue,
+                                    JsonObject jsonObject, boolean warnIfError) {
+        try {
+            return jsonObject.get(key).getAsInt();
+        } catch (RuntimeException e) {
+            if (warnIfError == true) {
+                System.err.println(
+                        String.format("Error parsing Element Json, string '%s' " +
+                                        "of key '%s' not convertible to int.",
+                                jsonObject.get(key), key
+                        )
+                );
+            }
+            return defaultValue;
+        }
+    }
+
+    private boolean tryGetAsBoolOrDefault(String key, boolean defaultValue,
+                                          JsonObject jsonObject) {
+        try {
+            return jsonObject.get(key).getAsBoolean();
+        } catch (RuntimeException e) {
+            System.err.println(
+                    String.format("Error parsing Element Json, string '%s' " +
+                                    "of key '%s' not convertible to bool.",
+                            jsonObject.get(key), key
+                    )
             );
-            DataInputStream in = new DataInputStream(getClass().getClassLoader()
-                    .getResourceAsStream(fname));
+            return defaultValue;
+        }
+    }
 
+    /**
+     * Given the element, read the xml file containing the <b>long</b>
+     * descriptions and return the parsed string.
+     *
+     * @return
+     */
+    public String loadDescription() {
+        // TODO: move this string somewhere else?
+        String fileName = "assets/kerncraft/config/elements_descriptions.xml";
+        System.out.println(
+                String.format("Reading file = \"%s.xml\" for Element " +
+                                "%s description.",
+                        fileName, this.name
+                )
+        );
+        try {
+            DataInputStream in = new DataInputStream(
+                    getClass().getClassLoader().getResourceAsStream(fileName)
+            );
 
-            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse(in);
-            doc.getDocumentElement().normalize();
+            DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+            Document doc = documentBuilder.parse(in);
+
+            String lang = Minecraft.getMinecraft().gameSettings.language;
 
             XPath xpath = XPathFactory.newInstance().newXPath();
-            XPathExpression expr = xpath.compile("//Element[@id='" + this.id + "']");
-            Object exprResult = expr.evaluate(doc, XPathConstants.NODESET);
-            NodeList nodeList = (NodeList) exprResult;
+            XPathExpression expr = xpath.compile(
+                    "//Element[@name='" + this.name + "']/Description[@lang='" + lang + "']"
+            );
+
+            NodeList nodeList = (NodeList) expr.evaluate(doc.getDocumentElement(),
+                    XPathConstants.NODESET
+            );
             if (nodeList.getLength() > 0) {
-                String lang = Minecraft.getMinecraft().gameSettings.language;
-
-                expr = xpath.compile("//Description[@lang='" + lang + "']");
-                exprResult = expr.evaluate(nodeList.item(0), XPathConstants.NODESET);
-                NodeList nodeList2 = (NodeList) exprResult;
-                if (nodeList2.getLength() > 0) {
-
-                    return nodeList2.item(0).getTextContent();
-                } else {
-                    return "";
-                }
+                return nodeList.item(0).getTextContent();
+            } else {
+                return "";
             }
         } catch (Exception e) {
+            System.out.println(e.getLocalizedMessage());
             e.printStackTrace();
         }
         return "";
@@ -157,11 +230,23 @@ public class Element {
         return name;
     }
 
+    /**
+     * Converts symbol and room temperature state to a pretty colorized string.
+     *
+     * @return
+     */
     public String toSymbol() {
         return state.toColor() + symbol + TextFormatting.RESET.toString();
     }
 
+    /**
+     * True if element with given amount surpasses critical mass and goes
+     * Kabooooom.
+     *
+     * @param quantity
+     * @return
+     */
     public boolean reachedCriticalMass(int quantity) {
-        return symbol.matches("Pu") && quantity > 70;
+        return criticalMass > 0 && quantity > criticalMass;
     }
 }
