@@ -1,4 +1,10 @@
+
 2017-04-24  F. <>
+    * Unify energy, wrapper around forge (for items)
+    * Send fluid nbt data to client when interface is open
+    * Fix potato battery
+
+2017-04-23  F. <>
     * KernCraft is in a decent state
     * Some basic way to have machines
     * Some basic way to have elements

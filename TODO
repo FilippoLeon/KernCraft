@@ -1,16 +1,12 @@
 Soon:
-    - Unify energy, wrapper around forge
-     energy with tesla, possibly cofh?
+    - Unify energy, wrapper around forge energy with tesla, possibly cofh?
     - Deprecate addAmount to ElementContainer to specify
     Entity?, check if crit mass reached
     - Add chem furn JEI integration
-    - Send fluid nbt data to client when interface is
-    open DetectAndSendChanges?
     - Figure a way to deal with half life. Store NBT data
-     with last update timestamp
+    with last update timestamp
     and (to add to capability, so it is checked on adddAmount?
     Store timestamp + tick up or somethng?
-    - Fix potato batter
     - XMl recipes?
 
 Soonish:
