@@ -50,7 +50,6 @@ public abstract class EnergyContainerItem extends Item {
 
 
     @Override
-    @Optional.Method(modid = "tesla")
     public ICapabilityProvider initCapabilities(ItemStack stack,
                                                 NBTTagCompound nbt) {
         return new EnergyContainerItemCapabilityProvider(getCapacity(), getMaxInput(), getMaxOutput());

@@ -2,13 +2,13 @@ package com.R3DKn16h7.kerncraft;
 
 import com.R3DKn16h7.kerncraft.elements.ElementBase;
 import com.R3DKn16h7.kerncraft.items.Canister;
+import com.R3DKn16h7.kerncraft.items.EnergyContainer;
 import com.R3DKn16h7.kerncraft.items.KernCraftItems;
-import net.darkhax.tesla.api.ITeslaConsumer;
-import net.darkhax.tesla.api.ITeslaHolder;
-import net.darkhax.tesla.capability.TeslaCapabilities;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
+import net.minecraftforge.energy.CapabilityEnergy;
+import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.SidedProxy;
@@ -44,11 +44,11 @@ public class KernCraft {
             if (MOD_CONFIG_ADD_FULL_SUBITEMS) {
                 ItemStack potato_battery = new ItemStack(KernCraftItems.POTATO_BATTERY, 1);
                 // TODO: this must be fixed
-                if (potato_battery.hasCapability(TeslaCapabilities.CAPABILITY_CONSUMER, null)
-                        && potato_battery.hasCapability(TeslaCapabilities.CAPABILITY_HOLDER, null)) {
-                    ITeslaConsumer cap = potato_battery.getCapability(TeslaCapabilities.CAPABILITY_CONSUMER, null);
-                    ITeslaHolder caph = potato_battery.getCapability(TeslaCapabilities.CAPABILITY_HOLDER, null);
-                    cap.givePower(caph.getCapacity(), false);
+                if (potato_battery.hasCapability(CapabilityEnergy.ENERGY, null)) {
+                    IEnergyStorage cap = potato_battery.getCapability(CapabilityEnergy.ENERGY, null);
+                    if (cap instanceof EnergyContainer) {
+                        ((EnergyContainer) cap).fill();
+                    }
                     p_78018_1_.add(potato_battery);
                 }
             }

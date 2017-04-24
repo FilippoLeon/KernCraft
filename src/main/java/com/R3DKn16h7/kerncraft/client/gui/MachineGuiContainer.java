@@ -11,7 +11,6 @@ import com.R3DKn16h7.kerncraft.tileentities.*;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
-import net.minecraftforge.energy.IEnergyStorage;
 
 import java.awt.*;
 import java.util.function.IntConsumer;
@@ -27,10 +26,6 @@ public class MachineGuiContainer extends AdvancedGuiContainer {
     protected AnimatedTexturedElement brewing;
     protected Text progressText;
 
-    private int gridCoord(int pos) {
-        return pos >= 0 ? pos*itemStackIconSize : -pos*itemStackIconSize + itemStackIconSize/2;
-    }
-
     public MachineGuiContainer(Container container, IInventory playerInv, MachineTileEntity te) {
         super(container, playerInv, te);
 
@@ -44,7 +39,8 @@ public class MachineGuiContainer extends AdvancedGuiContainer {
         AddWidget(energyBar, true);
 
         fluidBar = new AnimatedTexturedElement(this,
-                "kerncraft:textures/gui/container/extractor_gui.png", -1 + 9, -1,
+                "kerncraft:textures/gui/container/extractor_gui.png",
+                -1 + 9, -1,
                 6,  gridCoord(3) - 2,
                 176, 0,
                 AnimatedTexturedElement.Direction.BOTTOM, 300);
@@ -53,7 +49,9 @@ public class MachineGuiContainer extends AdvancedGuiContainer {
         AddWidget(fluidBar, true);
 
         if(te instanceof IRedstoneSettable) {
-            StateButton redstoneModeButton = StateButton.REDSTONE_MODE(this, ((IRedstoneSettable) te));
+            StateButton redstoneModeButton = StateButton.REDSTONE_MODE(this,
+                    ((IRedstoneSettable) te)
+            );
             redstoneModeButton.setState(((IRedstoneSettable) te).getRedstoneMode());
             AddWidget(redstoneModeButton, true);
         }
@@ -105,6 +103,10 @@ public class MachineGuiContainer extends AdvancedGuiContainer {
         AddWidget(titleText, true);
 
         setupSideConfiguration();
+    }
+
+    private int gridCoord(int pos) {
+        return pos >= 0 ? pos * itemStackIconSize : -pos * itemStackIconSize + itemStackIconSize / 2;
     }
 
     private void setupSideConfiguration() {
@@ -205,6 +207,9 @@ public class MachineGuiContainer extends AdvancedGuiContainer {
             String name;
             if (fluid_te.getFluid() != null) {
                 name = fluid_te.getFluid().getLocalizedName();
+                if (!name.equals("Water") && !name.equals("Lava")) {
+                    fluidBar.setTint(new Color(fluid_te.getFluid().getFluid().getColor()));
+                }
             } else {
                 name = "Empty";
             }

@@ -13,7 +13,8 @@ import net.minecraftforge.fml.common.Optional;
  */
 @Optional.InterfaceList({
         @Optional.Interface(modid = "tesla", iface = "net.darkhax.tesla.api.ITeslaHolder"),
-        @Optional.Interface(modid = "tesla", iface = "net.darkhax.tesla.api.ITeslaConsumer")
+        @Optional.Interface(modid = "tesla", iface = "net.darkhax.tesla.api.ITeslaConsumer"),
+        @Optional.Interface(modid = "tesla", iface = "net.darkhax.tesla.api.ITeslaProducer")
 })
 public class EnergyContainer
         implements IEnergyStorage,
@@ -163,5 +164,13 @@ public class EnergyContainer
         if (this.amount > this.getCapacity()) {
             this.amount = this.getCapacity();
         }
+    }
+
+    public void fill() {
+        this.amount = getCapacity();
+    }
+
+    public void setAmount(long amount) {
+        this.amount = amount;
     }
 }
