@@ -167,7 +167,6 @@ public class ExtractorTileEntity extends SmeltingTileEntity
         // Try each output slot
         for (int rec_slot = 0; rec_slot < outputSlotSize; ++rec_slot) {
 
-
             ItemStack out = output.getStackInSlot(rec_slot);
             if (out == ItemStack.EMPTY) {
                 // Try each element

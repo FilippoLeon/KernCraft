@@ -47,7 +47,7 @@ public class MessageFluidStackSync implements IMessage {
         buf.writeInt(pos.getY());
         buf.writeInt(pos.getZ());
         buf.writeInt(fluidStack.amount);
-        byte[] bytes = fluidStack.getUnlocalizedName().getBytes(StandardCharsets.US_ASCII);
+        byte[] bytes = fluidStack.getFluid().getName().getBytes(StandardCharsets.US_ASCII);
         buf.writeInt(bytes.length);
         buf.writeBytes(bytes);
     }

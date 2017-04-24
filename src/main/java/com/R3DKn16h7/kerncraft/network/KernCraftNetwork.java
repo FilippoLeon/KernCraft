@@ -32,9 +32,13 @@ public class KernCraftNetwork {
         // TODO: remove this: server is notifying client of something the client already knows, redundant
         networkWrapper.registerMessage(MessageUnlockHandler.class,
                 MessageUnlock.class, getNextDiscriminator(), Side.CLIENT);
-        // Sync progress when player spawns/dies
+        // Sync progress to client when player spawns/dies
         networkWrapper.registerMessage(MessageSyncTyrociniumProgressHandler.class,
                 MessageSyncTyrociniumProgress.class,
+                getNextDiscriminator(), Side.CLIENT);
+        // Sync fluid to client from Container (on server)
+        networkWrapper.registerMessage(MessageFluidStackSyncHandler.class,
+                MessageFluidStackSync.class,
                 getNextDiscriminator(), Side.CLIENT);
 
     }

@@ -2,7 +2,6 @@ package com.R3DKn16h7.kerncraft.tileentities;
 
 import com.R3DKn16h7.kerncraft.KernCraft;
 import com.R3DKn16h7.kerncraft.items.KernCraftItems;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.BlockHorizontal;
@@ -14,7 +13,6 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -111,6 +109,7 @@ public abstract class MachineBlock extends BlockContainer {
     public boolean onBlockActivated(World world, BlockPos pos, IBlockState state,
                                     EntityPlayer player, EnumHand hand,
                                     EnumFacing side, float hitX, float hitY, float hitZ) {
+        // TODO: improve this one by generifying
         if(player.getHeldItem(hand).getItem() == Items.WATER_BUCKET) {
             MachineTileEntity te = (MachineTileEntity) world.getTileEntity(pos);
             if(te instanceof SmeltingTileEntity) {
@@ -139,6 +138,7 @@ public abstract class MachineBlock extends BlockContainer {
             te.markDirty();
             return true;
         }
+
         if (!world.isRemote && has_gui) {
             player.openGui(KernCraft.instance, gui,
                     world, pos.getX(), pos.getY(), pos.getZ());

@@ -16,7 +16,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.EnergyStorage;
-import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
@@ -263,7 +262,7 @@ abstract public class SmeltingTileEntity
                 this.progress = value / 100.f;
                 break;
             case SmeltingContainer.FLUID_AMOUNT:
-                this.tank.setFluid(new FluidStack(FluidRegistry.LAVA, value));
+//                this.tank.setFluid(new FluidStack(FluidRegistry.LAVA, value));
                 break;
             case SmeltingContainer.ENERGY:
                 this.storage.receiveEnergy(value - this.storage.getEnergyStored(), false);

@@ -1,5 +1,7 @@
 package com.R3DKn16h7.kerncraft.guicontainer;
 
+import com.R3DKn16h7.kerncraft.network.KernCraftNetwork;
+import com.R3DKn16h7.kerncraft.network.MessageFluidStackSync;
 import com.R3DKn16h7.kerncraft.tileentities.SmeltingTileEntity;
 import net.minecraft.inventory.IContainerListener;
 import net.minecraft.inventory.IInventory;
@@ -70,6 +72,9 @@ public class SmeltingContainer extends MachineContainer<SmeltingTileEntity> {
         }
 //        this.currentItemBurnTime = this.tileFurnace.getField(1);
 //        this.totalCookTime = this.tileFurnace.getField(3);
+
+
+        KernCraftNetwork.networkWrapper.sendToAll(new MessageFluidStackSync(0, te.tank.getFluid(), te.getPos()));
     }
 
     @SideOnly(Side.CLIENT)
