@@ -1,14 +1,29 @@
+High priority:
+    - FIX: add progress bar to Chemical Furnace
+    - FIX: time machine find way to abtivate/deactuvate
+    - FIX: add outputs to Chem. Furnace.
+    - XMl recipes?
+
 Soon:
     - Unify energy, wrapper around forge energy with tesla, possibly cofh?
-    - Deprecate addAmount to ElementContainer to specify
-    Entity?, check if crit mass reached
-    - Add chem furn JEI integration
     - Figure a way to deal with half life. Store NBT data
     with last update timestamp
     and (to add to capability, so it is checked on adddAmount?
     Store timestamp + tick up or somethng?
-    - XMl recipes?
+    - Glassware? New container feature, suck as stabilizer, gas/liquid/solid, containment, isolation.
+    - Sync lamp GUI when open
+    - NEW: redstone signal emitter
+    - NEW: add element transferer
+    - NEW: magnetostatic battery
+    - add oreDIct integration for recipes
 
 Soonish:
     - write manual pages
     - write recipes
+    - config option
+    - README page with demo images
+    - support for wrenches
+    - air compressor?
+
+Maybe never:
+    - sounds

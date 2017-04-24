@@ -3,6 +3,8 @@
     * Unify energy, wrapper around forge (for items)
     * Send fluid nbt data to client when interface is open
     * Fix potato battery
+    * Deprecate addAmount to ElementContainer to specify Entity, check if crit. mass reached
+    * Add chem. furn. JEI integration
 
 2017-04-23  F. <>
     * KernCraft is in a decent state

@@ -34,7 +34,7 @@ public class LampTileEntity extends TileEntity implements IRedstoneSettable, IMe
     }
 
     public void receiveMessage(int i) {
-        System.out.println("Received ll:" + lightLevel);
+//        System.out.println("Received ll:" + lightLevel);
         if (i == -1 && lightLevel < 15) ++lightLevel;
         else if (i == -2 && lightLevel > 0) --lightLevel;
         else if(i >= 0 && i <= 15 && lightLevel != i) lightLevel = i;
