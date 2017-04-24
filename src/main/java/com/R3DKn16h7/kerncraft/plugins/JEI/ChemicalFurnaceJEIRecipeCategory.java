@@ -25,7 +25,7 @@ public class ChemicalFurnaceJEIRecipeCategory implements IRecipeCategory {
     protected final ResourceLocation backgroundLocation;
     //    protected final IDrawableAnimated flame;
 //    protected final IDrawableAnimated arrow;
-    private final IDrawable background;
+    private final IDrawable background, slot;
     private final String localizedName;
     private IDrawable[] elements;
 
@@ -48,6 +48,8 @@ public class ChemicalFurnaceJEIRecipeCategory implements IRecipeCategory {
                 182, 28 + 18, 18, 18);
         elements[1] = guiHelper.createAnimatedDrawable(brewing,
                 300, IDrawableAnimated.StartDirection.TOP, false);
+        slot = guiHelper.createDrawable(location,
+                7 + 1 * 18, 16 + 2 * 18, 18, 18);
 //        elements[0] = guiHelper.createDrawable(backgroundLocation,
 //                7, 16, 18, 18);
 //        elements[1] = guiHelper.createDrawable(furnaceLocation,
@@ -87,6 +89,10 @@ public class ChemicalFurnaceJEIRecipeCategory implements IRecipeCategory {
         for (IDrawable elem : elements) {
             elem.draw(minecraft, 18 * 3 + 18 + 4 * 18, 18 * 1);
         }
+        slot.draw(minecraft, 18 * 3 + 9 + 4 * 18, 0);
+        slot.draw(minecraft, 18 * 4 + 9 + 4 * 18, 0);
+        slot.draw(minecraft, 18 * 3 + 9 + 4 * 18, 2 * 18);
+        slot.draw(minecraft, 18 * 4 + 9 + 4 * 18, 2 * 18);
     }
 
     @Override
