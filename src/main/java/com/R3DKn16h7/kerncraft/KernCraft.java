@@ -43,6 +43,7 @@ public class KernCraft {
             }
             if (MOD_CONFIG_ADD_FULL_SUBITEMS) {
                 ItemStack potato_battery = new ItemStack(KernCraftItems.POTATO_BATTERY, 1);
+                // TODO: this must be fixed
                 if (potato_battery.hasCapability(TeslaCapabilities.CAPABILITY_CONSUMER, null)
                         && potato_battery.hasCapability(TeslaCapabilities.CAPABILITY_HOLDER, null)) {
                     ITeslaConsumer cap = potato_battery.getCapability(TeslaCapabilities.CAPABILITY_CONSUMER, null);

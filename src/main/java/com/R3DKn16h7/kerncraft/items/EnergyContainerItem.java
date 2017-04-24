@@ -1,14 +1,13 @@
 package com.R3DKn16h7.kerncraft.items;
 
-import net.darkhax.tesla.api.ITeslaHolder;
-import net.darkhax.tesla.api.implementation.BaseTeslaContainer;
-import net.darkhax.tesla.capability.TeslaCapabilities;
 import net.darkhax.tesla.lib.TeslaUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import net.minecraftforge.energy.CapabilityEnergy;
+import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.fml.common.Optional;
 
 import java.util.List;
@@ -18,25 +17,25 @@ import java.util.List;
  */
 //@Optional.Interface( iname = IntegrationType.RF, iface = "cofh.api.energy.IEnergyContainerItem" )
 //@Optional.Interface( iname = IntegrationType.RF, iface = "cofh.api.energy.IEnergyReceiver" )
-@Optional.InterfaceList({
-        @Optional.Interface(modid = "tesla", iface = "net.darkhax.tesla.api.ITeslaHolder"),
-        @Optional.Interface(modid = "tesla", iface = "net.darkhax.tesla.api.ITeslaConsumer")
-})
+//@Optional.Interface( iname = IntegrationType.RF, iface = "cofh.api.energy.IEnergyReceiver" )
 public abstract class EnergyContainerItem extends Item {
-    static final int CAPACITY = 1000;
+
+    protected abstract int getMaxInput();
+
+    protected abstract int getMaxOutput();
+
+    protected abstract int getCapacity();
 
     @Override
-    @Optional.Method(modid = "tesla")
     public double getDurabilityForDisplay(ItemStack stack) {
-        if (stack.hasCapability(TeslaCapabilities.CAPABILITY_HOLDER, null)) {
-            ITeslaHolder cap = stack.getCapability(TeslaCapabilities.CAPABILITY_HOLDER, null);
-            return (1. - (double) cap.getStoredPower() / (double) cap.getCapacity());
+        if (stack.hasCapability(CapabilityEnergy.ENERGY, null)) {
+            IEnergyStorage cap = stack.getCapability(CapabilityEnergy.ENERGY, null);
+            return (1. - (double) cap.getEnergyStored() / (double) cap.getMaxEnergyStored());
         }
         return 0;
     }
 
     @Override
-    @Optional.Method(modid = "tesla")
     public boolean showDurabilityBar(ItemStack stack) {
         return true;
     }
@@ -45,6 +44,7 @@ public abstract class EnergyContainerItem extends Item {
     @Optional.Method(modid = "tesla")
     public void addInformation (ItemStack stack, EntityPlayer playerIn,
                                 List<String> tooltip, boolean advanced) {
+        // TODO: custom info
         TeslaUtils.createTooltip(stack, tooltip);
     }
 
@@ -53,7 +53,8 @@ public abstract class EnergyContainerItem extends Item {
     @Optional.Method(modid = "tesla")
     public ICapabilityProvider initCapabilities(ItemStack stack,
                                                 NBTTagCompound nbt) {
-        return new TeslaContainerItem(new BaseTeslaContainer(),
-                CAPACITY, 100, 100);
+        return new EnergyContainerItemCapabilityProvider(getCapacity(), getMaxInput(), getMaxOutput());
     }
+
+
 }

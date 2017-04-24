@@ -24,6 +24,21 @@ public class PotatoBattery extends EnergyContainerItem {
     }
 
     @Override
+    protected int getMaxInput() {
+        return 100;
+    }
+
+    @Override
+    protected int getMaxOutput() {
+        return 100;
+    }
+
+    @Override
+    protected int getCapacity() {
+        return 1000;
+    }
+
+    @Override
     public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
         ITeslaConsumer cap =
                 playerIn.getHeldItem(handIn).getCapability(TeslaCapabilities.CAPABILITY_CONSUMER, null);
