@@ -160,7 +160,7 @@ public class Canister extends Item {
     @Override
     public double getDurabilityForDisplay(ItemStack stack) {
         IElementContainer cap = ElementCapabilities.getCapability(stack);
-        return 1.0 - (double) cap.getTotalAmount() / cap.getTotalAmount();
+        return 1.0 - (double) cap.getTotalAmount() / cap.getCapacity();
     }
 
     @Override
