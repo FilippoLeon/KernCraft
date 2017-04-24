@@ -43,11 +43,11 @@ public class ChemicalFurnaceJEIRecipeCategory implements IRecipeCategory {
 
         elements = new IDrawable[2];
         elements[0] = guiHelper.createDrawable(location,
-                182, 27, 18, 18);
+                182, 28, 18, 18);
         IDrawableStatic brewing = guiHelper.createDrawable(location,
-                182, 27 + 18, 18, 18);
+                182, 28 + 18, 18, 18);
         elements[1] = guiHelper.createAnimatedDrawable(brewing,
-                300, IDrawableAnimated.StartDirection.TOP, true);
+                300, IDrawableAnimated.StartDirection.TOP, false);
 //        elements[0] = guiHelper.createDrawable(backgroundLocation,
 //                7, 16, 18, 18);
 //        elements[1] = guiHelper.createDrawable(furnaceLocation,

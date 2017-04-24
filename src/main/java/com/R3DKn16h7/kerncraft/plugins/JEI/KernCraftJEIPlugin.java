@@ -21,7 +21,8 @@ import net.minecraft.item.ItemStack;
 public class KernCraftJEIPlugin implements IModPlugin {
     @Override
     public void registerItemSubtypes(ISubtypeRegistry subtypeRegistry) {
-        subtypeRegistry.registerSubtypeInterpreter(KernCraftItems.CANISTER, new ElementJEISubtypeInterpreter());
+        subtypeRegistry.registerSubtypeInterpreter(KernCraftItems.CANISTER,
+                new ElementJEISubtypeInterpreter());
 //        subtypeRegistry.useNbtForSubtypes();
 //        subtypeRegistry.useNbtForSubtypes(KernCraftItems.CANISTER);
     }
