@@ -45,7 +45,10 @@ public abstract class MachineTileEntity extends TileEntity
     @Nullable
     @Override
     public ITextComponent getDisplayName() {
-        return new TextComponentString(I18n.format(this.blockType.getUnlocalizedName()+ ".name" ) );
+        return new
+                TextComponentString(I18n.format(
+                this.blockType.getUnlocalizedName() + ".name")
+        );
     }
 
     @Override

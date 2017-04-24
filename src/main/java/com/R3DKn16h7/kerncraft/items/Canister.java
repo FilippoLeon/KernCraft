@@ -115,11 +115,12 @@ public class Canister extends Item {
                  );
                 cap.removeAmountOf(elem.id, new_qty, false);
             }
-            if (elem.reachedCriticalMass(qty)) {
-                double x = entityIn.posX, y = entityIn.posY, z = entityIn.posZ;
-                worldIn.createExplosion(entityIn, x, y, z, 10, true);
-                cap.removeAllOf(elem.id);
-            }
+            // TODO uncomment
+//            if (elem.reachedCriticalMass(qty)) {
+//                double x = entityIn.posX, y = entityIn.posY, z = entityIn.posZ;
+//                worldIn.createExplosion(entityIn, x, y, z, 10, true);
+//                cap.removeAllOf(elem.id);
+//            }
         }
 //        ++elapsed;
     }
@@ -142,7 +143,7 @@ public class Canister extends Item {
                             cap2, otherCap,
                             id, 100
                     );
-                    ElementCapabilities.transferAmount(cap2, otherCap, id, transferable);
+                    ElementCapabilities.transferAmount(cap2, otherCap, id, transferable, playerIn);
                 }
 
             }

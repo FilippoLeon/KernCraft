@@ -2,8 +2,10 @@ package com.R3DKn16h7.kerncraft.capabilities;
 
 import com.R3DKn16h7.kerncraft.elements.Element;
 import com.R3DKn16h7.kerncraft.elements.ElementBase;
+import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.math.BlockPos;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -109,7 +111,29 @@ public class ElementContainerDefaultCapability
         return containedElements.getOrDefault(i, 0);
     }
 
+    public int addAmountOf(int id, int amount, boolean simulate, Entity ent) {
+        int add = addAmountOf(id, amount, simulate);
+        if (!simulate && ent != null) {
+
+            // Move to "ExplodeIfNeeded"
+            Element elem = ElementBase.getElement(id);
+            if (elem.reachedCriticalMass(getAmountOf(id))) {
+                double x = 0, y = 0, z = 0;
+//                itemStack.get
+                containedElements.put(id, 0);
+
+                BlockPos pos = ent.getPosition();
+                ent.world.createExplosion(ent, pos.getX(), pos.getY(), pos.getZ(),
+                        10, true);
+//                nbt.setInteger("Quantity", 0);
+                return 0;
+            }
+        }
+        return add;
+    }
+
     @Override
+    @Deprecated
     public int addAmountOf(int id, int amount, boolean simulate) {
         if (id <= 0 || id > ElementBase.NUMBER_OF_ELEMENTS) return 0;
         if (getNumberOfElements() >= maxNumElements && !containedElements.containsKey(id)) {

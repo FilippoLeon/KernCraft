@@ -3,6 +3,7 @@ package com.R3DKn16h7.kerncraft.capabilities;
 import com.R3DKn16h7.kerncraft.elements.Element;
 import com.R3DKn16h7.kerncraft.elements.ElementBase;
 import com.R3DKn16h7.kerncraft.utils.PlayerHelper;
+import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.common.capabilities.Capability;
@@ -64,10 +65,10 @@ public class ElementCapabilities {
 
     public static int transferAmount(IElementContainer from,
                                      IElementContainer to,
-                                     int id, int transferable) {
+                                     int id, int transferable, Entity receiver) {
         from.removeAmountOf(id, transferable, false);
         return to.addAmountOf(
-                id, transferable, false
+                id, transferable, false, receiver
         );
     }
 

@@ -88,7 +88,7 @@
   },
   "textures": {
     "side": "blocks/planks_oak",
-    "particle": "#side",
+    "particle": "blocks/planks_oak",
     "bottom": "blocks/planks_oak",
     "top": "blocks/planks_oak",
     "handle": "blocks/iron_block",
