@@ -46,19 +46,26 @@ public class MessageFluidStackSync implements IMessage {
         buf.writeInt(pos.getX());
         buf.writeInt(pos.getY());
         buf.writeInt(pos.getZ());
-        buf.writeInt(fluidStack.amount);
-        byte[] bytes = fluidStack.getFluid().getName().getBytes(StandardCharsets.US_ASCII);
-        buf.writeInt(bytes.length);
-        buf.writeBytes(bytes);
+        if (fluidStack != null) {
+            byte[] bytes = fluidStack.getFluid().getName().getBytes(StandardCharsets.US_ASCII);
+
+            buf.writeInt(bytes.length);
+            buf.writeInt(fluidStack.amount);
+            buf.writeBytes(bytes);
+        } else {
+            buf.writeInt(-1);
+        }
     }
 
     @Override
     public void fromBytes(ByteBuf buf) {
         this.id = buf.readInt();
         this.pos = new BlockPos(buf.readInt(), buf.readInt(), buf.readInt());
-        int amount = buf.readInt();
         int len = buf.readInt();
-        String fluidName = buf.readBytes(len).toString(StandardCharsets.US_ASCII);
-        fluidStack = FluidRegistry.getFluidStack(fluidName, amount);
+        if (len > 0) {
+            int amount = buf.readInt();
+            String fluidName = buf.readBytes(len).toString(StandardCharsets.US_ASCII);
+            fluidStack = FluidRegistry.getFluidStack(fluidName, amount);
+        }
     }
 }

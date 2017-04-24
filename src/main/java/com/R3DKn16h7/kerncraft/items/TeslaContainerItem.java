@@ -12,7 +12,7 @@ import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.util.INBTSerializable;
 
 public class TeslaContainerItem implements INBTSerializable<NBTTagCompound>, ICapabilityProvider {
-    private final BaseTeslaContainer container;
+    public final BaseTeslaContainer container;
     private long maxCapacity;
     private long output;
     private long input;

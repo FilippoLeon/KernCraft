@@ -1,7 +1,8 @@
 package com.R3DKn16h7.kerncraft.tileentities;
 
 import com.R3DKn16h7.kerncraft.KernCraft;
-import com.R3DKn16h7.kerncraft.items.KernCraftItems;
+import net.darkhax.tesla.api.ITeslaProducer;
+import net.darkhax.tesla.capability.TeslaCapabilities;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.BlockHorizontal;
@@ -16,7 +17,6 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -25,8 +25,13 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.energy.CapabilityEnergy;
+import net.minecraftforge.energy.IEnergyStorage;
+import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+import net.minecraftforge.fluids.capability.IFluidHandlerItem;
+import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -110,33 +115,68 @@ public abstract class MachineBlock extends BlockContainer {
                                     EntityPlayer player, EnumHand hand,
                                     EnumFacing side, float hitX, float hitY, float hitZ) {
         // TODO: improve this one by generifying
-        if(player.getHeldItem(hand).getItem() == Items.WATER_BUCKET) {
+        if (world.isRemote) return true;
+
+        if (player.getHeldItem(hand) != ItemStack.EMPTY) {
             MachineTileEntity te = (MachineTileEntity) world.getTileEntity(pos);
-            if(te instanceof SmeltingTileEntity) {
-                Minecraft.getMinecraft().getSoundHandler().playSound(
-                        PositionedSoundRecord.getMasterRecord(
-                                new SoundEvent(new ResourceLocation("item.bucket.empty")),
-                                1)
-                );
-                FluidStack stack = new FluidStack(FluidRegistry.WATER, 1000);
-                ((SmeltingTileEntity) te).tank.fill(stack, true);
+            ItemStack itemStack = player.getHeldItem(hand);
+            if (itemStack.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null)) {
+                IFluidHandlerItem cap = itemStack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
+                if (te instanceof SmeltingTileEntity) {
+                    FluidStack fluid = cap.drain(Fluid.BUCKET_VOLUME, false);
+                    if (fluid != null && fluid.amount >= Fluid.BUCKET_VOLUME) {
+                        int try_fill = ((SmeltingTileEntity) te).tank.fill(fluid, false);
+                        if (try_fill >= fluid.amount) {
+                            Minecraft.getMinecraft().getSoundHandler().playSound(
+                                    PositionedSoundRecord.getMasterRecord(
+                                            new SoundEvent(new ResourceLocation("item.bucket.empty")),
+                                            1)
+                            );
+                            ((SmeltingTileEntity) te).tank.fill(fluid, true);
+                            cap.drain(Fluid.BUCKET_VOLUME, true);
+                            player.setHeldItem(hand, cap.getContainer());
+//                            player.setHeldItem(hand, cap.getContainer());
+//                            player.setHeldItem(hand, new ItemStack(Items.BUCKET));
+                        }
+                    } else {
+                        FluidStack try_drain = ((SmeltingTileEntity) te).tank.drain(Fluid.BUCKET_VOLUME, false);
+                        if (try_drain != null && try_drain.amount >= Fluid.BUCKET_VOLUME) {
+                            Minecraft.getMinecraft().getSoundHandler().playSound(
+                                    PositionedSoundRecord.getMasterRecord(
+                                            new SoundEvent(new ResourceLocation("item.bucket.full")),
+                                            1)
+                            );
+                            FluidStack stack = ((SmeltingTileEntity) te).tank.drain(Fluid.BUCKET_VOLUME, true);
 
+                            cap.fill(stack, true);
+                            player.setHeldItem(hand, cap.getContainer());
+                        }
+                    }
+                }
+
+                world.scheduleBlockUpdate(pos, te.getBlockType(), 0, 0);
+                te.markDirty();
+                return true;
+            } else if (player.getHeldItem(hand).hasCapability(CapabilityEnergy.ENERGY, null)) {
+                IEnergyStorage cap = player.getHeldItem(hand).getCapability(CapabilityEnergy.ENERGY, null);
+                if (te instanceof SmeltingTileEntity) {
+                    int try_extract = cap.extractEnergy(200, true);
+                    int try_insert = ((SmeltingTileEntity) te).storage.receiveEnergy(try_extract, true);
+
+                    cap.extractEnergy(try_insert, false);
+                    ((SmeltingTileEntity) te).storage.receiveEnergy(try_insert, false);
+                }
+                world.scheduleBlockUpdate(pos, te.getBlockType(), 0, 0);
+                te.markDirty();
+                return true;
+            } else {
+                try {
+                    boolean interrupt = this.teslaTrasnsferEnergy(world, pos, ((SmeltingTileEntity) te), player, hand);
+                    if (interrupt) return true;
+                } catch (NoSuchMethodError e) {
+                    // ignore
+                }
             }
-            player.setHeldItem(hand, new ItemStack(Items.BUCKET));
-
-
-            world.scheduleBlockUpdate(pos, te.getBlockType(),0,0);
-            te.markDirty();
-
-            return true;
-        } else if(player.getHeldItem(hand).getItem() == KernCraftItems.POTATO_BATTERY) {
-            MachineTileEntity te = (MachineTileEntity) world.getTileEntity(pos);
-            if(te instanceof SmeltingTileEntity) {
-                ((SmeltingTileEntity) te).storage.receiveEnergy(100, false);
-            }
-            world.scheduleBlockUpdate(pos, te.getBlockType(),0,0);
-            te.markDirty();
-            return true;
         }
 
         if (!world.isRemote && has_gui) {
@@ -144,6 +184,25 @@ public abstract class MachineBlock extends BlockContainer {
                     world, pos.getX(), pos.getY(), pos.getZ());
         }
         return true;
+    }
+
+    @Optional.Method(modid = "tesla")
+    boolean teslaTrasnsferEnergy(World world, BlockPos pos,
+                                 SmeltingTileEntity te,
+                                 EntityPlayer player, EnumHand hand) {
+        if (player.getHeldItem(hand).hasCapability(TeslaCapabilities.CAPABILITY_PRODUCER, null)) {
+            ITeslaProducer cap = player.getHeldItem(hand)
+                    .getCapability(TeslaCapabilities.CAPABILITY_PRODUCER, null);
+            long try_extract = cap.takePower(200, true);
+            int try_insert = te.storage.receiveEnergy(((int) try_extract), true);
+
+            cap.takePower(try_insert, false);
+            te.storage.receiveEnergy(try_insert, false);
+            world.scheduleBlockUpdate(pos, te.getBlockType(), 0, 0);
+            te.markDirty();
+            return true;
+        }
+        return false;
     }
 
     @Override

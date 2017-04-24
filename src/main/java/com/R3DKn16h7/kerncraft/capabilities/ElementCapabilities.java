@@ -53,7 +53,6 @@ public class ElementCapabilities {
         }
     }
 
-
     public static int amountThatCanBeTansfered(IElementContainer from,
                                                IElementContainer to,
                                                int id, int i) {

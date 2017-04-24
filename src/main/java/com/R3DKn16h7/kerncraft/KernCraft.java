@@ -3,6 +3,9 @@ package com.R3DKn16h7.kerncraft;
 import com.R3DKn16h7.kerncraft.elements.ElementBase;
 import com.R3DKn16h7.kerncraft.items.Canister;
 import com.R3DKn16h7.kerncraft.items.KernCraftItems;
+import net.darkhax.tesla.api.ITeslaConsumer;
+import net.darkhax.tesla.api.ITeslaHolder;
+import net.darkhax.tesla.capability.TeslaCapabilities;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
@@ -21,6 +24,7 @@ public class KernCraft {
     public static final String VERSION = "1.0";
 
     public static boolean MOD_CONFIG_DISPLAY_ALL_ELEMENTS = true;
+    public static boolean MOD_CONFIG_ADD_FULL_SUBITEMS = true;
 
     public static final CreativeTabs KERNCRAFT_CREATIVE_TAB = new CreativeTabs("KernCraft") {
         @Override
@@ -35,6 +39,16 @@ public class KernCraft {
             if(MOD_CONFIG_DISPLAY_ALL_ELEMENTS) {
                 for (int i = 1; i <= ElementBase.NUMBER_OF_ELEMENTS; ++i) {
                     p_78018_1_.add(Canister.getElementItemStack(i, -1));
+                }
+            }
+            if (MOD_CONFIG_ADD_FULL_SUBITEMS) {
+                ItemStack potato_battery = new ItemStack(KernCraftItems.POTATO_BATTERY, 1);
+                if (potato_battery.hasCapability(TeslaCapabilities.CAPABILITY_CONSUMER, null)
+                        && potato_battery.hasCapability(TeslaCapabilities.CAPABILITY_HOLDER, null)) {
+                    ITeslaConsumer cap = potato_battery.getCapability(TeslaCapabilities.CAPABILITY_CONSUMER, null);
+                    ITeslaHolder caph = potato_battery.getCapability(TeslaCapabilities.CAPABILITY_HOLDER, null);
+                    cap.givePower(caph.getCapacity(), false);
+                    p_78018_1_.add(potato_battery);
                 }
             }
         }
