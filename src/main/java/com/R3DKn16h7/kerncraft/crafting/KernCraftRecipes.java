@@ -1,8 +1,10 @@
 package com.R3DKn16h7.kerncraft.crafting;
 
 import com.R3DKn16h7.kerncraft.blocks.KernCraftBlocks;
+import com.R3DKn16h7.kerncraft.elements.ElementBase;
 import com.R3DKn16h7.kerncraft.elements.ElementStack;
 import com.R3DKn16h7.kerncraft.items.KernCraftItems;
+import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -12,7 +14,15 @@ import net.minecraft.util.NonNullList;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.oredict.OreDictionary;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import java.io.DataInputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +38,225 @@ public class KernCraftRecipes {
         RegisterCraftingRecipes();
         RegisterExtractorRecipes();
         RegisterChemicalFurnaceRecipes();
+
+        parseRecipeXml();
+    }
+
+    /**
+     * Add new recipe
+     *
+     * @param item     Principal item that will allow to extract elements.
+     * @param catalyst Additional item (optional) that acts as Catalyst
+     * @param outs     LAB_BONNET list of output Elements
+     * @param energy   The required energy (TODO: change to "cost") to perform a smelting operation.
+     * @return Return false if registration failed (TODO)
+     */
+    static public boolean addExtractorRecipe(Item item, Item catalyst,
+                                             ElementStack[] outs, int energy) {
+        EXTRACTOR_RECIPES.add(
+                new ExtractorRecipe(item, catalyst, outs, energy)
+        );
+        return true;
+    }
+
+    static public boolean addChemicalFurnaceRecipe(ElementStack[] inputs, ElementStack[] outputs,
+                                                   int energy, FluidStack fluid, int cost) {
+        CHEMICAL_FURNACE_RECIPES.add(
+                new ChemicalFurnaceRecipe(inputs, outputs, energy, fluid, cost)
+        );
+        return true;
+    }
+
+    private static ItemStack parseAsItemStack(Element elem) {
+        String nodeValue = elem.getTextContent();
+        // TODO default if empty
+        int amount;
+        try {
+            amount = Integer.parseInt(elem.getAttributes().getNamedItem("amount").getNodeValue());
+        } catch (Exception e) {
+            amount = 0;
+        }
+        int meta;
+        try {
+            meta = Integer.parseInt(elem.getAttributes().getNamedItem("meta").getNodeValue());
+        } catch (Exception e) {
+            meta = 0;
+        }
+        String nbt;
+        try {
+            nbt = elem.getAttributes().getNamedItem("nbt").getNodeValue();
+        } catch (Exception e) {
+            nbt = "";
+        }
+
+        switch (elem.getNodeName()) {
+            case "Item":
+                return GameRegistry.makeItemStack(nodeValue, meta, amount, nbt);
+            case "Block":
+                return new ItemStack(Block.getBlockFromName(nodeValue), amount, meta);
+            case "OreDictionary":
+                if (OreDictionary.getOres(nodeValue).size() > 0) {
+                    return OreDictionary.getOres(nodeValue).get(0);
+                }
+            default:
+                return ItemStack.EMPTY;
+        }
+    }
+
+    private static FluidStack parseAsFluid(Element elem) {
+        int amount;
+        try {
+            amount = Integer.parseInt(elem.getAttributes().getNamedItem("amount").getNodeValue());
+        } catch (NullPointerException e) {
+            amount = 0;
+        }
+        String fluid = elem.getTextContent();
+        return new FluidStack(FluidRegistry.getFluid(fluid), amount);
+
+    }
+
+    private static ElementStack parseAsElementStack(Element element) {
+        int amount;
+        try {
+            amount = Integer.parseInt(element.getAttributes().getNamedItem("amount").getNodeValue());
+        } catch (Exception e) {
+            amount = 0;
+        }
+        float prob;
+        try {
+            prob = Float.parseFloat(element.getAttributes().getNamedItem("probability").getNodeValue());
+        } catch (Exception e) {
+            prob = 0;
+        }
+
+        int id = 0;
+        try {
+            id = Integer.parseInt(element.getNodeValue());
+        } catch (Exception e) {
+            id = ElementBase.symbolToId(element.getTextContent());
+        }
+        return new ElementStack(id, amount, prob);
+    }
+
+    static public void parseExtractorRecipe(Node nNode) {
+        int energy;
+        try {
+            energy = Integer.parseInt(nNode.getAttributes().getNamedItem("energy").getNodeValue());
+        } catch (NullPointerException e) {
+            energy = 0;
+        }
+        ItemStack input = ItemStack.EMPTY;
+        ItemStack catalyst = ItemStack.EMPTY;
+        ElementStack[] elements = new ElementStack[4];
+
+        NodeList nList = nNode.getChildNodes();
+        for (int i = 0; i < nList.getLength(); ++i) {
+            if (nList.item(i).getNodeType() != Node.ELEMENT_NODE) continue;
+
+            Element nChildNode = ((Element) nList.item(i));
+            switch (nChildNode.getNodeName()) {
+                case "Input":
+                    if (!input.isEmpty()) {
+                        System.err.println("Warning: Too many inputs for Extractor Recipe.");
+                    }
+                    input = parseAsItemStack(((Element) nChildNode.getElementsByTagName("*").item(0)));
+                    break;
+                case "Catalyst":
+                    if (!catalyst.isEmpty()) {
+                        System.err.println("Warning: Too many catalysts for Extractor Recipe.");
+                    }
+                    catalyst = parseAsItemStack(((Element) nChildNode.getElementsByTagName("*").item(0)));
+                    break;
+                case "Output":
+                    NodeList nChildList = nChildNode.getElementsByTagName("*");
+                    if (nChildList.getLength() > 4) {
+                        System.err.println("Warning: Too many output elements for Extractor Recipe.");
+                    }
+                    for (int j = 0; j < Math.min(nChildList.getLength(), 4); j++) {
+                        elements[j] = parseAsElementStack(((Element) nChildList.item(j)));
+                    }
+                    break;
+                default:
+                    System.err.println("Warning: Unrecognized element for Extractor Recipe.");
+                    break;
+            }
+        }
+        if (input.isEmpty()) {
+            System.err.println("Fatal: No input for Extractor Recipe.");
+        }
+        if (elements[0] == null) {
+            System.err.println("Warning: No output elements for Extractor Recipe.");
+        }
+
+        if (energy < 0) {
+            System.err.println("Fatal: Negative energy for Extractor Recipe.");
+        }
+
+        EXTRACTOR_RECIPES.add(
+                new ExtractorRecipe(input.getItem(), catalyst.getItem(), elements, energy)
+        );
+    }
+
+    static public void parseChemicalFurnaceRecipe(Node nNode) {
+        int energy;
+        try {
+            energy = Integer.parseInt(nNode.getAttributes().getNamedItem("energy").getNodeValue());
+        } catch (Exception e) {
+            energy = 0;
+        }
+        int cost;
+        try {
+            cost = Integer.parseInt(nNode.getAttributes().getNamedItem("cost").getNodeValue());
+        } catch (Exception e) {
+            cost = 0;
+        }
+        ElementStack[] inputs = new ElementStack[2];
+        ElementStack[] outputs = new ElementStack[2];
+        FluidStack fluid = null;
+
+        NodeList nList = nNode.getChildNodes();
+        for (int i = 0; i < nList.getLength(); ++i) {
+            if (nList.item(i).getNodeType() != Node.ELEMENT_NODE) continue;
+
+            Element nChildNode = ((Element) nList.item(i));
+            switch (nChildNode.getNodeName()) {
+                case "Input":
+                    NodeList nChildList = nChildNode.getElementsByTagName("*");
+                    if (nChildList.getLength() > 2) {
+                        System.err.println("Warning: Too many inputs elements for Extractor Recipe.");
+                    }
+                    for (int j = 0; j < Math.min(nChildList.getLength(), 2); j++) {
+                        inputs[j] = parseAsElementStack(((Element) nChildList.item(j)));
+                    }
+                    break;
+                case "Output":
+                    NodeList nChildListO = nChildNode.getElementsByTagName("*");
+                    if (nChildListO.getLength() > 2) {
+                        System.err.println("Warning: Too many output elements for Extractor Recipe.");
+                    }
+                    for (int j = 0; j < Math.min(nChildListO.getLength(), 2); j++) {
+                        outputs[j] = parseAsElementStack(((Element) nChildListO.item(j)));
+                    }
+                    break;
+                case "Fluid":
+                    if (fluid != null) {
+                        System.err.println("Warning: Too many fluids for Extractor Recipe.");
+                    }
+                    fluid = parseAsFluid(nChildNode);
+                    break;
+                default:
+                    System.err.println("Warning: Unrecognized element for Extractor Recipe.");
+                    break;
+            }
+        }
+
+        if (cost < 0) {
+            System.err.println("Cost: Negative energy for Extractor Recipe.");
+        }
+
+        CHEMICAL_FURNACE_RECIPES.add(
+                new ChemicalFurnaceRecipe(inputs, outputs, energy, fluid, cost)
+        );
     }
 
     private void RegisterCraftingRecipes() {
@@ -54,7 +283,11 @@ public class KernCraftRecipes {
         comp.setInteger("Element", 1);
         canister.writeToNBT(comp);
         //IRecipe
-        GameRegistry.addShapelessRecipe(new ItemStack(KernCraftItems.TYROCINIUM_CHYMICUM), Items.BOOK, canister);
+        GameRegistry.addShapelessRecipe(
+                new ItemStack(KernCraftItems.TYROCINIUM_CHYMICUM),
+                Items.BOOK,
+                canister
+        );
 
         int[] elements = {ElementRecipe.ANY_ELEMENT};
         int[] quantities = {0};
@@ -95,7 +328,6 @@ public class KernCraftRecipes {
                 10);
     }
 
-
     private void RegisterChemicalFurnaceRecipes() {
         addChemicalFurnaceRecipe(
                 new ElementStack[]{
@@ -110,25 +342,46 @@ public class KernCraftRecipes {
         );
     }
 
-    /**
-     * Add new recipe
-     * @param item Principal item that will allow to extract elements.
-     * @param catalyst Additional item (optional) that acts as Catalyst
-     * @param outs LAB_BONNET list of output Elements
-     * @param energy The required energy (TODO: change to "cost") to perform a smelting operation.
-     * @return Return false if registration failed (TODO)
-     */
-    static public boolean addExtractorRecipe(Item item, Item catalyst,
-                                         ElementStack[] outs, int energy) {
-        EXTRACTOR_RECIPES.add(new ExtractorRecipe(item, catalyst, outs, energy));
-        return true;
+    public void parseRecipeXml() {
+        Document doc;
+        try {
+            String fileName = "assets/kerncraft/config/recipes.xml";
+            DataInputStream in = new DataInputStream(getClass().getClassLoader()
+                    .getResourceAsStream(fileName));
+
+            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            doc = dBuilder.parse(in);
+
+            doc.getDocumentElement().normalize();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return;
+        }
+
+        NodeList nList = doc.getDocumentElement().getChildNodes();
+        for (int i = 0; i < nList.getLength(); ++i) {
+
+            Node nNode = nList.item(i);
+            try {
+                switch (nNode.getNodeName()) {
+                    case "Extractor":
+                        parseExtractorRecipe(nNode);
+                        break;
+                    case "ChemicalFurnace":
+                        parseChemicalFurnaceRecipe(nNode);
+                        break;
+                    default:
+                        System.out.println(
+                                String.format("Skipping unknown recipe '%s'",
+                                        nNode.getNodeName()
+                                )
+                        );
+                        break;
+                }
+            } catch (Exception e) {
+                continue;
+            }
+        }
     }
-
-
-    static public boolean addChemicalFurnaceRecipe(ElementStack[] inputs, ElementStack[] outputs,
-                                                   int energy, FluidStack fluid, int cost) {
-        CHEMICAL_FURNACE_RECIPES.add(new ChemicalFurnaceRecipe(inputs, outputs, energy, fluid, cost));
-        return true;
-    }
-
 }

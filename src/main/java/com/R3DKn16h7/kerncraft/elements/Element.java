@@ -112,26 +112,25 @@ public class Element {
         state = ElementBase.ElementState.fromString(jsonObject.get("state").getAsString());
 
         // TODO: Use i18n for this
-        String temp = null;
-        try {
-            temp = jsonObject.get("description").getAsString();
-        } catch (RuntimeException e) {
-
+        if (jsonObject.has("description")) {
+            shortDescription = jsonObject.get("description").getAsString();
+        } else {
+            System.out.println(String.format("No description for element '%s'", name));
+            shortDescription = null;
         }
-        shortDescription = temp;
     }
 
-    static float tryGetAsFloatOrDefault(String key, float defaultValue,
-                                        JsonObject jsonObject) {
+    private static float tryGetAsFloatOrDefault(String key, float defaultValue,
+                                                JsonObject jsonObject) {
         return tryGetAsFloatOrDefault(key, defaultValue, jsonObject, true);
     }
 
-    static float tryGetAsFloatOrDefault(String key, float defaultValue,
-                                        JsonObject jsonObject, boolean warnIfError) {
+    private static float tryGetAsFloatOrDefault(String key, float defaultValue,
+                                                JsonObject jsonObject, boolean warnIfError) {
         try {
             return jsonObject.get(key).getAsFloat();
         } catch (RuntimeException e) {
-            if (warnIfError == true) {
+            if (warnIfError) {
                 System.err.println(
                         String.format("Error parsing Element Json, string '%s' " +
                                         "of key '%s' not convertible to float.",
@@ -143,17 +142,17 @@ public class Element {
         }
     }
 
-    static int tryGetAsIntOrDefault(String key, int defaultValue,
-                                    JsonObject jsonObject) {
+    private static int tryGetAsIntOrDefault(String key, int defaultValue,
+                                            JsonObject jsonObject) {
         return tryGetAsIntOrDefault(key, defaultValue, jsonObject, true);
     }
 
-    static int tryGetAsIntOrDefault(String key, int defaultValue,
-                                    JsonObject jsonObject, boolean warnIfError) {
+    private static int tryGetAsIntOrDefault(String key, int defaultValue,
+                                            JsonObject jsonObject, boolean warnIfError) {
         try {
             return jsonObject.get(key).getAsInt();
         } catch (RuntimeException e) {
-            if (warnIfError == true) {
+            if (warnIfError) {
                 System.err.println(
                         String.format("Error parsing Element Json, string '%s' " +
                                         "of key '%s' not convertible to int.",
@@ -233,7 +232,7 @@ public class Element {
     /**
      * Converts symbol and room temperature state to a pretty colorized string.
      *
-     * @return
+     * @return colorized symbol string.
      */
     public String toSymbol() {
         return state.toColor() + symbol + TextFormatting.RESET.toString();
@@ -243,8 +242,8 @@ public class Element {
      * True if element with given amount surpasses critical mass and goes
      * Kabooooom.
      *
-     * @param quantity
-     * @return
+     * @param quantity amount of element to check.
+     * @return does quantity reach the critical mass of @this
      */
     public boolean reachedCriticalMass(int quantity) {
         return criticalMass > 0 && quantity > criticalMass;

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Recipes>
+    <Extractor energy="10">
+        <Input>
+            <Block amount="1">kerncraft:test_block</Block>
+        </Input>
+        <Catalyst>
+            <Item amount="5">diamond_block</Item>
+        </Catalyst>
+        <Output>
+            <Element amount="100" probability="1.0">Pu</Element>
+            <Element amount="100" probability="1.0">Pu</Element>
+            <Element amount="100" probability="1.0">Pu</Element>
+            <Element amount="100" probability="1.0">Pu</Element>
+        </Output>
+    </Extractor>
+    <ChemicalFurnace energy="100" cost="5">
+        <Input>
+            <Element amount="100" probability="1.0">Pu</Element>
+            <Element amount="100" probability="1.0">Pu</Element>
+        </Input>
+        <Output>
+            <Element amount="4" probability="1.0">Cs</Element>
+            <Element amount="4" probability="1.0">C</Element>
+        </Output>
+        <Fluid amount="1000">water</Fluid>
+    </ChemicalFurnace>
+</Recipes>
