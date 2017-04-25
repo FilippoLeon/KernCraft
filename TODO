@@ -2,7 +2,8 @@ High priority:
     - FIX: add progress bar to Chemical Furnace
     - FIX: time machine find way to abtivate/deactuvate
     - FIX: add outputs to Chem. Furnace.
-    - XMl recipes?
+    - XMl recipes? improve
+    - Filtering slots for input
 
 Soon:
     - Unify energy, wrapper around forge energy with tesla, possibly cofh?

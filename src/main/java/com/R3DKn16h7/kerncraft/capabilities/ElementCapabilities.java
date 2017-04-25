@@ -1,7 +1,7 @@
 package com.R3DKn16h7.kerncraft.capabilities;
 
 import com.R3DKn16h7.kerncraft.elements.Element;
-import com.R3DKn16h7.kerncraft.elements.ElementBase;
+import com.R3DKn16h7.kerncraft.elements.ElementRegistry;
 import com.R3DKn16h7.kerncraft.utils.PlayerHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
@@ -43,7 +43,7 @@ public class ElementCapabilities {
 
             if (PlayerHelper.isCtrlKeyDown()) {
                 for (Map.Entry entry : cap.getElementMap().entrySet()) {
-                    Element elem = ElementBase.getElement(((Integer) entry.getKey()));
+                    Element elem = ElementRegistry.getElement(((Integer) entry.getKey()));
                     String elemStr = elem.toSymbol();
                     listOfTooltipInfo.add(String.format("* %d u of %s",
                             entry.getValue(), elemStr));
@@ -136,7 +136,7 @@ public class ElementCapabilities {
 
     static public Element getFirstElement(IElementContainer cap) {
         if (cap.getNumberOfElements() > 0) {
-            return ElementBase.getElement(cap.getElements()[0]);
+            return ElementRegistry.getElement(cap.getElements()[0]);
         }
         return null;
     }

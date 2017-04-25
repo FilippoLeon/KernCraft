@@ -6,7 +6,7 @@ import com.R3DKn16h7.kerncraft.KernCraft;
 import com.R3DKn16h7.kerncraft.capabilities.ElementCapabilities;
 import com.R3DKn16h7.kerncraft.capabilities.ElementContainerProvider;
 import com.R3DKn16h7.kerncraft.capabilities.IElementContainer;
-import com.R3DKn16h7.kerncraft.elements.ElementBase;
+import com.R3DKn16h7.kerncraft.elements.ElementRegistry;
 import com.R3DKn16h7.kerncraft.utils.PotionImprovedHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -53,7 +53,7 @@ public class PortableBeacon extends Item implements IBauble {
     }
 
     public void addEffect(String name, Target target, int effect, int duration, int amplifier) {
-        effectMap.put(ElementBase.symbolToId(name),
+        effectMap.put(ElementRegistry.symbolToId(name),
                 new Effect(target, effect, duration, amplifier));
     }
 

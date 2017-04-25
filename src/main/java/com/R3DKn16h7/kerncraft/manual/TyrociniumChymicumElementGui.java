@@ -1,7 +1,7 @@
 package com.R3DKn16h7.kerncraft.manual;
 
 import com.R3DKn16h7.kerncraft.elements.Element;
-import com.R3DKn16h7.kerncraft.elements.ElementBase;
+import com.R3DKn16h7.kerncraft.elements.ElementRegistry;
 import com.R3DKn16h7.kerncraft.utils.io.XmlUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.lwjgl.opengl.GL11;
@@ -58,7 +58,7 @@ public class TyrociniumChymicumElementGui extends TyrociniumChymicumGui {
             super.previousPage();
             mc.displayGuiScreen(
                     new TyrociniumChymicumElementGui(
-                            ElementBase.getElement(element.id - 1)
+                            ElementRegistry.getElement(element.id - 1)
                     ));
         } else {
             superPage();
@@ -69,7 +69,7 @@ public class TyrociniumChymicumElementGui extends TyrociniumChymicumGui {
     public void beginningPage() {
         super.beginningPage();
         mc.displayGuiScreen(
-                new TyrociniumChymicumElementGui(ElementBase.getElement(1)
+                new TyrociniumChymicumElementGui(ElementRegistry.getElement(1)
                 ));
     }
 
@@ -78,7 +78,7 @@ public class TyrociniumChymicumElementGui extends TyrociniumChymicumGui {
         super.endPage();
         mc.displayGuiScreen(
                 new TyrociniumChymicumElementGui(
-                        ElementBase.getElement(ElementBase.NUMBER_OF_ELEMENTS)
+                        ElementRegistry.getElement(ElementRegistry.NUMBER_OF_ELEMENTS)
                 ));
     }
 
@@ -88,11 +88,11 @@ public class TyrociniumChymicumElementGui extends TyrociniumChymicumGui {
             currentStartIndex += 2 * MAX_ROWS;
         } else if (!summaryPage) {
             summaryPage = true;
-        } else if (element.id < ElementBase.NUMBER_OF_ELEMENTS) {
+        } else if (element.id < ElementRegistry.NUMBER_OF_ELEMENTS) {
             super.nextPage();
             mc.displayGuiScreen(
                     new TyrociniumChymicumElementGui(
-                            ElementBase.getElement(element.id + 1)
+                            ElementRegistry.getElement(element.id + 1)
                     ));
         } else {
             superPage();
@@ -115,7 +115,7 @@ public class TyrociniumChymicumElementGui extends TyrociniumChymicumGui {
         String ids = Integer.toString(element.id);
 
         //int color = element.family.toColor().getRGB();
-        int color = ElementBase.StringToColor(element.color).getRGB();
+        int color = ElementRegistry.StringToColor(element.color).getRGB();
 
         int le = fontRendererObj.getStringWidth(ids);
         fontRendererObj.drawString(element.symbol, (guiLeft + 15) / 3, (guiTop + 15) / 3, color);
@@ -129,7 +129,7 @@ public class TyrociniumChymicumElementGui extends TyrociniumChymicumGui {
         GL11.glPopMatrix();
         fontRendererObj.drawString(StringUtils.capitalize(element.name),
                 guiLeft + 50, guiTop + 10, 0x222222);
-        fontRendererObj.drawString("Group " + ElementBase.GROUP.toString(element.group),
+        fontRendererObj.drawString("Group " + ElementRegistry.GROUP.toString(element.group),
                 guiLeft + 50, guiTop + 20, 0x222222);
         fontRendererObj.drawString(element.toxic ? "Toxic" : "",
                 guiLeft + 50, guiTop + 30, new Color(21, 121, 18).getRGB());

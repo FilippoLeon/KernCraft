@@ -52,8 +52,8 @@ public class Element {
     /**
      * State at room temperature.
      */
-    public final ElementBase.ElementState state;
-    public final ElementBase.ElementFamily family;
+    public final ElementRegistry.ElementState state;
+    public final ElementRegistry.ElementFamily family;
     /**
      * Denotes the half life of the element. A value of -1 indicates
      * that the element is stable.
@@ -81,16 +81,16 @@ public class Element {
         String gr = jsonObject.get("group").getAsString();
         switch (gr) {
             case "A":
-                this.group = ElementBase.GROUP.Actinide.getValue();
+                this.group = ElementRegistry.GROUP.Actinide.getValue();
                 break;
             case "L":
-                this.group = ElementBase.GROUP.Lanthanide.getValue();
+                this.group = ElementRegistry.GROUP.Lanthanide.getValue();
                 break;
             default:
                 this.group = tryGetAsIntOrDefault("group", 1, jsonObject);
                 break;
         }
-        this.family = ElementBase.ElementFamily.fromString(
+        this.family = ElementRegistry.ElementFamily.fromString(
                 jsonObject.get("family").getAsString()
         );
         this.period = tryGetAsIntOrDefault("period", 0, jsonObject);
@@ -109,7 +109,7 @@ public class Element {
 
         this.toxic = tryGetAsBoolOrDefault("toxic", false, jsonObject);
 
-        state = ElementBase.ElementState.fromString(jsonObject.get("state").getAsString());
+        state = ElementRegistry.ElementState.fromString(jsonObject.get("state").getAsString());
 
         // TODO: Use i18n for this
         if (jsonObject.has("description")) {

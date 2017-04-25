@@ -1,7 +1,7 @@
 package com.R3DKn16h7.kerncraft.crafting;
 
 import com.R3DKn16h7.kerncraft.blocks.KernCraftBlocks;
-import com.R3DKn16h7.kerncraft.elements.ElementBase;
+import com.R3DKn16h7.kerncraft.elements.ElementRegistry;
 import com.R3DKn16h7.kerncraft.elements.ElementStack;
 import com.R3DKn16h7.kerncraft.items.KernCraftItems;
 import net.minecraft.block.Block;
@@ -133,7 +133,7 @@ public class KernCraftRecipes {
         try {
             id = Integer.parseInt(element.getNodeValue());
         } catch (Exception e) {
-            id = ElementBase.symbolToId(element.getTextContent());
+            id = ElementRegistry.symbolToId(element.getTextContent());
         }
         return new ElementStack(id, amount, prob);
     }

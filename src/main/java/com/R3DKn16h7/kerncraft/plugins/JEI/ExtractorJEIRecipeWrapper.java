@@ -1,9 +1,9 @@
 package com.R3DKn16h7.kerncraft.plugins.JEI;
 
-import com.R3DKn16h7.kerncraft.elements.ElementBase;
+import com.R3DKn16h7.kerncraft.crafting.ExtractorRecipe;
+import com.R3DKn16h7.kerncraft.elements.ElementRegistry;
 import com.R3DKn16h7.kerncraft.elements.ElementStack;
 import com.R3DKn16h7.kerncraft.items.KernCraftItems;
-import com.R3DKn16h7.kerncraft.crafting.ExtractorRecipe;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.BlankRecipeWrapper;
 import net.minecraft.client.Minecraft;
@@ -39,7 +39,7 @@ public class ExtractorJEIRecipeWrapper extends BlankRecipeWrapper {
         ArrayList<ItemStack> outputs = new ArrayList<ItemStack>();
 
         for (ElementStack i : recipe.outs) {
-            outputs.add(ElementBase.getItem(i));
+            outputs.add(ElementRegistry.getItem(i));
         }
         ingredients.setOutputs(ItemStack.class, outputs);
     }

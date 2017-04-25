@@ -5,7 +5,7 @@ import com.R3DKn16h7.kerncraft.capabilities.ElementCapabilities;
 import com.R3DKn16h7.kerncraft.capabilities.ElementContainerProvider;
 import com.R3DKn16h7.kerncraft.capabilities.IElementContainer;
 import com.R3DKn16h7.kerncraft.elements.Element;
-import com.R3DKn16h7.kerncraft.elements.ElementBase;
+import com.R3DKn16h7.kerncraft.elements.ElementRegistry;
 import com.R3DKn16h7.kerncraft.utils.PlayerHelper;
 import com.R3DKn16h7.kerncraft.utils.PotionImprovedHelper;
 import net.minecraft.entity.Entity;
@@ -71,7 +71,7 @@ public class Canister extends Item {
     public static ItemStack getElementItemStack(int i, int amount) {
         ItemStack itemStack = new ItemStack(KernCraftItems.CANISTER);
 
-        if (i > 0 && i <= ElementBase.NUMBER_OF_ELEMENTS) {
+        if (i > 0 && i <= ElementRegistry.NUMBER_OF_ELEMENTS) {
             IElementContainer cap = ElementCapabilities.getCapability(itemStack);
             int amount2 = amount >= 0 ? amount : cap.getCapacity();
             cap.addAmountOf(i, amount2, false);

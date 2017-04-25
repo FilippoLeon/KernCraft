@@ -1,7 +1,7 @@
 package com.R3DKn16h7.kerncraft.capabilities;
 
 import com.R3DKn16h7.kerncraft.elements.Element;
-import com.R3DKn16h7.kerncraft.elements.ElementBase;
+import com.R3DKn16h7.kerncraft.elements.ElementRegistry;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -116,7 +116,7 @@ public class ElementContainerDefaultCapability
         if (!simulate && ent != null) {
 
             // Move to "ExplodeIfNeeded"
-            Element elem = ElementBase.getElement(id);
+            Element elem = ElementRegistry.getElement(id);
             if (elem.reachedCriticalMass(getAmountOf(id))) {
                 double x = 0, y = 0, z = 0;
 //                itemStack.get
@@ -135,14 +135,14 @@ public class ElementContainerDefaultCapability
     @Override
     @Deprecated
     public int addAmountOf(int id, int amount, boolean simulate) {
-        if (id <= 0 || id > ElementBase.NUMBER_OF_ELEMENTS) return 0;
+        if (id <= 0 || id > ElementRegistry.NUMBER_OF_ELEMENTS) return 0;
         if (getNumberOfElements() >= maxNumElements && !containedElements.containsKey(id)) {
             return 0;
         }
         int contained = containedElements.getOrDefault(id, 0);
         int canBeAdded = Math.min(maxCapacity - getTotalAmount(), amount);
         if (!simulate) {
-            Element elem = ElementBase.getElement(id);
+            Element elem = ElementRegistry.getElement(id);
             if (elem.reachedCriticalMass(contained + canBeAdded)) {
 //                double x = 0, y = 0, z = 0;
 //                itemStack.get

@@ -3,7 +3,7 @@ package com.R3DKn16h7.kerncraft.plugins.JEI;
 import com.R3DKn16h7.kerncraft.KernCraft;
 import com.R3DKn16h7.kerncraft.crafting.ChemicalFurnaceRecipe;
 import com.R3DKn16h7.kerncraft.crafting.KernCraftRecipes;
-import com.R3DKn16h7.kerncraft.elements.ElementBase;
+import com.R3DKn16h7.kerncraft.elements.ElementRegistry;
 import com.R3DKn16h7.kerncraft.items.Canister;
 import com.R3DKn16h7.kerncraft.items.KernCraftItems;
 import com.R3DKn16h7.kerncraft.tileentities.KernCraftTileEntities;
@@ -64,8 +64,8 @@ public class KernCraftJEIPlugin implements IModPlugin {
 
         // TODO: add decription for elements
         if(KernCraft.MOD_CONFIG_DISPLAY_ALL_ELEMENTS) {
-            for (int i = 1; i <= ElementBase.NUMBER_OF_ELEMENTS; ++i) {
-                String descr = ElementBase.getElement(i).shortDescription;
+            for (int i = 1; i <= ElementRegistry.NUMBER_OF_ELEMENTS; ++i) {
+                String descr = ElementRegistry.getElement(i).shortDescription;
                 if(descr != null) {
                     registry.addDescription(Canister.getElementItemStack(i), descr);
                 }

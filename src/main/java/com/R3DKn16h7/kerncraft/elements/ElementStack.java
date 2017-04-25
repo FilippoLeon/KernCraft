@@ -16,7 +16,7 @@ public class ElementStack {
     }
 
     public ElementStack(String name_, int quantity_) {
-        id = ElementBase.symbolToId(name_);
+        id = ElementRegistry.symbolToId(name_);
         quantity = quantity_;
     }
 

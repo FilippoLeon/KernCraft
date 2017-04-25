@@ -1,6 +1,6 @@
 package com.R3DKn16h7.kerncraft;
 
-import com.R3DKn16h7.kerncraft.elements.ElementBase;
+import com.R3DKn16h7.kerncraft.elements.ElementRegistry;
 import com.R3DKn16h7.kerncraft.items.Canister;
 import com.R3DKn16h7.kerncraft.items.EnergyContainer;
 import com.R3DKn16h7.kerncraft.items.KernCraftItems;
@@ -37,7 +37,7 @@ public class KernCraft {
             super.displayAllRelevantItems(p_78018_1_);
 
             if(MOD_CONFIG_DISPLAY_ALL_ELEMENTS) {
-                for (int i = 1; i <= ElementBase.NUMBER_OF_ELEMENTS; ++i) {
+                for (int i = 1; i <= ElementRegistry.NUMBER_OF_ELEMENTS; ++i) {
                     p_78018_1_.add(Canister.getElementItemStack(i, -1));
                 }
             }

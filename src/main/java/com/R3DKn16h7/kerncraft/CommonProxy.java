@@ -4,7 +4,7 @@ import com.R3DKn16h7.kerncraft.achievements.AchievementHandler;
 import com.R3DKn16h7.kerncraft.blocks.KernCraftBlocks;
 import com.R3DKn16h7.kerncraft.capabilities.*;
 import com.R3DKn16h7.kerncraft.crafting.KernCraftRecipes;
-import com.R3DKn16h7.kerncraft.elements.ElementBase;
+import com.R3DKn16h7.kerncraft.elements.ElementRegistry;
 import com.R3DKn16h7.kerncraft.events.EventHandlerCommon;
 import com.R3DKn16h7.kerncraft.items.KernCraftItems;
 import com.R3DKn16h7.kerncraft.network.KernCraftNetwork;
@@ -25,7 +25,7 @@ public class CommonProxy {
 
     public void preInit(FMLPreInitializationEvent e) {
 
-        new ElementBase();
+        new ElementRegistry();
 
         KernCraftItems.createItems();
         KernCraftBlocks.createBlocks();

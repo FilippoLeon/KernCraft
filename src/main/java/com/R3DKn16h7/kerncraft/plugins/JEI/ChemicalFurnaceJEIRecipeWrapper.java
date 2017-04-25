@@ -1,7 +1,7 @@
 package com.R3DKn16h7.kerncraft.plugins.JEI;
 
 import com.R3DKn16h7.kerncraft.crafting.ChemicalFurnaceRecipe;
-import com.R3DKn16h7.kerncraft.elements.ElementBase;
+import com.R3DKn16h7.kerncraft.elements.ElementRegistry;
 import com.R3DKn16h7.kerncraft.elements.ElementStack;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.BlankRecipeWrapper;
@@ -31,7 +31,7 @@ public class ChemicalFurnaceJEIRecipeWrapper extends BlankRecipeWrapper {
         int j = 0;
         for (ElementStack i : recipe.inputs) {
             if (recipe.inputs[j++] != null) {
-                inputs.add(ElementBase.getItem(i));
+                inputs.add(ElementRegistry.getItem(i));
             }
         }
         ingredients.setInputs(ItemStack.class, inputs);
@@ -41,7 +41,7 @@ public class ChemicalFurnaceJEIRecipeWrapper extends BlankRecipeWrapper {
         for (ElementStack i : recipe.outputs) {
             if (recipe.outputs[j++] != null) {
 
-                outputs.add(ElementBase.getItem(i));
+                outputs.add(ElementRegistry.getItem(i));
             }
         }
         ingredients.setOutputs(ItemStack.class, outputs);
