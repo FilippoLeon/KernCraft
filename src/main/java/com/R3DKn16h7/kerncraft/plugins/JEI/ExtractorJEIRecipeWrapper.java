@@ -18,7 +18,6 @@ import java.util.List;
  * Created by filippo on 23/11/16.
  */
 public class ExtractorJEIRecipeWrapper extends BlankRecipeWrapper {
-
     public ExtractorRecipe recipe;
 
     ExtractorJEIRecipeWrapper(ExtractorRecipe recipe_) {
@@ -27,7 +26,7 @@ public class ExtractorJEIRecipeWrapper extends BlankRecipeWrapper {
 
     @Override
     public void getIngredients(IIngredients ingredients) {
-        ArrayList<ItemStack> inputs = new ArrayList<ItemStack>();
+        ArrayList<ItemStack> inputs = new ArrayList<>();
 
         inputs.add(new ItemStack(recipe.item));
         if(recipe.catalyst != null) inputs.add(new ItemStack(recipe.catalyst));
@@ -36,9 +35,10 @@ public class ExtractorJEIRecipeWrapper extends BlankRecipeWrapper {
         inputs.add(new ItemStack(KernCraftItems.CANISTER));
         ingredients.setInputs(ItemStack.class, inputs);
 
-        ArrayList<ItemStack> outputs = new ArrayList<ItemStack>();
+        ArrayList<ItemStack> outputs = new ArrayList<>();
 
         for (ElementStack i : recipe.outs) {
+            if (i == null) continue;
             outputs.add(ElementRegistry.getItem(i));
         }
         ingredients.setOutputs(ItemStack.class, outputs);

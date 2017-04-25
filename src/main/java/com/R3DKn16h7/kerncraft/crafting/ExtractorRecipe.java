@@ -9,6 +9,10 @@ import net.minecraft.item.Item;
 public class ExtractorRecipe implements ISmeltingRecipe {
     public Item item;
     public Item catalyst;
+
+    /**
+     * TODO: Might need to switch to ArrayList to favour loops
+     */
     public ElementStack[] outs;
     public int energy;
 

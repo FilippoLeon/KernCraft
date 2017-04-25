@@ -3,7 +3,7 @@
     <!-- IRON RELATED ITEMS -->
     <Extractor energy="100">
         <Input>
-            <Item amount="1">iron_nugget</Item>
+            <Item>iron_nugget</Item>
         </Input>
         <Output>
             <Element amount="10">Fe</Element>
@@ -11,7 +11,7 @@
     </Extractor>
     <Extractor energy="900">
         <Input>
-            <Item amount="1">iron_ingot</Item>
+            <Item>iron_ingot</Item>
         </Input>
         <Output>
             <Element amount="90">Fe</Element>
@@ -19,7 +19,7 @@
     </Extractor>
     <Extractor energy="8100">
         <Input>
-            <Block amount="1">iron_block</Block>
+            <Block>iron_block</Block>
         </Input>
         <Output>
             <Element amount="810">Fe</Element>
@@ -27,10 +27,18 @@
     </Extractor>
     <Extractor energy="27900">
         <Input>
-            <Block amount="1">anvil</Block>
+            <Block>anvil</Block>
         </Input>
         <Output>
             <Element amount="2790">Fe</Element>
+        </Output>
+    </Extractor>
+    <Extractor energy="4000">
+        <Input>
+            <OreDict amount="1">oreIron</OreDict>
+        </Input>
+        <Output>
+            <Element amount="270">Fe</Element>
         </Output>
     </Extractor>
 
@@ -38,7 +46,7 @@
     <!-- COPPER BASED RECIPES -->
     <Extractor energy="100">
         <Input>
-            <OreDict amount="1">kerncraft:iron_nugget</OreDict>
+            <OreDict amount="1">oreCopper</OreDict>
         </Input>
         <Output>
             <Element amount="10">Fe</Element>
@@ -48,7 +56,7 @@
 
     <Extractor energy="10">
         <Input>
-            <Item amount="1">kerncraft:iron_ingot</Item>
+            <Item amount="1">iron_ingot</Item>
         </Input>
         <Catalyst>
             <Item amount="5">diamond_block</Item>

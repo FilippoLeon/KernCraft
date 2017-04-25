@@ -40,7 +40,6 @@ public class ChemicalFurnaceJEIRecipeWrapper extends BlankRecipeWrapper {
         j = 0;
         for (ElementStack i : recipe.outputs) {
             if (recipe.outputs[j++] != null) {
-
                 outputs.add(ElementRegistry.getItem(i));
             }
         }
