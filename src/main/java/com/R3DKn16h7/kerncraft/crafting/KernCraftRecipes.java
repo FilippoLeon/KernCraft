@@ -74,7 +74,7 @@ public class KernCraftRecipes {
         try {
             amount = Integer.parseInt(elem.getAttributes().getNamedItem("amount").getNodeValue());
         } catch (Exception e) {
-            amount = 0;
+            amount = 1;
         }
         int meta;
         try {
@@ -94,7 +94,7 @@ public class KernCraftRecipes {
                 return GameRegistry.makeItemStack(nodeValue, meta, amount, nbt);
             case "Block":
                 return new ItemStack(Block.getBlockFromName(nodeValue), amount, meta);
-            case "OreDictionary":
+            case "OreDict":
                 if (OreDictionary.getOres(nodeValue).size() > 0) {
                     return OreDictionary.getOres(nodeValue).get(0);
                 }
@@ -108,7 +108,7 @@ public class KernCraftRecipes {
         try {
             amount = Integer.parseInt(elem.getAttributes().getNamedItem("amount").getNodeValue());
         } catch (NullPointerException e) {
-            amount = 0;
+            amount = 1000;
         }
         String fluid = elem.getTextContent();
         return new FluidStack(FluidRegistry.getFluid(fluid), amount);
@@ -120,16 +120,16 @@ public class KernCraftRecipes {
         try {
             amount = Integer.parseInt(element.getAttributes().getNamedItem("amount").getNodeValue());
         } catch (Exception e) {
-            amount = 0;
+            amount = 1;
         }
         float prob;
         try {
             prob = Float.parseFloat(element.getAttributes().getNamedItem("probability").getNodeValue());
         } catch (Exception e) {
-            prob = 0;
+            prob = 1.0f;
         }
 
-        int id = 0;
+        int id;
         try {
             id = Integer.parseInt(element.getNodeValue());
         } catch (Exception e) {
@@ -141,7 +141,9 @@ public class KernCraftRecipes {
     static public void parseExtractorRecipe(Node nNode) {
         int energy;
         try {
-            energy = Integer.parseInt(nNode.getAttributes().getNamedItem("energy").getNodeValue());
+            energy = Integer.parseInt(
+                    nNode.getAttributes().getNamedItem("energy").getNodeValue()
+            );
         } catch (NullPointerException e) {
             energy = 0;
         }
@@ -181,15 +183,19 @@ public class KernCraftRecipes {
                     break;
             }
         }
+
         if (input.isEmpty()) {
             System.err.println("Fatal: No input for Extractor Recipe.");
+            return;
         }
         if (elements[0] == null) {
             System.err.println("Warning: No output elements for Extractor Recipe.");
+            return;
         }
 
         if (energy < 0) {
             System.err.println("Fatal: Negative energy for Extractor Recipe.");
+            return;
         }
 
         EXTRACTOR_RECIPES.add(
@@ -251,7 +257,8 @@ public class KernCraftRecipes {
         }
 
         if (cost < 0) {
-            System.err.println("Cost: Negative energy for Extractor Recipe.");
+            System.err.println("Fatal: Negative cost for Extractor Recipe.");
+            return;
         }
 
         CHEMICAL_FURNACE_RECIPES.add(
@@ -361,6 +368,7 @@ public class KernCraftRecipes {
 
         NodeList nList = doc.getDocumentElement().getChildNodes();
         for (int i = 0; i < nList.getLength(); ++i) {
+            if (nList.item(i).getNodeType() != Node.ELEMENT_NODE) continue;
 
             Node nNode = nList.item(i);
             try {

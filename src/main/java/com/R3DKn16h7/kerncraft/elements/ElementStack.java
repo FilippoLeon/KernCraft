@@ -33,5 +33,4 @@ public class ElementStack {
         this(name, quantity);
         this.probability = probability;
     }
-
 }
