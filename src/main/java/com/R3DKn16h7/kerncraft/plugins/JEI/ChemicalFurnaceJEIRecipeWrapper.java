@@ -55,12 +55,12 @@ public class ChemicalFurnaceJEIRecipeWrapper extends BlankRecipeWrapper {
         // Draw each output element
         int j = 0;
         for (ElementStack i : recipe.outputs) {
-            if (i.prob == 1) continue;
+            if (i.probability == 1) continue;
             String prob_string = String.format("%d%%",
-                    (int) Math.floor(i.prob * 100));
+                    (int) Math.floor(i.probability * 100));
             int color;
-            if (i.prob < 0.9f) color = Color.red.getRGB();
-            if (0.6f < i.prob && i.prob <= 0.9f) color = Color.yellow.getRGB();
+            if (i.probability < 0.9f) color = Color.red.getRGB();
+            if (0.6f < i.probability && i.probability <= 0.9f) color = Color.yellow.getRGB();
             else color = Color.green.getRGB();
 
             minecraft.fontRendererObj.drawStringWithShadow(prob_string,

@@ -128,7 +128,7 @@ public class ExtractorTileEntity extends SmeltingTileEntity
         // For each Element output, flag telling if this has already been produced
         int[] remaining = new int[recipe.outs.length];
         for (int i = 0; i < recipe.outs.length; ++i) {
-            remaining[i] = recipe.outs[i].quantity * (Math.random() < recipe.outs[i].prob ? 1 : 0);
+            remaining[i] = recipe.outs[i].quantity * (Math.random() < recipe.outs[i].probability ? 1 : 0);
         }
 
         // Place outputs in canisters, only if output can be placed
