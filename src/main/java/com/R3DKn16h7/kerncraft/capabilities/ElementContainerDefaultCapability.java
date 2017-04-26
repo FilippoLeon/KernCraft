@@ -118,14 +118,11 @@ public class ElementContainerDefaultCapability
             // Move to "ExplodeIfNeeded"
             Element elem = ElementRegistry.getElement(id);
             if (elem.reachedCriticalMass(getAmountOf(id))) {
-                double x = 0, y = 0, z = 0;
-//                itemStack.get
                 containedElements.put(id, 0);
 
                 BlockPos pos = ent.getPosition();
                 ent.world.createExplosion(ent, pos.getX(), pos.getY(), pos.getZ(),
                         10, true);
-//                nbt.setInteger("Quantity", 0);
                 return 0;
             }
         }
@@ -142,16 +139,6 @@ public class ElementContainerDefaultCapability
         int contained = containedElements.getOrDefault(id, 0);
         int canBeAdded = Math.min(maxCapacity - getTotalAmount(), amount);
         if (!simulate) {
-            Element elem = ElementRegistry.getElement(id);
-            if (elem.reachedCriticalMass(contained + canBeAdded)) {
-//                double x = 0, y = 0, z = 0;
-//                itemStack.get
-//                containedElements.put(id, 0);
-
-//                Minecraft.getMinecraft().world.createExplosion( Minecraft.getMinecraft().player, x,y,z+10,10,true);
-//                nbt.setInteger("Quantity", 0);
-            }
-
             containedElements.put(id, contained + canBeAdded);
         }
         return canBeAdded;
@@ -179,5 +166,20 @@ public class ElementContainerDefaultCapability
     @Override
     public Map<Integer, Integer> getElementMap() {
         return containedElements;
+    }
+
+    @Override
+    public boolean acceptsElementWithState(Element.State state) {
+        return true;
+    }
+
+    @Override
+    public boolean doesIsolate() {
+        return false;
+    }
+
+    @Override
+    public boolean doesConfine() {
+        return false;
     }
 }

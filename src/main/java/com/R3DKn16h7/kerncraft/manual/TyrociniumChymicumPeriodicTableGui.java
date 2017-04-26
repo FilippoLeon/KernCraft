@@ -47,10 +47,10 @@ public class TyrociniumChymicumPeriodicTableGui extends TyrociniumChymicumGui {
         for (Element element : ElementRegistry.getElements()) {
             int g = element.group;
             int p = element.period;
-            if (g == ElementRegistry.GROUP.Actinide.getValue()) {
+            if (g == Element.Group.ACTINIDE.getValue()) {
                 g = 3 + a++;
                 p += 3;
-            } else if (g == ElementRegistry.GROUP.Lanthanide.getValue()) {
+            } else if (g == Element.Group.LANTHANIDE.getValue()) {
                 g = 3 + b++;
                 p += 3;
             }

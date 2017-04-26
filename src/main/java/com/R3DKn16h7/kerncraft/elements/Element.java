@@ -2,6 +2,7 @@ package com.R3DKn16h7.kerncraft.elements;
 
 import com.google.gson.JsonObject;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.util.text.TextFormatting;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
@@ -12,6 +13,7 @@ import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathFactory;
+import java.awt.*;
 import java.io.DataInputStream;
 
 /**
@@ -52,8 +54,8 @@ public class Element {
     /**
      * State at room temperature.
      */
-    public final ElementRegistry.ElementState state;
-    public final ElementRegistry.ElementFamily family;
+    public final State state;
+    public final Family family;
     /**
      * Denotes the half life of the element. A value of -1 indicates
      * that the element is stable.
@@ -81,16 +83,16 @@ public class Element {
         String gr = jsonObject.get("group").getAsString();
         switch (gr) {
             case "A":
-                this.group = ElementRegistry.GROUP.Actinide.getValue();
+                this.group = Group.ACTINIDE.getValue();
                 break;
             case "L":
-                this.group = ElementRegistry.GROUP.Lanthanide.getValue();
+                this.group = Group.LANTHANIDE.getValue();
                 break;
             default:
                 this.group = tryGetAsIntOrDefault("group", 1, jsonObject);
                 break;
         }
-        this.family = ElementRegistry.ElementFamily.fromString(
+        this.family = Family.fromString(
                 jsonObject.get("family").getAsString()
         );
         this.period = tryGetAsIntOrDefault("period", 0, jsonObject);
@@ -109,7 +111,7 @@ public class Element {
 
         this.toxic = tryGetAsBoolOrDefault("toxic", false, jsonObject);
 
-        state = ElementRegistry.ElementState.fromString(jsonObject.get("state").getAsString());
+        state = State.fromString(jsonObject.get("state").getAsString());
 
         // TODO: Use i18n for this
         if (jsonObject.has("description")) {
@@ -247,5 +249,138 @@ public class Element {
      */
     public boolean reachedCriticalMass(int quantity) {
         return criticalMass > 0 && quantity > criticalMass;
+    }
+
+    /**
+     * Enum class converting Group names into Enums for easy use.
+     */
+    public enum Group {
+        ACTINIDE(-2),
+        LANTHANIDE(-3);
+
+        private int value;
+
+        Group(int value) {
+            this.value = value;
+        }
+
+        public static String toString(int value) {
+            switch (value) {
+                case -2:
+                    return "A";
+                case -3:
+                    return "L";
+                default:
+                    return Integer.toString(value);
+            }
+        }
+
+        public String toString() {
+            return toString(value);
+        }
+
+        public int getValue() {
+            return value;
+        }
+    }
+
+    /**
+     * Enum class for easy manipulation of element state.
+     */
+    public enum State {
+        GAS, LIQUID, SOLID, UNKNOWN;
+
+        public static State fromString(String s) {
+            switch (s) {
+                case "g":
+                    return GAS;
+                case "l":
+                    return LIQUID;
+                case "s":
+                    return SOLID;
+                default:
+                    return UNKNOWN;
+            }
+        }
+
+        public String toColor() {
+            switch (this) {
+                case GAS:
+                    return TextFormatting.AQUA.toString();
+                case LIQUID:
+                    return TextFormatting.BLUE.toString();
+                case SOLID:
+                    return TextFormatting.RESET.toString();
+                case UNKNOWN:
+                    return TextFormatting.GRAY.toString();
+                default:
+                    return "";
+            }
+        }
+    }
+
+    public enum Family {
+        ALKALI, ALKALINE, BASIC_METAL, SEMIMETAL, NON_METAL, HALOGEN, NOBLE_GAS, TRANSITION,
+        ACTINIDES, LANTHANIDES, UNKNOWN;
+
+        public static Family fromString(String s) {
+            switch (s) {
+                case "Alkali":
+                    return ALKALI;
+                case "Alkaline":
+                    return ALKALINE;
+                case "BasicMetal":
+                    return BASIC_METAL;
+                case "Semimetal":
+                    return SEMIMETAL;
+                case "NonMetal":
+                    return NON_METAL;
+                case "Halogen":
+                    return HALOGEN;
+                case "Noble":
+                    return NOBLE_GAS;
+                case "Transition":
+                    return TRANSITION;
+                case "L":
+                    return LANTHANIDES;
+                case "A":
+                    return ACTINIDES;
+                default:
+                    return UNKNOWN;
+            }
+        }
+
+        public String I18n() {
+            return I18n.format(String.format("element.family.%s.name", this));
+        }
+
+        public Color toColor() {
+            switch (this) {
+                case ALKALI:
+                    return new Color(255, 0, 0);
+                case ALKALINE:
+                    return new Color(240, 150, 0);
+                case TRANSITION:
+                    return new Color(250, 203, 40);
+                case BASIC_METAL:
+                    return new Color(100, 255, 0);
+                case SEMIMETAL:
+                    return new Color(0, 155, 135);
+                case NON_METAL:
+                    return new Color(0, 105, 135);
+                case HALOGEN:
+                    return new Color(100, 55, 235);
+                case NOBLE_GAS:
+                    return new Color(140, 0, 235);
+                case LANTHANIDES:
+                    return new Color(0, 205, 0);
+                case ACTINIDES:
+                    return new Color(0, 100, 0);
+                case UNKNOWN:
+                    return new Color(14, 14, 14);
+                default:
+                    return null;
+            }
+        }
     }
 }

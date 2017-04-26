@@ -129,7 +129,7 @@ public class TyrociniumChymicumElementGui extends TyrociniumChymicumGui {
         GL11.glPopMatrix();
         fontRendererObj.drawString(StringUtils.capitalize(element.name),
                 guiLeft + 50, guiTop + 10, 0x222222);
-        fontRendererObj.drawString("Group " + ElementRegistry.GROUP.toString(element.group),
+        fontRendererObj.drawString("Group " + Element.Group.toString(element.group),
                 guiLeft + 50, guiTop + 20, 0x222222);
         fontRendererObj.drawString(element.toxic ? "Toxic" : "",
                 guiLeft + 50, guiTop + 30, new Color(21, 121, 18).getRGB());
