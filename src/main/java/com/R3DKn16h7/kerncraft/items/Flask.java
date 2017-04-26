@@ -90,16 +90,21 @@ public class Flask extends AbstractElementContainerItem {
     public ItemStack onItemUseFinish(ItemStack stack,
                                      World worldIn,
                                      EntityLivingBase entityLiving) {
+        if (worldIn.isRemote) return stack;
+
         if (ElementCapabilities.hasCapability(stack)) {
 
             IElementContainer cap = ElementCapabilities.getCapability(stack);
             if (cap.getElements().length >= 1) {
+                if (cap.removeAmountOf(cap.getElements()[0], 100, true) != 100) return stack;
+
                 cap.removeAmountOf(cap.getElements()[0], 100, false);
+
+                entityLiving.attackEntityFrom(
+                        new DamageSource("stupidity"), 19
+                );
             }
 
-            entityLiving.attackEntityFrom(
-                    new DamageSource("stupidity"), 19
-            );
         }
 
         return stack;
@@ -120,7 +125,15 @@ public class Flask extends AbstractElementContainerItem {
     @Override
     public EnumAction getItemUseAction(ItemStack stack) {
 
-        return EnumAction.DRINK;
+        if (ElementCapabilities.hasCapability(stack)) {
+            IElementContainer cap = ElementCapabilities.getCapability(stack);
+            if (cap.getElements().length >= 1) {
+                return cap.removeAmountOf(cap.getElements()[0], 100, true) == 100
+                        ? EnumAction.DRINK
+                        : EnumAction.NONE;
+            }
+        }
+        return EnumAction.NONE;
     }
 
 }

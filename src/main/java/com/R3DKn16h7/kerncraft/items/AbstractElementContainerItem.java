@@ -80,6 +80,8 @@ public abstract class AbstractElementContainerItem extends Item {
     public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn,
                                                     EnumHand handIn) {
 
+        if (worldIn.isRemote) return new ActionResult<>(EnumActionResult.PASS, playerIn.getHeldItem(handIn));
+
         if (PlayerHelper.isCtrlKeyDown() ? handIn.equals(EnumHand.MAIN_HAND) : handIn.equals(EnumHand.OFF_HAND)) {
             // Stack held in hand you are transfering from
             ItemStack itemStack = playerIn.getHeldItem(handIn);
@@ -116,7 +118,7 @@ public abstract class AbstractElementContainerItem extends Item {
         }
 
         playerIn.setActiveHand(handIn);
-        return new ActionResult(EnumActionResult.PASS, playerIn.getHeldItem(handIn));
+        return new ActionResult<>(EnumActionResult.PASS, playerIn.getHeldItem(handIn));
     }
 
     @Override
