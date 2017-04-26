@@ -47,3 +47,5 @@ element.family.LANTHANIDES.name=Lanthanide
 element.family.UNKNOWN.name=Unknown
 
 itemGroup.KernCraft=KernCraft
+
+death.attack.stupidity=%1$s was killed by Stupidity

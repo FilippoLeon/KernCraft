@@ -14,6 +14,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
@@ -114,7 +115,8 @@ public abstract class AbstractElementContainerItem extends Item {
             }
         }
 
-        return super.onItemRightClick(worldIn, playerIn, handIn);
+        playerIn.setActiveHand(handIn);
+        return new ActionResult(EnumActionResult.PASS, playerIn.getHeldItem(handIn));
     }
 
     @Override

@@ -144,6 +144,10 @@ public class ElementContainerDefaultCapability
     @Deprecated
     public int addAmountOf(int id, int amount, boolean simulate) {
         if (id <= 0 || id > ElementRegistry.NUMBER_OF_ELEMENTS) return 0;
+        Element elem = ElementRegistry.getElement(id);
+        if (!acceptedStates.contains(elem.state)) {
+            return 0;
+        }
         if (getNumberOfElements() >= maxNumElements && !containedElements.containsKey(id)) {
             return 0;
         }

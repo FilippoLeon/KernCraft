@@ -1,13 +1,18 @@
 package com.R3DKn16h7.kerncraft.items;
 
 import com.R3DKn16h7.kerncraft.capabilities.ElementCapabilities;
+import com.R3DKn16h7.kerncraft.capabilities.ElementContainerProvider;
 import com.R3DKn16h7.kerncraft.capabilities.IElementContainer;
 import com.R3DKn16h7.kerncraft.elements.Element;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.item.EnumAction;
 import net.minecraft.item.IItemPropertyGetter;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -67,4 +72,55 @@ public class Flask extends AbstractElementContainerItem {
     public String getName() {
         return "flask";
     }
+
+    @Nullable
+    @Override
+    public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable NBTTagCompound nbt) {
+        ElementContainerProvider cap = new ElementContainerProvider(1, 1000);
+        cap.elementContainer.removeAcceptedState(Element.State.GAS);
+        return cap;
+    }
+
+    /**
+     * Called when the player finishes using this Item (E.g. finishes eating.).
+     * Not called when the player stops using
+     * the Item before the action is complete.
+     */
+    @Override
+    public ItemStack onItemUseFinish(ItemStack stack,
+                                     World worldIn,
+                                     EntityLivingBase entityLiving) {
+        if (ElementCapabilities.hasCapability(stack)) {
+
+            IElementContainer cap = ElementCapabilities.getCapability(stack);
+            if (cap.getElements().length >= 1) {
+                cap.removeAmountOf(cap.getElements()[0], 100, false);
+            }
+
+            entityLiving.attackEntityFrom(
+                    new DamageSource("stupidity"), 19
+            );
+        }
+
+        return stack;
+    }
+
+    /**
+     * How long it takes to use or consume an item
+     */
+    @Override
+    public int getMaxItemUseDuration(ItemStack stack) {
+
+        return 32;
+    }
+
+    /**
+     * returns the action that specifies what animation to play when the items is being used
+     */
+    @Override
+    public EnumAction getItemUseAction(ItemStack stack) {
+
+        return EnumAction.DRINK;
+    }
+
 }
