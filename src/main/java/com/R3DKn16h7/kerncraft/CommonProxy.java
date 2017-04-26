@@ -9,6 +9,7 @@ import com.R3DKn16h7.kerncraft.events.EventHandlerCommon;
 import com.R3DKn16h7.kerncraft.items.KernCraftItems;
 import com.R3DKn16h7.kerncraft.network.KernCraftNetwork;
 import com.R3DKn16h7.kerncraft.network.ModGuiHandler;
+import com.R3DKn16h7.kerncraft.sounds.KernCraftSounds;
 import com.R3DKn16h7.kerncraft.tileentities.KernCraftTileEntities;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.CapabilityManager;
@@ -39,6 +40,8 @@ public class CommonProxy {
                 new TyrociniumProgressStorage(), new TyrociniumProgressFactory());
         CapabilityManager.INSTANCE.register(IElementContainer.class,
                 new ElementContainerStorage(), ElementContainerDefaultCapability.class);
+
+        new KernCraftSounds();
     }
 
     public void init(FMLInitializationEvent e) {

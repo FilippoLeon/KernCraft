@@ -2,6 +2,7 @@ package com.R3DKn16h7.kerncraft.tileentities;
 
 import com.R3DKn16h7.kerncraft.crafting.ISmeltingRecipe;
 import com.R3DKn16h7.kerncraft.guicontainer.SmeltingContainer;
+import com.R3DKn16h7.kerncraft.sounds.KernCraftSounds;
 import com.R3DKn16h7.kerncraft.tileentities.utils.SideConfiguration;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Items;
@@ -11,6 +12,7 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
@@ -45,7 +47,8 @@ abstract public class SmeltingTileEntity
     int storedFuel = 0;
     // Recipe Id currently smelting
     ISmeltingRecipe currentlySmelting;
-
+    int elapsedT = 0;
+    boolean lastSmeltig = true;
     public SmeltingTileEntity(int inputSize, int outputSize) {
         super(inputSize, outputSize);
 
@@ -58,6 +61,7 @@ abstract public class SmeltingTileEntity
     public float getProgressPercent() {
         return progress;
     }
+
     @Override
     public float getFuelStoredPercent() {
         return Math.min(storedFuel / (float)
@@ -232,6 +236,53 @@ abstract public class SmeltingTileEntity
                 elapsed += 1;
             }
         }
+
+
+        /// TODO FIXME ARGH THIS SUCKS BIG TIME; HOW TO DO THIS PROPERLY?
+        if (world.isRemote) {
+            if (this.blockType == null) return;
+            int maxElapsed = 0;
+            int spinUpTime = 93;
+
+            boolean smeltig2;
+            try {
+                smeltig2 = world.getBlockState(getPos()).getValue(MachineBlock.POWERED);
+            } catch (Exception e) {
+                return;
+            }
+
+            if (smeltig2 != lastSmeltig) {
+                elapsedT = 0;
+                lastSmeltig = smeltig2;
+            }
+            if (elapsedT == -1) return;
+
+            if (smeltig2) {
+                if (elapsedT == 0) {
+                    world.playSound(
+                            (double) pos.getX() + 0.5D, (double) pos.getY(), (double) pos.getZ() + 0.5D,
+                            KernCraftSounds.CENTRIFUGE_SPIN_UP, SoundCategory.BLOCKS,
+                            1.0F, 1.0F, false
+                    );
+                } else if (elapsedT >= spinUpTime) {
+                    world.playSound(
+                            (double) pos.getX() + 0.5D, (double) pos.getY(), (double) pos.getZ() + 0.5D,
+                            KernCraftSounds.CENTRIFUGE, SoundCategory.BLOCKS,
+                            1.0F, 1.0F, false
+                    );
+                    elapsedT = spinUpTime;
+                }
+            } else if (elapsedT >= spinUpTime) {
+                world.playSound(
+                        (double) pos.getX() + 0.5D, (double) pos.getY(), (double) pos.getZ() + 0.5D,
+                        KernCraftSounds.CENTRIFUGE_SPIN_DOWN, SoundCategory.BLOCKS,
+                        1.0F, 1.0F, false
+                );
+                elapsedT = -2;
+            }
+            elapsedT++;
+        }
+
     }
 
     public int getField(int id) {
