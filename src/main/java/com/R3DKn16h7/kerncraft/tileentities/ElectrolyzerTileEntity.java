@@ -8,10 +8,12 @@ import com.R3DKn16h7.kerncraft.crafting.KernCraftRecipes;
 import com.R3DKn16h7.kerncraft.elements.ElementStack;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.items.ItemStackHandler;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class ChemicalFurnaceTileEntity extends SmeltingTileEntity {
+public class ElectrolyzerTileEntity extends SmeltingTileEntity {
 
     // Slot IDs
     static final public int inputSlotStart = 0;
@@ -19,11 +21,36 @@ public class ChemicalFurnaceTileEntity extends SmeltingTileEntity {
     static final public int outputSlotStart = 0;
     static final public int outputSlotSize = 2;
     static final public int totalSlots = 4;
-    public int[][] inputCoords = {{4,1},{5,1}};
-    public int[][] outputCoords = {{4,3},{5,3}};
+    public int[][] inputCoords = {{4, 1}, {5, 1}};
+    public int[][] outputCoords = {{4, 3}, {5, 3}};
 
-    public ChemicalFurnaceTileEntity() {
+    public ElectrolyzerTileEntity() {
         super(2, 2);
+    }
+
+    /**
+     * Return
+     *
+     * @param stackHandler
+     * @param elem
+     * @return
+     */
+    static private List<Integer> itemStackHandlerMatchesElementStack(ItemStackHandler stackHandler,
+                                                                     ElementStack elem) {
+        List<Integer> match = new ArrayList<>();
+        if (elem != null) {
+            for (int i = 0; i < stackHandler.getSlots(); ++i) {
+                ItemStack stack = stackHandler.getStackInSlot(i);
+
+                if (stack != ItemStack.EMPTY
+                        && ElementCapabilities.hasCapability(stack)
+                        && ElementCapabilities.getCapability(stack).getAmountOf(elem.id) >= elem.quantity
+                        ) {
+                    match.add(i);
+                }
+            }
+        }
+        return match;
     }
 
     @Override
@@ -43,7 +70,7 @@ public class ChemicalFurnaceTileEntity extends SmeltingTileEntity {
 
     @Override
     public int[] getFuelIconCoordinate() {
-        return new int[]{-4,1};
+        return new int[]{-4, 1};
     }
 
     @Override
@@ -53,7 +80,7 @@ public class ChemicalFurnaceTileEntity extends SmeltingTileEntity {
 
     @Override
     public int[] getProgressTextCoordinate() {
-        return new int[]{6,1};
+        return new int[]{6, 1};
     }
 
     @Override
@@ -64,7 +91,7 @@ public class ChemicalFurnaceTileEntity extends SmeltingTileEntity {
     @Override
     public boolean canSmelt(ISmeltingRecipe rec) {
         ChemicalFurnaceRecipe chemrec = ((ChemicalFurnaceRecipe) rec);
-        if(chemrec == null) return false;
+        if (chemrec == null) return false;
 
         if (chemrec.fluid != null) {
             if (getFluid() == null || getFluid().isFluidEqual(chemrec.fluid)) {
@@ -83,7 +110,7 @@ public class ChemicalFurnaceTileEntity extends SmeltingTileEntity {
         }
 
         // Try use inputs, if fail return
-        for(ElementStack elem: chemrec.inputs) {
+        for (ElementStack elem : chemrec.inputs) {
             if (elem == null) continue;
             int to_remove = elem.quantity;
             for (int i = 0; i < input.getSlots(); ++i) {
@@ -144,15 +171,15 @@ public class ChemicalFurnaceTileEntity extends SmeltingTileEntity {
         if (!canSmelt(chemrec)) return;
 
         // Actually remove inputs
-        for(ElementStack elem: chemrec.inputs) {
+        for (ElementStack elem : chemrec.inputs) {
             if (elem == null) continue;
             int to_remove = elem.quantity;
-            for(int i = 0; i < input.getSlots(); ++i) {
+            for (int i = 0; i < input.getSlots(); ++i) {
                 ItemStack stack = input.getStackInSlot(i);
                 if (ElementCapabilities.hasCapability(stack)) {
                     IElementContainer cap = ElementCapabilities.getCapability(stack);
                     to_remove -= cap.removeAmountOf(elem.id, to_remove, false);
-                    if(to_remove <= 0) {
+                    if (to_remove <= 0) {
                         break;
                     }
                 }
@@ -185,11 +212,11 @@ public class ChemicalFurnaceTileEntity extends SmeltingTileEntity {
         }
 
         int producedEnergy = chemrec.energy;
-        if(producedEnergy > 0) {
+        if (producedEnergy > 0) {
             storage.receiveEnergy(producedEnergy, false);
         }
 
         markDirty();
-        world.scheduleBlockUpdate(pos, getBlockType(), 0,0);
+        world.scheduleBlockUpdate(pos, getBlockType(), 0, 0);
     }
 }

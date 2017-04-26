@@ -4,7 +4,8 @@ import com.R3DKn16h7.kerncraft.KernCraft;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.math.BlockPos;
@@ -25,6 +26,7 @@ public class TimeMachineBlockEntity extends BlockContainer {
     }
 
     public boolean canProvidePower(IBlockState state) {
+
         return true;
     }
 
@@ -35,12 +37,34 @@ public class TimeMachineBlockEntity extends BlockContainer {
     }
 
     @Override
+    public void onBlockClicked(World worldIn, BlockPos pos, EntityPlayer playerIn) {
+        super.onBlockClicked(worldIn, pos, playerIn);
+
+        TimeMachineTileEntity te = (TimeMachineTileEntity) worldIn.getTileEntity(pos);
+
+        NBTTagCompound nbt = te.getTileData();
+
+        if (nbt.hasKey("active")) {
+            nbt.setBoolean("active", !nbt.getBoolean("active"));
+        } else {
+            nbt.setBoolean("active", true);
+        }
+
+        te.writeToNBT(nbt);
+    }
+
+
+    @Override
     public TileEntity createNewTileEntity(World worldIn, int meta) {
+
+
         return new TimeMachineTileEntity();
     }
 
     @Override
     public EnumBlockRenderType getRenderType(IBlockState state) {
+
+
         return EnumBlockRenderType.MODEL;
     }
 
