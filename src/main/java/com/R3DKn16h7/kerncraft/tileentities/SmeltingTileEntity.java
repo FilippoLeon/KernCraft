@@ -47,8 +47,12 @@ abstract public class SmeltingTileEntity
     int storedFuel = 0;
     // Recipe Id currently smelting
     ISmeltingRecipe currentlySmelting;
+
+    /// TODO FIXME ARGH THIS SUCKS BIG TIME; HOW TO DO THIS PROPERLY?
     int elapsedT = 0;
     boolean lastSmeltig = true;
+    private boolean must_spin_down;
+
     public SmeltingTileEntity(int inputSize, int outputSize) {
         super(inputSize, outputSize);
 
@@ -239,8 +243,9 @@ abstract public class SmeltingTileEntity
 
 
         /// TODO FIXME ARGH THIS SUCKS BIG TIME; HOW TO DO THIS PROPERLY?
-        if (world.isRemote) {
-            if (this.blockType == null) return;
+        /// IS THIS LAGGY? I BETCHA
+        if (!world.isRemote) {
+//            if (this.blockType == null) return;
             int maxElapsed = 0;
             int spinUpTime = 93;
 
@@ -252,33 +257,38 @@ abstract public class SmeltingTileEntity
             }
 
             if (smeltig2 != lastSmeltig) {
-                elapsedT = 0;
+                if (smeltig2) {
+                    must_spin_down = false;
+                    elapsedT = 0;
+                } else {
+                    must_spin_down = true;
+                }
                 lastSmeltig = smeltig2;
             }
-            if (elapsedT == -1) return;
 
             if (smeltig2) {
+                must_spin_down = false;
                 if (elapsedT == 0) {
-                    world.playSound(
-                            (double) pos.getX() + 0.5D, (double) pos.getY(), (double) pos.getZ() + 0.5D,
+                    world.playSound(null, getPos(),
                             KernCraftSounds.CENTRIFUGE_SPIN_UP, SoundCategory.BLOCKS,
-                            1.0F, 1.0F, false
+                            0.5F, 1.0F
                     );
                 } else if (elapsedT >= spinUpTime) {
-                    world.playSound(
-                            (double) pos.getX() + 0.5D, (double) pos.getY(), (double) pos.getZ() + 0.5D,
+                    world.playSound(null, getPos(),
                             KernCraftSounds.CENTRIFUGE, SoundCategory.BLOCKS,
-                            1.0F, 1.0F, false
+                            0.5F, 1.0F
                     );
                     elapsedT = spinUpTime;
                 }
             } else if (elapsedT >= spinUpTime) {
-                world.playSound(
-                        (double) pos.getX() + 0.5D, (double) pos.getY(), (double) pos.getZ() + 0.5D,
-                        KernCraftSounds.CENTRIFUGE_SPIN_DOWN, SoundCategory.BLOCKS,
-                        1.0F, 1.0F, false
-                );
-                elapsedT = -2;
+                if (must_spin_down) {
+                    world.playSound(null, getPos(),
+                            KernCraftSounds.CENTRIFUGE_SPIN_DOWN, SoundCategory.BLOCKS,
+                            0.5F, 1.0F
+                    );
+                    must_spin_down = false;
+                }
+                elapsedT = 0;
             }
             elapsedT++;
         }

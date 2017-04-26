@@ -66,6 +66,7 @@ public class ChemicalFurnaceTileEntity extends SmeltingTileEntity {
         ChemicalFurnaceRecipe chemrec = ((ChemicalFurnaceRecipe) rec);
         if(chemrec == null) return false;
 
+        // TODO: return false if tank full?
         if (chemrec.fluid != null) {
             if (getFluid() == null || getFluid().isFluidEqual(chemrec.fluid)) {
                 if (chemrec.fluid.amount < 0) {
@@ -75,9 +76,8 @@ public class ChemicalFurnaceTileEntity extends SmeltingTileEntity {
                     if (-chemrec.fluid.amount > tank.drain(positiveFluid, false).amount) {
                         return false;
                     }
-                    tank.drain(positiveFluid, true);
                 } else {
-                    tank.fill(chemrec.fluid, true);
+                    tank.fill(chemrec.fluid, false);
                 }
             }
         }
@@ -163,9 +163,9 @@ public class ChemicalFurnaceTileEntity extends SmeltingTileEntity {
         // Actually create output once we verified we can
         if (chemrec.fluid != null) {
             FluidStack positiveFluid = new FluidStack(chemrec.fluid, -chemrec.fluid.amount);
-            if (positiveFluid != null) {
+            if (chemrec.fluid.amount <= 0) {
                 tank.drain(positiveFluid, true);
-            } else if (chemrec.fluid.amount >= 0) {
+            } else {
                 tank.fill(chemrec.fluid, true);
             }
         }

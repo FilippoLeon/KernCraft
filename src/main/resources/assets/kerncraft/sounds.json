@@ -3,21 +3,21 @@
     "category": "block",
     "subtitle": "kerncraft.subtitle.centrifuge",
     "sounds": [
-      "kerncraft:machines/centrifuge_loop"
+      "kerncraft:machines/centrifuge2_loop"
     ]
   },
   "centrifuge_spin_up": {
     "category": "block",
     "subtitle": "kerncraft.subtitle.centrifuge",
     "sounds": [
-      "kerncraft:machines/centrifuge_spin_up"
+      "kerncraft:machines/centrifuge2_spin_up"
     ]
   },
   "centrifuge_spin_down": {
     "category": "block",
     "subtitle": "kerncraft.subtitle.centrifuge",
     "sounds": [
-      "kerncraft:machines/centrifuge_spin_down"
+      "kerncraft:machines/centrifuge2_spin_down"
     ]
   }
 }
