@@ -33,6 +33,22 @@ public interface IElementContainer extends INBTSerializable<NBTTagCompound> {
     boolean acceptsElementWithState(Element.State state);
 
     /**
+     * Adds a new state to be accepted
+     *
+     * @param state
+     * @return
+     */
+    void addAcceptedState(Element.State state);
+
+    /**
+     * Adds a new state to be accepted
+     *
+     * @param state
+     * @return
+     */
+    void removeAcceptedState(Element.State state);
+
+    /**
      * Is the container isolated?  Is true, then the container prevents
      * elements from "escaping" through itselt, causing nasty effects such as
      * poison, ecc...

@@ -7,6 +7,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.BlockPos;
 
+import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,6 +21,7 @@ public class ElementContainerDefaultCapability
     int maxNumElements;
     private int maxCapacity;
     private ItemStack itemStack;
+    private EnumSet<Element.State> acceptedStates = EnumSet.allOf(Element.State.class);
     // TODO: handle strong containers that don't explode etc...
 
 
@@ -59,6 +61,11 @@ public class ElementContainerDefaultCapability
         nbt.setInteger("maxElementQuantity", this.maxNumElements);
         nbt.setInteger("maxElementCapacity", this.maxCapacity);
 
+        nbt.setBoolean("acceptsGas", acceptedStates.contains(Element.State.GAS));
+        nbt.setBoolean("acceptsLiquid", acceptedStates.contains(Element.State.SOLID));
+        nbt.setBoolean("acceptsSolid", acceptedStates.contains(Element.State.LIQUID));
+        nbt.setBoolean("acceptsUnknown", acceptedStates.contains(Element.State.UNKNOWN));
+
         return nbt;
     }
 
@@ -70,6 +77,10 @@ public class ElementContainerDefaultCapability
         for (String key : nbt2.getKeySet()) {
             containedElements.put(Integer.parseInt(key), nbt2.getInteger(key));
         }
+        if (nbt.getBoolean("acceptsGas")) acceptedStates.add(Element.State.GAS);
+        if (nbt.getBoolean("acceptsLiquid")) acceptedStates.add(Element.State.SOLID);
+        if (nbt.getBoolean("acceptsSolid")) acceptedStates.add(Element.State.LIQUID);
+        if (nbt.getBoolean("acceptsUnknown")) acceptedStates.add(Element.State.UNKNOWN);
     }
 
     @Override
@@ -170,7 +181,17 @@ public class ElementContainerDefaultCapability
 
     @Override
     public boolean acceptsElementWithState(Element.State state) {
-        return true;
+        return acceptedStates.contains(state);
+    }
+
+    @Override
+    public void addAcceptedState(Element.State state) {
+        acceptedStates.add(state);
+    }
+
+    @Override
+    public void removeAcceptedState(Element.State state) {
+        acceptedStates.remove(state);
     }
 
     @Override

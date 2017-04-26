@@ -4,6 +4,7 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 
 public class KernCraftItems {
+    public static Flask FLASK;
     public static Item PORTABLE_BEACON;
     public static Canister CANISTER;
 
@@ -18,11 +19,13 @@ public class KernCraftItems {
 
     public static ElectrolyticCell ELECTROLYTIC_CELL;
     public static PotatoBattery POTATO_BATTERY;
+    public static PressurizedCell PRESSURIZED_CELL;
 
-    public static void createItems() {
-
+    public KernCraftItems() {
         PORTABLE_BEACON = new PortableBeacon();
         CANISTER = new Canister();
+        FLASK = new Flask();
+        PRESSURIZED_CELL = new PressurizedCell();
 
         ROMAN_SHIELD = new RomanShield("roman_shield");
         GLASS_SHIELD = new GlassShield("glass_shield");

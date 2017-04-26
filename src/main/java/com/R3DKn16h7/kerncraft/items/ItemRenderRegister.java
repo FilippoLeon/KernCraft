@@ -10,6 +10,8 @@ public final class ItemRenderRegister {
     public static void registerItemRenderer() {
         register(KernCraftItems.PORTABLE_BEACON);
         register(KernCraftItems.CANISTER);
+        register(KernCraftItems.FLASK);
+        register(KernCraftItems.PRESSURIZED_CELL);
         register(KernCraftItems.ROMAN_SHIELD);
         register(KernCraftItems.GLASS_SHIELD);
 

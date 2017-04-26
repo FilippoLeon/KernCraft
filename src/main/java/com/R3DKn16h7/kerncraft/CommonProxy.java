@@ -27,7 +27,7 @@ public class CommonProxy {
 
         new ElementRegistry();
 
-        KernCraftItems.createItems();
+        new KernCraftItems();
         KernCraftBlocks.createBlocks();
         KernCraftTileEntities.createEntities();
         // Call this after we created all Objects

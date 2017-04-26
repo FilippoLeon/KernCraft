@@ -1,10 +1,15 @@
-item.portable_beacon.name=Portable Beacon
+
 item.canister.name=Canister
+item.flask.name=Erlenmeyer Flask
+item.cell.name=Pressurized Cell
+
+item.portable_beacon.name=Portable Beacon
 item.potato_battery.name=Potato battery
 item.electrolytic_cell.name=Electrolytic cell
 item.tyrocinium_chymicum.name=Tyrocinium Chymicum
 item.glass_shield.name=Glass shield
 item.roman_shield.name=Roman shield
+
 item.test_item.name=Placeholder
 
 item.labcoat_helmet.name=Lab cap
