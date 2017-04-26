@@ -1,5 +1,36 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Recipes>
+    <!-- ************************************************** -->
+    <!-- ************************************************** -->
+    <!-- ****************  EXTRACTOR RECIPES ************** -->
+    <!-- ************************************************** -->
+    <!-- ************************************************** -->
+    <!-- Recipe example for Extractor -->
+
+    <Extractor energy="10">
+        <!-- Main item to be smelted, either as Item, Block or OreDict -->
+        <Input>
+            <!-- Default amount is 1 -->
+            <Item amount="1">iron_ingot</Item>
+        </Input>
+        <!-- Optional catalyst (extra item) -->
+        <Catalyst>
+            <Item amount="5">diamond_block</Item>
+        </Catalyst>
+        <!-- Here we specify 4 elements for output (at most) -->
+        <Output>
+            <!-- Can add by symbol id... -->
+            <Element amount="100" probability="1.0">Pu</Element>
+            <!-- Or by number -->
+            <Element amount="100" probability="1.0">7</Element>
+            <!-- Default probability is 1.0 -->
+            <Element amount="10">C</Element>
+            <!-- Default amount is 1 -->
+            <Element probability="1.0">O</Element>
+            <!-- Extra elements are ignored -->
+        </Output>
+    </Extractor>
+
     <!-- IRON RELATED ITEMS -->
     <Extractor energy="100">
         <Input>
@@ -44,39 +75,36 @@
 
 
     <!-- COPPER BASED RECIPES -->
-    <Extractor energy="100">
+    <Extractor energy="4000">
         <Input>
             <OreDict amount="1">oreCopper</OreDict>
         </Input>
         <Output>
-            <Element amount="10">Fe</Element>
+            <Element amount="270">Cu</Element>
         </Output>
     </Extractor>
 
-
-    <Extractor energy="10">
-        <Input>
-            <Item amount="1">iron_ingot</Item>
-        </Input>
-        <Catalyst>
-            <Item amount="5">diamond_block</Item>
-        </Catalyst>
-        <Output>
-            <Element amount="100" probability="1.0">Pu</Element>
-            <Element amount="100" probability="1.0">Pu</Element>
-            <Element amount="100" probability="1.0">Pu</Element>
-            <Element amount="100" probability="1.0">Pu</Element>
-        </Output>
-    </Extractor>
+    <!-- ************************************************** -->
+    <!-- ************************************************** -->
+    <!-- ************* CHEMICAL FURNACE RECIPES *********** -->
+    <!-- ************************************************** -->
+    <!-- ************************************************** -->
+    <!-- Recipe example for Chemical furnace -->
     <ChemicalFurnace energy="100" cost="5">
         <Input>
-            <Element amount="100" probability="1.0">Pu</Element>
-            <Element amount="100" probability="1.0">Pu</Element>
+            <Element amount="200">H</Element>
+            <Element amount="100">O</Element>
+        </Input>
+        <Fluid amount="1000">water</Fluid>
+    </ChemicalFurnace>
+
+
+    <ChemicalFurnace energy="900" cost="5">
+        <Input>
+            <Element amount="900">Fe</Element>
         </Input>
         <Output>
-            <Element amount="4" probability="1.0">Cs</Element>
-            <Element amount="4" probability="1.0">C</Element>
+            <Item amount="90">iron_ingot</>
         </Output>
-        <Fluid amount="1000">water</Fluid>
     </ChemicalFurnace>
 </Recipes>

@@ -52,7 +52,7 @@ public class ExtractorJEIRecipeWrapper extends BlankRecipeWrapper {
         // Draw each output element
         int j = 0;
         for (ElementStack i : recipe.outs) {
-            if (i.probability == 1) continue;
+            if (i == null || i.probability == 1) continue;
             String prob_string = String.format("%d%%",
                     (int) Math.floor(i.probability * 100));
             int color;
@@ -65,11 +65,6 @@ public class ExtractorJEIRecipeWrapper extends BlankRecipeWrapper {
             ++j;
         }
     }
-
-//    @Override
-//    public void drawAnimations(Minecraft minecraft, int recipeWidth, int recipeHeight) {
-//
-//    }
 
     @Nullable
     @Override
