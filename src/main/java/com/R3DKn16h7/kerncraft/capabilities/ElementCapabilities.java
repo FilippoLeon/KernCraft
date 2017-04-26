@@ -80,9 +80,35 @@ public class ElementCapabilities {
         IElementContainer cap = getCapability(stack);
 
         Element element = getFirstElement(cap);
-        if (element == null) return;
+        if (element == null) {
+            // Add some info to empty Container
+            tooltipList.add(String.format("Can contain elements."));
+            if (PlayerHelper.isCtrlKeyDown()) {
+                int maxAmount = cap.getCapacity();
+                if (maxAmount > 0) {
+                    tooltipList.add(String.format("Capacity: %d", maxAmount));
+                }
+                tooltipList.add(String.format("Confines: %b", cap.doesConfine()));
+                tooltipList.add(String.format("Isolates: %b", cap.doesIsolate()));
+                tooltipList.add(String.format("State:%s%s%s",
+                        cap.acceptsElementWithState(Element.State.GAS) ? " Gas" : "",
+                        cap.acceptsElementWithState(Element.State.LIQUID) ? " Liquid" : "",
+                        cap.acceptsElementWithState(Element.State.SOLID) ? " Solid" : ""
+                        )
+                );
+            } else {
+                tooltipList.add(String.format("%s%sHold %sCTRL%s for more stuff...",
+                        TextFormatting.ITALIC.toString(),
+                        TextFormatting.GRAY.toString(),
+                        TextFormatting.AQUA.toString(),
+                        TextFormatting.GRAY.toString()
+                        )
+                );
+            }
+            return;
+        }
 
-        tooltipList.add(String.format("Element: %s (%s%s) - %d",
+        tooltipList.add(String.format("Element: %s (%s%s) - #%d",
                 element.getLocalizedName(), element.toSymbol(), TextFormatting.GRAY, element.id));
 
         if (PlayerHelper.isCtrlKeyDown()) {
@@ -112,7 +138,8 @@ public class ElementCapabilities {
         }
 
         if (PlayerHelper.isCtrlKeyDown()) {
-            tooltipList.add(String.format("%s%sRight Click to transfer from\n" +
+            tooltipList.add(String.format("-------------\n" +
+                            "%s%sRight Click to transfer from\n" +
                             "off hand to main hand. Hold\n" +
                             "%sCTRL%s and Right Click to transfer\n" +
                             "from main hand to off hand.",

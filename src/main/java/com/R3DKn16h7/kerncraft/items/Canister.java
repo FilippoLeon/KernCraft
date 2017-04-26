@@ -28,40 +28,35 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class Canister extends Item {
-    public final static String base_name = "canister";
-    // TODO: move to NBT
-    public final static int CAPACITY = 1000;
-    final int waitTime = 20;
-    int elapsed = 0;
-
     public Canister() {
         super();
 
         this.addPropertyOverride(new ResourceLocation("element"),
                 new IItemPropertyGetter() {
-            @SideOnly(Side.CLIENT)
-            public float apply(ItemStack stack, @Nullable World worldIn,
-                               @Nullable EntityLivingBase entityIn)
-            {
-                // TODO: only on shift
-                if (PlayerHelper.isCtrlKeyDown()) {
-                    if (ElementCapabilities.hasCapability(stack)) {
-                        IElementContainer cap = ElementCapabilities.getCapability(stack);
-                        if (cap.getNumberOfElements() <= 0) return 0;
-                        return ElementCapabilities.getFirstElement(cap).id;
+                    @SideOnly(Side.CLIENT)
+                    public float apply(ItemStack stack, @Nullable World worldIn,
+                                       @Nullable EntityLivingBase entityIn) {
+                        if (PlayerHelper.isCtrlKeyDown()) {
+                            if (ElementCapabilities.hasCapability(stack)) {
+                                IElementContainer cap = ElementCapabilities.getCapability(stack);
+                                if (cap.getNumberOfElements() <= 0) return 0;
+                                return ElementCapabilities.getFirstElement(cap).id;
+                            }
+                        }
+                        return 0;
                     }
                 }
-                return 0;
-            }
-        });
+        );
 
-        this.setUnlocalizedName(base_name);
-        this.setRegistryName(base_name);
+        this.setUnlocalizedName(getName());
+        this.setRegistryName(getName());
         this.setCreativeTab(KernCraft.KERNCRAFT_CREATIVE_TAB);
 
-//        setHasSubtypes(true);
-
         GameRegistry.register(this);
+    }
+
+    public static String getName() {
+        return "canister";
     }
 
     public static ItemStack getElementItemStack(int i) {
@@ -88,8 +83,7 @@ public class Canister extends Item {
     @Override
     public void onUpdate(ItemStack stack, World worldIn,
                          Entity entityIn, int itemSlot, boolean isSelected) {
-        if (/*elapsed > waitTime &&*/ entityIn != null && entityIn instanceof EntityPlayer) {
-//            elapsed = 0;
+        if (entityIn != null && entityIn instanceof EntityPlayer) {
             EntityPlayer entity = (EntityPlayer) entityIn;
             IElementContainer cap = ElementCapabilities.getCapability(stack);
 
@@ -97,7 +91,6 @@ public class Canister extends Item {
             if (cap.getNumberOfElements() == 0) return;
 
             int qty = cap.getTotalAmount();
-
             if(qty == 0) return;
 
             Element elem = ElementCapabilities.getFirstElement(stack);
@@ -115,14 +108,7 @@ public class Canister extends Item {
                  );
                 cap.removeAmountOf(elem.id, new_qty, false);
             }
-            // TODO uncomment
-//            if (elem.reachedCriticalMass(qty)) {
-//                double x = entityIn.posX, y = entityIn.posY, z = entityIn.posZ;
-//                worldIn.createExplosion(entityIn, x, y, z, 10, true);
-//                cap.removeAllOf(elem.id);
-//            }
         }
-//        ++elapsed;
     }
 
     @Override
