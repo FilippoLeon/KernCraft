@@ -108,11 +108,13 @@ public class ChemicalFurnaceJEIRecipeCategory implements IRecipeCategory {
         recipeWrapper.getIngredients(ingredients);
 
         int i = 0;
-        guiItemStacks.set(0, ingredients.getInputs(ItemStack.class).get(i++));
-        guiItemStacks.set(1, ingredients.getInputs(ItemStack.class).get(i++));
-        i = 0;
-        guiItemStacks.set(2, ingredients.getOutputs(ItemStack.class).get(i++));
-        guiItemStacks.set(3, ingredients.getOutputs(ItemStack.class).get(i++));
+        for (List<ItemStack> ing : ingredients.getInputs(ItemStack.class)) {
+            guiItemStacks.set(i++, ing.get(0));
+        }
+        i = 2;
+        for (List<ItemStack> ing : ingredients.getOutputs(ItemStack.class)) {
+            guiItemStacks.set(i++, ing.get(0));
+        }
     }
 
     @Override

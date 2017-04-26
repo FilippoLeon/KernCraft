@@ -28,17 +28,26 @@ public class ChemicalFurnaceTileEntity extends SmeltingTileEntity {
         super(2, 2);
     }
 
+    /**
+     * Return
+     *
+     * @param stackHandler
+     * @param elem
+     * @return
+     */
     static private List<Integer> itemStackHandlerMatchesElementStack(ItemStackHandler stackHandler,
                                                                      ElementStack elem) {
         List<Integer> match = new ArrayList<>();
-        for (int i = 0; i < stackHandler.getSlots(); ++i) {
-            ItemStack stack = stackHandler.getStackInSlot(i);
+        if (elem != null) {
+            for (int i = 0; i < stackHandler.getSlots(); ++i) {
+                ItemStack stack = stackHandler.getStackInSlot(i);
 
-            if (stack != ItemStack.EMPTY
-                    && ElementCapabilities.hasCapability(stack)
-                    && ElementCapabilities.getCapability(stack).getAmountOf(elem.id) >= elem.quantity
-                    ) {
-                match.add(i);
+                if (stack != ItemStack.EMPTY
+                        && ElementCapabilities.hasCapability(stack)
+                        && ElementCapabilities.getCapability(stack).getAmountOf(elem.id) >= elem.quantity
+                        ) {
+                    match.add(i);
+                }
             }
         }
         return match;
@@ -84,31 +93,51 @@ public class ChemicalFurnaceTileEntity extends SmeltingTileEntity {
         ChemicalFurnaceRecipe chemrec = ((ChemicalFurnaceRecipe) rec);
         if(chemrec == null) return false;
 
-        if(chemrec.fluid != null && chemrec.fluid.amount < 0) {
-            if(getFluid().equals(chemrec.fluid)) {
-                if(getFluidAmount() < -chemrec.fluid.amount) {
-                    return false;
+        if (chemrec.fluid != null) {
+            if (getFluid() == null || getFluid().isFluidEqual(chemrec.fluid)) {
+                if (chemrec.fluid.amount < 0) {
+                    if (-chemrec.fluid.amount > getFluid().amount) return false;
+                    FluidStack positiveFluid = new FluidStack(chemrec.fluid, -chemrec.fluid.amount);
+                    // If we cannot drain sufficient amount of fluid, just go home
+                    if (-chemrec.fluid.amount > tank.drain(positiveFluid, false).amount) {
+                        return false;
+                    }
+                    tank.drain(positiveFluid, true);
+                } else {
+                    tank.fill(chemrec.fluid, true);
                 }
-            } else {
-                return false;
             }
         }
 
-        boolean[] matchInput = new boolean[2];
+        // Try use inputs, if fail return
         for(ElementStack elem: chemrec.inputs) {
-            List<Integer> slot = itemStackHandlerMatchesElementStack(input, elem);
-            if(slot != null) {
-                for(int slotId: slot) {
-                    if(!matchInput[slotId]) {
-                        matchInput[slotId] = true;
+            if (elem == null) continue;
+            int to_remove = elem.quantity;
+            for (int i = 0; i < input.getSlots(); ++i) {
+                ItemStack stack = input.getStackInSlot(i);
+                if (ElementCapabilities.hasCapability(stack)) {
+                    IElementContainer cap = ElementCapabilities.getCapability(stack);
+                    to_remove -= cap.removeAmountOf(elem.id, to_remove, true);
+                    if (to_remove <= 0) {
                         break;
                     }
                 }
             }
-        }
-        for(boolean match: matchInput) {
-            if(!match) {
+            if (to_remove > 0) {
                 return false;
+            }
+        }
+
+        // Try create outs, if fails walk away
+        if (chemrec.outputs != null) {
+            for (ItemStack out : chemrec.outputs) {
+                int j = 0;
+                ItemStack remaining = out.copy();
+                while (j < output.getSlots()) {
+                    if (remaining.isEmpty()) break;
+                    remaining = output.insertItem(j, remaining, true);
+                }
+                if (!remaining.isEmpty()) return false;
             }
         }
 
@@ -117,6 +146,19 @@ public class ChemicalFurnaceTileEntity extends SmeltingTileEntity {
 
     @Override
     public boolean tryProgress() {
+        ChemicalFurnaceRecipe chemrec = ((ChemicalFurnaceRecipe) currentlySmelting);
+        if (chemrec == null) return true;
+
+        int consumedEnergy = -chemrec.energy / chemrec.cost;
+        if (consumedEnergy > 0) {
+            int extracted = storage.extractEnergy(consumedEnergy, true);
+            if (extracted == consumedEnergy) {
+                storage.extractEnergy(consumedEnergy, false);
+                return true;
+            } else {
+                return false;
+            }
+        }
 
         return true;
     }
@@ -124,23 +166,13 @@ public class ChemicalFurnaceTileEntity extends SmeltingTileEntity {
     @Override
     public void doneSmelting() {
         ChemicalFurnaceRecipe chemrec = ((ChemicalFurnaceRecipe) currentlySmelting);
+        if (chemrec == null) return;
 
-        if(chemrec.fluid != null) {
-            if (getFluid() == null || getFluid().isFluidEqual(chemrec.fluid)) {
-                if (chemrec.fluid.amount < 0) {
-                    if(-chemrec.fluid.amount > getFluid().amount) return;
-                    FluidStack positiveFluid = new FluidStack(chemrec.fluid, -chemrec.fluid.amount);
-                    tank.drain(positiveFluid, true);
-                    // TODO: IF FAIL ?
-//                    return;
-                } else {
-                    tank.fill(chemrec.fluid, true);
-                }
-            }
-        }
+        if (!canSmelt(chemrec)) return;
 
-        // TODO: IF FAIL ?
+        // Actually remove inputs
         for(ElementStack elem: chemrec.inputs) {
+            if (elem == null) continue;
             int to_remove = elem.quantity;
             for(int i = 0; i < input.getSlots(); ++i) {
                 ItemStack stack = input.getStackInSlot(i);
@@ -151,6 +183,31 @@ public class ChemicalFurnaceTileEntity extends SmeltingTileEntity {
                         break;
                     }
                 }
+            }
+            // TODO: WARN IF FAIL
+        }
+
+        // Actually create output once we verified we can
+        if (chemrec.fluid != null) {
+            FluidStack positiveFluid = new FluidStack(chemrec.fluid, -chemrec.fluid.amount);
+            if (positiveFluid != null) {
+                tank.drain(positiveFluid, true);
+            } else if (chemrec.fluid.amount >= 0) {
+                tank.fill(chemrec.fluid, true);
+            }
+        }
+        // TODO: WARN IF FAIL
+
+        // Create elements once we know we can
+        if (chemrec.outputs != null) {
+            for (ItemStack out : chemrec.outputs) {
+                int j = 0;
+                ItemStack remaining = out.copy();
+                while (j < output.getSlots()) {
+                    if (remaining.isEmpty()) break;
+                    remaining = output.insertItem(j, remaining, false);
+                }
+                // TODO: WARN IF FAIL
             }
         }
 

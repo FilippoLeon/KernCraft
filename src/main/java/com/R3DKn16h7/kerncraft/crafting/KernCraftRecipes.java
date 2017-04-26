@@ -59,8 +59,10 @@ public class KernCraftRecipes {
         return true;
     }
 
-    static public boolean addChemicalFurnaceRecipe(ElementStack[] inputs, ElementStack[] outputs,
-                                                   int energy, FluidStack fluid, int cost) {
+    static public boolean addChemicalFurnaceRecipe(ElementStack[] inputs,
+                                                   NonNullList<ItemStack> outputs,
+                                                   int energy, FluidStack fluid,
+                                                   int cost) {
         CHEMICAL_FURNACE_RECIPES.add(
                 new ChemicalFurnaceRecipe(inputs, outputs, energy, fluid, cost)
         );
@@ -217,7 +219,7 @@ public class KernCraftRecipes {
             cost = 0;
         }
         ElementStack[] inputs = new ElementStack[2];
-        ElementStack[] outputs = new ElementStack[2];
+        NonNullList<ItemStack> outputs = NonNullList.create();
         FluidStack fluid = null;
 
         NodeList nList = nNode.getChildNodes();
@@ -241,7 +243,7 @@ public class KernCraftRecipes {
                         System.err.println("Warning: Too many output elements for Extractor Recipe.");
                     }
                     for (int j = 0; j < Math.min(nChildListO.getLength(), 2); j++) {
-                        outputs[j] = parseAsElementStack(((Element) nChildListO.item(j)));
+                        outputs.add(parseAsItemStack(((Element) nChildListO.item(j))));
                     }
                     break;
                 case "Fluid":
@@ -341,11 +343,10 @@ public class KernCraftRecipes {
                         new ElementStack("H", 4, 0),
                         new ElementStack("O", 2, 0),
                 },
-                new ElementStack[]{
-                    new ElementStack("Pu", 400, 0.5f),
-                    new ElementStack("Pu", 400, 0.5f),
-                },
-                100, new FluidStack(FluidRegistry.WATER, 1000), 5
+                null,
+                100,
+                new FluidStack(FluidRegistry.WATER, 1000),
+                5
         );
     }
 

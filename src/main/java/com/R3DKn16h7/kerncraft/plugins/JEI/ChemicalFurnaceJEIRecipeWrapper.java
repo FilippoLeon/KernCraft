@@ -36,14 +36,9 @@ public class ChemicalFurnaceJEIRecipeWrapper extends BlankRecipeWrapper {
         }
         ingredients.setInputs(ItemStack.class, inputs);
 
-        ArrayList<ItemStack> outputs = new ArrayList<>();
-        j = 0;
-        for (ElementStack i : recipe.outputs) {
-            if (recipe.outputs[j++] != null) {
-                outputs.add(ElementRegistry.getItem(i));
-            }
+        if (recipe.outputs != null) {
+            ingredients.setOutputs(ItemStack.class, recipe.outputs);
         }
-        ingredients.setOutputs(ItemStack.class, outputs);
     }
 
     @Override
@@ -52,30 +47,16 @@ public class ChemicalFurnaceJEIRecipeWrapper extends BlankRecipeWrapper {
                          int mouseX, int mouseY) {
 
         // Draw each output element
-        int j = 0;
-        for (ElementStack i : recipe.outputs) {
-            if (i.probability == 1) continue;
-            String prob_string = String.format("%d%%",
-                    (int) Math.floor(i.probability * 100));
-            int color;
-            if (i.probability < 0.9f) color = Color.red.getRGB();
-            if (0.6f < i.probability && i.probability <= 0.9f) color = Color.yellow.getRGB();
-            else color = Color.green.getRGB();
-
-            minecraft.fontRendererObj.drawStringWithShadow(prob_string,
-                    18 * (3 + j) + 9 + 1 + 4 * 18, 18 * 3 - 27, color);
-            ++j;
-        }
         minecraft.fontRendererObj.drawStringWithShadow(
                 String.format("Time: %s t", recipe.cost * 5),
                 0, 18 * 1 + 9, Color.white.getRGB()
         );
         if (recipe.energy != 0) {
-            String color = recipe.energy > 0 ?
+            String color = recipe.energy < 0 ?
                     TextFormatting.RED.toString() : TextFormatting.GREEN.toString();
             minecraft.fontRendererObj.drawStringWithShadow(
                     String.format(String.format("%s%s%s RF", color,
-                            recipe.energy > 0 ? "-" : "+", recipe.energy)
+                            recipe.energy > 0 ? "+" : "", recipe.energy)
                     ),
                     0, 18 * 0 + 9, Color.white.getRGB()
             );

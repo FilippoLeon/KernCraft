@@ -99,12 +99,12 @@
     </ChemicalFurnace>
 
 
-    <ChemicalFurnace energy="900" cost="5">
+    <ChemicalFurnace energy="-900" cost="5">
         <Input>
-            <Element amount="900">Fe</Element>
+            <Element amount="90">Fe</Element>
         </Input>
         <Output>
-            <Item amount="90">iron_ingot</>
+            <Item amount="1">iron_ingot</Item>
         </Output>
     </ChemicalFurnace>
 </Recipes>
