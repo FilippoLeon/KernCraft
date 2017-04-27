@@ -16,7 +16,7 @@ public class FillerBlockEntity extends MachineBlock {
     @Override
     public TileEntity createNewTileEntity(World worldIn, int meta) {
 
-        return new ChemicalFurnaceTileEntity();
+        return new FillerTileEntity();
     }
 
 }

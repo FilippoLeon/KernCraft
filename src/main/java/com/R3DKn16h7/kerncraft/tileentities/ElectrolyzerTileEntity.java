@@ -7,8 +7,8 @@ import java.util.List;
 public class ElectrolyzerTileEntity extends SmeltingTileEntity {
 
     // Slot IDs
-    public static final int[][] inputCoords = {{1, 1}, {4, 1}, {7, 1}};
-    public static final int[][] outputCoords = {{3, 3}, {5, 3}};
+    public static final int[][] inputCoords = {{2, 0}, {5, 0}, {8, 0}};
+    public static final int[][] outputCoords = {{4, 2}, {6, 2}};
 
     public ElectrolyzerTileEntity() {
 

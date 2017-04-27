@@ -115,15 +115,15 @@ public class MachineGuiContainer extends AdvancedGuiContainer {
 
         // Side configuration button
         int I = 0;
-        for(int[] ish: side_te.getInputCoords()) {
+        for (int[] inputCoord : side_te.getInputCoords()) {
             int T1 = I;
             IntConsumer onSlotConfigurationChanged = (int state) -> {
                 side_te.setSlotSide(T1, state);
                 KernCraftNetwork.networkWrapper.sendToServer(new MessageSideConfig(T1, state, te.getPos()));
                 System.out.println("Click! " + state);
             };
-            StateButton btbX = new StateButton(this, ish[0] *18 + borderLeft - 3,
-                    (ish[1] -1) * 18 + borderTop - 4, 6, 6)
+            StateButton btbX = new StateButton(this, inputCoord[0] * 18 + borderLeft - 3,
+                    (inputCoord[1]) * 18 + borderTop - 4, 6, 6)
                     .addState(new StateButton.State().setTooltip("Side: Front").setTint(Color.red))
                     .addState(new StateButton.State().setTooltip("Side: Right").setTint(Color.orange))
                     .addState(new StateButton.State().setTooltip("Side: Back").setTint(Color.blue))
@@ -135,15 +135,15 @@ public class MachineGuiContainer extends AdvancedGuiContainer {
             btbX.setState(side_te.getSideConfig().getSlotSide(I++).getValue());
             AddWidget(btbX, true);
         }
-        for(int[] ish: side_te.getOutputCoords()) {
+        for (int[] outputCoord : side_te.getOutputCoords()) {
             int T1 = I;
             IntConsumer onSlotConfigurationChanged = (int state) -> {
                 side_te.setSlotSide(T1, state);
                 KernCraftNetwork.networkWrapper.sendToServer(new MessageSideConfig(T1,  state, te.getPos()));
                 System.out.println("Click! " + state);
             };
-            StateButton btbX = new StateButton(this, ish[0] * 18 + borderLeft - 4,
-                    (ish[1] - 1) * 18 + borderTop - 4, 6, 6)
+            StateButton btbX = new StateButton(this, outputCoord[0] * 18 + borderLeft - 4,
+                    (outputCoord[1]) * 18 + borderTop - 4, 6, 6)
                     .addState(new StateButton.State().setTooltip("Side: Front").setTint(Color.red))
                     .addState(new StateButton.State().setTooltip("Side: Right").setTint(Color.orange))
                     .addState(new StateButton.State().setTooltip("Side: Back").setTint(Color.blue))

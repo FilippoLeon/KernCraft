@@ -14,8 +14,8 @@ import java.util.List;
 public class ChemicalFurnaceTileEntity extends SmeltingTileEntity {
 
     // Slot IDs
-    public static final int[][] inputCoords = {{4, 1}, {5, 1}};
-    public static final int[][] outputCoords = {{4, 3}, {5, 3}};
+    public static final int[][] inputCoords = {{4, 0}, {5, 0}};
+    public static final int[][] outputCoords = {{4, 2}, {5, 2}};
 
     public ChemicalFurnaceTileEntity() {
 

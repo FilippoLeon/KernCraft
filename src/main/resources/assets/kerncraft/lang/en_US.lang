@@ -24,6 +24,9 @@ tile.clock.name=Clock
 tile.lamp.name=Variadic lamp
 tile.chemical_furnace.name=Chemical furnace
 tile.time_machine.name=Time machine
+tile.electrolyzer.name=Electrolyzer
+tile.centrifuge.name=Centrifuge
+tile.filler.name=Filler
 
 achievement.Master of potatoes=Master of Potatoes
 achievement.Master of potatoes.desc=Stick gold and iron into a potato to craft a rudimentary battery.

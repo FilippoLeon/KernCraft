@@ -15,7 +15,7 @@ public class CentrifugeBlockEntity extends MachineBlock {
     @Override
     public TileEntity createNewTileEntity(World worldIn, int meta) {
 
-        return new ChemicalFurnaceTileEntity();
+        return new CentrifugeTileEntity();
     }
 
 }

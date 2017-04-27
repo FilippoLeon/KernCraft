@@ -21,15 +21,14 @@ public class ExtractorTileEntity extends SmeltingTileEntity
     static final public int catalystSlot = 1;
     static final public int canisterSlot = 2;
     static final public int fuelSlot = 3;
-    public static final int[][] inputCoords = {{1, 1}, {3, 1}, {8, 1}, {1, 3}};
-    public static final int[][] outputCoords = {{5, 3}, {6, 3}, {7, 3}, {8, 3}};
+    public static final int[][] inputCoords = {{1, 0}, {3, 0}, {8, 0}, {1, 0}};
+    public static final int[][] outputCoords = {{5, 2}, {6, 2}, {7, 2}, {8, 2}};
     //// Static constants
     static private final int consumedEnergyPerFuelRefill = 100;
     static private final int consumedFuelPerTic = 20;
     static private int generatedFuelPerEnergyDrain = 100;
 
     public ExtractorTileEntity() {
-
         generatedFuelPerEnergyDrain = TileEntityFurnace.getItemBurnTime(new ItemStack(Items.COAL));
     }
 
