@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Recipes>
+    <!-- ************************************************** -->
+    <!-- ************************************************** -->
+    <!-- ****************  EXTRACTOR RECIPES ************** -->
+    <!-- ************************************************** -->
+    <!-- ************************************************** -->
+    <!-- Recipe example for Extractor -->
+
+    <Extractor energy="10">
+        <!-- Main item to be smelted, either as Item, Block or OreDict -->
+        <Input>
+            <!-- Default amount is 1 -->
+            <Item amount="1">iron_ingot</Item>
+        </Input>
+        <!-- Optional catalyst (extra item) -->
+        <Catalyst>
+            <Item amount="5">diamond_block</Item>
+        </Catalyst>
+        <!-- Here we specify 4 elements for output (at most) -->
+        <Output>
+            <!-- Can add by symbol id... -->
+            <Element amount="100" probability="1.0">Pu</Element>
+            <!-- Or by number -->
+            <Element amount="100" probability="1.0">7</Element>
+            <!-- Default probability is 1.0 -->
+            <Element amount="10">C</Element>
+            <!-- Default amount is 1 -->
+            <Element probability="1.0">O</Element>
+            <!-- Extra elements are ignored -->
+        </Output>
+    </Extractor>
+
+    <!-- ************************************************** -->
+    <!-- ************************************************** -->
+    <!-- ************* CHEMICAL FURNACE RECIPES *********** -->
+    <!-- ************************************************** -->
+    <!-- ************************************************** -->
+    <!-- Recipe example for Chemical furnace -->
+    <ChemicalFurnace energy="100" cost="5">
+        <Input>
+            <Element amount="200">H</Element>
+            <Element amount="100">O</Element>
+        </Input>
+        <Fluid amount="1000">water</Fluid>
+    </ChemicalFurnace>
+</Recipes>
