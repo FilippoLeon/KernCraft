@@ -59,6 +59,7 @@ public abstract class MachineBlock extends BlockContainer {
         setRegistryName(unlocalizedName);
         this.setDefaultState(this.blockState
                 .getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(POWERED, false));
+
     }
 
     @Override

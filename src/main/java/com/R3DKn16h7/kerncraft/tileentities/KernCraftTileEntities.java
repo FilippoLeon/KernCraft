@@ -29,6 +29,15 @@ public class KernCraftTileEntities {
     public static TimeMachineBlockEntity TIME_MACHINE;
     public static TimeMachineTileEntity TIME_MACHINE_TE;
 
+    public static FillerBlockEntity FILLER_MACHINE;
+    public static FillerTileEntity FILLER_MACHINE_TE;
+
+    public static CentrifugeBlockEntity CENTRIFUGE_MACHINE;
+    public static CentrifugeTileEntity CENTRIFUGE_MACHINE_TE;
+
+    public static ElectrolyzerBlockEntity ELECTROLYZER_MACHINE;
+    public static ElectrolyzerTileEntity ELECTROLYZER_MACHINE_TE;
+
     public static void createEntities() {
         EXTRACTOR = new ExtractorBlockEntity("extractor");
         EXTRACTOR_TE = new ExtractorTileEntity();
@@ -47,30 +56,65 @@ public class KernCraftTileEntities {
 
         TIME_MACHINE = new TimeMachineBlockEntity("time_machine");
         TIME_MACHINE_TE = new TimeMachineTileEntity();
-        register(TIME_MACHINE, TimeMachineTileEntity.class);
+
+        FILLER_MACHINE = new FillerBlockEntity("filler");
+        FILLER_MACHINE_TE = new FillerTileEntity();
+
+        CENTRIFUGE_MACHINE = new CentrifugeBlockEntity("centrifuge");
+        CENTRIFUGE_MACHINE_TE = new CentrifugeTileEntity();
+
+        ELECTROLYZER_MACHINE = new ElectrolyzerBlockEntity("electrolyzer");
+        ELECTROLYZER_MACHINE_TE = new ElectrolyzerTileEntity();
+
+        registerEntities();
     }
 
+    public static void registerEntities() {
+        register(EXTRACTOR, ExtractorTileEntity.class);
+        register(DETECTOR, DetectorTileEntity.class);
+        register(CLOCK, ClockTileEntity.class);
+        register(LAMP, LampTileEntity.class);
+        register(CHEMICAL_FURNACE, ChemicalFurnaceTileEntity.class);
+        register(TIME_MACHINE, TimeMachineTileEntity.class);
+        register(FILLER_MACHINE, FillerTileEntity.class);
+        register(CENTRIFUGE_MACHINE, CentrifugeTileEntity.class);
+        register(ELECTROLYZER_MACHINE, ElectrolyzerTileEntity.class);
+    }
 
     @SideOnly(Side.CLIENT)
     public static void initModels() {
-        EXTRACTOR.initModel();
-        DETECTOR.initModel();
-        CLOCK.initModel();
-        LAMP.initModel();
-        CHEMICAL_FURNACE.initModel();
+        initModel(EXTRACTOR);
+        initModel(DETECTOR);
+        initModel(CLOCK);
+        initModel(LAMP);
+        initModel(CHEMICAL_FURNACE);
         initModel(TIME_MACHINE);
+        initModel(FILLER_MACHINE);
+        initModel(CENTRIFUGE_MACHINE);
+        initModel(ELECTROLYZER_MACHINE);
     }
 
-    public static void register(Block te, Class cl) {
-        GameRegistry.register(te);
-        GameRegistry.register(new ItemBlock(te), te.getRegistryName());
-        GameRegistry.registerTileEntity(cl, te.getRegistryName().toString());
+    /**
+     * Register Block, Item and TileEntity
+     *
+     * @param tileEntity
+     * @param tileEntityClass
+     */
+    public static void register(Block tileEntity, Class tileEntityClass) {
+        GameRegistry.register(tileEntity);
+        GameRegistry.register(new ItemBlock(tileEntity), tileEntity.getRegistryName());
+        GameRegistry.registerTileEntity(tileEntityClass, tileEntity.getRegistryName().toString());
     }
 
-    public static void initModel(Block te) {
-        ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(te),
+    /**
+     * Registermodel for block
+     *
+     * @param tileEntity
+     */
+    public static void initModel(Block tileEntity) {
+        ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(tileEntity),
                 0,
-                new ModelResourceLocation(te.getRegistryName(),
+                new ModelResourceLocation(tileEntity.getRegistryName(),
                         "inventory"));
     }
 }

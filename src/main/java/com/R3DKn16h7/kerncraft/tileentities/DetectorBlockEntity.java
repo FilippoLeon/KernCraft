@@ -7,11 +7,9 @@ import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
@@ -21,15 +19,12 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class DetectorBlockEntity extends BlockContainer {
 
     public static final PropertyBool POWERED = PropertyBool.create("powered");
-
-//    static String name = "detector";
 
     protected DetectorBlockEntity() {
         super(Material.IRON);
@@ -39,15 +34,11 @@ public class DetectorBlockEntity extends BlockContainer {
         this.setResistance(6.0f);
         this.setHarvestLevel("pickaxe", 2);
         this.setCreativeTab(KernCraft.KERNCRAFT_CREATIVE_TAB);
-        //this.isBlockContainer = true;
 
         setDefaultState(this.blockState.getBaseState().withProperty(POWERED, true));
 
         setUnlocalizedName(name);
         setRegistryName(name);
-        GameRegistry.register(this);
-        GameRegistry.register(new ItemBlock(this), getRegistryName());
-        GameRegistry.registerTileEntity(DetectorTileEntity.class, getRegistryName().toString());
     }
 
     /**

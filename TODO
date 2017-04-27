@@ -6,8 +6,6 @@ High priority:
     - Filtering slots for input
     - ADD: electrolyzer
     - ADD: transferrer
-    - ADD: pressure cell
-    - ADD: becker
 
 Soon:
     - Unify energy, wrapper around forge energy with tesla, possibly cofh?
