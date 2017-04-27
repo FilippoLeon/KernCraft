@@ -1,7 +1,6 @@
 package com.R3DKn16h7.kerncraft.capabilities;
 
 import com.R3DKn16h7.kerncraft.elements.Element;
-import net.minecraft.entity.Entity;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.INBTSerializable;
 
@@ -75,7 +74,7 @@ public interface IElementContainer extends INBTSerializable<NBTTagCompound> {
      * @param adder    Whoever is in charge of adding the element to the canister.
      * @return
      */
-    int addAmountOf(int id, int amount, boolean simulate, Entity adder);
+    int addAmountOf(int id, int amount, boolean simulate, Object adder);
 
     /**
      * Only indended to create a full stack without it exploding in face.

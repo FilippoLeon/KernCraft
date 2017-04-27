@@ -174,7 +174,7 @@ abstract public class SmeltingTileEntity
             findRecipe();
             inputChanged = false;
         }
-        if (currentlySmelting == null) {
+        if (getRecipes() != null && currentlySmelting == null) {
             setSmelting(false);
             return;
         }
@@ -186,7 +186,7 @@ abstract public class SmeltingTileEntity
             } else {
                 setSmelting(true);
             }
-            progress += 1. / (double) currentlySmelting.getCost();
+            progress += progressPerOperation();
             if (progress >= 1.) {
                 progress = 0;
                 doneSmelting();
@@ -194,6 +194,10 @@ abstract public class SmeltingTileEntity
         } else {
             progress = 0;
         }
+    }
+
+    protected double progressPerOperation() {
+        return 1. / (double) currentlySmelting.getCost();
     }
 
     /**

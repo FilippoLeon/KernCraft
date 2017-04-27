@@ -1,7 +1,10 @@
 package com.R3DKn16h7.kerncraft.tileentities;
 
+import com.R3DKn16h7.kerncraft.capabilities.ElementCapabilities;
+import com.R3DKn16h7.kerncraft.capabilities.IElementContainer;
 import com.R3DKn16h7.kerncraft.client.gui.MachineGuiContainer;
 import com.R3DKn16h7.kerncraft.crafting.ISmeltingRecipe;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.Tuple;
 
 import java.util.List;
@@ -14,8 +17,6 @@ public class FillerTileEntity extends SmeltingTileEntity {
 
     public FillerTileEntity() {
         super();
-
-
     }
 
     @Override
@@ -30,7 +31,6 @@ public class FillerTileEntity extends SmeltingTileEntity {
 
     @Override
     public List<ISmeltingRecipe> getRecipes() {
-        // TODO
         return null;
     }
 
@@ -52,18 +52,67 @@ public class FillerTileEntity extends SmeltingTileEntity {
     @Override
     public boolean canSmelt(ISmeltingRecipe rec) {
         // TODO
-        return false;
+        return true;
+    }
+
+    @Override
+    protected double progressPerOperation() {
+        return 1. / 5.;
     }
 
     @Override
     public boolean tryProgress() {
+        if (storage.extractEnergy(40, true) != 40) {
+            return false;
+        }
+
         // TODO
-        return false;
+        int maxTotAmount = 100;
+        int amount = 0;
+        for (int i = 0; i < getInputCoords().length; ++i) {
+
+            ItemStack from = getInput().getStackInSlot(i);
+            if (from == ItemStack.EMPTY || !ElementCapabilities.hasCapability(from)) continue;
+            IElementContainer capFrom = ElementCapabilities.getCapability(from);
+
+            for (int j = 0; j < getOutputCoords().length; ++j) {
+
+                ItemStack to = getInput().getStackInSlot(j);
+                if (to == ItemStack.EMPTY || !ElementCapabilities.hasCapability(to)) continue;
+                IElementContainer capTo = ElementCapabilities.getCapability(to);
+
+                amount += ElementCapabilities.transferAllElements(capFrom, capTo,
+                        maxTotAmount, this,
+                        true, null);
+            }
+        }
+        if (amount == 0) return false;
+
+        storage.extractEnergy(40, false);
+        return true;
     }
 
     @Override
     public void doneSmelting() {
         // TODO
+        int maxTotAmount = 100;
+        for (int i = 0; i < getInputCoords().length; ++i) {
+
+            ItemStack from = getInput().getStackInSlot(i);
+            if (from == ItemStack.EMPTY || !ElementCapabilities.hasCapability(from)) continue;
+            IElementContainer capFrom = ElementCapabilities.getCapability(from);
+
+            for (int j = 0; j < getOutputCoords().length; ++j) {
+
+                ItemStack to = getOutput().getStackInSlot(j);
+                if (to == ItemStack.EMPTY || !ElementCapabilities.hasCapability(to)) continue;
+                IElementContainer capTo = ElementCapabilities.getCapability(to);
+
+                maxTotAmount -= ElementCapabilities.transferAllElements(capFrom, capTo,
+                        maxTotAmount, this,
+                        false, null);
+            }
+        }
 
         markDirty();
         world.scheduleBlockUpdate(pos, getBlockType(), 0, 0);

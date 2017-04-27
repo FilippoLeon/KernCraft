@@ -3,6 +3,7 @@
     * Pressure cell
     * Becker
     * Initial support for sounds
+    * New machines: filler, centrifuge, and electorlyzer
 
 2017-04-24  F. <>
     * Unify energy, wrapper around forge (for items)

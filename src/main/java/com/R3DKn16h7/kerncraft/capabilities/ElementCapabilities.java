@@ -54,9 +54,18 @@ public class ElementCapabilities {
         }
     }
 
+    /**
+     * Get amount of element that can be transfered to the other container.
+     *
+     * @param from
+     * @param to
+     * @param id
+     * @param amount
+     * @return
+     */
     public static int amountThatCanBeTansfered(IElementContainer from,
                                                IElementContainer to,
-                                               int id, int i) {
+                                               int id, int amount) {
         int removable = from.removeAmountOf(id, 100, true);
         return to.addAmountOf(
                 id, removable, true
@@ -65,12 +74,40 @@ public class ElementCapabilities {
 
     public static int transferAmount(IElementContainer from,
                                      IElementContainer to,
-                                     int id, int transferable, Entity receiver) {
-        from.removeAmountOf(id, transferable, false);
+                                     int id, int transferable,
+                                     Entity receiver) {
+        int removable = from.removeAmountOf(id, transferable, false);
         return to.addAmountOf(
-                id, transferable, false, receiver
+                id, removable, false, receiver
         );
     }
+
+    public static int transferAllElements(IElementContainer from,
+                                          IElementContainer to,
+                                          int amount,
+                                          Object receiver,
+                                          boolean simulate,
+                                          Map<Integer, Integer> transferable) {
+        int[] elemFrom = from.getElements();
+
+        int added = 0;
+        for (int element : elemFrom) {
+            int removable = from.removeAmountOf(element, amount, simulate);
+            int addable = to.addAmountOf(
+                    element, removable, simulate, receiver
+            );
+            if (transferable != null) {
+                if (transferable.containsKey(element)) {
+                    transferable.put(element, transferable.get(element) + addable);
+                } else {
+                    transferable.put(element, addable);
+                }
+            }
+            added += addable;
+        }
+        return added;
+    }
+
 
     @SideOnly(Side.CLIENT)
     public static void addDetailedTooltipForSingleElement(ItemStack stack,

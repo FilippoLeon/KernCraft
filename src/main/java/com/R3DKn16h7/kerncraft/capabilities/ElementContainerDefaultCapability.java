@@ -5,6 +5,7 @@ import com.R3DKn16h7.kerncraft.elements.ElementRegistry;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 
 import java.util.EnumSet;
@@ -122,7 +123,7 @@ public class ElementContainerDefaultCapability
         return containedElements.getOrDefault(i, 0);
     }
 
-    public int addAmountOf(int id, int amount, boolean simulate, Entity ent) {
+    public int addAmountOf(int id, int amount, boolean simulate, Object ent) {
         int add = addAmountOf(id, amount, simulate);
         if (!simulate && ent != null) {
 
@@ -131,10 +132,19 @@ public class ElementContainerDefaultCapability
             if (elem.reachedCriticalMass(getAmountOf(id))) {
                 containedElements.put(id, 0);
 
-                BlockPos pos = ent.getPosition();
-                ent.world.createExplosion(ent, pos.getX(), pos.getY(), pos.getZ(),
-                        10, true);
-                return 0;
+                if (ent instanceof Entity) {
+                    Entity entE = ((Entity) ent);
+                    BlockPos pos = entE.getPosition();
+                    entE.world.createExplosion(entE, pos.getX(), pos.getY(), pos.getZ(),
+                            10, true);
+                    return 0;
+                } else if (ent instanceof TileEntity) {
+                    TileEntity entE = ((TileEntity) ent);
+                    BlockPos pos = entE.getPos();
+                    entE.getWorld().createExplosion(null, pos.getX(), pos.getY(), pos.getZ(),
+                            10, true);
+                    return 0;
+                }
             }
         }
         return add;
