@@ -67,9 +67,9 @@ public class FillerTileEntity extends SmeltingTileEntity {
         }
 
         // TODO
-        int maxTotAmount = 100;
         int amount = 0;
         for (int i = 0; i < getInputCoords().length; ++i) {
+            int maxTotAmount = 100;
 
             ItemStack from = getInput().getStackInSlot(i);
             if (from == ItemStack.EMPTY || !ElementCapabilities.hasCapability(from)) continue;
@@ -77,26 +77,28 @@ public class FillerTileEntity extends SmeltingTileEntity {
 
             for (int j = 0; j < getOutputCoords().length; ++j) {
 
-                ItemStack to = getInput().getStackInSlot(j);
+                ItemStack to = getOutput().getStackInSlot(j);
                 if (to == ItemStack.EMPTY || !ElementCapabilities.hasCapability(to)) continue;
                 IElementContainer capTo = ElementCapabilities.getCapability(to);
 
                 amount += ElementCapabilities.transferAllElements(capFrom, capTo,
                         maxTotAmount, this,
                         true, null);
+                if (amount > 0) break;
             }
+            if (amount > 0) break;
         }
         if (amount == 0) return false;
 
-        storage.extractEnergy(40, false);
+//        storage.extractEnergy(40, false);
         return true;
     }
 
     @Override
     public void doneSmelting() {
         // TODO
-        int maxTotAmount = 100;
         for (int i = 0; i < getInputCoords().length; ++i) {
+            int maxTotAmount = 100;
 
             ItemStack from = getInput().getStackInSlot(i);
             if (from == ItemStack.EMPTY || !ElementCapabilities.hasCapability(from)) continue;

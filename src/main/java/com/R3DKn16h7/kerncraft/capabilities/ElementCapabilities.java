@@ -92,10 +92,16 @@ public class ElementCapabilities {
 
         int added = 0;
         for (int element : elemFrom) {
-            int removable = from.removeAmountOf(element, amount, simulate);
+            int removable = from.removeAmountOf(element, amount, true);
             int addable = to.addAmountOf(
-                    element, removable, simulate, receiver
+                    element, removable, true, receiver
             );
+            if (!simulate && addable > 0) {
+                removable = from.removeAmountOf(element, addable, false);
+                addable = to.addAmountOf(
+                        element, removable, false, receiver
+                );
+            }
             if (transferable != null) {
                 if (transferable.containsKey(element)) {
                     transferable.put(element, transferable.get(element) + addable);
