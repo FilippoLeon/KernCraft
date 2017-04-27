@@ -1,9 +1,12 @@
 
 
+2017-04-27  F. <>
     * Pressure cell
-    * Becker
+    * Erlenmeyer Flask
     * Initial support for sounds
     * New machines: filler, centrifuge, and electorlyzer
+    * Recipes reader improved
+    * Fix some crash
 
 2017-04-24  F. <>
     * Unify energy, wrapper around forge (for items)
