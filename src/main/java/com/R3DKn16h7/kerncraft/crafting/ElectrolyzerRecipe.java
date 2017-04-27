@@ -3,7 +3,9 @@ package com.R3DKn16h7.kerncraft.crafting;
 import com.R3DKn16h7.kerncraft.elements.ElementStack;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
+import org.w3c.dom.Element;
 import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +25,7 @@ public class ElectrolyzerRecipe implements ISmeltingRecipe {
 
     public ElectrolyzerRecipe(ItemStack anode, ItemStack cathode,
                               ItemStack input, List<ElementStack> outputs,
-                              FluidStack fluid, int energy, int cost) {
+                              FluidStack fluid, int cost, int energy) {
         this.anode = anode;
         this.cathode = cathode;
         this.input = input;
@@ -35,6 +37,62 @@ public class ElectrolyzerRecipe implements ISmeltingRecipe {
     }
 
     static void parseElectrolyzerRecipe(Node nNode) {
+
+        Element nElement = ((Element) nNode);
+
+        int energy = KernCraftRecipes.readAsIntOrDefault(nElement, "energy", 0);
+        int cost = KernCraftRecipes.readAsIntOrDefault(nElement, "cost", 0);
+
+        ItemStack input = ItemStack.EMPTY;
+        ItemStack anode = ItemStack.EMPTY;
+        ItemStack cathode = ItemStack.EMPTY;
+        List<ElementStack> outputs = new ArrayList<>();
+        FluidStack fluid = null;
+
+
+        NodeList nList = nNode.getChildNodes();
+        for (int i = 0; i < nList.getLength(); ++i) {
+            if (nList.item(i).getNodeType() != Node.ELEMENT_NODE) continue;
+
+            Element nChildNode = ((Element) nList.item(i));
+            switch (nChildNode.getNodeName()) {
+                case "Anode":
+                    anode = KernCraftRecipes.parseAsItemStackList(nChildNode,
+                            1, 1).get(0);
+                    break;
+                case "Cathode":
+                    cathode = KernCraftRecipes.parseAsItemStackList(nChildNode,
+                            1, 1).get(0);
+                    break;
+                case "Input":
+                    input = KernCraftRecipes.parseAsItemStackList(nChildNode,
+                            1, 1).get(0);
+                    break;
+                case "Output":
+                    outputs = KernCraftRecipes.parseAsElementStackList(nChildNode,
+                            -1, 2);
+                    break;
+                case "Fluid":
+                    if (fluid != null) {
+                        System.err.println("Warning: Too many fluids for Extractor Recipe.");
+                    }
+                    fluid = KernCraftRecipes.parseAsFluid(nChildNode);
+                    break;
+                default:
+                    System.err.println("Warning: Unrecognized element for Extractor Recipe.");
+                    break;
+            }
+        }
+
+        if (cost < 0) {
+            System.err.println("Fatal: Negative cost for Extractor Recipe.");
+            return;
+        }
+
+        KernCraftRecipes.ELECTROLYZER_RECIPES.add(
+                new ElectrolyzerRecipe(anode, cathode, input,
+                        outputs, fluid, cost, energy)
+        );
     }
 
     @Override

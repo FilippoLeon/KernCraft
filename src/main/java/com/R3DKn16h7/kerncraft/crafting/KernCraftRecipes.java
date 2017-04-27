@@ -126,6 +126,58 @@ public class KernCraftRecipes {
         return defaultValue;
     }
 
+    public static NonNullList<ItemStack> parseAsItemStackList(Element nElement,
+                                                              int minLength,
+                                                              int maxLength) {
+        NonNullList<ItemStack> itemStackList = NonNullList.create();
+
+        NodeList nChildList = nElement.getElementsByTagName("*");
+        if (nChildList.getLength() > maxLength) {
+            System.err.println("Warning: Too many inputs for Recipe.");
+        }
+        int avail = nChildList.getLength();
+        if (maxLength > 0) avail = Math.min(nChildList.getLength(), maxLength);
+        for (int j = 0; j < avail; j++) {
+            itemStackList.add(
+                    KernCraftRecipes.parseAsItemStack((Element) nChildList.item(j))
+            );
+        }
+        if (avail < minLength) {
+            System.err.println("Warning: Too few inputs for Recipe.");
+            for (int j = avail; j < minLength; j++) {
+                itemStackList.add(
+                        ItemStack.EMPTY
+                );
+            }
+        }
+        return itemStackList;
+    }
+
+    public static List<ElementStack> parseAsElementStackList(Element nElement,
+                                                             int minLength,
+                                                             int maxLength) {
+        List<ElementStack> itemStackList = NonNullList.create();
+
+        NodeList nChildList = nElement.getElementsByTagName("*");
+        if (maxLength != -1 && nChildList.getLength() > maxLength) {
+            System.err.println("Warning: Too many inputs for Recipe.");
+        }
+        int avail = nChildList.getLength();
+        if (maxLength > 0) avail = Math.min(nChildList.getLength(), maxLength);
+        for (int j = 0; j < avail; j++) {
+            itemStackList.add(
+                    KernCraftRecipes.parseAsElementStack((Element) nChildList.item(j))
+            );
+        }
+        if (avail < minLength) {
+            System.err.println("Warning: Too few inputs for Recipe.");
+            for (int j = avail; j < minLength; j++) {
+                itemStackList.add(null);
+            }
+        }
+        return itemStackList;
+    }
+
     private void RegisterCraftingRecipes() {
 
         GameRegistry.addRecipe(new ItemStack(KernCraftItems.PORTABLE_BEACON),
@@ -210,5 +262,4 @@ public class KernCraftRecipes {
             }
         }
     }
-
 }

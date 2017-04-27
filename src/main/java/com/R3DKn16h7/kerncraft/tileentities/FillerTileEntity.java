@@ -90,7 +90,7 @@ public class FillerTileEntity extends SmeltingTileEntity {
         }
         if (amount == 0) return false;
 
-//        storage.extractEnergy(40, false);
+        storage.extractEnergy(40, false);
         return true;
     }
 

@@ -2,6 +2,7 @@ package com.R3DKn16h7.kerncraft.tileentities;
 
 import com.R3DKn16h7.kerncraft.client.gui.MachineGuiContainer;
 import com.R3DKn16h7.kerncraft.crafting.ISmeltingRecipe;
+import com.R3DKn16h7.kerncraft.crafting.KernCraftRecipes;
 import net.minecraft.util.Tuple;
 
 import java.util.List;
@@ -28,8 +29,7 @@ public class CentrifugeTileEntity extends SmeltingTileEntity {
 
     @Override
     public List<ISmeltingRecipe> getRecipes() {
-        // TODO
-        return null;
+        return KernCraftRecipes.CENTRIFUGE_RECIPES;
     }
 
     @Override

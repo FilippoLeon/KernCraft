@@ -81,4 +81,59 @@
             <Item amount="1">iron_ingot</Item>
         </Output>
     </ChemicalFurnace>
+
+    <!-- ************************************************** -->
+    <!-- ************************************************** -->
+    <!-- ************* ELECTROLYZER RECIPES *************** -->
+    <!-- ************************************************** -->
+    <!-- ************************************************** -->
+    <Electrolyzer energy="9" cost="1">
+        <Anode>
+            <OreDict amount="1">ingotZinc</OreDict>
+        </Anode>
+        <Cathode>
+            <Item amount="1">ingotCopper</Item>
+        </Cathode>
+        <Fluid amount="10">water</Fluid>
+        <Output>
+            <Element amount="2">H</Element>
+            <Element amount="1">O</Element>
+        </Output>
+    </Electrolyzer>
+
+    <Electrolyzer energy="5" cost="1">
+        <Anode>
+            <OreDict amount="1">rodZinc</OreDict>
+        </Anode>
+        <Cathode>
+            <Item amount="1">rodCopper</Item>
+        </Cathode>
+        <Fluid amount="10">water</Fluid>
+        <Output>
+            <Element amount="2">H</Element>
+            <Element amount="1">O</Element>
+        </Output>
+    </Electrolyzer>
+
+    <Electrolyzer energy="50" cost="1">
+        <Anode>
+            <Item amount="1">iron_ingot</Item>
+        </Anode>
+        <Cathode>
+            <Item amount="1">gold_ingot</Item>
+        </Cathode>
+        <Fluid amount="10">water</Fluid>
+        <Output>
+            <Element amount="2">H</Element>
+            <Element amount="1">O</Element>
+        </Output>
+    </Electrolyzer>
+
+    <!-- ************************************************** -->
+    <!-- ************************************************** -->
+    <!-- ************* CENTRIFUGE RECIPES ***************** -->
+    <!-- ************************************************** -->
+    <!-- ************************************************** -->
+
+
 </Recipes>
