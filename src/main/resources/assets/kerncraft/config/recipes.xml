@@ -134,6 +134,24 @@
     <!-- ************* CENTRIFUGE RECIPES ***************** -->
     <!-- ************************************************** -->
     <!-- ************************************************** -->
+    <Centrifuge energy="50" cost="1">
+        <Output>
+            <Element amount="2" probability="0.78">N</Element>
+            <Element amount="2" probability="0.20">O</Element>
+            <Element amount="1" probability="0.05">Ar</Element>
+            <Element amount="1" probability="0.05">Ne</Element>
+            <Element amount="1" probability="0.05">He</Element>
+        </Output>
+    </Centrifuge>
+    <Centrifuge energy="0" cost="1">
+        <Input>
+            <Item>iron_ingot</Item>
+        </Input>
+        <Output>
+            <Element amount="2" probability="0.78">Xe</Element>
+            <Element amount="2" probability="1.0">Pu</Element>
+        </Output>
+    </Centrifuge>
 
 
 </Recipes>

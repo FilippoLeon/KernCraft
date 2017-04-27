@@ -37,7 +37,6 @@ public class ElectrolyzerRecipe implements ISmeltingRecipe {
     }
 
     static void parseElectrolyzerRecipe(Node nNode) {
-
         Element nElement = ((Element) nNode);
 
         int energy = KernCraftRecipes.readAsIntOrDefault(nElement, "energy", 0);

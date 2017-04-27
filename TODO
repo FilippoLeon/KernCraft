@@ -1,28 +1,32 @@
 High priority:
     - FIX: add progress bar to Chemical Furnace
-    - FIX: time machine find way to abtivate/deactuvate
+    - FIX: time machine find way to activate/deactivate
     - FIX: add outputs to Chem. Furnace. and fix
     - XMl recipes? improve
     - Filtering slots for input, make inputs go in the correct place when shift clicked
-    - ADD: recipes for electrolyzer
-    - ADD: recipes for centrifuges
+    - ADD: recipes for Electrolyzer
+    - ADD: recipes for Centrifuges
+    - ADD: JEI for new machines
     - ADD: way do disable/enable energy/fluid storage at runtime
     - FIX: textures for machines
-    - Addach decay to ElementContainer?
+    - Attach decay to ElementContainer?
+    - CHANGE: use generics for Gui stuff
+    - REDO ElementRecipe
 
 Soon:
     - Unify energy, wrapper around forge energy with tesla, possibly cofh?
     - Figure a way to deal with half life. Store NBT data
     with last update timestamp
-    and (to add to capability, so it is checked on adddAmount?
-    Store timestamp + tick up or somethng?
+    and (to add to capability, so it is checked on addAmount?
+    Store timestamp + tick up or something?
     - Glassware? New container feature, suck as stabilizer, gas/liquid/solid, containment, isolation.
     - Sync lamp GUI when open
     - NEW: redstone signal emitter
     - NEW: add element transferer
     - NEW: magnetostatic battery
-    - add oreDIct integration for recipes
+    - improve oreDict integration for recipes
     - localization for element
+    - Waila
 
 Soonish:
     - write manual pages

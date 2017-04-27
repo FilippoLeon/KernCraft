@@ -1,8 +1,12 @@
 package com.R3DKn16h7.kerncraft.tileentities;
 
+import com.R3DKn16h7.kerncraft.capabilities.ElementCapabilities;
+import com.R3DKn16h7.kerncraft.capabilities.IElementContainer;
 import com.R3DKn16h7.kerncraft.client.gui.MachineGuiContainer;
 import com.R3DKn16h7.kerncraft.crafting.CentrifugeRecipe;
 import com.R3DKn16h7.kerncraft.crafting.KernCraftRecipes;
+import com.R3DKn16h7.kerncraft.elements.ElementStack;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.Tuple;
 
 import java.util.List;
@@ -11,7 +15,10 @@ public class CentrifugeTileEntity extends SmeltingTileEntity<CentrifugeRecipe> {
 
     // Slot IDs
     public static final int[][] inputCoords = {{3, 0}, {3, 2}};
-    public static final int[][] outputCoords = {{5, 0}, {5, 2}};
+    public static final int[][] outputCoords = {
+            {5, 0}, {5, 1}, {5, 2},
+            {6, 0}, {6, 1}, {6, 2}
+    };
 
     public CentrifugeTileEntity() {
 
@@ -50,20 +57,72 @@ public class CentrifugeTileEntity extends SmeltingTileEntity<CentrifugeRecipe> {
     }
 
     @Override
-    public boolean canSmelt(CentrifugeRecipe rec) {
-        // TODO
+    public boolean canSmelt(CentrifugeRecipe recipe) {
+        for (ItemStack stack : recipe.inputs) {
+            int left = stack.getCount();
+            for (int i = 0; i < getInputCoords().length; ++i) {
+                if (getInput().getStackInSlot(i).isItemEqual(stack)) {
+                    left -= getInput().getStackInSlot(i).getCount();
+                    if (left <= 0) {
+                        break;
+                    }
+                }
+            }
+            if (left > 0) return false;
+        }
+
+        if (recipe.fluid != null && getFluid() != null
+                && getFluid().isFluidEqual(recipe.fluid)) {
+            if (recipe.fluid.amount > tank.drain(recipe.fluid, false).amount) {
+                return false;
+            }
+        }
+
         return false;
     }
 
     @Override
     public boolean tryProgress() {
-        // TODO
-        return false;
+        if (storage.extractEnergy(currentlySmelting.energy, true)
+                != currentlySmelting.energy) {
+            return false;
+        }
+
+        storage.extractEnergy(currentlySmelting.energy, false);
+        return true;
     }
 
     @Override
     public void doneSmelting() {
-        // TODO
+        // Consume items
+        for (ItemStack stack : currentlySmelting.inputs) {
+            int left = stack.getCount();
+            for (int i = 0; i < getInputCoords().length; ++i) {
+                if (getInput().getStackInSlot(i).isItemEqual(stack)) {
+                    ItemStack res = getInput().getStackInSlot(i).splitStack(left);
+                    left -= res.getCount();
+                    if (left <= 0) {
+                        break;
+                    }
+                }
+            }
+        }
+
+        // Consume fluid
+        if (currentlySmelting.fluid != null) {
+            tank.drain(currentlySmelting.fluid, true);
+        }
+
+        // Create elements
+        for (ElementStack created : currentlySmelting.outputs) {
+            int leftover = created.quantity;
+            for (int i = 0; i < getOutputCoords().length; ++i) {
+                ItemStack out = getOutput().getStackInSlot(i);
+                if (!ElementCapabilities.hasCapability(out)) continue;
+                IElementContainer cap = ElementCapabilities.getCapability(out);
+                leftover -= cap.addAmountOf(created.id, leftover, false, this);
+            }
+        }
 
         markDirty();
         world.scheduleBlockUpdate(pos, getBlockType(), 0, 0);

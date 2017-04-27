@@ -179,13 +179,13 @@ public class ExtractorTileEntity extends SmeltingTileEntity<ExtractorRecipe>
                         if (tryAdd > 0) {
                             ItemStack newStack = containerStack.splitStack(1);
                             IElementContainer newCap = ElementCapabilities.getCapability(newStack);
-                            remaining[i] -= newCap.addAmountOf(rec_out.id, remaining[i], false);
+                            remaining[i] -= newCap.addAmountOf(rec_out.id, remaining[i], false, this);
                             output.setStackInSlot(rec_slot, newStack);
                             out = newStack;
                         }
                     } else {
                         IElementContainer cap = ElementCapabilities.getCapability(out);
-                        remaining[i] -= cap.addAmountOf(rec_out.id, remaining[i], false);
+                        remaining[i] -= cap.addAmountOf(rec_out.id, remaining[i], false, this);
                     }
 
                     ++i;

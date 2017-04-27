@@ -47,6 +47,7 @@ public class ElectrolyzerTileEntity
 
     @Override
     public Tuple<Integer[], MachineGuiContainer.ProgressIcon> getProgressIconCoordinate() {
+
         return null;
     }
 
@@ -57,7 +58,6 @@ public class ElectrolyzerTileEntity
 
     @Override
     public boolean canSmelt(ElectrolyzerRecipe recipe) {
-
         if ((
                 !input.getStackInSlot(ANODE_SLOT).isItemEqual(recipe.anode)
                         && !input.getStackInSlot(ANODE_SLOT).isItemEqual(recipe.cathode)
@@ -84,35 +84,33 @@ public class ElectrolyzerTileEntity
 
     @Override
     public boolean tryProgress() {
-        if (storage.extractEnergy(currentlySmelting.getCost(), true) != currentlySmelting.getCost()) {
+        if (storage.extractEnergy(currentlySmelting.energy, true)
+                != currentlySmelting.energy) {
             return false;
         }
 
-        storage.extractEnergy(currentlySmelting.getCost(), false);
+        storage.extractEnergy(currentlySmelting.energy, false);
         return true;
     }
 
     @Override
     public void doneSmelting() {
-        ElectrolyzerRecipe recipe = currentlySmelting;
-        if (recipe == null) return;
-
         // TODO
-        if (!recipe.input.isEmpty()) {
-            input.getStackInSlot(INPUT_SLOT).splitStack(recipe.input.getCount());
+        if (!currentlySmelting.input.isEmpty()) {
+            input.getStackInSlot(INPUT_SLOT).splitStack(currentlySmelting.input.getCount());
         }
 
-        if (recipe.fluid != null) {
-            tank.drain(recipe.fluid, true);
+        if (currentlySmelting.fluid != null) {
+            tank.drain(currentlySmelting.fluid, true);
         }
 
-        for (ElementStack created : recipe.outputs) {
+        for (ElementStack created : currentlySmelting.outputs) {
             int leftover = created.quantity;
             for (int i = 0; i < getOutputCoords().length; ++i) {
                 ItemStack out = getOutput().getStackInSlot(i);
                 if (!ElementCapabilities.hasCapability(out)) continue;
                 IElementContainer cap = ElementCapabilities.getCapability(out);
-                leftover -= cap.addAmountOf(created.id, leftover, false);
+                leftover -= cap.addAmountOf(created.id, leftover, false, this);
             }
         }
 
