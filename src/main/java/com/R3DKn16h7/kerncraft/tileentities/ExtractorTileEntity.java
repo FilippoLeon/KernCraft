@@ -4,7 +4,6 @@ import com.R3DKn16h7.kerncraft.capabilities.ElementCapabilities;
 import com.R3DKn16h7.kerncraft.capabilities.IElementContainer;
 import com.R3DKn16h7.kerncraft.client.gui.MachineGuiContainer;
 import com.R3DKn16h7.kerncraft.crafting.ExtractorRecipe;
-import com.R3DKn16h7.kerncraft.crafting.ISmeltingRecipe;
 import com.R3DKn16h7.kerncraft.crafting.KernCraftRecipes;
 import com.R3DKn16h7.kerncraft.elements.ElementStack;
 import net.minecraft.init.Items;
@@ -15,7 +14,7 @@ import net.minecraftforge.common.capabilities.ICapabilityProvider;
 
 import java.util.List;
 
-public class ExtractorTileEntity extends SmeltingTileEntity
+public class ExtractorTileEntity extends SmeltingTileEntity<ExtractorRecipe>
         implements ICapabilityProvider {
 
     // Slot IDs
@@ -56,13 +55,14 @@ public class ExtractorTileEntity extends SmeltingTileEntity
     }
 
     @Override
-    public List<ISmeltingRecipe> getRecipes() {
+    public List<ExtractorRecipe> getRecipes() {
+
         return KernCraftRecipes.EXTRACTOR_RECIPES;
     }
 
     @Override
-    public boolean canSmelt(ISmeltingRecipe rec) {
-        ExtractorRecipe ex_rec = ((ExtractorRecipe) rec);
+    public boolean canSmelt(ExtractorRecipe rec) {
+        ExtractorRecipe ex_rec = rec;
 
         return !(input == null ||
                 input.getStackInSlot(inputSlot) == ItemStack.EMPTY ||
@@ -84,7 +84,6 @@ public class ExtractorTileEntity extends SmeltingTileEntity
      */
     @Override
     public boolean tryProgress() {
-        ExtractorRecipe recipe = ((ExtractorRecipe) currentlySmelting);
         if (storedFuel < consumedFuelPerTic) {
             ItemStack fuelItem = input.getStackInSlot(fuelSlot);
             int fuel = TileEntityFurnace.getItemBurnTime(fuelItem);
@@ -111,17 +110,15 @@ public class ExtractorTileEntity extends SmeltingTileEntity
 
     @Override
     public void doneSmelting() {
-        ExtractorRecipe recipe = ((ExtractorRecipe) currentlySmelting);
-
         input.getStackInSlot(inputSlot).splitStack(1);
-        if (recipe.catalyst != null) {
+        if (currentlySmelting.catalyst != null) {
             input.getStackInSlot(catalystSlot).splitStack(1);
         }
 
         // For each Element output, flag telling if this has already been produced
-        int[] remaining = new int[recipe.outs.length];
-        for (int i = 0; i < recipe.outs.length; ++i) {
-            remaining[i] = recipe.outs[i].quantity * (Math.random() < recipe.outs[i].probability ? 1 : 0);
+        int[] remaining = new int[currentlySmelting.outs.length];
+        for (int i = 0; i < currentlySmelting.outs.length; ++i) {
+            remaining[i] = currentlySmelting.outs[i].quantity * (Math.random() < currentlySmelting.outs[i].probability ? 1 : 0);
         }
 
         // Place outputs in canisters, only if output can be placed
@@ -137,7 +134,7 @@ public class ExtractorTileEntity extends SmeltingTileEntity
 
             // Try each generated element
             int recipeElementNumber = 0;
-            for (ElementStack rec_out : recipe.outs) {
+            for (ElementStack rec_out : currentlySmelting.outs) {
                 // If all output has been produced break
                 if (remaining[recipeElementNumber] <= 0) {
                     ++recipeElementNumber;
@@ -164,7 +161,7 @@ public class ExtractorTileEntity extends SmeltingTileEntity
             if (out == ItemStack.EMPTY) {
                 // Try each element
                 int i = 0;
-                for (ElementStack rec_out : recipe.outs) {
+                for (ElementStack rec_out : currentlySmelting.outs) {
 
                     if (out == ItemStack.EMPTY) {
                         // If Element has not been produced and there is a CANISTER in

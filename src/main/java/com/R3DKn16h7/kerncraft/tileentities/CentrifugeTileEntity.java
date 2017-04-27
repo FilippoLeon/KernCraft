@@ -1,13 +1,13 @@
 package com.R3DKn16h7.kerncraft.tileentities;
 
 import com.R3DKn16h7.kerncraft.client.gui.MachineGuiContainer;
-import com.R3DKn16h7.kerncraft.crafting.ISmeltingRecipe;
+import com.R3DKn16h7.kerncraft.crafting.CentrifugeRecipe;
 import com.R3DKn16h7.kerncraft.crafting.KernCraftRecipes;
 import net.minecraft.util.Tuple;
 
 import java.util.List;
 
-public class CentrifugeTileEntity extends SmeltingTileEntity {
+public class CentrifugeTileEntity extends SmeltingTileEntity<CentrifugeRecipe> {
 
     // Slot IDs
     public static final int[][] inputCoords = {{3, 0}, {3, 2}};
@@ -28,7 +28,8 @@ public class CentrifugeTileEntity extends SmeltingTileEntity {
     }
 
     @Override
-    public List<ISmeltingRecipe> getRecipes() {
+    public List<CentrifugeRecipe> getRecipes() {
+
         return KernCraftRecipes.CENTRIFUGE_RECIPES;
     }
 
@@ -39,6 +40,7 @@ public class CentrifugeTileEntity extends SmeltingTileEntity {
 
     @Override
     public Tuple<Integer[], MachineGuiContainer.ProgressIcon> getProgressIconCoordinate() {
+
         return null;
     }
 
@@ -48,7 +50,7 @@ public class CentrifugeTileEntity extends SmeltingTileEntity {
     }
 
     @Override
-    public boolean canSmelt(ISmeltingRecipe rec) {
+    public boolean canSmelt(CentrifugeRecipe rec) {
         // TODO
         return false;
     }

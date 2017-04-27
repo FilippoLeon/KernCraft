@@ -30,10 +30,10 @@ import java.util.List;
  */
 public class KernCraftRecipes {
     // Static register of recipes
-    static public List<ISmeltingRecipe> EXTRACTOR_RECIPES = new ArrayList<>();
-    public static List<ISmeltingRecipe> CHEMICAL_FURNACE_RECIPES = new ArrayList<>();
-    public static List<ISmeltingRecipe> CENTRIFUGE_RECIPES = new ArrayList<>();
-    public static List<ISmeltingRecipe> ELECTROLYZER_RECIPES = new ArrayList<>();
+    static public List<ExtractorRecipe> EXTRACTOR_RECIPES = new ArrayList<>();
+    public static List<ChemicalFurnaceRecipe> CHEMICAL_FURNACE_RECIPES = new ArrayList<>();
+    public static List<CentrifugeRecipe> CENTRIFUGE_RECIPES = new ArrayList<>();
+    public static List<ElectrolyzerRecipe> ELECTROLYZER_RECIPES = new ArrayList<>();
 
     public KernCraftRecipes() {
         RegisterCraftingRecipes();

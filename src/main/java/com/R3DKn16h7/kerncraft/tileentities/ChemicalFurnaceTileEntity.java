@@ -4,7 +4,6 @@ import com.R3DKn16h7.kerncraft.capabilities.ElementCapabilities;
 import com.R3DKn16h7.kerncraft.capabilities.IElementContainer;
 import com.R3DKn16h7.kerncraft.client.gui.MachineGuiContainer;
 import com.R3DKn16h7.kerncraft.crafting.ChemicalFurnaceRecipe;
-import com.R3DKn16h7.kerncraft.crafting.ISmeltingRecipe;
 import com.R3DKn16h7.kerncraft.crafting.KernCraftRecipes;
 import com.R3DKn16h7.kerncraft.elements.ElementStack;
 import net.minecraft.item.ItemStack;
@@ -13,7 +12,7 @@ import net.minecraftforge.fluids.FluidStack;
 
 import java.util.List;
 
-public class ChemicalFurnaceTileEntity extends SmeltingTileEntity {
+public class ChemicalFurnaceTileEntity extends SmeltingTileEntity<ChemicalFurnaceRecipe> {
 
     // Slot IDs
     public static final int[][] inputCoords = {{4, 0}, {5, 0}};
@@ -34,7 +33,8 @@ public class ChemicalFurnaceTileEntity extends SmeltingTileEntity {
     }
 
     @Override
-    public List<ISmeltingRecipe> getRecipes() {
+    public List<ChemicalFurnaceRecipe> getRecipes() {
+
         return KernCraftRecipes.CHEMICAL_FURNACE_RECIPES;
     }
 
@@ -54,9 +54,7 @@ public class ChemicalFurnaceTileEntity extends SmeltingTileEntity {
     }
 
     @Override
-    public boolean canSmelt(ISmeltingRecipe rec) {
-        ChemicalFurnaceRecipe chemrec = ((ChemicalFurnaceRecipe) rec);
-        if(chemrec == null) return false;
+    public boolean canSmelt(ChemicalFurnaceRecipe chemrec) {
 
         // TODO: return false if tank full?
         if (chemrec.fluid != null) {
@@ -111,10 +109,8 @@ public class ChemicalFurnaceTileEntity extends SmeltingTileEntity {
 
     @Override
     public boolean tryProgress() {
-        ChemicalFurnaceRecipe chemrec = ((ChemicalFurnaceRecipe) currentlySmelting);
-        if (chemrec == null) return true;
 
-        int consumedEnergy = -chemrec.energy / chemrec.cost;
+        int consumedEnergy = -currentlySmelting.energy / currentlySmelting.cost;
         if (consumedEnergy > 0) {
             int extracted = storage.extractEnergy(consumedEnergy, true);
             if (extracted == consumedEnergy) {
@@ -130,13 +126,10 @@ public class ChemicalFurnaceTileEntity extends SmeltingTileEntity {
 
     @Override
     public void doneSmelting() {
-        ChemicalFurnaceRecipe chemrec = ((ChemicalFurnaceRecipe) currentlySmelting);
-        if (chemrec == null) return;
-
-        if (!canSmelt(chemrec)) return;
+        if (!canSmelt(currentlySmelting)) return;
 
         // Actually remove inputs
-        for(ElementStack elem: chemrec.inputs) {
+        for (ElementStack elem : currentlySmelting.inputs) {
             if (elem == null) continue;
             int to_remove = elem.quantity;
             for(int i = 0; i < input.getSlots(); ++i) {
@@ -153,19 +146,19 @@ public class ChemicalFurnaceTileEntity extends SmeltingTileEntity {
         }
 
         // Actually create output once we verified we can
-        if (chemrec.fluid != null) {
-            FluidStack positiveFluid = new FluidStack(chemrec.fluid, -chemrec.fluid.amount);
-            if (chemrec.fluid.amount <= 0) {
+        if (currentlySmelting.fluid != null) {
+            FluidStack positiveFluid = new FluidStack(currentlySmelting.fluid, -currentlySmelting.fluid.amount);
+            if (currentlySmelting.fluid.amount <= 0) {
                 tank.drain(positiveFluid, true);
             } else {
-                tank.fill(chemrec.fluid, true);
+                tank.fill(currentlySmelting.fluid, true);
             }
         }
         // TODO: WARN IF FAIL
 
         // Create elements once we know we can
-        if (chemrec.outputs != null) {
-            for (ItemStack out : chemrec.outputs) {
+        if (currentlySmelting.outputs != null) {
+            for (ItemStack out : currentlySmelting.outputs) {
                 int j = 0;
                 ItemStack remaining = out.copy();
                 while (j < output.getSlots()) {
@@ -176,7 +169,7 @@ public class ChemicalFurnaceTileEntity extends SmeltingTileEntity {
             }
         }
 
-        int producedEnergy = chemrec.energy;
+        int producedEnergy = currentlySmelting.energy;
         if(producedEnergy > 0) {
             storage.receiveEnergy(producedEnergy, false);
         }

@@ -92,7 +92,7 @@
             <OreDict amount="1">ingotZinc</OreDict>
         </Anode>
         <Cathode>
-            <Item amount="1">ingotCopper</Item>
+            <OreDict amount="1">ingotCopper</OreDict>
         </Cathode>
         <Fluid amount="10">water</Fluid>
         <Output>

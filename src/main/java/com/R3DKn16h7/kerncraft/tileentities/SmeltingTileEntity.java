@@ -25,7 +25,7 @@ import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import javax.annotation.Nullable;
 import java.util.List;
 
-abstract public class SmeltingTileEntity
+abstract public class SmeltingTileEntity<SmeltingRecipe extends ISmeltingRecipe>
         extends MachineTileEntity
         implements IRedstoneSettable, IFuelUser,
                    IEnergyContainer, IProgressMachine, IFluidStorage {
@@ -46,7 +46,7 @@ abstract public class SmeltingTileEntity
     EnergyStorage storage;
     int storedFuel = 0;
     // Recipe Id currently smelting
-    ISmeltingRecipe currentlySmelting;
+    SmeltingRecipe currentlySmelting;
 
     /// TODO FIXME ARGH THIS SUCKS BIG TIME; HOW TO DO THIS PROPERLY?
     int elapsedT = 0;
@@ -136,7 +136,7 @@ abstract public class SmeltingTileEntity
         return canSmelt(currentlySmelting);
     }
 
-    abstract public boolean canSmelt(ISmeltingRecipe rec);
+    abstract public boolean canSmelt(SmeltingRecipe rec);
 
     abstract public boolean tryProgress();
 
@@ -208,14 +208,14 @@ abstract public class SmeltingTileEntity
         currentlySmelting = null;
     }
 
-    public abstract List<ISmeltingRecipe> getRecipes();
+    public abstract List<SmeltingRecipe> getRecipes();
 
     /**
      * Find recipe that matches the input/catalyst slots
      */
     public void findRecipe() {
         if (getRecipes() == null) return;
-        for (ISmeltingRecipe recipe : getRecipes()) {
+        for (SmeltingRecipe recipe : getRecipes()) {
             if (canSmelt(recipe)) {
                 currentlySmelting = recipe;
                 setSmelting(true);

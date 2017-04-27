@@ -4,7 +4,6 @@ import com.R3DKn16h7.kerncraft.capabilities.ElementCapabilities;
 import com.R3DKn16h7.kerncraft.capabilities.IElementContainer;
 import com.R3DKn16h7.kerncraft.client.gui.MachineGuiContainer;
 import com.R3DKn16h7.kerncraft.crafting.ElectrolyzerRecipe;
-import com.R3DKn16h7.kerncraft.crafting.ISmeltingRecipe;
 import com.R3DKn16h7.kerncraft.crafting.KernCraftRecipes;
 import com.R3DKn16h7.kerncraft.elements.ElementStack;
 import net.minecraft.item.ItemStack;
@@ -12,7 +11,8 @@ import net.minecraft.util.Tuple;
 
 import java.util.List;
 
-public class ElectrolyzerTileEntity extends SmeltingTileEntity {
+public class ElectrolyzerTileEntity
+        extends SmeltingTileEntity<ElectrolyzerRecipe> {
 
     // Slot IDs
     public static final int[][] inputCoords = {{2, 0}, {5, 0}, {8, 0}};
@@ -36,7 +36,7 @@ public class ElectrolyzerTileEntity extends SmeltingTileEntity {
     }
 
     @Override
-    public List<ISmeltingRecipe> getRecipes() {
+    public List<ElectrolyzerRecipe> getRecipes() {
         return KernCraftRecipes.ELECTROLYZER_RECIPES;
     }
 
@@ -56,9 +56,7 @@ public class ElectrolyzerTileEntity extends SmeltingTileEntity {
     }
 
     @Override
-    public boolean canSmelt(ISmeltingRecipe rec) {
-        ElectrolyzerRecipe recipe = ((ElectrolyzerRecipe) rec);
-        if (recipe == null) return false;
+    public boolean canSmelt(ElectrolyzerRecipe recipe) {
 
         if ((
                 !input.getStackInSlot(ANODE_SLOT).isItemEqual(recipe.anode)
@@ -96,7 +94,7 @@ public class ElectrolyzerTileEntity extends SmeltingTileEntity {
 
     @Override
     public void doneSmelting() {
-        ElectrolyzerRecipe recipe = ((ElectrolyzerRecipe) currentlySmelting);
+        ElectrolyzerRecipe recipe = currentlySmelting;
         if (recipe == null) return;
 
         // TODO
