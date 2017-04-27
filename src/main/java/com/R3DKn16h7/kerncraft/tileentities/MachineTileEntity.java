@@ -22,22 +22,20 @@ import javax.annotation.Nullable;
 public abstract class MachineTileEntity extends TileEntity
         implements ITickable, ISideConfigurable {
 
+    // Capability slot container
     public final ItemStackHandler input;
     public final ItemStackHandler output;
+    // Capability side configuration
     public final SideConfiguration sideConfig;
-    private final int inputSize;
-    private final int outputSize;
+
     // Has the input changed since last check?
     public boolean inputChanged = false;
 
-    public MachineTileEntity(int inputSize, int outputSize) {
+    public MachineTileEntity() {
         super();
 
-        this.inputSize = inputSize;
-        this.outputSize = outputSize;
-
-        input = new ItemStackHandler(inputSize);
-        output = new ItemStackHandler(outputSize);
+        input = new ItemStackHandler(getInputCoords().length);
+        output = new ItemStackHandler(getOutputCoords().length);
 
         sideConfig = new SideConfiguration(input, output, this);
     }
@@ -58,7 +56,9 @@ public abstract class MachineTileEntity extends TileEntity
 
     public abstract void stop();
 
-    public abstract int getTotalSlots();
+    public int getTotalSlots() {
+        return getInputCoords().length + getOutputCoords().length;
+    }
 
     public ItemStackHandler getInput() {
         return input;

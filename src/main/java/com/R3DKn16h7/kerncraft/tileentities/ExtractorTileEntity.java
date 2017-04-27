@@ -21,17 +21,14 @@ public class ExtractorTileEntity extends SmeltingTileEntity
     static final public int catalystSlot = 1;
     static final public int canisterSlot = 2;
     static final public int fuelSlot = 3;
-    static final public int outputSlotSize = 4;
-    static final public int totalSlots = 8;
+    public static final int[][] inputCoords = {{1, 1}, {3, 1}, {8, 1}, {1, 3}};
+    public static final int[][] outputCoords = {{5, 3}, {6, 3}, {7, 3}, {8, 3}};
     //// Static constants
     static private final int consumedEnergyPerFuelRefill = 100;
     static private final int consumedFuelPerTic = 20;
     static private int generatedFuelPerEnergyDrain = 100;
-    public int[][] inputCoords = {{1,1},{3,1},{8,1},{1,3}};
-    public int[][] outputCoords = {{5,3},{6,3},{7,3},{8,3}};
 
     public ExtractorTileEntity() {
-        super(4, 4);
 
         generatedFuelPerEnergyDrain = TileEntityFurnace.getItemBurnTime(new ItemStack(Items.COAL));
     }
@@ -77,11 +74,6 @@ public class ExtractorTileEntity extends SmeltingTileEntity
                                 input.getStackInSlot(catalystSlot).getItem() != ex_rec.catalyst ||
                                 input.getStackInSlot(catalystSlot).getCount() < 1
                         ));
-    }
-
-    @Override
-    public int getTotalSlots() {
-        return totalSlots;
     }
 
     /**
@@ -134,7 +126,7 @@ public class ExtractorTileEntity extends SmeltingTileEntity
         // Place outputs in canisters, only if output can be placed
         // (i.e. there isn't another element inside.
         // Try each output slot
-        for (int rec_slot = 0; rec_slot < outputSlotSize; ++rec_slot) {
+        for (int rec_slot = 0; rec_slot < getOutputCoords().length; ++rec_slot) {
             ItemStack out = output.getStackInSlot(rec_slot);
             if (out == ItemStack.EMPTY || !ElementCapabilities.hasCapability(out)) {
                 continue;
@@ -165,7 +157,7 @@ public class ExtractorTileEntity extends SmeltingTileEntity
         // If there is a CANISTER in CANISTER slot, pull if to the output slot and
         // fill it with element
         // Try each output slot
-        for (int rec_slot = 0; rec_slot < outputSlotSize; ++rec_slot) {
+        for (int rec_slot = 0; rec_slot < getOutputCoords().length; ++rec_slot) {
 
             ItemStack out = output.getStackInSlot(rec_slot);
             if (out == ItemStack.EMPTY) {

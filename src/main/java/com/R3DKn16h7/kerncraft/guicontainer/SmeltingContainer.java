@@ -5,8 +5,11 @@ import com.R3DKn16h7.kerncraft.network.MessageFluidStackSync;
 import com.R3DKn16h7.kerncraft.tileentities.SmeltingTileEntity;
 import net.minecraft.inventory.IContainerListener;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.Slot;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.SlotItemHandler;
 
 /**
  * Created by Filippo on 18-Apr-17.
@@ -82,4 +85,48 @@ public class SmeltingContainer extends MachineContainer<SmeltingTileEntity> {
         this.te.setField(id, data);
     }
 
+    protected void addPlayerSlots(IInventory playerInv) {
+        // Player Inventory Slot 9-35, ID 9-35
+        for (int y = 0; y < 3; ++y) {
+            for (int x = 0; x < 9; ++x) {
+                this.addSlotToContainer(new Slot(playerInv, x + y * 9 + 9,
+                        bdLeft + x * xSlotSize, 84 + y * xSlotSize));
+            }
+        }
+
+        // Player Hotbar Slot 0-8, ID 36-44
+        for (int x = 0; x < 9; ++x) {
+            this.addSlotToContainer(new Slot(playerInv, x,
+                    bdLeft + x * xSlotSize, 142));
+        }
+    }
+
+    protected void addMachineSlots() {
+        IItemHandler input = te.getInput();
+        IItemHandler output = te.getOutput();
+
+        for (int i = 0; i < te.getInputCoords().length; ++i) {
+            this.addSlotToContainer(
+                    createSlotItemHandler(input, i, ItemHandlerCategory.Input,
+                            bdLeft + te.getInputCoords()[i][0] * xSlotSize,
+                            bdTop + te.getInputCoords()[i][1] * ySlotSize)
+            );
+        }
+        for (int i = 0; i < te.getOutputCoords().length; ++i) {
+            this.addSlotToContainer(
+                    createSlotItemHandler(output, i, ItemHandlerCategory.Output,
+                            bdLeft + te.getOutputCoords()[i][0] * xSlotSize,
+                            bdTop + te.getOutputCoords()[i][1] * ySlotSize)
+            );
+        }
+    }
+
+    public SlotItemHandler createSlotItemHandler(IItemHandler itemHandler,
+                                                 int slotId, ItemHandlerCategory category,
+                                                 int coordX, int coordY) {
+        return new AdvancedSlotItemHandler(this,
+                itemHandler, slotId, coordX, coordY, 64);
+    }
+
+    public enum ItemHandlerCategory {Input, Output}
 }

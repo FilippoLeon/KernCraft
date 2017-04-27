@@ -14,16 +14,11 @@ import java.util.List;
 public class ChemicalFurnaceTileEntity extends SmeltingTileEntity {
 
     // Slot IDs
-    static final public int inputSlotStart = 0;
-    static final public int inputSlotSize = 2;
-    static final public int outputSlotStart = 0;
-    static final public int outputSlotSize = 2;
-    static final public int totalSlots = 4;
-    public int[][] inputCoords = {{4,1},{5,1}};
-    public int[][] outputCoords = {{4,3},{5,3}};
+    public static final int[][] inputCoords = {{4, 1}, {5, 1}};
+    public static final int[][] outputCoords = {{4, 3}, {5, 3}};
 
     public ChemicalFurnaceTileEntity() {
-        super(2, 2);
+
     }
 
     @Override
@@ -54,11 +49,6 @@ public class ChemicalFurnaceTileEntity extends SmeltingTileEntity {
     @Override
     public int[] getProgressTextCoordinate() {
         return new int[]{6,1};
-    }
-
-    @Override
-    public int getTotalSlots() {
-        return totalSlots;
     }
 
     @Override

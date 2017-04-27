@@ -53,8 +53,8 @@ abstract public class SmeltingTileEntity
     boolean lastSmeltig = false;
     private boolean must_spin_down = false;
 
-    public SmeltingTileEntity(int inputSize, int outputSize) {
-        super(inputSize, outputSize);
+    public SmeltingTileEntity() {
+        super();
 
         // Internal storages
         storage = new EnergyStorage(100000);
