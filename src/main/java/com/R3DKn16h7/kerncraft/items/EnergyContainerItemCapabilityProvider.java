@@ -4,6 +4,7 @@ package com.R3DKn16h7.kerncraft.items;
  * Created by Filippo on 18-Apr-17.
  */
 
+import com.R3DKn16h7.kerncraft.KernCraft;
 import net.darkhax.tesla.capability.TeslaCapabilities;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
@@ -22,18 +23,19 @@ public class EnergyContainerItemCapabilityProvider
 
     @Override
     public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
-        return (capability == TeslaCapabilities.CAPABILITY_PRODUCER && this.container.isTeslaProducer())
+        return (KernCraft.FOUND_TESLA && ((capability == TeslaCapabilities.CAPABILITY_PRODUCER && this.container.isTeslaProducer())
                 || capability == TeslaCapabilities.CAPABILITY_HOLDER
                 || (capability == TeslaCapabilities.CAPABILITY_CONSUMER && this.container.isTeslaConsumer())
-                || capability == CapabilityEnergy.ENERGY;
+        ) || capability == CapabilityEnergy.ENERGY);
     }
 
     @Override
     @SuppressWarnings("unchecked")
     public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
-        if (capability == TeslaCapabilities.CAPABILITY_CONSUMER
+        if (
+                (KernCraft.FOUND_TESLA && (capability == TeslaCapabilities.CAPABILITY_CONSUMER
                 || capability == TeslaCapabilities.CAPABILITY_HOLDER
-                || capability == TeslaCapabilities.CAPABILITY_PRODUCER
+                        || capability == TeslaCapabilities.CAPABILITY_PRODUCER))
                 || capability == CapabilityEnergy.ENERGY) {
             return (T) this.container;
         }

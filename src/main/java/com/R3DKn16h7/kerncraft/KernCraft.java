@@ -23,6 +23,8 @@ public class KernCraft {
     public static final String NAME = "kerncraft";
     public static final String VERSION = "1.0";
 
+    public static boolean FOUND_TESLA = false;
+
     public static boolean MOD_CONFIG_DISPLAY_ALL_ELEMENTS = true;
     public static boolean MOD_CONFIG_ADD_FULL_SUBITEMS = true;
 

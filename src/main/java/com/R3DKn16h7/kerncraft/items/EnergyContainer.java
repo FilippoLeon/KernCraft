@@ -66,7 +66,7 @@ public class EnergyContainer
 
     @Override
     public int receiveEnergy(int maxReceive, boolean simulate) {
-        return receiveEnergy(maxReceive, simulate);
+        return (int) givePower(maxReceive, simulate);
     }
 
     @Override

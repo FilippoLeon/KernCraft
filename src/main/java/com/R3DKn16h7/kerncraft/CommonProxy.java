@@ -14,6 +14,7 @@ import com.R3DKn16h7.kerncraft.sounds.KernCraftSounds;
 import com.R3DKn16h7.kerncraft.tileentities.KernCraftTileEntities;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.CapabilityManager;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -32,8 +33,6 @@ public class CommonProxy {
         new KernCraftItems();
         KernCraftBlocks.createBlocks();
         KernCraftTileEntities.createEntities();
-        // Call this after we created all Objects
-        new KernCraftRecipes();
 
         new KernCraftNetwork();
 
@@ -46,6 +45,8 @@ public class CommonProxy {
     }
 
     public void init(FMLInitializationEvent e) {
+        // Call this after we created all Objects
+        new KernCraftRecipes();
 
         EventHandlerCommon handler = new EventHandlerCommon();
         MinecraftForge.EVENT_BUS.register(handler);
@@ -57,5 +58,7 @@ public class CommonProxy {
 
     public void postInit(FMLPostInitializationEvent e) {
         NetworkRegistry.INSTANCE.registerGuiHandler(instance, new ModGuiHandler());
+
+        KernCraft.FOUND_TESLA = Loader.isModLoaded("tesla");
     }
 }
