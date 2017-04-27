@@ -22,6 +22,17 @@ public class AnimatedTexturedElement extends TexturedElement {
         this.speed = speed;
     }
 
+
+    public static AnimatedTexturedElement ENERGY_BAR(AdvancedGuiContainer container, int xPosition, int yPosition) {
+        return new AnimatedTexturedElement(container,
+                "kerncraft:textures/gui/container/extractor_gui.png",
+                xPosition, yPosition,
+                6, 3 * DEFAULT_SLOT_SIZE_Y - 2,
+                176, 0,
+                AnimatedTexturedElement.Direction.BOTTOM, 300);
+    }
+
+
     static public AnimatedTexturedElement ARROW(AdvancedGuiContainer container, int xPosition, int yPosition) {
         return new AnimatedTexturedElement(container, "textures/gui/container/furnace.png",
                 xPosition, yPosition, 24, 18, 176, 14,
@@ -41,9 +52,9 @@ public class AnimatedTexturedElement extends TexturedElement {
     }
 
     static public AnimatedTexturedElement ARROW_DOWN(AdvancedGuiContainer container, int xPosition, int yPosition) {
-        return new AnimatedTexturedElement(container, "textures/gui/container/brewing_stand.png",
-                xPosition, yPosition, 9, 28, 176, 0,
-                Direction.LEFT, 200);
+        return new AnimatedTexturedElement(container, "kerncraft:textures/gui/container/extractor_gui.png",
+                xPosition, yPosition, 18, 18, 182, 28 + 18,
+                Direction.TOP, 200);
     }
 
     public void setAutoAnimated(boolean yesorno, int speed) {

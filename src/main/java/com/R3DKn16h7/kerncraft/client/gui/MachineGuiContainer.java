@@ -11,6 +11,7 @@ import com.R3DKn16h7.kerncraft.tileentities.*;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
+import net.minecraft.util.Tuple;
 
 import java.awt.*;
 import java.util.function.IntConsumer;
@@ -21,7 +22,9 @@ import java.util.function.IntConsumer;
 public class MachineGuiContainer extends AdvancedGuiContainer {
     public static final int itemStackIconSize = 18;
     protected AnimatedTexturedElement energyBar;
+    protected TexturedElement energyBarBackGround;
     protected AnimatedTexturedElement fluidBar;
+    protected TexturedElement fluidBarBackground;
     protected AnimatedTexturedElement flame;
     protected AnimatedTexturedElement brewing;
     protected Text progressText;
@@ -29,21 +32,17 @@ public class MachineGuiContainer extends AdvancedGuiContainer {
     public MachineGuiContainer(Container container, IInventory playerInv, MachineTileEntity te) {
         super(container, playerInv, te);
 
-        energyBar = new AnimatedTexturedElement(this,
-                 "kerncraft:textures/gui/container/extractor_gui.png",
-                 -1, -1,
-                 6,  gridCoord(3) - 2,
-                 176, 0,
-                AnimatedTexturedElement.Direction.BOTTOM, 300);
+        energyBarBackGround = TexturedElement.ENERGY_BAR_BACKGROUND(this,
+                -2 + this.borderLeft, -2 + this.borderTop);
+        AddWidget(energyBarBackGround, false);
+        energyBar = AnimatedTexturedElement.ENERGY_BAR(this, -1, -1);
         energyBar.setAutoAnimated(false, 0);
         AddWidget(energyBar, true);
 
-        fluidBar = new AnimatedTexturedElement(this,
-                "kerncraft:textures/gui/container/extractor_gui.png",
-                -1 + 9, -1,
-                6,  gridCoord(3) - 2,
-                176, 0,
-                AnimatedTexturedElement.Direction.BOTTOM, 300);
+        fluidBarBackground = TexturedElement.ENERGY_BAR_BACKGROUND(this,
+                -2 + this.borderLeft + 9, -2 + this.borderTop);
+        AddWidget(fluidBarBackground, false);
+        fluidBar = AnimatedTexturedElement.ENERGY_BAR(this, -1 + 9, -1);
         fluidBar.setTint(Color.blue);
         fluidBar.setAutoAnimated(false, 0);
         AddWidget(fluidBar, true);
@@ -58,25 +57,39 @@ public class MachineGuiContainer extends AdvancedGuiContainer {
         if (te instanceof IFuelUser) {
             IFuelUser fuel_te = ((IFuelUser) te);
             int[] pos = fuel_te.getFuelIconCoordinate();
-            flame = AnimatedTexturedElement.FLAME(this,
-                    gridCoord(pos[0]),
-                    gridCoord(pos[1]));
-            flame.setAutoAnimated(false, 0);
-            flame.setTint(null);
-            AddWidget(flame, true);
+            if (pos != null) {
+                flame = AnimatedTexturedElement.FLAME(this,
+                        gridCoord(pos[0]),
+                        gridCoord(pos[1]));
+                flame.setAutoAnimated(false, 0);
+                flame.setTint(null);
+                AddWidget(flame, true);
+            }
         }
         if (te instanceof IProgressMachine) {
             IProgressMachine progr_te = ((IProgressMachine) te);
-            int[] pos = progr_te.getProgressIconCoordinate();
-            if(pos != null) {
-                brewing = AnimatedTexturedElement.BREWING(this,
-                        gridCoord(pos[0]) + 1,
-                        gridCoord(pos[1]) + 8);
+            Tuple<Integer[], ProgressIcon> progressInfo = progr_te.getProgressIconCoordinate();
+            if (progressInfo != null) {
+                switch (progressInfo.getSecond()) {
+                    case BREWING:
+                        brewing = AnimatedTexturedElement.BREWING(this,
+                                gridCoord(progressInfo.getFirst()[0]) + 1,
+                                gridCoord(progressInfo.getFirst()[1]) + 8);
+                        break;
+                    case ARROW_RIGHT:
+                        brewing = AnimatedTexturedElement.ARROW(this,
+                                gridCoord(progressInfo.getFirst()[0]),
+                                gridCoord(progressInfo.getFirst()[1]));
+                    case ARROW_DOWN:
+                        brewing = AnimatedTexturedElement.ARROW_DOWN(this,
+                                gridCoord(progressInfo.getFirst()[0]) - 2,
+                                gridCoord(progressInfo.getFirst()[1]));
+                }
                 brewing.setAutoAnimated(false, 0);
                 brewing.setTint(null);
                 AddWidget(brewing, true);
             }
-            pos = progr_te.getProgressTextCoordinate();
+            int[] pos = progr_te.getProgressTextCoordinate();
             if(pos != null) {
                 progressText = new Text(this,
                         gridCoord(pos[0]),
@@ -172,7 +185,7 @@ public class MachineGuiContainer extends AdvancedGuiContainer {
     public void updateWidgets() {
         super.updateWidgets();
 
-        if (te instanceof IFuelUser) {
+        if (te instanceof IFuelUser && flame != null) {
             float fuelStoredPercent = ((IFuelUser) te).getFuelStoredPercent();
             flame.setPercentage(fuelStoredPercent);
             flame.setTooltip(String.format("Fuel %.2f%%", fuelStoredPercent * 100));
@@ -219,4 +232,6 @@ public class MachineGuiContainer extends AdvancedGuiContainer {
             fluidBar.setPercentage(fluidAmountPercent);
         }
     }
+
+    public enum ProgressIcon {BREWING, ARROW_DOWN, ARROW_LEFT, ARROW_RIGHT}
 }

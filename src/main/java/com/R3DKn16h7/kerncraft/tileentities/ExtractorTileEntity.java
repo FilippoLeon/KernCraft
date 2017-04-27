@@ -2,6 +2,7 @@ package com.R3DKn16h7.kerncraft.tileentities;
 
 import com.R3DKn16h7.kerncraft.capabilities.ElementCapabilities;
 import com.R3DKn16h7.kerncraft.capabilities.IElementContainer;
+import com.R3DKn16h7.kerncraft.client.gui.MachineGuiContainer;
 import com.R3DKn16h7.kerncraft.crafting.ExtractorRecipe;
 import com.R3DKn16h7.kerncraft.crafting.ISmeltingRecipe;
 import com.R3DKn16h7.kerncraft.crafting.KernCraftRecipes;
@@ -9,6 +10,7 @@ import com.R3DKn16h7.kerncraft.elements.ElementStack;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntityFurnace;
+import net.minecraft.util.Tuple;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 
 import java.util.List;
@@ -44,8 +46,8 @@ public class ExtractorTileEntity extends SmeltingTileEntity
     }
 
     @Override
-    public int[] getProgressIconCoordinate() {
-        return new int[]{3,1};
+    public Tuple<Integer[], MachineGuiContainer.ProgressIcon> getProgressIconCoordinate() {
+        return new Tuple<>(new Integer[]{3, 1}, MachineGuiContainer.ProgressIcon.BREWING);
     }
 
     @Override

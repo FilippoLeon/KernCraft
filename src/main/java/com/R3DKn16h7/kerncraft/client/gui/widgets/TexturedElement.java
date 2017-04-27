@@ -16,6 +16,7 @@ public class TexturedElement extends Widget {
     public int offsetX, offsetY;
     public Color tint;
 
+
     public TexturedElement(AdvancedGuiContainer container, String texture,
                            int xPosition, int yPosition,
                            int xSize, int ySize,
@@ -26,6 +27,14 @@ public class TexturedElement extends Widget {
         this.offsetX = offsetX;
         this.offsetY = offsetY;
         this.tint = null;
+    }
+
+    public static TexturedElement ENERGY_BAR_BACKGROUND(AdvancedGuiContainer container,
+                                                        int xPosition, int yPosition) {
+        return new TexturedElement(container, "kerncraft:textures/gui/container/extractor_gui.png",
+                xPosition, yPosition, 8, 3 * DEFAULT_SLOT_SIZE_Y,
+                16, 16);
+
     }
 
     public TexturedElement setTint(Color tint) {

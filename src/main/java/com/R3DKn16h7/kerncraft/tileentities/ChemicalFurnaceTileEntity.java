@@ -2,11 +2,13 @@ package com.R3DKn16h7.kerncraft.tileentities;
 
 import com.R3DKn16h7.kerncraft.capabilities.ElementCapabilities;
 import com.R3DKn16h7.kerncraft.capabilities.IElementContainer;
+import com.R3DKn16h7.kerncraft.client.gui.MachineGuiContainer;
 import com.R3DKn16h7.kerncraft.crafting.ChemicalFurnaceRecipe;
 import com.R3DKn16h7.kerncraft.crafting.ISmeltingRecipe;
 import com.R3DKn16h7.kerncraft.crafting.KernCraftRecipes;
 import com.R3DKn16h7.kerncraft.elements.ElementStack;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.Tuple;
 import net.minecraftforge.fluids.FluidStack;
 
 import java.util.List;
@@ -42,8 +44,8 @@ public class ChemicalFurnaceTileEntity extends SmeltingTileEntity {
     }
 
     @Override
-    public int[] getProgressIconCoordinate() {
-        return null;
+    public Tuple<Integer[], MachineGuiContainer.ProgressIcon> getProgressIconCoordinate() {
+        return new Tuple<>(new Integer[]{-4, 1}, MachineGuiContainer.ProgressIcon.ARROW_DOWN);
     }
 
     @Override

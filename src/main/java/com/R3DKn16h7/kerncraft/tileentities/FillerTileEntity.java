@@ -1,6 +1,8 @@
 package com.R3DKn16h7.kerncraft.tileentities;
 
+import com.R3DKn16h7.kerncraft.client.gui.MachineGuiContainer;
 import com.R3DKn16h7.kerncraft.crafting.ISmeltingRecipe;
+import net.minecraft.util.Tuple;
 
 import java.util.List;
 
@@ -38,7 +40,7 @@ public class FillerTileEntity extends SmeltingTileEntity {
     }
 
     @Override
-    public int[] getProgressIconCoordinate() {
+    public Tuple<Integer[], MachineGuiContainer.ProgressIcon> getProgressIconCoordinate() {
         return null;
     }
 
