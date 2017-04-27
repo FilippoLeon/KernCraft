@@ -5,8 +5,8 @@ High priority:
     - XMl recipes? improve
     - Filtering slots for input, make inputs go in the correct place when shift clicked
     - ADD: recipes for electrolyzer
-    - ADD: recipes for centrifuces
-    - ADD: way do disable/enable energy/storage at runtime
+    - ADD: recipes for centrifuges
+    - ADD: way do disable/enable energy/fluid storage at runtime
     - FIX: textures for machines
     - Addach decay to ElementContainer?
 
