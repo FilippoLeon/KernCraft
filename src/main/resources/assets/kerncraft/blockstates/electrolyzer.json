@@ -1,0 +1,43 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "textures": {
+      "top": "kerncraft:blocks/extractor_top",
+      "front": "kerncraft:blocks/electrolyzer_front_off",
+      "side": "kerncraft:blocks/extractor_side"
+    },
+    "model": "kerncraft:electrolyzer",
+    "uvlock": true
+  },
+  "variants": {
+    "powered": {
+      "true": {
+        "textures": {
+          "front": "kerncraft:blocks/electrolyzer_front_on"
+        }
+      },
+      "false": {
+        "textures": {
+          "front": "kerncraft:blocks/electrolyzer_front_off"
+        }
+      }
+    },
+    "facing": {
+      "north": {
+        "model": "kerncraft:electrolyzer"
+      },
+      "south": {
+        "model": "kerncraft:electrolyzer",
+        "y": 180
+      },
+      "west": {
+        "model": "kerncraft:electrolyzer",
+        "y": 270
+      },
+      "east": {
+        "model": "kerncraft:electrolyzer",
+        "y": 90
+      }
+    }
+  }
+}
