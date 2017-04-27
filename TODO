@@ -8,6 +8,7 @@ High priority:
     - ADD: recipes for centrifuces
     - ADD: way do disable/enable energy/storage at runtime
     - FIX: textures for machines
+    - Addach decay to ElementContainer?
 
 Soon:
     - Unify energy, wrapper around forge energy with tesla, possibly cofh?

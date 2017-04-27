@@ -14,10 +14,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.fml.common.Optional;
@@ -50,6 +48,7 @@ public class PortableBeacon extends Item implements IBauble {
         addEffect("He", Target.Self, PotionImprovedHelper.HASTE, 300, 1);
         addEffect("U", Target.HittedEntity, PotionImprovedHelper.WITHER, 300, 0);
         addEffect("C", Target.OnUse, PotionImprovedHelper.REGENERATION, 300, 0);
+        addEffect("H", Target.OnUse, PotionImprovedHelper.RANDOM_TELEPORT, 300, 0);
     }
 
     public void addEffect(String name, Target target, int effect, int duration, int amplifier) {
@@ -97,17 +96,29 @@ public class PortableBeacon extends Item implements IBauble {
         return 0;
     }
 
-    @Override
-    public EnumActionResult onItemUse(EntityPlayer player,
-                                      World world, BlockPos pos, EnumHand hand,
-                                      EnumFacing facing, float hitX, float hitY, float hitZ) {
-        // TODO DEPRECATED
-        if (!world.isRemote) {
-            tryApplyEffect(player, player.getHeldItem(hand), Target.OnUse);
+//    @Override
+//    public EnumActionResult onItemUse(EntityPlayer player,
+//                                      World world, BlockPos pos, EnumHand hand,
+//                                      EnumFacing facing, float hitX, float hitY, float hitZ) {
+//        // TODO DEPRECATED
+//        if (!world.isRemote) {
+//            player.setActiveHand(hand);
+//            tryApplyEffect(player, player.getHeldItem(hand), Target.OnUse);
+//
+//            return EnumActionResult.SUCCESS;
+//        }
+//        return EnumActionResult.FAIL;
+//    }
 
-            return EnumActionResult.SUCCESS;
-        }
-        return EnumActionResult.FAIL;
+    @Override
+    public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
+
+//        if (!worldIn.isRemote) {
+        playerIn.setActiveHand(handIn);
+        tryApplyEffect(playerIn, playerIn.getHeldItem(handIn), Target.OnUse);
+//        }
+
+        return super.onItemRightClick(worldIn, playerIn, handIn);
     }
 
     @Nullable

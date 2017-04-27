@@ -1,5 +1,6 @@
 package com.R3DKn16h7.kerncraft.utils;
 
+import com.R3DKn16h7.kerncraft.potions.KernCraftPotions;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
@@ -35,9 +36,14 @@ public class PotionImprovedHelper {
     public static final int LEVITATION = 25;
     public static final int LUCK = 26;
     public static final int UNLUCK = 27;
+    public static final int RANDOM_TELEPORT = 101;
 
     public static Potion getPotion(int id) {
-        return Potion.getPotionById(id);
+        if (id < 100) {
+            return Potion.getPotionById(id);
+        } else {
+            return KernCraftPotions.RANDOM_TELEPORT;
+        }
     }
 
     public static PotionEffect getPotionEffect(int id, int duration) {

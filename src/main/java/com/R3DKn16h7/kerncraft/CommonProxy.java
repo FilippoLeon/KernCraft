@@ -9,6 +9,7 @@ import com.R3DKn16h7.kerncraft.events.EventHandlerCommon;
 import com.R3DKn16h7.kerncraft.items.KernCraftItems;
 import com.R3DKn16h7.kerncraft.network.KernCraftNetwork;
 import com.R3DKn16h7.kerncraft.network.ModGuiHandler;
+import com.R3DKn16h7.kerncraft.potions.KernCraftPotions;
 import com.R3DKn16h7.kerncraft.sounds.KernCraftSounds;
 import com.R3DKn16h7.kerncraft.tileentities.KernCraftTileEntities;
 import net.minecraftforge.common.MinecraftForge;
@@ -50,6 +51,8 @@ public class CommonProxy {
         MinecraftForge.EVENT_BUS.register(handler);
 
         new AchievementHandler();
+
+        new KernCraftPotions();
     }
 
     public void postInit(FMLPostInitializationEvent e) {
