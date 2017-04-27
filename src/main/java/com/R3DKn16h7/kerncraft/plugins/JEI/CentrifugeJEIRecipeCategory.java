@@ -20,47 +20,38 @@ import java.util.List;
  * Created by filippo on 23/11/16.
  */
 public class CentrifugeJEIRecipeCategory implements IRecipeCategory {
-    public static final String CATEGORY_UID = "kerncraft.centrifuge";
+    private static final String CATEGORY_UID = "kerncraft.centrifuge";
 
-    protected final ResourceLocation backgroundLocation;
-    //    protected final IDrawableAnimated flame;
-//    protected final IDrawableAnimated arrow;
     private final IDrawable background, slot;
     private final String localizedName;
-    private IDrawable[] elements;
+    private final IDrawable[] elements;
 
     public CentrifugeJEIRecipeCategory(IGuiHelper guiHelper) {
-        backgroundLocation = new ResourceLocation("minecraft",
-                "textures/gui/demo_background.png");
-//        ResourceLocation furnaceLocation = new ResourceLocation("minecraft",
-//                "textures/gui/container/furnace.png");
-        ResourceLocation location =
-                new ResourceLocation(
-                        "kerncraft:textures/gui/container/extractor_gui.png");
-
+        ResourceLocation backgroundLocation = new ResourceLocation(
+                "minecraft",
+                "textures/gui/demo_background.png"
+        );
+        ResourceLocation location = new ResourceLocation(
+                "kerncraft:textures/gui/container/extractor_gui.png"
+        );
         background = guiHelper.createDrawable(backgroundLocation,
                 7, 16, 163, 54);
 
         elements = new IDrawable[2];
         elements[0] = guiHelper.createDrawable(location,
                 182, 28, 18, 18);
+
         IDrawableStatic brewing = guiHelper.createDrawable(location,
                 182, 28 + 18, 18, 18);
         elements[1] = guiHelper.createAnimatedDrawable(brewing,
                 300, IDrawableAnimated.StartDirection.TOP, false);
+
         slot = guiHelper.createDrawable(location,
                 7 + 1 * 18, 16 + 2 * 18, 18, 18);
-//        elements[0] = guiHelper.createDrawable(backgroundLocation,
-//                7, 16, 18, 18);
-//        elements[1] = guiHelper.createDrawable(furnaceLocation,
-//                176, 14, 24, 17);
-//        IDrawableStatic arrowRight = guiHelper.createDrawable(furnaceLocation,
-//                176, 14, 24, 17);
-//        elements[2] = guiHelper.createAnimatedDrawable(arrowRight,
-//                200, IDrawableAnimated.StartDirection.TOP, false);
 
         localizedName = I18n.format(
-                KernCraftTileEntities.CHEMICAL_FURNACE.getUnlocalizedName() + ".name");
+                KernCraftTileEntities.CHEMICAL_FURNACE.getUnlocalizedName() + ".name"
+        );
     }
 
     @Override

@@ -1,7 +1,9 @@
 package com.R3DKn16h7.kerncraft.plugins.JEI;
 
 import com.R3DKn16h7.kerncraft.KernCraft;
+import com.R3DKn16h7.kerncraft.crafting.CentrifugeRecipe;
 import com.R3DKn16h7.kerncraft.crafting.ChemicalFurnaceRecipe;
+import com.R3DKn16h7.kerncraft.crafting.ElectrolyzerRecipe;
 import com.R3DKn16h7.kerncraft.crafting.KernCraftRecipes;
 import com.R3DKn16h7.kerncraft.elements.ElementRegistry;
 import com.R3DKn16h7.kerncraft.items.Canister;
@@ -44,25 +46,63 @@ public class KernCraftJEIPlugin implements IModPlugin {
         );
 
 
-        IRecipeWrapperFactory<ChemicalFurnaceRecipe> factory
+        //// REGISTER CHEMICAL FURNACE CATEGORY
+        IRecipeWrapperFactory<ChemicalFurnaceRecipe> ChemicalFurnaceFactory
                 = new IRecipeWrapperFactory<ChemicalFurnaceRecipe>() {
             @Override
             public IRecipeWrapper getRecipeWrapper(ChemicalFurnaceRecipe recipe) {
                 return new ChemicalFurnaceJEIRecipeWrapper(recipe);
             }
         };
-
-        registry.addRecipeCategories(new ChemicalFurnaceJEIRecipeCategory(guih));
+        ChemicalFurnaceJEIRecipeCategory ChemicalFurnaceCat = new ChemicalFurnaceJEIRecipeCategory(guih);
         registry.handleRecipes(ChemicalFurnaceRecipe.class,
-                factory, ChemicalFurnaceJEIRecipeCategory.CATEGORY_UID);
+                ChemicalFurnaceFactory, ChemicalFurnaceCat.getUid());
         registry.addRecipes(KernCraftRecipes.CHEMICAL_FURNACE_RECIPES,
-                ChemicalFurnaceJEIRecipeCategory.CATEGORY_UID);
+                ChemicalFurnaceCat.getUid());
         registry.addRecipeCategoryCraftingItem(
                 new ItemStack(Item.getItemFromBlock(KernCraftTileEntities.CHEMICAL_FURNACE)),
-                ChemicalFurnaceJEIRecipeCategory.CATEGORY_UID
+                ChemicalFurnaceCat.getUid()
         );
 
-        // TODO: add decription for elements
+        //// REGISTER CENTRIFUGE CATEGORY
+        IRecipeWrapperFactory<CentrifugeRecipe> CentrifugeFactory
+                = new IRecipeWrapperFactory<CentrifugeRecipe>() {
+            @Override
+            public IRecipeWrapper getRecipeWrapper(CentrifugeRecipe recipe) {
+                return new CentrifugeJEIRecipeWrapper(recipe);
+            }
+        };
+        CentrifugeJEIRecipeCategory CentrifugeCat = new CentrifugeJEIRecipeCategory(guih);
+        registry.handleRecipes(CentrifugeRecipe.class,
+                CentrifugeFactory, CentrifugeCat.getUid());
+        registry.addRecipes(KernCraftRecipes.CENTRIFUGE_RECIPES,
+                CentrifugeCat.getUid());
+        registry.addRecipeCategoryCraftingItem(
+                new ItemStack(Item.getItemFromBlock(KernCraftTileEntities.CENTRIFUGE_MACHINE)),
+                CentrifugeCat.getUid()
+        );
+
+        //// REGISTER ELECTROLYZER CATEGORY
+        IRecipeWrapperFactory<ElectrolyzerRecipe> ElectrolyzerFactory
+                = new IRecipeWrapperFactory<ElectrolyzerRecipe>() {
+            @Override
+            public IRecipeWrapper getRecipeWrapper(ElectrolyzerRecipe recipe) {
+                return new ElectrolyzerJEIRecipeWrapper(recipe);
+            }
+        };
+        ElectrolyzerJEIRecipeCategory ElectrolyzerCat = new ElectrolyzerJEIRecipeCategory(guih);
+        registry.handleRecipes(ElectrolyzerRecipe.class,
+                ElectrolyzerFactory, ElectrolyzerCat.getUid());
+        registry.addRecipes(KernCraftRecipes.ELECTROLYZER_RECIPES,
+                ElectrolyzerCat.getUid());
+        registry.addRecipeCategoryCraftingItem(
+                new ItemStack(Item.getItemFromBlock(KernCraftTileEntities.ELECTROLYZER_MACHINE)),
+                ElectrolyzerCat.getUid()
+        );
+
+        registry.addRecipeCategories(ChemicalFurnaceCat, CentrifugeCat, ElectrolyzerCat);
+
+        // TODO: add description for elements
         if(KernCraft.MOD_CONFIG_DISPLAY_ALL_ELEMENTS) {
             for (int i = 1; i <= ElementRegistry.NUMBER_OF_ELEMENTS; ++i) {
                 String descr = ElementRegistry.getElement(i).shortDescription;

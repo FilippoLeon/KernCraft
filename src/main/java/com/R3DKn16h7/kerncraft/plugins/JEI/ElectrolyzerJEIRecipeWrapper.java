@@ -1,6 +1,6 @@
 package com.R3DKn16h7.kerncraft.plugins.JEI;
 
-import com.R3DKn16h7.kerncraft.crafting.ChemicalFurnaceRecipe;
+import com.R3DKn16h7.kerncraft.crafting.ElectrolyzerRecipe;
 import com.R3DKn16h7.kerncraft.elements.ElementRegistry;
 import com.R3DKn16h7.kerncraft.elements.ElementStack;
 import mezz.jei.api.ingredients.IIngredients;
@@ -19,26 +19,26 @@ import java.util.List;
  */
 public class ElectrolyzerJEIRecipeWrapper extends BlankRecipeWrapper {
 
-    public ChemicalFurnaceRecipe recipe;
+    public ElectrolyzerRecipe recipe;
 
-    ElectrolyzerJEIRecipeWrapper(ChemicalFurnaceRecipe recipe_) {
-        recipe = recipe_;
+    ElectrolyzerJEIRecipeWrapper(ElectrolyzerRecipe recipe) {
+
+        this.recipe = recipe;
     }
 
     @Override
     public void getIngredients(IIngredients ingredients) {
         ArrayList<ItemStack> inputs = new ArrayList<>();
-        int j = 0;
-        for (ElementStack i : recipe.inputs) {
-            if (recipe.inputs[j++] != null) {
-                inputs.add(ElementRegistry.getItem(i));
-            }
-        }
+        inputs.add(recipe.anode);
+        inputs.add(recipe.cathode);
+        inputs.add(recipe.input);
         ingredients.setInputs(ItemStack.class, inputs);
 
-        if (recipe.outputs != null) {
-            ingredients.setOutputs(ItemStack.class, recipe.outputs);
+        ArrayList<ItemStack> outputs = new ArrayList<>();
+        for (ElementStack i : recipe.outputs) {
+            outputs.add(ElementRegistry.getItem(i));
         }
+        ingredients.setOutputs(ItemStack.class, outputs);
     }
 
     @Override

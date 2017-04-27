@@ -1,6 +1,6 @@
 package com.R3DKn16h7.kerncraft.plugins.JEI;
 
-import com.R3DKn16h7.kerncraft.crafting.ChemicalFurnaceRecipe;
+import com.R3DKn16h7.kerncraft.crafting.CentrifugeRecipe;
 import com.R3DKn16h7.kerncraft.elements.ElementRegistry;
 import com.R3DKn16h7.kerncraft.elements.ElementStack;
 import mezz.jei.api.ingredients.IIngredients;
@@ -19,26 +19,25 @@ import java.util.List;
  */
 public class CentrifugeJEIRecipeWrapper extends BlankRecipeWrapper {
 
-    public ChemicalFurnaceRecipe recipe;
+    public CentrifugeRecipe recipe;
 
-    CentrifugeJEIRecipeWrapper(ChemicalFurnaceRecipe recipe_) {
-        recipe = recipe_;
+    CentrifugeJEIRecipeWrapper(CentrifugeRecipe recipe) {
+
+        this.recipe = recipe;
     }
 
     @Override
     public void getIngredients(IIngredients ingredients) {
-        ArrayList<ItemStack> inputs = new ArrayList<>();
-        int j = 0;
-        for (ElementStack i : recipe.inputs) {
-            if (recipe.inputs[j++] != null) {
-                inputs.add(ElementRegistry.getItem(i));
-            }
-        }
-        ingredients.setInputs(ItemStack.class, inputs);
 
-        if (recipe.outputs != null) {
-            ingredients.setOutputs(ItemStack.class, recipe.outputs);
+        if (recipe.inputs != null) {
+            ingredients.setInputs(ItemStack.class, recipe.inputs);
         }
+
+        ArrayList<ItemStack> outputs = new ArrayList<>();
+        for (ElementStack i : recipe.outputs) {
+            outputs.add(ElementRegistry.getItem(i));
+        }
+        ingredients.setOutputs(ItemStack.class, outputs);
     }
 
     @Override
@@ -83,6 +82,7 @@ public class CentrifugeJEIRecipeWrapper extends BlankRecipeWrapper {
     @Nullable
     @Override
     public List<String> getTooltipStrings(int mouseX, int mouseY) {
+
         return null;
     }
 

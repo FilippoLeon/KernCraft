@@ -106,7 +106,7 @@
             <OreDict amount="1">rodZinc</OreDict>
         </Anode>
         <Cathode>
-            <Item amount="1">rodCopper</Item>
+            <OreDict amount="1">rodCopper</OreDict>
         </Cathode>
         <Fluid amount="10">water</Fluid>
         <Output>
