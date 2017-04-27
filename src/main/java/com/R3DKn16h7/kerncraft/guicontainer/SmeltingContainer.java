@@ -15,6 +15,7 @@ import net.minecraftforge.items.SlotItemHandler;
  * Created by Filippo on 18-Apr-17.
  */
 public class SmeltingContainer extends MachineContainer<SmeltingTileEntity> {
+    // Fields for detect and send changes
     public static final int FIELDS = 5;
     public static final int FUEL_ID = 0;
     public static final int PROGRESS_ID = 1;
@@ -49,33 +50,14 @@ public class SmeltingContainer extends MachineContainer<SmeltingTileEntity> {
                     icontainerlistener.sendProgressBarUpdate(this, -j, this.te.getField(-j));
                 }
             }
-//
-//            if (this.furnaceBurnTime != this.tileFurnace.getField(0))
-//            {
-//                icontainerlistener.sendProgressBarUpdate(this, 0, this.tileFurnace.getField(0));
-//            }
-//
-//            if (this.currentItemBurnTime != this.tileFurnace.getField(1))
-//            {
-//                icontainerlistener.sendProgressBarUpdate(this, 1, this.tileFurnace.getField(1));
-//            }
-//
-//            if (this.totalCookTime != this.tileFurnace.getField(3))
-//            {
-//                icontainerlistener.sendProgressBarUpdate(this, 3, this.tileFurnace.getField(3));
-//            }
         }
 
-//        this.cookTime = this.tileFurnace.getField(2);
         for (int i = 0; i < FIELDS; ++i) {
             this.params[i] = this.te.getField(i);
         }
         for (int i = 0; i < te.sideConfig.getSize(); ++i) {
             this.side_params[i] = this.te.getField(-i);
         }
-//        this.currentItemBurnTime = this.tileFurnace.getField(1);
-//        this.totalCookTime = this.tileFurnace.getField(3);
-
 
         KernCraftNetwork.networkWrapper.sendToAll(new MessageFluidStackSync(0, te.tank.getFluid(), te.getPos()));
     }

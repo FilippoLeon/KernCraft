@@ -9,7 +9,7 @@ public class FillerBlockEntity extends MachineBlock {
     public FillerBlockEntity(String unlocalizedName) {
         super(unlocalizedName);
 
-        setGui(ModGuiHandler.CHEMICAL_FURNACE_TILE_ENTITY_GUI);
+        setGui(ModGuiHandler.FILLER_TILE_ENTITY_GUI);
 
     }
 

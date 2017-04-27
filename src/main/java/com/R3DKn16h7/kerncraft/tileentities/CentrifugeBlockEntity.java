@@ -9,7 +9,7 @@ public class CentrifugeBlockEntity extends MachineBlock {
     public CentrifugeBlockEntity(String unlocalizedName) {
         super(unlocalizedName);
 
-        setGui(ModGuiHandler.CHEMICAL_FURNACE_TILE_ENTITY_GUI);
+        setGui(ModGuiHandler.CENTRIFUGE_TILE_ENTITY_GUI);
     }
 
     @Override

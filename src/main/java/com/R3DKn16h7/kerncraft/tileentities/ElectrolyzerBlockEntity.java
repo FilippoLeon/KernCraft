@@ -9,7 +9,7 @@ public class ElectrolyzerBlockEntity extends MachineBlock {
     public ElectrolyzerBlockEntity(String unlocalizedName) {
         super(unlocalizedName);
 
-        setGui(ModGuiHandler.CHEMICAL_FURNACE_TILE_ENTITY_GUI);
+        setGui(ModGuiHandler.ELECTROLYZER_TILE_ENTITY_GUI);
 
     }
 
