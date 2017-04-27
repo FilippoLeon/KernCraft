@@ -50,7 +50,7 @@ abstract public class SmeltingTileEntity
 
     /// TODO FIXME ARGH THIS SUCKS BIG TIME; HOW TO DO THIS PROPERLY?
     int elapsedT = 0;
-    boolean lastSmeltig = true;
+    boolean lastSmeltig = false;
     private boolean must_spin_down = false;
 
     public SmeltingTileEntity(int inputSize, int outputSize) {
