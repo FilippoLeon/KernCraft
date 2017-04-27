@@ -134,15 +134,7 @@
     <!-- ************* CENTRIFUGE RECIPES ***************** -->
     <!-- ************************************************** -->
     <!-- ************************************************** -->
-    <Centrifuge energy="50" cost="1">
-        <Output>
-            <Element amount="2" probability="0.78">N</Element>
-            <Element amount="2" probability="0.20">O</Element>
-            <Element amount="1" probability="0.05">Ar</Element>
-            <Element amount="1" probability="0.05">Ne</Element>
-            <Element amount="1" probability="0.05">He</Element>
-        </Output>
-    </Centrifuge>
+    <!-- Exa,ple centrifuge recipe -->
     <Centrifuge energy="0" cost="1">
         <Input>
             <Item>iron_ingot</Item>
@@ -153,5 +145,15 @@
         </Output>
     </Centrifuge>
 
+    <!-- Until priorities are there we must keep this recipe last -->
+    <Centrifuge energy="50" cost="1">
+        <Output>
+            <Element amount="2" probability="0.78">N</Element>
+            <Element amount="2" probability="0.20">O</Element>
+            <Element amount="1" probability="0.05">Ar</Element>
+            <Element amount="1" probability="0.05">Ne</Element>
+            <Element amount="1" probability="0.05">He</Element>
+        </Output>
+    </Centrifuge>
 
 </Recipes>

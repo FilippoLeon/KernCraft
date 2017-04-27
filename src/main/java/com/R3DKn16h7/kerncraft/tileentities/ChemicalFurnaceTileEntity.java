@@ -165,7 +165,7 @@ public class ChemicalFurnaceTileEntity extends SmeltingTileEntity<ChemicalFurnac
                     if (remaining.isEmpty()) break;
                     remaining = output.insertItem(j, remaining, false);
                 }
-                // TODO: WARN IF FAIL
+                // TODO: WARN IF FAILS
             }
         }
 

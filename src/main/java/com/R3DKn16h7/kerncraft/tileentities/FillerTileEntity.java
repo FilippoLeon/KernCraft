@@ -113,6 +113,7 @@ public class FillerTileEntity extends SmeltingTileEntity {
                 maxTotAmount -= ElementCapabilities.transferAllElements(capFrom, capTo,
                         maxTotAmount, this,
                         false, null);
+                if (maxTotAmount <= 0) break;
             }
         }
 

@@ -10,6 +10,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.Tuple;
 
 import java.util.List;
+import java.util.Random;
 
 public class CentrifugeTileEntity extends SmeltingTileEntity<CentrifugeRecipe> {
 
@@ -78,7 +79,7 @@ public class CentrifugeTileEntity extends SmeltingTileEntity<CentrifugeRecipe> {
             }
         }
 
-        return false;
+        return true;
     }
 
     @Override
@@ -113,14 +114,20 @@ public class CentrifugeTileEntity extends SmeltingTileEntity<CentrifugeRecipe> {
             tank.drain(currentlySmelting.fluid, true);
         }
 
+        Random rand = new Random();
+
         // Create elements
         for (ElementStack created : currentlySmelting.outputs) {
+
+            if (rand.nextFloat() > created.probability) continue;
+
             int leftover = created.quantity;
             for (int i = 0; i < getOutputCoords().length; ++i) {
                 ItemStack out = getOutput().getStackInSlot(i);
                 if (!ElementCapabilities.hasCapability(out)) continue;
                 IElementContainer cap = ElementCapabilities.getCapability(out);
                 leftover -= cap.addAmountOf(created.id, leftover, false, this);
+                if (leftover <= 0) break;
             }
         }
 
