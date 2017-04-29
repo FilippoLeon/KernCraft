@@ -21,6 +21,8 @@ import java.util.List;
  * Created by Filippo on 29-Apr-17.
  */
 public abstract class KernCraftAbstractJEIRecipeCategory implements IRecipeCategory {
+    private static final int DEFAULT_SLOT_SIZE_Y = 18;
+    private static final int DEFAULT_SLOT_SIZE_X = 18;
     protected final IDrawable background;
     protected final IDrawable slot;
     protected final String localizedName;
@@ -28,14 +30,17 @@ public abstract class KernCraftAbstractJEIRecipeCategory implements IRecipeCateg
     protected IGuiHelper guiHelper;
     protected MachineTileEntity te;
 
-    public KernCraftAbstractJEIRecipeCategory(IGuiHelper guiHelper, Block block, MachineTileEntity te) {
+    public KernCraftAbstractJEIRecipeCategory(IGuiHelper guiHelper,
+                                              Block block, MachineTileEntity te) {
         super();
         this.guiHelper = guiHelper;
         this.te = te;
         localizedName = I18n.format(block.getUnlocalizedName() + ".name");
 
-        ResourceLocation backgroundLocation = new ResourceLocation("minecraft",
-                "textures/gui/demo_background.png");
+        ResourceLocation backgroundLocation = new ResourceLocation(
+                "minecraft",
+                "textures/gui/demo_background.png"
+        );
         background = guiHelper.createDrawable(backgroundLocation,
                 7, 16, 163, 54);
 
@@ -43,7 +48,19 @@ public abstract class KernCraftAbstractJEIRecipeCategory implements IRecipeCateg
                 "kerncraft:textures/gui/container/extractor_gui.png"
         );
         slot = guiHelper.createDrawable(location,
-                7 + 1 * 18, 16 + 2 * 18, 18, 18);
+                7 + 1 * DEFAULT_SLOT_SIZE_X, 16 + 2 * DEFAULT_SLOT_SIZE_Y,
+                18, 18);
+    }
+
+    Tuple<IDrawable, int[]> createArrowDown(int coordX, int coordY) {
+        ResourceLocation location = new ResourceLocation(
+                "kerncraft:textures/gui/container/extractor_gui.png"
+        );
+        return new Tuple<>(
+                guiHelper.createDrawable(location, 182, 28,
+                        DEFAULT_SLOT_SIZE_X, DEFAULT_SLOT_SIZE_Y),
+                new int[]{coordX, coordY}
+        );
     }
 
     Tuple<IDrawable, int[]> createArrowDownAnimate(int coordX, int coordY) {
@@ -51,7 +68,8 @@ public abstract class KernCraftAbstractJEIRecipeCategory implements IRecipeCateg
                 "kerncraft:textures/gui/container/extractor_gui.png"
         );
         IDrawableStatic brewing = guiHelper.createDrawable(location,
-                182, 28 + 18, 18, 18);
+                176, 0,
+                6, 3 * DEFAULT_SLOT_SIZE_Y - 2);
         return new Tuple<>(
                 guiHelper.createAnimatedDrawable(brewing,
                         300, IDrawableAnimated.StartDirection.TOP,
@@ -60,12 +78,28 @@ public abstract class KernCraftAbstractJEIRecipeCategory implements IRecipeCateg
         );
     }
 
-    Tuple<IDrawable, int[]> createArrowDown(int coordX, int coordY) {
+
+    Tuple<IDrawable, int[]> createBarBackground(int coordX, int coordY) {
+        return new Tuple<>(
+                guiHelper.createDrawable(
+                        new ResourceLocation("kerncraft:textures/gui/container/extractor_gui.png"),
+                        16, 16,
+                        8, 3 * DEFAULT_SLOT_SIZE_Y),
+                new int[]{coordX, coordY});
+    }
+
+
+    Tuple<IDrawable, int[]> createBarAnimate(int coordX, int coordY) {
         ResourceLocation location = new ResourceLocation(
                 "kerncraft:textures/gui/container/extractor_gui.png"
         );
+        IDrawableStatic energyBar = guiHelper.createDrawable(location,
+                176, 0,
+                6, 3 * DEFAULT_SLOT_SIZE_Y - 2);
         return new Tuple<>(
-                guiHelper.createDrawable(location, 182, 28, 18, 18),
+                guiHelper.createAnimatedDrawable(energyBar,
+                        300, IDrawableAnimated.StartDirection.BOTTOM,
+                        false),
                 new int[]{coordX, coordY}
         );
     }
@@ -137,5 +171,11 @@ public abstract class KernCraftAbstractJEIRecipeCategory implements IRecipeCateg
             ++i;
         }
 
+    }
+
+    protected void drawWidgets(Minecraft minecraft) {
+        for (Tuple<IDrawable, int[]> elem : elements) {
+            elem.getFirst().draw(minecraft, elem.getSecond()[0], elem.getSecond()[1]);
+        }
     }
 }

@@ -3,12 +3,10 @@ package com.R3DKn16h7.kerncraft.plugins.JEI;
 import com.R3DKn16h7.kerncraft.tileentities.KernCraftTileEntities;
 import mcp.MethodsReturnNonnullByDefault;
 import mezz.jei.api.IGuiHelper;
-import mezz.jei.api.gui.IDrawable;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.client.Minecraft;
-import net.minecraft.util.Tuple;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,9 +29,6 @@ public class ElectrolyzerJEIRecipeCategory extends KernCraftAbstractJEIRecipeCat
 
     @Override
     public void drawExtras(Minecraft minecraft) {
-        for (Tuple<IDrawable, int[]> elem : elements) {
-            elem.getFirst().draw(minecraft, elem.getSecond()[0], elem.getSecond()[1]);
-        }
 
         drawBackgrounds(minecraft);
     }

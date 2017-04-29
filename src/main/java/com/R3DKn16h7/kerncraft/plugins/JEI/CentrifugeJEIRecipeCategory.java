@@ -21,6 +21,12 @@ public class CentrifugeJEIRecipeCategory extends KernCraftAbstractJEIRecipeCateg
                 KernCraftTileEntities.CENTRIFUGE_MACHINE,
                 KernCraftTileEntities.CENTRIFUGE_MACHINE_TE
         );
+
+        elements.add(createBarBackground(0, 0));
+        elements.add(createBarAnimate(1, 1));
+
+        elements.add(createBarBackground(8, 0));
+        elements.add(createBarAnimate(9, 1));
     }
 
     @Override
@@ -36,6 +42,8 @@ public class CentrifugeJEIRecipeCategory extends KernCraftAbstractJEIRecipeCateg
     @Override
     public void drawExtras(Minecraft minecraft) {
         drawBackgrounds(minecraft);
+
+        drawWidgets(minecraft);
     }
 
     @Override

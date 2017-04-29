@@ -24,4 +24,9 @@ public class PlayerHelper {
                     || Keyboard.isKeyDown(Keyboard.KEY_RMETA);
         return isCtrlKeyDown;
     }
+
+    public static boolean isShiftDown() {
+        boolean isCtrlKeyDown = Keyboard.isKeyDown(Keyboard.KEY_LSHIFT);
+        return isCtrlKeyDown;
+    }
 }

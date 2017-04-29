@@ -14,7 +14,8 @@ public class AnimatedTexturedElement extends TexturedElement {
     private float perc;
     private boolean auto_animated = true;
 
-    public AnimatedTexturedElement(AdvancedGuiContainer container, String texture, int xPosition, int yPosition,
+    public AnimatedTexturedElement(AdvancedGuiContainer container, String texture,
+                                   int xPosition, int yPosition,
                                    int xSize, int ySize,
                                    int offsetX, int offsetY, Direction dir, int speed) {
         super(container, texture, xPosition, yPosition, xSize, ySize, offsetX, offsetY);
@@ -23,7 +24,8 @@ public class AnimatedTexturedElement extends TexturedElement {
     }
 
 
-    public static AnimatedTexturedElement ENERGY_BAR(AdvancedGuiContainer container, int xPosition, int yPosition) {
+    public static AnimatedTexturedElement ENERGY_BAR(AdvancedGuiContainer container,
+                                                     int xPosition, int yPosition) {
         return new AnimatedTexturedElement(container,
                 "kerncraft:textures/gui/container/extractor_gui.png",
                 xPosition, yPosition,
@@ -33,25 +35,29 @@ public class AnimatedTexturedElement extends TexturedElement {
     }
 
 
-    static public AnimatedTexturedElement ARROW(AdvancedGuiContainer container, int xPosition, int yPosition) {
+    static public AnimatedTexturedElement ARROW(AdvancedGuiContainer container,
+                                                int xPosition, int yPosition) {
         return new AnimatedTexturedElement(container, "textures/gui/container/furnace.png",
                 xPosition, yPosition, 24, 18, 176, 14,
                 Direction.LEFT, 200);
     }
 
-    static public AnimatedTexturedElement FLAME(AdvancedGuiContainer container, int xPosition, int yPosition) {
+    static public AnimatedTexturedElement FLAME(AdvancedGuiContainer container,
+                                                int xPosition, int yPosition) {
         return new AnimatedTexturedElement(container, "textures/gui/container/furnace.png",
                 xPosition, yPosition, 14, 14, 176, 0,
                 Direction.BOTTOM, 200);
     }
 
-    static public AnimatedTexturedElement BREWING(AdvancedGuiContainer container, int xPosition, int yPosition) {
+    static public AnimatedTexturedElement BREWING(AdvancedGuiContainer container,
+                                                  int xPosition, int yPosition) {
         return new AnimatedTexturedElement(container, "textures/gui/container/brewing_stand.png",
                 xPosition, yPosition, 12, 29, 185, 0,
                 Direction.BOTTOM, 200);
     }
 
-    static public AnimatedTexturedElement ARROW_DOWN(AdvancedGuiContainer container, int xPosition, int yPosition) {
+    static public AnimatedTexturedElement ARROW_DOWN(AdvancedGuiContainer container,
+                                                     int xPosition, int yPosition) {
         return new AnimatedTexturedElement(container, "kerncraft:textures/gui/container/extractor_gui.png",
                 xPosition, yPosition, 18, 18, 182, 28 + 18,
                 Direction.TOP, 200);

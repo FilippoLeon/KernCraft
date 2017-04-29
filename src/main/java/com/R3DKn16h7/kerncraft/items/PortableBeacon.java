@@ -49,6 +49,8 @@ public class PortableBeacon extends Item implements IBauble {
         addEffect("U", Target.HittedEntity, PotionImprovedHelper.WITHER, 300, 0);
         addEffect("C", Target.OnUse, PotionImprovedHelper.REGENERATION, 300, 0);
         addEffect("H", Target.OnUse, PotionImprovedHelper.RANDOM_TELEPORT, 300, 0);
+        addEffect("O", Target.Self, PotionImprovedHelper.WATER_BREATHING, 300, 0);
+        addEffect("N", Target.OnActive, PotionImprovedHelper.INVISIBILITY, 300, 0);
     }
 
     public void addEffect(String name, Target target, int effect, int duration, int amplifier) {
@@ -191,7 +193,7 @@ public class PortableBeacon extends Item implements IBauble {
     enum Target {
         HittedEntity,
         Self,
-        OnUse,
+        OnUse, OnActive,
     }
 
     class Effect {
