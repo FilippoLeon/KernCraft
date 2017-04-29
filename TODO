@@ -10,8 +10,9 @@ High priority:
     - ADD: way do disable/enable energy/fluid storage at runtime
     - FIX: textures for machines
     - Attach decay to ElementContainer?
-    - CHANGE: use generics for Gui stuff
+    - CHANGE: use generics for JEI Gui stuff
     - REDO ElementRecipe
+    - JEI add nicer energy water and cost information
 
 Soon:
     - Unify energy, wrapper around forge energy with tesla, possibly cofh?

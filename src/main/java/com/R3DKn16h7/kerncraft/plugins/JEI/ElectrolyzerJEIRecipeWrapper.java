@@ -30,8 +30,8 @@ public class ElectrolyzerJEIRecipeWrapper extends BlankRecipeWrapper {
     public void getIngredients(IIngredients ingredients) {
         ArrayList<ItemStack> inputs = new ArrayList<>();
         inputs.add(recipe.anode);
-        inputs.add(recipe.cathode);
         inputs.add(recipe.input);
+        inputs.add(recipe.cathode);
         ingredients.setInputs(ItemStack.class, inputs);
 
         ArrayList<ItemStack> outputs = new ArrayList<>();
