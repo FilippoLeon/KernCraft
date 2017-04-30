@@ -2,15 +2,15 @@
     {
           "modid": "kerncraft",
           "name": "KernCraft",
-          "description": "A simple elementary mod.",
-          "version": "",
+          "description": "A simple Chemistry mod.",
+          "version": "1.0",
           "mcversion": "${mcversion}",
-          "url": "",
+          "url": "https://github.com/FilippoLeon/KernCraft",
           "updateUrl": "",
           "authorList": ["R3DKn16h7"],
           "credits": "",
-          "logoFile": "",
-          "screenshots": [],
-          "dependencies": []
+          "logoFile": "/assets/kerncraft_logo.png",
+          "screenshots": [  ],
+          "dependencies": [  ]
     }
 ]

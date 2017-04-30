@@ -7,6 +7,8 @@ import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.client.Minecraft;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.Tuple;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,14 +25,39 @@ public class ElectrolyzerJEIRecipeCategory extends KernCraftAbstractJEIRecipeCat
                 KernCraftTileEntities.ELECTROLYZER_MACHINE_TE
         );
 
-        elements.add(createArrowDown(18 * 5, 18 * 1));
-        elements.add(createArrowDownAnimate(18 * 5, 18 * 1));
+        elements.add(createBarBackground(0, 0));
+        elements.add(createBarAnimate(1, 1));
+
+        elements.add(createBarBackground(8, 0));
+        elements.add(createBarAnimate(9, 1));
+
+        elements.add(createBrewingBackground(18 * 5 + 4, 18 * 1));
+        elements.add(createBrewingAnimate(18 * 5 + 4, 18 * 1));
+
+        elements.add(new Tuple<>(
+                guiHelper.createDrawable(
+                        new ResourceLocation("kerncraft:textures/gui/container/extractor_gui.png"),
+                        218, 64,
+                        18, 3 * 18
+                ),
+                new int[]{18 * 2, 0}
+        ));
+        elements.add(new Tuple<>(
+                guiHelper.createDrawable(
+                        new ResourceLocation("kerncraft:textures/gui/container/extractor_gui.png"),
+                        218, 64,
+                        18, 3 * 18
+                ),
+                new int[]{18 * 8, 0}
+        ));
     }
 
     @Override
     public void drawExtras(Minecraft minecraft) {
 
         drawBackgrounds(minecraft);
+
+        drawWidgets(minecraft);
     }
 
     @Override

@@ -104,6 +104,39 @@ public abstract class KernCraftAbstractJEIRecipeCategory implements IRecipeCateg
         );
     }
 
+
+    protected Tuple<IDrawable, int[]> createBrewingBackground(int coordX, int coordY) {
+        return new Tuple<>(
+                guiHelper.createDrawable(
+                        new ResourceLocation(
+                                "textures/gui/container/brewing_stand.png"),
+                        63, 14,
+                        12, 29
+                ),
+                new int[]{coordX, coordY}
+        );
+    }
+
+
+    protected Tuple<IDrawable, int[]> createBrewingAnimate(int coordX, int coordY) {
+        ResourceLocation location = new ResourceLocation(
+                "textures/gui/container/brewing_stand.png"
+        );
+        IDrawableStatic brewingStatic =
+                guiHelper.createDrawable(
+                        location,
+                        185, 0,
+                        12, 29
+                );
+        return new Tuple<>(
+                guiHelper.createAnimatedDrawable(brewingStatic,
+                        300, IDrawableAnimated.StartDirection.BOTTOM,
+                        false),
+                new int[]{coordX, coordY}
+        );
+    }
+
+
     @Override
     public String getTitle() {
         return localizedName;

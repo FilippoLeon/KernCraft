@@ -2,7 +2,6 @@ package com.R3DKn16h7.kerncraft.tileentities;
 
 import com.R3DKn16h7.kerncraft.crafting.ISmeltingRecipe;
 import com.R3DKn16h7.kerncraft.guicontainer.SmeltingContainer;
-import com.R3DKn16h7.kerncraft.sounds.KernCraftSounds;
 import com.R3DKn16h7.kerncraft.tileentities.utils.SideConfiguration;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Items;
@@ -12,7 +11,6 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
@@ -270,30 +268,32 @@ abstract public class SmeltingTileEntity<SmeltingRecipe extends ISmeltingRecipe>
                 lastSmeltig = smeltig2;
             }
 
-            if (smeltig2) {
-                must_spin_down = false;
-                if (elapsedT == 0) {
-                    world.playSound(null, getPos(),
-                            KernCraftSounds.CENTRIFUGE_SPIN_UP, SoundCategory.BLOCKS,
-                            0.5F, 1.0F
-                    );
-                } else if (elapsedT >= spinUpTime) {
-                    world.playSound(null, getPos(),
-                            KernCraftSounds.CENTRIFUGE, SoundCategory.BLOCKS,
-                            0.5F, 1.0F
-                    );
-                    elapsedT = spinUpTime;
-                }
-            } else if (elapsedT >= spinUpTime) {
-                if (must_spin_down) {
-                    world.playSound(null, getPos(),
-                            KernCraftSounds.CENTRIFUGE_SPIN_DOWN, SoundCategory.BLOCKS,
-                            0.5F, 1.0F
-                    );
-                    must_spin_down = false;
-                }
-                elapsedT = 0;
-            }
+            // FIXME
+//
+//            if (smeltig2) {
+//                must_spin_down = false;
+//                if (elapsedT == 0) {
+//                    world.playSound(null, getPos(),
+//                            KernCraftSounds.CENTRIFUGE_SPIN_UP, SoundCategory.BLOCKS,
+//                            0.5F, 1.0F
+//                    );
+//                } else if (elapsedT >= spinUpTime) {
+//                    world.playSound(null, getPos(),
+//                            KernCraftSounds.CENTRIFUGE, SoundCategory.BLOCKS,
+//                            0.5F, 1.0F
+//                    );
+//                    elapsedT = spinUpTime;
+//                }
+//            } else if (elapsedT >= spinUpTime) {
+//                if (must_spin_down) {
+//                    world.playSound(null, getPos(),
+//                            KernCraftSounds.CENTRIFUGE_SPIN_DOWN, SoundCategory.BLOCKS,
+//                            0.5F, 1.0F
+//                    );
+//                    must_spin_down = false;
+//                }
+//                elapsedT = 0;
+//            }
             elapsedT++;
         }
 

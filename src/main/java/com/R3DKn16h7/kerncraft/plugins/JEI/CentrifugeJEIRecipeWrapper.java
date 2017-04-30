@@ -24,6 +24,7 @@ public class CentrifugeJEIRecipeWrapper extends BlankRecipeWrapper {
     CentrifugeJEIRecipeWrapper(CentrifugeRecipe recipe) {
 
         this.recipe = recipe;
+
     }
 
     @Override

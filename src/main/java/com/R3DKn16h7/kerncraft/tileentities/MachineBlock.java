@@ -11,8 +11,6 @@ import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
@@ -20,7 +18,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.*;
+import net.minecraft.util.EnumBlockRenderType;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -128,11 +128,12 @@ public abstract class MachineBlock extends BlockContainer {
                     if (fluid != null && fluid.amount >= Fluid.BUCKET_VOLUME) {
                         int try_fill = ((SmeltingTileEntity) te).tank.fill(fluid, false);
                         if (try_fill >= fluid.amount) {
-                            Minecraft.getMinecraft().getSoundHandler().playSound(
-                                    PositionedSoundRecord.getMasterRecord(
-                                            new SoundEvent(new ResourceLocation("item.bucket.empty")),
-                                            1)
-                            );
+                            // FIXME
+//                            Minecraft.getMinecraft().getSoundHandler().playSound(
+//                                    PositionedSoundRecord.getMasterRecord(
+//                                            new SoundEvent(new ResourceLocation("item.bucket.empty")),
+//                                            1)
+//                            );
                             ((SmeltingTileEntity) te).tank.fill(fluid, true);
                             cap.drain(Fluid.BUCKET_VOLUME, true);
                             player.setHeldItem(hand, cap.getContainer());
@@ -142,11 +143,12 @@ public abstract class MachineBlock extends BlockContainer {
                     } else {
                         FluidStack try_drain = ((SmeltingTileEntity) te).tank.drain(Fluid.BUCKET_VOLUME, false);
                         if (try_drain != null && try_drain.amount >= Fluid.BUCKET_VOLUME) {
-                            Minecraft.getMinecraft().getSoundHandler().playSound(
-                                    PositionedSoundRecord.getMasterRecord(
-                                            new SoundEvent(new ResourceLocation("item.bucket.full")),
-                                            1)
-                            );
+                            // FIXME
+//                            Minecraft.getMinecraft().getSoundHandler().playSound(
+//                                    PositionedSoundRecord.getMasterRecord(
+//                                            new SoundEvent(new ResourceLocation("item.bucket.full")),
+//                                            1)
+//                            );
                             FluidStack stack = ((SmeltingTileEntity) te).tank.drain(Fluid.BUCKET_VOLUME, true);
 
                             cap.fill(stack, true);

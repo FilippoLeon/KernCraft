@@ -17,7 +17,7 @@ public class ElectrolyzerTileEntity
 
     // Slot IDs
     public static final int[][] inputCoords = {{2, 0}, {5, 0}, {8, 0}};
-    public static final int[][] outputCoords = {{4, 2}, {6, 2}};
+    public static final int[][] outputCoords = {{2, 2}, {8, 2}};
     private static final int ANODE_SLOT = 0;
     private static final int CATHODE_SLOT = 2;
     private static final int INPUT_SLOT = 1;
