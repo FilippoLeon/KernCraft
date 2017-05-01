@@ -17,7 +17,7 @@ public class MachineContainer<T extends MachineTileEntity> extends AdvancedConta
         this.te = te;
 
 //        Packet packet = te.getUpdatePacket();
-//        MinecraftServer server = FMLCommonHandler.instance().getMinecraftServerInstance();
+//        MinecraftServer server = FMLCommonHandler.INSTANCE().getMinecraftServerInstance();
 //        server.getPlayerList().sendPacketToAllPlayers(packet);
 
     }

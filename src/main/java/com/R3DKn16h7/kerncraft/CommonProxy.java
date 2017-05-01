@@ -12,8 +12,10 @@ import com.R3DKn16h7.kerncraft.network.ModGuiHandler;
 import com.R3DKn16h7.kerncraft.potions.KernCraftPotions;
 import com.R3DKn16h7.kerncraft.sounds.KernCraftSounds;
 import com.R3DKn16h7.kerncraft.tileentities.KernCraftTileEntities;
+import com.R3DKn16h7.kerncraft.utils.config.KernCraftConfig;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.CapabilityManager;
+import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -21,12 +23,23 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 
+import java.io.File;
+
 public class CommonProxy {
 
     @Mod.Instance(KernCraft.MODID)
-    public static KernCraft instance;
+    public static KernCraft INSTANCE;
+
+    /**
+     * Config file for KernCraft
+     */
+    public static Configuration CONFIG;
 
     public void preInit(FMLPreInitializationEvent e) {
+        // Setup log
+        File directory = e.getModConfigurationDirectory();
+        CONFIG = new Configuration(new File(directory.getPath(), "kerncraft.cfg"));
+        KernCraftConfig.readConfig();
 
         new ElementRegistry();
 
@@ -57,7 +70,11 @@ public class CommonProxy {
     }
 
     public void postInit(FMLPostInitializationEvent e) {
-        NetworkRegistry.INSTANCE.registerGuiHandler(instance, new ModGuiHandler());
+        if (CONFIG.hasChanged()) {
+            CONFIG.save();
+        }
+
+        NetworkRegistry.INSTANCE.registerGuiHandler(INSTANCE, new ModGuiHandler());
 
         KernCraft.FOUND_TESLA = Loader.isModLoaded("tesla");
     }

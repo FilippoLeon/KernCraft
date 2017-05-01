@@ -1,6 +1,5 @@
 package com.R3DKn16h7.kerncraft.plugins.JEI;
 
-import com.R3DKn16h7.kerncraft.KernCraft;
 import com.R3DKn16h7.kerncraft.crafting.CentrifugeRecipe;
 import com.R3DKn16h7.kerncraft.crafting.ChemicalFurnaceRecipe;
 import com.R3DKn16h7.kerncraft.crafting.ElectrolyzerRecipe;
@@ -9,6 +8,7 @@ import com.R3DKn16h7.kerncraft.elements.ElementRegistry;
 import com.R3DKn16h7.kerncraft.items.Canister;
 import com.R3DKn16h7.kerncraft.items.KernCraftItems;
 import com.R3DKn16h7.kerncraft.tileentities.KernCraftTileEntities;
+import com.R3DKn16h7.kerncraft.utils.config.KernCraftConfig;
 import mezz.jei.api.*;
 import mezz.jei.api.ingredients.IModIngredientRegistration;
 import mezz.jei.api.recipe.IRecipeWrapper;
@@ -103,7 +103,7 @@ public class KernCraftJEIPlugin implements IModPlugin {
         registry.addRecipeCategories(ChemicalFurnaceCat, CentrifugeCat, ElectrolyzerCat);
 
         // TODO: add description for elements
-        if(KernCraft.MOD_CONFIG_DISPLAY_ALL_ELEMENTS) {
+        if (KernCraftConfig.DISPLAY_ALL_ELEMENTS) {
             for (int i = 1; i <= ElementRegistry.NUMBER_OF_ELEMENTS; ++i) {
                 String descr = ElementRegistry.getElement(i).shortDescription;
                 if(descr != null) {

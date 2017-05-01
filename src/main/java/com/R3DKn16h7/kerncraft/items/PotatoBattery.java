@@ -64,7 +64,8 @@ public class PotatoBattery extends EnergyContainerItem {
 
         if (worldIn.isRemote) {
             IEnergyStorage cap = stack.getCapability(CapabilityEnergy.ENERGY, null);
-            ((EnergyContainer) cap).deserializeNBT(stack.getTagCompound().getCompoundTag("cap"));
+            if (stack.hasTagCompound() && stack.getTagCompound().hasKey("cap"))
+                ((EnergyContainer) cap).deserializeNBT(stack.getTagCompound().getCompoundTag("cap"));
 //            NBTTagCompound nbt2 = ((EnergyContainer) cap).serializeNBT();
         }
 
