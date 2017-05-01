@@ -45,9 +45,34 @@ public abstract class AbstractElementContainerItem extends Item {
         return new ElementContainerProvider(1, 1000);
     }
 
+
+    @Nullable
+    @Override
+    public NBTTagCompound getNBTShareTag(ItemStack stack) {
+
+        NBTTagCompound nbt = stack.getTagCompound();
+
+        IElementContainer cap = ElementCapabilities.getCapability(stack);
+
+        NBTTagCompound nbt2 = cap.serializeNBT();
+        if (nbt == null) {
+            nbt = new NBTTagCompound();
+        }
+        nbt.setTag("capabilityElementContainer", nbt2);
+
+        return nbt;
+    }
+
     @Override
     public void onUpdate(ItemStack stack, World worldIn,
                          Entity entityIn, int itemSlot, boolean isSelected) {
+        if (worldIn.isRemote && ElementCapabilities.hasCapability(stack)) {
+            IElementContainer cap = ElementCapabilities.getCapability(stack);
+            if (stack.hasTagCompound() && stack.getTagCompound().hasKey("capabilityElementContainer")) {
+                cap.deserializeNBT(stack.getTagCompound().getCompoundTag("capabilityElementContainer"));
+            }
+        }
+
         if (entityIn != null && entityIn instanceof EntityPlayer) {
             EntityPlayer entity = (EntityPlayer) entityIn;
             IElementContainer cap = ElementCapabilities.getCapability(stack);

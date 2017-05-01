@@ -126,7 +126,7 @@ public abstract class MachineTileEntity extends TileEntity
 
     @Nullable
     @Override
-    @SideOnly(Side.CLIENT)
+//    @SideOnly(Side.CLIENT)
     public SPacketUpdateTileEntity getUpdatePacket() {
         SPacketUpdateTileEntity packet = super.getUpdatePacket();
         NBTTagCompound tag = packet != null ? packet.getNbtCompound() : new NBTTagCompound();

@@ -6,6 +6,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.network.Packet;
+import net.minecraft.server.MinecraftServer;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 
 /**
  * Created by Filippo on 18-Apr-17.
@@ -16,9 +19,14 @@ public class MachineContainer<T extends MachineTileEntity> extends AdvancedConta
     public MachineContainer(IInventory playerInv, T te) {
         this.te = te;
 
-//        Packet packet = te.getUpdatePacket();
-//        MinecraftServer server = FMLCommonHandler.INSTANCE().getMinecraftServerInstance();
-//        server.getPlayerList().sendPacketToAllPlayers(packet);
+
+//        if(Minecraft.getMinecraft().world.isRemote) {
+        Packet packet = te.getUpdatePacket();
+        MinecraftServer server = FMLCommonHandler.instance().getMinecraftServerInstance();
+        if (server != null) {
+            server.getPlayerList().sendPacketToAllPlayers(packet);
+        }
+//        }
 
     }
 

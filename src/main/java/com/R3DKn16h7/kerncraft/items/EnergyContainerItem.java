@@ -1,15 +1,18 @@
 package com.R3DKn16h7.kerncraft.items;
 
 import net.darkhax.tesla.lib.TeslaUtils;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.fml.common.Optional;
 
+import javax.annotation.Nullable;
 import java.util.List;
 
 /**
@@ -25,6 +28,37 @@ public abstract class EnergyContainerItem extends Item {
     protected abstract int getMaxOutput();
 
     protected abstract int getCapacity();
+
+
+    @Nullable
+    @Override
+    public NBTTagCompound getNBTShareTag(ItemStack stack) {
+
+        NBTTagCompound nbt = stack.getTagCompound();
+
+        IEnergyStorage cap = stack.getCapability(CapabilityEnergy.ENERGY, null);
+
+        NBTTagCompound nbt2 = ((EnergyContainer) cap).serializeNBT();
+        if (nbt == null) {
+            nbt = new NBTTagCompound();
+        }
+        nbt.setTag("capabilityEnergy", nbt2);
+
+        return nbt;
+    }
+
+    @Override
+    public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
+        if (worldIn.isRemote) {
+            IEnergyStorage cap = stack.getCapability(CapabilityEnergy.ENERGY, null);
+            if (stack.hasTagCompound() && stack.getTagCompound().hasKey("capabilityEnergy")) {
+                ((EnergyContainer) cap).deserializeNBT(stack.getTagCompound().getCompoundTag("capabilityEnergy"));
+            }
+        }
+
+
+        super.onUpdate(stack, worldIn, entityIn, itemSlot, isSelected);
+    }
 
     @Override
     public double getDurabilityForDisplay(ItemStack stack) {
