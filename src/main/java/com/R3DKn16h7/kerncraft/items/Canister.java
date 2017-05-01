@@ -36,6 +36,7 @@ public class Canister extends AbstractElementContainerItem {
         );
     }
 
+
     public static ItemStack getElementItemStack(int i) {
         return getElementItemStack(i, 0);
     }

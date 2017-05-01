@@ -2,6 +2,7 @@ package com.R3DKn16h7.kerncraft.capabilities;
 
 import com.R3DKn16h7.kerncraft.elements.Element;
 import com.R3DKn16h7.kerncraft.elements.ElementRegistry;
+import com.R3DKn16h7.kerncraft.elements.ElementStack;
 import com.R3DKn16h7.kerncraft.utils.PlayerHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
@@ -218,5 +219,10 @@ public class ElementCapabilities {
             return getFirstElement(cap);
         }
         return null;
+    }
+
+    public static int remove(ItemStack stack, ElementStack target, boolean simulate) {
+        IElementContainer cap = getCapability(stack);
+        return cap.removeAmountOf(target.id, target.quantity, simulate);
     }
 }

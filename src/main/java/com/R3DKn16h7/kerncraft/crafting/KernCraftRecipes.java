@@ -103,7 +103,7 @@ public class KernCraftRecipes {
 
     static int readAsIntOrDefault(Element nElement,
                                   String key, int defaultValue) {
-        String text = null;
+        String text;
         if (key == null) {
             text = nElement.getTextContent();
         } else if (nElement.hasAttribute(key)) {
@@ -277,6 +277,19 @@ public class KernCraftRecipes {
                 Items.BOOK,
                 canister
         );
+
+        GameRegistry.addRecipe(new ElementRecipe(
+                new ItemStack(KernCraftItems.TYROCINIUM_CHYMICUM),
+                new Object[]{
+                        "BOH",
+                        "   ",
+                        "HI ",
+                        'B', Items.WATER_BUCKET,
+                        'O', new ElementStack("O", 4),
+                        'H', new ElementStack("Fe", 15),
+                        'I', Items.IRON_INGOT
+                }
+        ));
     }
 
     public void parseRecipeXml() {
