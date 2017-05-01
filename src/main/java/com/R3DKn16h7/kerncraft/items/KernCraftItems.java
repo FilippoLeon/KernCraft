@@ -4,6 +4,7 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 
 public class KernCraftItems {
+    public static AlchemistRing ALCHEMIST_RING;
     public static Flask FLASK;
     public static Item PORTABLE_BEACON;
     public static Canister CANISTER;
@@ -41,5 +42,7 @@ public class KernCraftItems {
 
         ELECTROLYTIC_CELL = new ElectrolyticCell();
         POTATO_BATTERY = new PotatoBattery();
+
+        ALCHEMIST_RING = new AlchemistRing();
     }
 }

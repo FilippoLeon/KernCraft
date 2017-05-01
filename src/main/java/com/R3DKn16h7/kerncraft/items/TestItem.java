@@ -52,13 +52,6 @@ public class TestItem extends Item {
     @Override
     public void onUpdate(ItemStack stack, World worldIn,
                          Entity entityIn, int itemSlot, boolean isSelected) {
-        BlockPos pos = entityIn.getPosition();
-        pos = pos.add(0, PlayerHelper.isCtrlKeyDown() ? -2 : -1, 0);
-        if (!PlayerHelper.isShiftDown() && worldIn.isAirBlock(pos)) {
-
-//            worldIn.getBlockState(pos))
-            worldIn.setBlockState(pos, KernCraftBlocks.TEST_BLOCK.getDefaultState());
-        }
 
         super.onUpdate(stack, worldIn, entityIn, itemSlot, isSelected);
     }
