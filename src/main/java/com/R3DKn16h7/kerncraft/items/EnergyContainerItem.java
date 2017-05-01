@@ -44,6 +44,8 @@ public abstract class EnergyContainerItem extends Item {
     @Optional.Method(modid = "tesla")
     public void addInformation (ItemStack stack, EntityPlayer playerIn,
                                 List<String> tooltip, boolean advanced) {
+//         else {
+        //
         // TODO: custom info
         TeslaUtils.createTooltip(stack, tooltip);
     }
@@ -53,6 +55,7 @@ public abstract class EnergyContainerItem extends Item {
     public ICapabilityProvider initCapabilities(ItemStack stack,
                                                 NBTTagCompound nbt) {
         return new EnergyContainerItemCapabilityProvider(getCapacity(), getMaxInput(), getMaxOutput());
+
     }
 
 

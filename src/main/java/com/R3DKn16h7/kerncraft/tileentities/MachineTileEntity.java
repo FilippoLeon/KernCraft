@@ -11,6 +11,8 @@ import net.minecraft.util.ITickable;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 
@@ -124,6 +126,7 @@ public abstract class MachineTileEntity extends TileEntity
 
     @Nullable
     @Override
+    @SideOnly(Side.CLIENT)
     public SPacketUpdateTileEntity getUpdatePacket() {
         SPacketUpdateTileEntity packet = super.getUpdatePacket();
         NBTTagCompound tag = packet != null ? packet.getNbtCompound() : new NBTTagCompound();
@@ -134,6 +137,7 @@ public abstract class MachineTileEntity extends TileEntity
     }
 
     @Override
+    @SideOnly(Side.CLIENT)
     public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
         super.onDataPacket(net, pkt);
         NBTTagCompound tag = pkt.getNbtCompound();

@@ -19,6 +19,8 @@ import net.minecraftforge.energy.EnergyStorage;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -407,6 +409,7 @@ abstract public class SmeltingTileEntity<SmeltingRecipe extends ISmeltingRecipe>
 
     @Nullable
     @Override
+    @SideOnly(Side.CLIENT)
     public SPacketUpdateTileEntity getUpdatePacket() {
         SPacketUpdateTileEntity packet = super.getUpdatePacket();
         NBTTagCompound tag = packet != null ? packet.getNbtCompound() : new NBTTagCompound();
@@ -417,6 +420,7 @@ abstract public class SmeltingTileEntity<SmeltingRecipe extends ISmeltingRecipe>
     }
 
     @Override
+    @SideOnly(Side.CLIENT)
     public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
         super.onDataPacket(net, pkt);
         NBTTagCompound tag = pkt.getNbtCompound();

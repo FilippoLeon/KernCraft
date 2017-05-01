@@ -7,6 +7,8 @@ import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nullable;
 
@@ -85,6 +87,7 @@ public class LampTileEntity extends TileEntity implements IRedstoneSettable, IMe
 
     @Nullable
     @Override
+    @SideOnly(Side.CLIENT)
     public SPacketUpdateTileEntity getUpdatePacket() {
         SPacketUpdateTileEntity packet = super.getUpdatePacket();
             NBTTagCompound tag = packet != null ? packet.getNbtCompound() : new NBTTagCompound();
@@ -95,6 +98,7 @@ public class LampTileEntity extends TileEntity implements IRedstoneSettable, IMe
     }
 
     @Override
+    @SideOnly(Side.CLIENT)
     public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
         super.onDataPacket(net, pkt);
         NBTTagCompound tag = pkt.getNbtCompound();
