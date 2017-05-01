@@ -2,15 +2,12 @@ package com.R3DKn16h7.kerncraft.items;
 
 import baubles.api.BaubleType;
 import baubles.api.IBauble;
-import com.R3DKn16h7.kerncraft.KernCraft;
 import com.R3DKn16h7.kerncraft.blocks.KernCraftBlocks;
 import com.R3DKn16h7.kerncraft.capabilities.ElementContainerProvider;
-import com.R3DKn16h7.kerncraft.elements.Element;
 import com.R3DKn16h7.kerncraft.utils.PlayerHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ActionResult;
@@ -18,10 +15,10 @@ import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.fml.common.Optional;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -83,12 +80,16 @@ public class AlchemistRing extends AbstractElementContainerItem implements IBaub
     public void onWornTick(ItemStack itemstack, EntityLivingBase player) {
         if( player.world.isRemote) return;
 
-        BlockPos pos = player.getPosition();
-        pos = pos.add(0, PlayerHelper.isCtrlKeyDown() ? -2 : -1, 0);
-        if (!PlayerHelper.isShiftDown() && player.world.isAirBlock(pos)) {
+//        BlockPos pos = player.getPosition();
+        Vec3d pos1 = player.getForward().scale(0.2);
+        Vec3d pos2 = new Vec3d(pos1.xCoord, 0, pos1.zCoord);
+        Vec3d pos = player.getPositionVector().add(pos2);
+        pos = pos.addVector(0., PlayerHelper.isCtrlKeyDown() ? -2. : -1., 0.);
+        BlockPos intPos = new BlockPos(pos.xCoord, pos.yCoord, pos.zCoord);
+        if (!PlayerHelper.isShiftDown() && player.world.isAirBlock(intPos)) {
 
 //            worldIn.getBlockState(pos))
-            player.world.setBlockState(pos, KernCraftBlocks.TEST_BLOCK.getDefaultState());
+            player.world.setBlockState(intPos, KernCraftBlocks.TEST_BLOCK.getDefaultState());
         }
     }
 
