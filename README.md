@@ -1,13 +1,14 @@
 # KernCraft
 
 KernCraft is a Minecraft Mod, all about manipulation of elements.
+!(KernCraft Logo)[https://github.com/FilippoLeon/KernCraft/blob/master/src/main/resources/assets/kerncraft_logo.png]
 
-## New mechanics
+## Mechanics
 
-New mechanics include:
+Mechanics include:
  * item decomposition into fundamental elements;
  * creation of items from basic elements;
- * tiered energy generation;
+ * soon: tiered energy generation from elements;
  * ore duplication;
  * explosions;
  * ~~herobrine~~ (removed).
@@ -41,3 +42,4 @@ The mod currently adds some interesting item:
  * a configurable portable ~~bacon~~ beacon.
  
 ## More
+
