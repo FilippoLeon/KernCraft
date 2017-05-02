@@ -11,6 +11,10 @@ High priority:
     - FIX: wrong JEI display of energy and water consumption
     - FIX: tint of fluid inside machines
     - ADD: element capabilities to Alchemist Ring
+    - ADD: recipe for H and O using Item Electrolyzer
+    - ADD: element as output for recipe
+    - ADD: shapeless element recipe
+    - ADD: images into manual? mhhhh we'll see
 
 Soon:
     - Unify energy, wrapper around forge energy with tesla, possibly cofh?

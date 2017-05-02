@@ -127,7 +127,7 @@ public class TyrociniumChymicumElementGui extends TyrociniumChymicumGui {
 
         //drawString(fontRendererObj, ids, (guiLeft + xSize - 15 - 20*ids.length()) / 3, (guiTop + 15)/ 3, 0x333333);
         GL11.glPopMatrix();
-        fontRendererObj.drawString(StringUtils.capitalize(element.name),
+        fontRendererObj.drawString(StringUtils.capitalize(element.getName()),
                 guiLeft + 50, guiTop + 10, 0x222222);
         fontRendererObj.drawString("Group " + Element.Group.toString(element.group),
                 guiLeft + 50, guiTop + 20, 0x222222);
@@ -142,6 +142,7 @@ public class TyrociniumChymicumElementGui extends TyrociniumChymicumGui {
         //drawString(fontRendererObj , StringUtils.capitalize(element.name), guiLeft + 50, guiTop + 10, 0xdddddd);
         //drawString(fontRendererObj , StringUtils.capitalize(element.toxic ? "true" : "False"), guiLeft + 50, guiTop + 20, 0xdddddd);
 
+        // TODO: i18n
         if (summaryPage) {
             int col = 0;
             fontRendererObj.drawString("Family: " + element.family.I18n().toLowerCase(),

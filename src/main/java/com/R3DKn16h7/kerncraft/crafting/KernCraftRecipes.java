@@ -269,15 +269,16 @@ public class KernCraftRecipes {
                     'P', KernCraftItems.POTATO_BATTERY);
         }
 
-        //// CRAFTING WITH ELEMENTS, new RECIPE
-        ItemStack canister = new ItemStack(KernCraftItems.CANISTER, 1);
-        //IRecipe
-        GameRegistry.addShapelessRecipe(
-                new ItemStack(KernCraftItems.TYROCINIUM_CHYMICUM),
-                Items.BOOK,
-                canister
-        );
+        //// CRAFTING WITH ELEMENTS, old RECIPE
+//        ItemStack canister = new ItemStack(KernCraftItems.CANISTER, 1);
+//        //IRecipe
+//        GameRegistry.addShapelessRecipe(
+//                new ItemStack(KernCraftItems.TYROCINIUM_CHYMICUM),
+//                Items.BOOK,
+//                canister
+//        );
 
+        /// FIXME: JUST A WEIRD TESTING RECIPE, REMOVE ON BUILD
         GameRegistry.addRecipe(new ElementRecipe(
                 new ItemStack(KernCraftItems.TYROCINIUM_CHYMICUM),
                 new Object[]{
@@ -288,6 +289,19 @@ public class KernCraftRecipes {
                         'O', new ElementStack("O", 4),
                         'H', new ElementStack("Fe", 15),
                         'I', Items.IRON_INGOT
+                }
+        ));
+
+        //// MANUAL CRAFTING RECIPE, new EDITION
+        GameRegistry.addRecipe(new ElementRecipe(
+                new ItemStack(KernCraftItems.TYROCINIUM_CHYMICUM),
+                new Object[]{
+                        "OBH",
+                        "   ",
+                        "   ",
+                        'B', Items.BOOK,
+                        'O', new ElementStack("O", 4),
+                        'H', new ElementStack("H", 4),
                 }
         ));
     }

@@ -6,6 +6,7 @@ import com.R3DKn16h7.kerncraft.elements.Element;
 import com.R3DKn16h7.kerncraft.elements.ElementRegistry;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.util.ResourceLocation;
 import org.apache.commons.lang3.StringUtils;
 
@@ -92,8 +93,8 @@ public class TyrociniumChymicumPeriodicTableGui extends TyrociniumChymicumGui {
 
     @Override
     public String getTitle() {
-        return "Periodic table of elements";
-    }
+        return I18n.format("manual.title.periodic_table");
+    } // "of Elements"
 
     @Override
     public void drawScreen(int par1, int par2, float par3) {
@@ -108,7 +109,7 @@ public class TyrociniumChymicumPeriodicTableGui extends TyrociniumChymicumGui {
 
                 String formatting = elem.state.toColor();
 
-                str.add(formatting + StringUtils.capitalize(elem.name) + " (" + elem.symbol + ")");
+                str.add(formatting + StringUtils.capitalize(elem.getName()) + " (" + elem.symbol + ")");
                 str.add(formatting + "Element " + elem.id);
                 break;
             }

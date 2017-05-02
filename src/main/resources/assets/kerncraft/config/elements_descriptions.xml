@@ -1,26 +1,55 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Elements>
-    <Element name="hydrogen">
+    <Element symbol="H">
         <Description lang="en_us">
-            Hydrogen is the simplest element you can think of. In its common
-            form it's made out of a single Proton. However, it can be found
-            in two rare variants: [b]Deuterium[/b] (with a single Neutron and
-            a single Proton) and [b]Tritium[/b], which is made out of a Neutron
+            [b][blue]Hydrogen[/b] is the simplest element you can think of. In its common
+            form it's made out of a single [red]Proton[reset], with, most of the time,
+            an [gold]Electron[reset]
+            wandering around like a moon. However, it can be found
+            in two rare variants: [b]Deuterium[/b] (with a single [green]Neutron[reset] and
+            a single [red]Proton[reset]) and [b]Tritium[/b], which is made out of a Neutron
             and two Protons.
-            [br/]
-            The newbie chemist might want to obtain Hydrogen
-            at first. Hydrogen is easy to obtain: you just need a source of electricity
+            [p/]
+            Most of the Universe (say 75%) is made out of Hydrogen. On [s]Earth[/s] Mineworld,
+            most of the Hydrogen is in its bi-atomic form H_2, which consists of two atoms
+            of Hydrogen glued together trough what is known (with a fancy term) as
+            [b]Covalent bound[/b].
+            This just means that the two Hydrogen atoms share (most of the time happily)
+            their own Electrons.
+            [p/]
+            Hydrogen is odorless, colorless (why can't we just say it's transparent?)
+            and tasteless (yes, you've read this correctly).
+            [p/]
+            The [u]novel chemist[u/] might want to obtain [blue]Hydrogen[reset]
+            as first thing. Hydrogen is easy to obtain: you just need a source of electricity
             (somebody said potato?) and some fresh water. The idea is the following:
-            a molecule of Water (H20 for short) is made out of two atoms of Hydrogen
-            and [b]Oxygen[/b]. Those two atoms are glued together. We just need to pull them
-            apart and observe the magic as it happens.
-            [br/]
-            Precautions: Hydrogen is
-            dangerous: together with Oxygen and a spark it causes a violent explosion.
+            a molecule of Water (H_20 for short) is made out of two atoms of Hydrogen
+            and one of [b]Oxygen[/b]. Those two atoms are glued together.
+            We just need to pull them
+            apart using electricity and observe the magic as it happens.
+            [p/]
+            [u]Precautions:[u/][br/]
+            [li] [red]Explosive[reset]: Hydrogen is dangerous and together with Oxygen
+            and a spark it causes a violent explosion.
             If you do not believe me, look up the Wikipedia page for Hindenburg disaster.
+            [br/]
+            [li] [magenta]Not tasty[reset]: yeah, do not use Hydrogen as salad dressing.
+            [br/]
+            [u]Uses:[u/][br/]
+            [li] [red]Fuel[reset]: due to his high reactivity it is very useful as
+            fuel. In particular for rockets. But also for cars. It is also very light,
+            so you can use it to fill your Zeppelin (strongly discouraged, see above).
+            The nice thing is that the discarded element from Hydrogen combustion is just
+            Water.
+            [br/]
+            [u]Obtained from:[u/][br/]
+            [li] [blue]Water[reset]: using water electrolysis
+            [br/]
+            [li] [gold]Methane[reset][br/]
+            [li] [red]Stars[reset]: just need to reach for the sun and grab an handful.
         </Description>
     </Element>
-    <Element name="helium">
+    <Element symbol="He">
         <Description lang="en_us">
 
         </Description>

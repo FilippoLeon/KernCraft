@@ -1,22 +1,18 @@
 {
     "1": {
         "symbol": "H",
-        "group": "1",
-        "period": "1",
+        "group": 1,
+        "period": 1,
         "family": "NonMetal",
-        "english": "hydrogen",
-        "mass": "1.008",
-        "density": "6.99E-05",
+        "mass": 1.008,
+        "density": 6.99E-05,
         "radius": 0.79,
         "conductivity": "",
-        "specificHeat": "14.304",
-        "thermalConductivity": "0.1815",
-        "source": "Water, methane",
+        "specificHeat": 14.304,
+        "thermalConductivity": 0.1815,
         "color": "colorless",
-        "uses": "rocket fuel",
         "toxic": "",
-        "state": "g",
-        "description": "The simplest element. Also has the bad habit of exploding."
+        "state": "g"
     },
     "2": {
         "symbol": "He",

@@ -1,5 +1,6 @@
 package com.R3DKn16h7.kerncraft.elements;
 
+import com.R3DKn16h7.kerncraft.KernCraft;
 import com.google.gson.JsonObject;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
@@ -37,10 +38,6 @@ public class Element {
      * Short symbol in the form H, He, ..
      */
     public final String symbol;
-    /**
-     * Unlocalized name, also registry name and unique identifier.
-     */
-    public final String name;
     public final int group;
     public final int period;
     public final float mass;
@@ -62,14 +59,6 @@ public class Element {
      */
     public final float halfLife;
     /**
-     * A very short description of the element. The length shall
-     * not bee to big. Use the Xml representation to obatin the
-     * long, localized description.
-     * <p>
-     * TODO: probably
-     */
-    public final String shortDescription;
-    /**
      * Amount at which the element does: Kaboooooooooom! The value
      * -1 indicates a stable element.
      */
@@ -77,7 +66,6 @@ public class Element {
 
     Element(int atomicNumber, JsonObject jsonObject) {
         this.id = atomicNumber;
-        this.name = jsonObject.get("english").getAsString();
         this.symbol = jsonObject.get("symbol").getAsString();
 
         String gr = jsonObject.get("group").getAsString();
@@ -107,19 +95,11 @@ public class Element {
         this.halfLife = tryGetAsFloatOrDefault("halfLife", -1, jsonObject, false);
         this.criticalMass = tryGetAsIntOrDefault("criticalMass", -1, jsonObject, false);
 
-        color = jsonObject.get("color").getAsString();
+        this.color = jsonObject.get("color").getAsString();
 
         this.toxic = tryGetAsBoolOrDefault("toxic", false, jsonObject);
 
-        state = State.fromString(jsonObject.get("state").getAsString());
-
-        // TODO: Use i18n for this
-        if (jsonObject.has("description")) {
-            shortDescription = jsonObject.get("description").getAsString();
-        } else {
-            System.out.println(String.format("No description for element '%s'", name));
-            shortDescription = null;
-        }
+        this.state = State.fromString(jsonObject.get("state").getAsString());
     }
 
     private static float tryGetAsFloatOrDefault(String key, float defaultValue,
@@ -190,11 +170,9 @@ public class Element {
     public String loadDescription() {
         // TODO: move this string somewhere else?
         String fileName = "assets/kerncraft/config/elements_descriptions.xml";
-        System.out.println(
-                String.format("Reading file = \"%s.xml\" for Element " +
-                                "%s description.",
-                        fileName, this.name
-                )
+        KernCraft.LOGGER.debug(
+                "Reading file = \"%s\" for Element %s description.",
+                fileName, this.getName()
         );
         try {
             DataInputStream in = new DataInputStream(
@@ -209,7 +187,7 @@ public class Element {
 
             XPath xpath = XPathFactory.newInstance().newXPath();
             XPathExpression expr = xpath.compile(
-                    "//Element[@name='" + this.name + "']/Description[@lang='" + lang + "']"
+                    "//Element[@symbol='" + this.symbol + "']/Description[@lang='" + lang + "']"
             );
 
             NodeList nodeList = (NodeList) expr.evaluate(doc.getDocumentElement(),
@@ -228,7 +206,7 @@ public class Element {
     }
 
     public String getLocalizedName() {
-        return name;
+        return getName();
     }
 
     /**
@@ -237,6 +215,7 @@ public class Element {
      * @return colorized symbol string.
      */
     public String toSymbol() {
+
         return state.toColor() + symbol + TextFormatting.RESET.toString();
     }
 
@@ -248,7 +227,22 @@ public class Element {
      * @return does quantity reach the critical mass of @this
      */
     public boolean reachedCriticalMass(int quantity) {
+
         return criticalMass > 0 && quantity > criticalMass;
+    }
+
+    /**
+     * Unlocalized name, also registry name and unique identifier.
+     */
+    public String getName() {
+        return I18n.format(String.format("element.%s.name", this.symbol));
+    }
+
+    /**
+     * Unlocalized name, also registry name and unique identifier.
+     */
+    public String getDescription() {
+        return I18n.format(String.format("element.%s.description", this.symbol));
     }
 
     /**
@@ -351,6 +345,7 @@ public class Element {
         }
 
         public String I18n() {
+
             return I18n.format(String.format("element.family.%s.name", this));
         }
 

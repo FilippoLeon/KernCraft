@@ -1,5 +1,7 @@
 package com.R3DKn16h7.kerncraft.manual.data;
 
+import com.R3DKn16h7.kerncraft.KernCraft;
+import net.minecraft.client.resources.I18n;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -24,7 +26,7 @@ public class Manual implements IManualEntry {
 
     private void parseXml(String fileName) {
         try {
-            System.out.println(String.format("Reading file = \"%s.xml\" for Manual", fileName));
+            KernCraft.LOGGER.debug("Reading file = \"%s\" for Manual", fileName);
             DataInputStream in = new DataInputStream(getClass().getClassLoader()
                     .getResourceAsStream(fileName));
 
@@ -36,10 +38,11 @@ public class Manual implements IManualEntry {
             int I = 0;
             for (int i = 0; i < nodeList.getLength(); ++i) {
                 Node currentNode = nodeList.item(i);
-                if (currentNode.getNodeType() == Node.ELEMENT_NODE && currentNode.getNodeName().equals("Chapter")) {
+                if (currentNode.getNodeType() == Node.ELEMENT_NODE
+                        && currentNode.getNodeName().equals("Chapter")) {
                     //calls this method for all the children which is Element
-                    System.out.println(String.format("Reading chapter \"%s\"",
-                            currentNode.getAttributes().getNamedItem("name").getNodeValue()));
+                    KernCraft.LOGGER.debug("Reading chapter \"%s\"",
+                            currentNode.getAttributes().getNamedItem("name").getNodeValue());
                     manualChapterList.add(new ManualChapter(currentNode, I++, this));
                 }
             }
@@ -85,7 +88,7 @@ public class Manual implements IManualEntry {
 
     @Override
     public String getTitle() {
-        return "Index";
+        return I18n.format("manual.title.index");
     }
 
     @Override

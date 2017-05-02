@@ -1,3 +1,5 @@
+kerncraft.config.category.elements.tooltip=Configure elements behaviour.
+kerncraft.config.category.general.tooltip=Configure basic mod aspects.
 
 item.canister.name=Canister
 item.flask.name=Erlenmeyer Flask
@@ -9,6 +11,7 @@ item.electrolytic_cell.name=Electrolytic cell
 item.tyrocinium_chymicum.name=Tyrocinium Chymicum
 item.glass_shield.name=Glass shield
 item.roman_shield.name=Roman shield
+item.alchemist_ring.name=Alchemist Ring
 
 item.test_item.name=Placeholder
 
@@ -36,6 +39,8 @@ achievement.Disciple=Disciple.
 achievement.Disciple.desc=The fishmaster.
 achievement.Chemist=Chemist
 achievement.Chemist.desc=Iron pressure plates, glass bottles, iron bars and a potato battery should make a nice Electrolytical separator.
+achievement.Learner=Learner
+achievement.Learner.desc=Knowing all about Chemical Elements is the first step for the pro-chemist.
 
 element.family.ALKALI.name=Alkali metal
 element.family.ALKALINE.name=Alkaline metal
@@ -52,3 +57,11 @@ element.family.UNKNOWN.name=Unknown
 itemGroup.KernCraft=KernCraft
 
 death.attack.stupidity=%1$s was killed by Stupidity
+
+manual.title.periodic_table=Periodic table
+manual.title.index=Index
+
+element.color.colorless.name=Colorless
+
+element.H.name=Hydrogen
+element.H.description=The simplest element. Also has the bad habit of exploding.

@@ -1,3 +1,9 @@
+2017-05-02  F. <>
+    * As of now, each day will be an element day. Today's element: our dearly beloved H.
+    * Improved details on H
+    * More i18n
+    * Crafting recipes for Manual
+    * Improved manual BBcode
 
 2017-05-01  F. <>
     * Logo
@@ -7,7 +13,7 @@
     * ElementShapedRecipe to craft with elements on crafting table
     * JEI integration for ElementShapedRecipe
     * Disabled sounds for now
-    * Improved GUIS (JEI and Machines)
+    * Improved GUIs (JEI and Machines)
     * FIX: textures now correct for machines
     * Improved OreDict support in recipes
 
