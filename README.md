@@ -1,7 +1,7 @@
 # KernCraft
 
 KernCraft is a Minecraft Mod, all about manipulation of elements.
-!(KernCraft Logo)[https://github.com/FilippoLeon/KernCraft/blob/master/src/main/resources/assets/kerncraft_logo.png]
+![]KernCraft Logo](https://github.com/FilippoLeon/KernCraft/blob/master/src/main/resources/assets/kerncraft_logo.png)
 
 ## Mechanics
 
