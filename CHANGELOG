@@ -1,7 +1,20 @@
 
+2017-05-01  F. <>
+    * Logo
+    * Config file and GUI
+    * FIX: sync capabilities with client on dedicated servers
+    * New "alchemist rings"
+    * ElementShapedRecipe to craft with elements on crafting table
+    * JEI integration for ElementShapedRecipe
+    * Disabled sounds for now
+    * Improved GUIS (JEI and Machines)
+    * FIX: textures now correct for machines
+    * Improved OreDict support in recipes
+
+2017-04-30  F. <>
     * Fixed JEI recipes
     * FIX: crash when Tesla was missing
-    * Miron fixes and improvements
+    * Minor fixes and improvements
 
 2017-04-27  F. <>
     * Pressure cell

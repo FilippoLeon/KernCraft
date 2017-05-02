@@ -5,12 +5,12 @@ High priority:
     - Filtering slots for input, make inputs go in the correct place when shift clicked
     - ADD: more recipes for Electrolyzer/Centrifuge etc...
     - ADD: way do disable/enable energy/fluid storage at runtime
-    - FIX: textures for machines
-    - Attach decay to ElementContainer?
-    - CHANGE: use generics for JEI Gui stuff
-    - REDO ElementRecipe
+    - Attach proper decay to ElementContainer?
+    - CHANGE: use generics for JEI Gui stuffs
     - JEI add nicer energy water and cost information
-    - NEW item building a bridge below your feet (move from test_item).
+    - FIX: wrong JEI display of energy and water consumption
+    - FIX: tint of fluid inside machines
+    - ADD: element capabilities to Alchemist Ring
 
 Soon:
     - Unify energy, wrapper around forge energy with tesla, possibly cofh?
@@ -20,19 +20,19 @@ Soon:
     Store timestamp + tick up or something?
     - Glassware? New container feature, suck as stabilizer, gas/liquid/solid, containment, isolation.
     - Sync lamp GUI when open
-    - NEW: a varaible redstone signal emitter
-    - NEW: an lithium-zinc battery? Or generic battery
+    - NEW: a variable redstone signal emitter
+    - NEW: an lithium-zinc battery and magnesium-sodium? Or generic battery,
+    using pair of elements and maybe a "container" which gives very different properties.
     - improve oreDict integration for recipes
-    - localizations for elements
+    - localizations for elements, likely setup an extra file just for elements
     - Waila support
 
 Soonish:
-    - write manual pages
-    - write recipes
-    - config. option
-    - README page with demo images
-    - support for wrenches
-    - air compressor?
+    - ADD: write manual pages
+    - ADD: write recipes (XMl, Shaped and Shapeless)
+    - ADD: README page with demo images
+    - ADD: support for wrenches
+    - ADD: air compressor?
 
 Maybe never:
     - isotopes and molecules
