@@ -15,6 +15,9 @@ High priority:
     - ADD: element as output for recipe
     - ADD: shapeless element recipe
     - ADD: images into manual? mhhhh we'll see
+    - ADD: extractor fluids usage, production
+    - ADD: more outputs for electrolyzer?
+    - ADD: more fluids for machines (2 fluids?)
 
 Soon:
     - Unify energy, wrapper around forge energy with tesla, possibly cofh?

@@ -1,5 +1,6 @@
 2017-05-02  F. <>
     * As of now, each day will be an element day. Today's element: our dearly beloved H.
+    * Also each day will be a vanilla item day. Today: stone
     * Improved details on H
     * More i18n
     * Crafting recipes for Manual

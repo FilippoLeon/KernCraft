@@ -6,7 +6,7 @@
     <!-- ************************************************** -->
     <!-- ************************************************** -->
 
-    <!-- IRON RELATED ITEMS -->
+    <!-- IRON RELATED ITEMS, energy positive is cost, negative invalid -->
     <Extractor energy="100">
         <Input>
             <Item>iron_nugget</Item>
@@ -48,6 +48,21 @@
         </Output>
     </Extractor>
 
+    <!-- Methane reforming -->
+    <!-- Eats your bucket, must find a better way -->
+    <Extractor energy="900">
+        <Input>
+            <Item>water_bucket</Item>
+        </Input>
+        <Output>
+            <Element amount="80">H</Element>
+            <Element amount="10">C</Element>
+            <Element amount="10">O</Element>
+        </Output>
+        <Fluid amount="-10">methane</Fluid>
+        <!--  <Fluid amount="-10">water</Fluid> -->
+    </Extractor>
+
     <!-- COPPER BASED RECIPES -->
     <Extractor energy="4000">
         <Input>
@@ -58,12 +73,28 @@
         </Output>
     </Extractor>
 
+
+    <!-- STONE BASED RECIPES -->
+    <Extractor energy="4000">
+        <Input>
+            <Block amount="1">stone</Block>
+        </Input>
+        <Output>
+            <Element amount="100">O</Element>
+            <Element amount="50" percent="0.5">Si</Element>
+            <Element amount="16" percent="0.5">Al</Element>
+            <Element amount="10" percent="0.5">Fe</Element>
+        </Output>
+    </Extractor>
+
     <!-- ************************************************** -->
     <!-- ************************************************** -->
     <!-- ************* CHEMICAL FURNACE RECIPES *********** -->
     <!-- ************************************************** -->
     <!-- ************************************************** -->
-    <!-- Recipe example for Chemical furnace -->
+    <!-- Recipe example for Chemical furnace, energy positive is creation, negative is cost -->
+
+    <!-- Hydrogen burning -->
     <ChemicalFurnace energy="100" cost="5">
         <Input>
             <Element amount="200">H</Element>
@@ -72,7 +103,7 @@
         <Fluid amount="1000">water</Fluid>
     </ChemicalFurnace>
 
-
+    <!-- Ore casting -->
     <ChemicalFurnace energy="-900" cost="5">
         <Input>
             <Element amount="90">Fe</Element>
