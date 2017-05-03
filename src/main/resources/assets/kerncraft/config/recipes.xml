@@ -73,7 +73,6 @@
         </Output>
     </Extractor>
 
-
     <!-- STONE BASED RECIPES -->
     <Extractor energy="4000">
         <Input>
@@ -84,6 +83,20 @@
             <Element amount="50" percent="0.5">Si</Element>
             <Element amount="16" percent="0.5">Al</Element>
             <Element amount="10" percent="0.5">Fe</Element>
+        </Output>
+    </Extractor>
+
+
+    <!-- STONE BASED RECIPES -->
+    <Extractor energy="4000">
+        <Input>
+            <Block amount="1">dirt</Block>
+        </Input>
+        <Output>
+            <Element amount="100">C</Element>
+            <Element amount="50" percent="0.5">K</Element>
+            <Element amount="16" percent="0.5">Ca</Element>
+            <Element amount="10" percent="0.5">Mg</Element>
         </Output>
     </Extractor>
 
@@ -175,6 +188,21 @@
             <Element amount="2" probability="1.0">Pu</Element>
         </Output>
     </Centrifuge>
+
+    <!-- Dirt recipes -->
+    <Extractor energy="40">
+        <Input>
+            <Block amount="1">dirt</Block>
+        </Input>
+        <Output>
+            <Element amount="100">C</Element>
+            <Element amount="50" percent="0.5">K</Element>
+            <Element amount="16" percent="0.5">Ca</Element>
+            <Element amount="10" percent="0.5">Mg</Element>
+            <Element amount="16" percent="0.5">S</Element>
+            <Element amount="10" percent="0.5">P</Element>
+        </Output>
+    </Extractor>
 
     <!-- Until priorities are there we must keep this recipe last -->
     <Centrifuge energy="50" cost="1">

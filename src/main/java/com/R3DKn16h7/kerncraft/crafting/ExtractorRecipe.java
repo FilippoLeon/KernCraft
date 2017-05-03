@@ -1,5 +1,6 @@
 package com.R3DKn16h7.kerncraft.crafting;
 
+import com.R3DKn16h7.kerncraft.KernCraft;
 import com.R3DKn16h7.kerncraft.elements.ElementStack;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -65,7 +66,14 @@ public class ExtractorRecipe implements ISmeltingRecipe {
                         System.err.println("Warning: Too many output elements for Extractor Recipe.");
                     }
                     for (int j = 0; j < Math.min(nChildList.getLength(), 4); j++) {
-                        elements[j] = KernCraftRecipes.parseAsElementStack(((Element) nChildList.item(j)));
+                        try {
+                            elements[j] = KernCraftRecipes.parseAsElementStack(((Element) nChildList.item(j)));
+                        } catch (Exception e) {
+                            KernCraft.LOGGER.error("Invalid recipe, cannot parse as element stack.");
+                            KernCraft.LOGGER.error(e.getLocalizedMessage());
+                            e.printStackTrace();
+                            break;
+                        }
                     }
                     break;
                 default:

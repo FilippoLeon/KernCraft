@@ -51,7 +51,22 @@
     </Element>
     <Element symbol="He">
         <Description lang="en_us">
+            [b][blue]Helium[/b] is the second element of the periodic table.
 
+            [u]Uses:[u/][br/]
+            [li] [red]Cryogenics[reset]: being liquid at even the smallest temperatures
+            (Helium melts at [blue]1K[reset], but only with high pressure),
+            Helium is quite useful to cool down stuff,
+            without solidifying or condensing. This can be used to cool
+            down superconductors (that can
+            be used to power very strong magnets).
+            [br/]
+            [li] [red]Balloons[reset]: since helium is quite light, it can be used to
+            lift balloons into the air.
+            [u]Obtained from:[u/][br/]
+            [li] [blue]Air[reset]: Helium can be extracted from earths atmosphere
+            using its lightness and low boiling point.
+            [li] [red]Stars[reset]: stars contain a big quantity of Helium.
         </Description>
     </Element>
 </Elements>
