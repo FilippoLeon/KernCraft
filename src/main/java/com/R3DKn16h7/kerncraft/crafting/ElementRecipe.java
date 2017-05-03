@@ -289,7 +289,7 @@ public class ElementRecipe implements IRecipe {
                             to_remove -= cap.removeAmountOf(((ElementStack) target).id, to_remove, false);
                         }
 
-                        if (to_remove <= 0) {
+                        if (to_remove == 0) {
                             break outerloop;
                         }
                     }
