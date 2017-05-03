@@ -292,6 +292,20 @@ public class KernCraftRecipes {
                 }
         ));
 
+
+        //// CRAFT SOME HELIUM
+        GameRegistry.addRecipe(new ElementRecipe(
+                KernCraftItems.ELECTROLYTIC_CELL,
+                new Object[]{
+                        "OBH",
+                        "   ",
+                        "   ",
+                        'B', KernCraftItems.ELECTROLYTIC_CELL,
+                        'O', new ElementStack("O", -4),
+                        'H', new ElementStack("H", -4),
+                }
+        ));
+
         //// MANUAL CRAFTING RECIPE, new EDITION
         GameRegistry.addRecipe(new ElementRecipe(
                 new ItemStack(KernCraftItems.TYROCINIUM_CHYMICUM),

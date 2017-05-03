@@ -283,7 +283,12 @@ public class ElementRecipe implements IRecipe {
                         if (slot == null || slot.isEmpty() || !ElementCapabilities.hasCapability(slot)) continue;
 
                         IElementContainer cap = ElementCapabilities.getCapability(slot);
-                        to_remove -= cap.removeAmountOf(((ElementStack) target).id, to_remove, false);
+                        if (to_remove < 0) {
+                            to_remove += cap.addAmountOf(((ElementStack) target).id, -to_remove, false);
+                        } else {
+                            to_remove -= cap.removeAmountOf(((ElementStack) target).id, to_remove, false);
+                        }
+
                         if (to_remove <= 0) {
                             break outerloop;
                         }

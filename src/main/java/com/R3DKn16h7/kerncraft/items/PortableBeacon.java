@@ -45,7 +45,11 @@ public class PortableBeacon extends Item implements IBauble {
         this.setMaxStackSize(1);
         GameRegistry.register(this);
 
-        addEffect("He", Target.Self, PotionImprovedHelper.HASTE, 300, 1);
+        // Tuned
+        addEffect("He", Target.OnUse, PotionImprovedHelper.LEVITATION, 300, 1);
+
+        // Experiments
+        addEffect("P", Target.Self, PotionImprovedHelper.HASTE, 300, 1);
         addEffect("U", Target.HittedEntity, PotionImprovedHelper.WITHER, 300, 0);
         addEffect("C", Target.OnUse, PotionImprovedHelper.REGENERATION, 300, 0);
         addEffect("H", Target.OnUse, PotionImprovedHelper.RANDOM_TELEPORT, 300, 0);

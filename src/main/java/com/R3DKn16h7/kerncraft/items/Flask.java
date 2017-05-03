@@ -115,7 +115,6 @@ public class Flask extends AbstractElementContainerItem {
      */
     @Override
     public int getMaxItemUseDuration(ItemStack stack) {
-
         return 32;
     }
 
