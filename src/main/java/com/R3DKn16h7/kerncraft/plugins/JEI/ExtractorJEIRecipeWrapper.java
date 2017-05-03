@@ -28,8 +28,8 @@ public class ExtractorJEIRecipeWrapper extends BlankRecipeWrapper {
     public void getIngredients(IIngredients ingredients) {
         ArrayList<ItemStack> inputs = new ArrayList<>();
 
-        inputs.add(new ItemStack(recipe.item));
-        if(recipe.catalyst != null) inputs.add(new ItemStack(recipe.catalyst));
+        inputs.add(recipe.item);
+        if (recipe.catalyst != null) inputs.add(recipe.catalyst);
 
 
         inputs.add(new ItemStack(KernCraftItems.CANISTER));
@@ -37,7 +37,7 @@ public class ExtractorJEIRecipeWrapper extends BlankRecipeWrapper {
 
         ArrayList<ItemStack> outputs = new ArrayList<>();
 
-        for (ElementStack i : recipe.outs) {
+        for (ElementStack i : recipe.outputs) {
             if (i == null) continue;
             outputs.add(ElementRegistry.getItem(i));
         }
@@ -51,7 +51,7 @@ public class ExtractorJEIRecipeWrapper extends BlankRecipeWrapper {
 
         // Draw each output element
         int j = 0;
-        for (ElementStack i : recipe.outs) {
+        for (ElementStack i : recipe.outputs) {
             if (i == null || i.probability == 1) continue;
             String prob_string = String.format("%d%%",
                     (int) Math.floor(i.probability * 100));

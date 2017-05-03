@@ -1,5 +1,6 @@
 package com.R3DKn16h7.kerncraft.crafting;
 
+import com.R3DKn16h7.kerncraft.KernCraft;
 import com.R3DKn16h7.kerncraft.elements.ElementStack;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
@@ -73,18 +74,18 @@ public class ElectrolyzerRecipe implements ISmeltingRecipe {
                     break;
                 case "Fluid":
                     if (fluid != null) {
-                        System.err.println("Warning: Too many fluids for Extractor Recipe.");
+                        KernCraft.LOGGER.warn("Too many fluids for Extractor Recipe.");
                     }
                     fluid = KernCraftRecipes.parseAsFluid(nChildNode);
                     break;
                 default:
-                    System.err.println("Warning: Unrecognized element for Extractor Recipe.");
+                    KernCraft.LOGGER.warn("Unrecognized element for Extractor Recipe.");
                     break;
             }
         }
 
         if (cost < 0) {
-            System.err.println("Fatal: Negative cost for Extractor Recipe.");
+            KernCraft.LOGGER.error("Negative cost for Extractor Recipe.");
             return;
         }
 

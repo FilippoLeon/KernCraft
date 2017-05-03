@@ -11,6 +11,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.Tuple;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.List;
 
@@ -61,20 +62,25 @@ public class ExtractorTileEntity extends SmeltingTileEntity<ExtractorRecipe>
     }
 
     @Override
-    public boolean canSmelt(ExtractorRecipe rec) {
-        ExtractorRecipe ex_rec = rec;
+    public boolean canSmelt(ExtractorRecipe recipe) {
+        // No input no smelting
+        if (input == null || input.getStackInSlot(inputSlot).isEmpty()) return false;
 
-        return !(input == null ||
-                input.getStackInSlot(inputSlot) == ItemStack.EMPTY ||
-                // Check input
-                input.getStackInSlot(inputSlot).getItem() != ex_rec.item ||
-                input.getStackInSlot(inputSlot).getCount() < 1 ||
-                // Check catalyst
-                ex_rec.catalyst != null &&
-                        (input.getStackInSlot(catalystSlot) == ItemStack.EMPTY ||
-                                input.getStackInSlot(catalystSlot).getItem() != ex_rec.catalyst ||
-                                input.getStackInSlot(catalystSlot).getCount() < 1
-                        ));
+        // Input have same item and sufficient count
+        if (!OreDictionary.itemMatches(input.getStackInSlot(inputSlot), recipe.item, false)
+                || input.getStackInSlot(inputSlot).getCount() < recipe.item.getCount()) {
+            return false;
+        }
+
+        // Check catalyst, in no catalyst needed return true
+        if (recipe.catalyst != null) return true;
+
+        // If catalyst empty but required false
+        if (input.getStackInSlot(catalystSlot).isEmpty()) return false;
+
+        // Check item matching and count
+        return !(!OreDictionary.itemMatches(input.getStackInSlot(catalystSlot), recipe.catalyst, false)
+                || input.getStackInSlot(catalystSlot).getCount() < recipe.catalyst.getCount());
     }
 
     /**
@@ -110,15 +116,15 @@ public class ExtractorTileEntity extends SmeltingTileEntity<ExtractorRecipe>
 
     @Override
     public void doneSmelting() {
-        input.getStackInSlot(inputSlot).splitStack(1);
+        input.getStackInSlot(inputSlot).splitStack(currentlySmelting.item.getCount());
         if (currentlySmelting.catalyst != null) {
-            input.getStackInSlot(catalystSlot).splitStack(1);
+            input.getStackInSlot(catalystSlot).splitStack(currentlySmelting.catalyst.getCount());
         }
 
         // For each Element output, flag telling if this has already been produced
-        int[] remaining = new int[currentlySmelting.outs.length];
-        for (int i = 0; i < currentlySmelting.outs.length; ++i) {
-            remaining[i] = currentlySmelting.outs[i].quantity * (Math.random() < currentlySmelting.outs[i].probability ? 1 : 0);
+        int[] remaining = new int[currentlySmelting.outputs.length];
+        for (int i = 0; i < currentlySmelting.outputs.length; ++i) {
+            remaining[i] = currentlySmelting.outputs[i].quantity * (Math.random() < currentlySmelting.outputs[i].probability ? 1 : 0);
         }
 
         // Place outputs in canisters, only if output can be placed
@@ -134,7 +140,7 @@ public class ExtractorTileEntity extends SmeltingTileEntity<ExtractorRecipe>
 
             // Try each generated element
             int recipeElementNumber = 0;
-            for (ElementStack rec_out : currentlySmelting.outs) {
+            for (ElementStack rec_out : currentlySmelting.outputs) {
                 // If all output has been produced break
                 if (remaining[recipeElementNumber] <= 0) {
                     ++recipeElementNumber;
@@ -161,7 +167,7 @@ public class ExtractorTileEntity extends SmeltingTileEntity<ExtractorRecipe>
             if (out == ItemStack.EMPTY) {
                 // Try each element
                 int i = 0;
-                for (ElementStack rec_out : currentlySmelting.outs) {
+                for (ElementStack rec_out : currentlySmelting.outputs) {
 
                     if (out == ItemStack.EMPTY) {
                         // If Element has not been produced and there is a CANISTER in

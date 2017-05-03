@@ -190,7 +190,7 @@
     </Centrifuge>
 
     <!-- Dirt recipes -->
-    <Extractor energy="40">
+    <Centrifuge energy="40">
         <Input>
             <Block amount="1">dirt</Block>
         </Input>
@@ -202,7 +202,7 @@
             <Element amount="16" percent="0.5">S</Element>
             <Element amount="10" percent="0.5">P</Element>
         </Output>
-    </Extractor>
+    </Centrifuge>
 
     <!-- Until priorities are there we must keep this recipe last -->
     <Centrifuge energy="50" cost="1">
