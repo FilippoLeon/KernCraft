@@ -26,6 +26,8 @@ public final class ItemRenderRegister {
 
         register(KernCraftItems.POTATO_BATTERY);
         register(KernCraftItems.ELECTROLYTIC_CELL);
+
+        register(KernCraftItems.ALCHEMIST_RING);
     }
 
 
