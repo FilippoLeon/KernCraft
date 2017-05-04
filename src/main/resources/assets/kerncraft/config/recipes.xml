@@ -239,6 +239,40 @@
         </Output>
     </Electrolyzer>
 
+    <Electrolyzer energy="5" cost="1">
+        <Anode>
+            <OreDict amount="1">rodZinc</OreDict>
+        </Anode>
+        <Cathode>
+            <OreDict amount="1">rodCopper</OreDict>
+        </Cathode>
+        <Fluid amount="10">water</Fluid>
+        <Input>
+            <OreDict>lithiumChloride</OreDict>
+        </Input>
+        <Output>
+            <Element amount="1">Li</Element>
+            <Element amount="1">Cl</Element>
+        </Output>
+    </Electrolyzer>
+
+    <Electrolyzer energy="5" cost="1">
+        <Anode>
+            <OreDict amount="1">rodZinc</OreDict>
+        </Anode>
+        <Cathode>
+            <OreDict amount="1">rodCopper</OreDict>
+        </Cathode>
+        <Fluid amount="10">water</Fluid>
+        <Input>
+            <OreDict>potassiumChloride</OreDict>
+        </Input>
+        <Output>
+            <Element amount="1">K</Element>
+            <Element amount="1">Cl</Element>
+        </Output>
+    </Electrolyzer>
+
     <!-- ************************************************** -->
     <!-- ************************************************** -->
     <!-- ************* CENTRIFUGE RECIPES ***************** -->

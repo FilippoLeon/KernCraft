@@ -1,6 +1,10 @@
-- battery
-- fluids in Extractor
-- waila
+SUper high priority:
+    - battery
+    - fluids in Extractor
+    - waila
+    - take first available input for anode/cathode and for extractor inputs?
+    - two inputs for electrolyzer? (maybe with upgrade?)
+    - upgrade system
 
 High priority:
     - FIX: add progress bar to Chemical Furnace
