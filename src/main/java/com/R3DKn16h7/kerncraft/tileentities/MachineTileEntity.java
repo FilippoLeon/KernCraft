@@ -37,7 +37,7 @@ public abstract class MachineTileEntity extends TileEntity
     /**
      * Generic manager for machine upgrades.
      */
-    private UpgradeHandler upgradeHandler;
+    private UpgradeHandler upgradeHandler = new UpgradeHandler();
 
     public MachineTileEntity() {
         super();
@@ -46,8 +46,6 @@ public abstract class MachineTileEntity extends TileEntity
         output = new ItemStackHandler(getOutputSize());
 
         sideConfig = new SideConfiguration(input, output, this);
-
-        upgradeHandler = new UpgradeHandler();
     }
 
     @Override
@@ -125,6 +123,7 @@ public abstract class MachineTileEntity extends TileEntity
         // TODO: pop off items if not enough space
         input.setSize(getInputSize());
         output.setSize(getOutputSize());
+        sideConfig.recompute(input, output, this);
     }
 
     @Override

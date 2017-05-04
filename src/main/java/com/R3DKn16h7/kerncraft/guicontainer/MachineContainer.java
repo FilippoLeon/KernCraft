@@ -19,14 +19,11 @@ public class MachineContainer<T extends MachineTileEntity> extends AdvancedConta
     public MachineContainer(IInventory playerInv, T te) {
         this.te = te;
 
-
-//        if(Minecraft.getMinecraft().world.isRemote) {
         Packet packet = te.getUpdatePacket();
         MinecraftServer server = FMLCommonHandler.instance().getMinecraftServerInstance();
         if (server != null) {
             server.getPlayerList().sendPacketToAllPlayers(packet);
         }
-//        }
 
     }
 
@@ -37,7 +34,7 @@ public class MachineContainer<T extends MachineTileEntity> extends AdvancedConta
 
     /**
      * Merges provided ItemStack with the first avaliable one in the container/player inventor between minIndex
-     * (included) and maxIndex (excluded). Args : stack, minIndex, maxIndex, negativDirection. /!\ the Container
+     //     * (included) and maxIndex (excluded). Args : stack, minIndex, maxIndex, negativDirection. /!\ the Container
      * implementation do not check if the item is valid for the slot
      */
     protected boolean mergeItemStack(ItemStack stack,

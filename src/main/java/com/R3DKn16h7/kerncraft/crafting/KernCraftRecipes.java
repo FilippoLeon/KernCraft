@@ -237,7 +237,7 @@ public class KernCraftRecipes {
                     new Object[]{Items.POISONOUS_POTATO, "ingotZinc", "ingotCopper"}
             ));
         } else {
-            GameRegistry.addShapedRecipe(new ItemStack(KernCraftItems.POTATO_BATTERY),
+            GameRegistry.addShapelessRecipe(new ItemStack(KernCraftItems.POTATO_BATTERY),
                     Items.POISONOUS_POTATO, Items.GOLD_INGOT, Items.IRON_INGOT);
         }
 

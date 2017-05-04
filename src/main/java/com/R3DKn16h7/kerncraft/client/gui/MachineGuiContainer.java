@@ -160,7 +160,6 @@ public class MachineGuiContainer extends AdvancedGuiContainer {
             IntConsumer onSlotConfigurationChanged = (int state) -> {
                 side_te.setSlotSide(T1, state);
                 KernCraftNetwork.networkWrapper.sendToServer(new MessageSideConfig(T1, state, te.getPos()));
-                System.out.println("Click! " + state);
             };
             StateButton btbX = new StateButton(this, inputCoord[0] * 18 + borderLeft - 3,
                     (inputCoord[1]) * 18 + borderTop - 4, 6, 6)
@@ -181,7 +180,6 @@ public class MachineGuiContainer extends AdvancedGuiContainer {
             IntConsumer onSlotConfigurationChanged = (int state) -> {
                 side_te.setSlotSide(T1, state);
                 KernCraftNetwork.networkWrapper.sendToServer(new MessageSideConfig(T1, state, te.getPos()));
-                System.out.println("Click! " + state);
             };
             StateButton btbX = new StateButton(this, outputCoord[0] * 18 + borderLeft - 4,
                     (outputCoord[1]) * 18 + borderTop - 4, 6, 6)

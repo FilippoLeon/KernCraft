@@ -2,6 +2,7 @@ package com.R3DKn16h7.kerncraft.tileentities;
 
 import com.R3DKn16h7.kerncraft.KernCraft;
 import com.R3DKn16h7.kerncraft.items.upgrades.UpgradeItem;
+import com.R3DKn16h7.kerncraft.tileentities.utils.Upgrade;
 import net.darkhax.tesla.api.ITeslaProducer;
 import net.darkhax.tesla.capability.TeslaCapabilities;
 import net.minecraft.block.Block;
@@ -187,7 +188,11 @@ public abstract class MachineBlock extends BlockContainer {
                 te.markDirty();
                 return true;
             } else if (player.getHeldItem(hand).getItem() instanceof UpgradeItem) {
-                te.AddUpgrade(UpgradeItem.getUpgrade(player.getHeldItem(hand)));
+                Upgrade upgrade = UpgradeItem.getUpgrade(player.getHeldItem(hand));
+                if (upgrade != null) {
+                    te.AddUpgrade(upgrade);
+                }
+                return true;
             } else {
                 try {
                     boolean interrupt = this.teslaTrasnsferEnergy(world, pos, ((SmeltingTileEntity) te), player, hand);

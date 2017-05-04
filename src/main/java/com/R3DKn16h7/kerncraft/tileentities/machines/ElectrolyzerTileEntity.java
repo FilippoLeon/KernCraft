@@ -32,14 +32,14 @@ public class ElectrolyzerTileEntity
     public int getInputSize() {
         int upg = getUpgrade().getCount(Upgrade.EXTRA_SLOT);
         int[] slots = {3, 4, 5};
-        return slots[Math.max(upg, slots.length - 1)];
+        return slots[Math.min(upg, slots.length - 1)];
     }
 
     @Override
     public int getOutputSize() {
         int upg = getUpgrade().getCount(Upgrade.EXTRA_SLOT);
         int[] slots = {2, 3};
-        return slots[Math.max(upg, slots.length - 1)];
+        return slots[Math.min(upg, slots.length - 1)];
     }
 
     @Override

@@ -15,6 +15,7 @@ import com.R3DKn16h7.kerncraft.items.shields.ExtraShield;
 import com.R3DKn16h7.kerncraft.items.shields.GlassShield;
 import com.R3DKn16h7.kerncraft.items.shields.RomanShield;
 import com.R3DKn16h7.kerncraft.items.upgrades.UpgradeItem;
+import com.R3DKn16h7.kerncraft.tileentities.utils.Upgrade;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 
@@ -70,6 +71,7 @@ public class KernCraftItems {
         MaterialItem.create("calcium_chloride");
         MaterialItem.create("potassium_chloride");
 
-        UpgradeItem.create("extra_slot");
+        UpgradeItem.create("extra_slot", Upgrade.EXTRA_SLOT);
+        UpgradeItem.create("speed", Upgrade.SPEED);
     }
 }

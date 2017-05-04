@@ -1,5 +1,6 @@
 package com.R3DKn16h7.kerncraft.tileentities.utils;
 
+import com.google.common.collect.HashMultiset;
 import com.google.common.collect.Multiset;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.INBTSerializable;
@@ -9,7 +10,7 @@ import net.minecraftforge.common.util.INBTSerializable;
  */
 public class UpgradeHandler implements INBTSerializable<NBTTagCompound> {
 
-    Multiset<Upgrade> container;
+    Multiset<Upgrade> container = HashMultiset.create();
 
     public void add(Upgrade upgrade) {
         container.add(upgrade);

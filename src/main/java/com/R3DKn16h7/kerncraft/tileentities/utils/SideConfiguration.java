@@ -11,8 +11,8 @@ import net.minecraftforge.items.ItemStackHandler;
 public class SideConfiguration {
 
     public static final int NUMBER_OF_SIDES = 6;
-    private final int size;
     public ConfigurableItemHandler[] configurableItemHandler;
+    private int size;
     private int[] inputSides;
     private int[] outputSides;
 
@@ -81,6 +81,17 @@ public class SideConfiguration {
         outputSides = nbt.getIntArray("outputSides");
 
         for (int i = 0; i < NUMBER_OF_SIDES; ++i) {
+            configurableItemHandler[i].setFromArray(inputSides, outputSides, i);
+        }
+    }
+
+    public void recompute(ItemStackHandler input, ItemStackHandler output, ISideConfigurable te) {
+        inputSides = new int[input.getSlots()];
+        outputSides = new int[output.getSlots()];
+        size = input.getSlots() + output.getSlots();
+
+        for (int i = 0; i < NUMBER_OF_SIDES; ++i) {
+            configurableItemHandler[i] = new ConfigurableItemHandler(input, output, te);
             configurableItemHandler[i].setFromArray(inputSides, outputSides, i);
         }
     }
