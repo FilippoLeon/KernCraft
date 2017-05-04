@@ -19,8 +19,8 @@ public class ElectrolyzerTileEntity
     public static final int[][] inputCoords = {{2, 0}, {5, 0}, {8, 0}};
     public static final int[][] outputCoords = {{2, 2}, {8, 2}};
     private static final int ANODE_SLOT = 0;
-    private static final int CATHODE_SLOT = 2;
-    private static final int INPUT_SLOT = 1;
+    private static final int CATHODE_SLOT = 1;
+    private static final int INPUT_SLOT = 2;
 
     public ElectrolyzerTileEntity() {
         super(1);
@@ -69,7 +69,13 @@ public class ElectrolyzerTileEntity
             return false;
         }
 
-        if (!recipe.input.isEmpty() && !input.getStackInSlot(INPUT_SLOT).isItemEqual(recipe.input)) {
+        outerloop:
+        for (ItemStack recipeInput : recipe.input) {
+            for (int i = INPUT_SLOT; i < input.getSlots(); ++i) {
+                if (input.getStackInSlot(i).isItemEqual(recipeInput)) {
+                    continue outerloop;
+                }
+            }
             return false;
         }
 
@@ -97,8 +103,14 @@ public class ElectrolyzerTileEntity
     @Override
     public void doneSmelting() {
         // TODO
-        if (!currentlySmelting.input.isEmpty()) {
-            input.getStackInSlot(INPUT_SLOT).splitStack(currentlySmelting.input.getCount());
+        for (ItemStack item : currentlySmelting.input) {
+            int to_be_removed = item.getCount();
+            for (int i = INPUT_SLOT; i < input.getSlots(); ++i) {
+                if (item.isItemEqual(input.getStackInSlot(i))) {
+                    to_be_removed -= input.getStackInSlot(i).splitStack(to_be_removed).getCount();
+                }
+                if (to_be_removed <= 0) break;
+            }
         }
 
         if (currentlySmelting.fluid != null) {

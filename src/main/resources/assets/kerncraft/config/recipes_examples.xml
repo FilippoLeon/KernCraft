@@ -44,4 +44,35 @@
         </Input>
         <Fluid amount="1000">water</Fluid>
     </ChemicalFurnace>
+
+
+    <!-- ************************************************** -->
+    <!-- ************************************************** -->
+    <!-- ************* ELECTROLYZER RECIPES *************** -->
+    <!-- ************************************************** -->
+    <!-- ************************************************** -->
+    <!-- Recipe example for Electrolyzer -->
+    <Electrolyzer energy="5" cost="1">
+        <Anode>
+            <!-- More than one cathode/anode are allowed, the first existing item is picked -->
+            <OreDict amount="1">rodZinc</OreDict>
+            <OreDict amount="1">ingotZinc</OreDict>
+            <Item amount="1">iron_ingot</Item>
+        </Anode>
+        <Cathode>
+            <OreDict amount="1">rodCopper</OreDict>
+            <OreDict amount="1">ingotCopper</OreDict>
+            <Item amount="1">gold_ingot</Item>
+        </Cathode>
+        <Fluid amount="10">water</Fluid>
+        <Input>
+            <OreDict>lithiumChloride</OreDict>
+            <OreDict>potassiumChloride</OreDict>
+        </Input>
+        <Output>
+            <Element amount="1">Li</Element>
+            <Element amount="2">Cl</Element>
+            <Element amount="1">K</Element>
+        </Output>
+    </Electrolyzer>
 </Recipes>

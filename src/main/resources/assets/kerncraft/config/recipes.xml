@@ -197,39 +197,40 @@
     <!-- ************* ELECTROLYZER RECIPES *************** -->
     <!-- ************************************************** -->
     <!-- ************************************************** -->
-    <Electrolyzer energy="9" cost="1">
-        <Anode>
-            <OreDict amount="1">ingotZinc</OreDict>
-        </Anode>
-        <Cathode>
-            <OreDict amount="1">ingotCopper</OreDict>
-        </Cathode>
-        <Fluid amount="10">water</Fluid>
-        <Output>
-            <Element amount="2">H</Element>
-            <Element amount="1">O</Element>
-        </Output>
-    </Electrolyzer>
 
     <Electrolyzer energy="5" cost="1">
         <Anode>
             <OreDict amount="1">rodZinc</OreDict>
-        </Anode>
-        <Cathode>
-            <OreDict amount="1">rodCopper</OreDict>
-        </Cathode>
-        <Fluid amount="10">water</Fluid>
-        <Output>
-            <Element amount="2">H</Element>
-            <Element amount="1">O</Element>
-        </Output>
-    </Electrolyzer>
-
-    <Electrolyzer energy="50" cost="1">
-        <Anode>
+            <OreDict amount="1">ingotZinc</OreDict>
             <Item amount="1">iron_ingot</Item>
         </Anode>
         <Cathode>
+            <OreDict amount="1">rodCopper</OreDict>
+            <OreDict amount="1">ingotCopper</OreDict>
+            <Item amount="1">gold_ingot</Item>
+        </Cathode>
+        <Fluid amount="10">water</Fluid>
+        <Input>
+            <OreDict>lithiumChloride</OreDict>
+            <OreDict>potassiumChloride</OreDict>
+        </Input>
+        <Output>
+            <Element amount="1">Li</Element>
+            <Element amount="2">Cl</Element>
+            <Element amount="1">K</Element>
+        </Output>
+    </Electrolyzer>
+
+    <!-- This at the end to avoid override of other recipes -->
+    <Electrolyzer energy="9" cost="1">
+        <Anode>
+            <OreDict amount="1">rodZinc</OreDict>
+            <OreDict amount="1">ingotZinc</OreDict>
+            <Item amount="1">iron_ingot</Item>
+        </Anode>
+        <Cathode>
+            <OreDict amount="1">rodCopper</OreDict>
+            <OreDict amount="1">ingotCopper</OreDict>
             <Item amount="1">gold_ingot</Item>
         </Cathode>
         <Fluid amount="10">water</Fluid>
@@ -238,41 +239,6 @@
             <Element amount="1">O</Element>
         </Output>
     </Electrolyzer>
-
-    <Electrolyzer energy="5" cost="1">
-        <Anode>
-            <OreDict amount="1">rodZinc</OreDict>
-        </Anode>
-        <Cathode>
-            <OreDict amount="1">rodCopper</OreDict>
-        </Cathode>
-        <Fluid amount="10">water</Fluid>
-        <Input>
-            <OreDict>lithiumChloride</OreDict>
-        </Input>
-        <Output>
-            <Element amount="1">Li</Element>
-            <Element amount="1">Cl</Element>
-        </Output>
-    </Electrolyzer>
-
-    <Electrolyzer energy="5" cost="1">
-        <Anode>
-            <OreDict amount="1">rodZinc</OreDict>
-        </Anode>
-        <Cathode>
-            <OreDict amount="1">rodCopper</OreDict>
-        </Cathode>
-        <Fluid amount="10">water</Fluid>
-        <Input>
-            <OreDict>potassiumChloride</OreDict>
-        </Input>
-        <Output>
-            <Element amount="1">K</Element>
-            <Element amount="1">Cl</Element>
-        </Output>
-    </Electrolyzer>
-
     <!-- ************************************************** -->
     <!-- ************************************************** -->
     <!-- ************* CENTRIFUGE RECIPES ***************** -->

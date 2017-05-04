@@ -3,6 +3,7 @@ package com.R3DKn16h7.kerncraft.crafting;
 import com.R3DKn16h7.kerncraft.KernCraft;
 import com.R3DKn16h7.kerncraft.elements.ElementStack;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
 import net.minecraftforge.fluids.FluidStack;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -18,14 +19,14 @@ public class ElectrolyzerRecipe implements ISmeltingRecipe {
     // TODO: might want to switch to ArrayList to ease loop
     public ItemStack anode;
     public ItemStack cathode;
-    public ItemStack input;
+    public NonNullList<ItemStack> input = NonNullList.create();
     public List<ElementStack> outputs = new ArrayList<>();
     public FluidStack fluid;
     public int energy;
     public int cost;
 
     public ElectrolyzerRecipe(ItemStack anode, ItemStack cathode,
-                              ItemStack input, List<ElementStack> outputs,
+                              NonNullList<ItemStack> input, List<ElementStack> outputs,
                               FluidStack fluid, int cost, int energy) {
         this.anode = anode;
         this.cathode = cathode;
@@ -43,7 +44,7 @@ public class ElectrolyzerRecipe implements ISmeltingRecipe {
         int energy = KernCraftRecipes.readAsIntOrDefault(nElement, "energy", 0);
         int cost = KernCraftRecipes.readAsIntOrDefault(nElement, "cost", 0);
 
-        ItemStack input = ItemStack.EMPTY;
+        NonNullList<ItemStack> input = NonNullList.create();
         ItemStack anode = ItemStack.EMPTY;
         ItemStack cathode = ItemStack.EMPTY;
         List<ElementStack> outputs = new ArrayList<>();
@@ -57,16 +58,34 @@ public class ElectrolyzerRecipe implements ISmeltingRecipe {
             Element nChildNode = ((Element) nList.item(i));
             switch (nChildNode.getNodeName()) {
                 case "Anode":
-                    anode = KernCraftRecipes.parseAsItemStackList(nChildNode,
-                            1, 1).get(0);
+                    try {
+                        anode = KernCraftRecipes.parseAsItemStackList(nChildNode,
+                                1, 1).get(0);
+                    } catch (Exception e) {
+                        KernCraft.LOGGER.error("No anode specified, invalid recipe");
+                        e.printStackTrace();
+                        return;
+                    }
                     break;
                 case "Cathode":
-                    cathode = KernCraftRecipes.parseAsItemStackList(nChildNode,
-                            1, 1).get(0);
+                    try {
+                        cathode = KernCraftRecipes.parseAsItemStackList(nChildNode,
+                                1, 1).get(0);
+                    } catch (Exception e) {
+                        KernCraft.LOGGER.error("No cathode specified, invalid recipe");
+                        e.printStackTrace();
+                        return;
+                    }
                     break;
                 case "Input":
-                    input = KernCraftRecipes.parseAsItemStackList(nChildNode,
-                            1, 1).get(0);
+                    try {
+                        input = KernCraftRecipes.parseAsItemStackList(nChildNode,
+                                1, 1);
+                    } catch (Exception e) {
+                        KernCraft.LOGGER.error("No anode specified, invalid recipe");
+                        e.printStackTrace();
+                        return;
+                    }
                     break;
                 case "Output":
                     outputs = KernCraftRecipes.parseAsElementStackList(nChildNode,
