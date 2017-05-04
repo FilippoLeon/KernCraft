@@ -1,6 +1,7 @@
 package com.R3DKn16h7.kerncraft.tileentities;
 
 import com.R3DKn16h7.kerncraft.KernCraft;
+import com.R3DKn16h7.kerncraft.items.upgrades.UpgradeItem;
 import net.darkhax.tesla.api.ITeslaProducer;
 import net.darkhax.tesla.capability.TeslaCapabilities;
 import net.minecraft.block.Block;
@@ -122,6 +123,7 @@ public abstract class MachineBlock extends BlockContainer {
 
         if (player.getHeldItem(hand) != ItemStack.EMPTY) {
             MachineTileEntity te = (MachineTileEntity) world.getTileEntity(pos);
+            if (te == null) return false;
             ItemStack itemStack = player.getHeldItem(hand);
             if (itemStack.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null)
                     || itemStack.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, null)) {
@@ -184,6 +186,8 @@ public abstract class MachineBlock extends BlockContainer {
                 world.scheduleBlockUpdate(pos, te.getBlockType(), 0, 0);
                 te.markDirty();
                 return true;
+            } else if (player.getHeldItem(hand).getItem() instanceof UpgradeItem) {
+                te.AddUpgrade(UpgradeItem.getUpgrade(player.getHeldItem(hand)));
             } else {
                 try {
                     boolean interrupt = this.teslaTrasnsferEnergy(world, pos, ((SmeltingTileEntity) te), player, hand);

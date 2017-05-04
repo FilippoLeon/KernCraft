@@ -122,6 +122,7 @@ public abstract class MachineTileEntity extends TileEntity
     }
 
     private void resizeSlots() {
+        // TODO: pop off items if not enough space
         input.setSize(getInputSize());
         output.setSize(getOutputSize());
     }
