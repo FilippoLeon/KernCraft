@@ -1,9 +1,12 @@
 package com.R3DKn16h7.kerncraft.items;
 
 import com.R3DKn16h7.kerncraft.KernCraft;
+import com.R3DKn16h7.kerncraft.items.materials.MaterialItem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
+
+import java.util.Map;
 
 public final class ItemRenderRegister {
 
@@ -28,6 +31,10 @@ public final class ItemRenderRegister {
         register(KernCraftItems.ELECTROLYTIC_CELL);
 
         register(KernCraftItems.ALCHEMIST_RING);
+
+        for (Map.Entry<String, MaterialItem> item : KernCraftItems.MATERIALS.entrySet()) {
+            register(item.getValue());
+        }
     }
 
 

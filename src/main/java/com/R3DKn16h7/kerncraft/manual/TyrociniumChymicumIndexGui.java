@@ -1,7 +1,7 @@
 package com.R3DKn16h7.kerncraft.manual;
 
-import com.R3DKn16h7.kerncraft.capabilities.ITyrociniumProgressCapability;
-import com.R3DKn16h7.kerncraft.capabilities.TyrociniumProgressDefaultCapability;
+import com.R3DKn16h7.kerncraft.capabilities.manual.ITyrociniumProgressCapability;
+import com.R3DKn16h7.kerncraft.capabilities.manual.TyrociniumProgressDefaultCapability;
 import com.R3DKn16h7.kerncraft.client.gui.IAdvancedGui;
 import com.R3DKn16h7.kerncraft.client.gui.widgets.BetterButton;
 import com.R3DKn16h7.kerncraft.manual.data.IManualEntry;

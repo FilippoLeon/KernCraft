@@ -1,7 +1,7 @@
 package com.R3DKn16h7.kerncraft.manual.data;
 
-import com.R3DKn16h7.kerncraft.capabilities.ITyrociniumProgressCapability;
-import com.R3DKn16h7.kerncraft.capabilities.TyrociniumProgressDefaultCapability;
+import com.R3DKn16h7.kerncraft.capabilities.manual.ITyrociniumProgressCapability;
+import com.R3DKn16h7.kerncraft.capabilities.manual.TyrociniumProgressDefaultCapability;
 import net.minecraft.client.Minecraft;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;

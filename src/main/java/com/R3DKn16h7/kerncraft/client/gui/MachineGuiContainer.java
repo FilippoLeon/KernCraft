@@ -139,7 +139,7 @@ public class MachineGuiContainer extends AdvancedGuiContainer {
                     + i * 3 * Widget.DEFAULT_SLOT_SIZE_Y / size - 1));
             fluidBar.get(i).setTint(Color.blue);
             fluidBar.get(i).setAutoAnimated(false, 0);
-            fluidBar.get(i).setSize(8, 3 * Widget.DEFAULT_SLOT_SIZE_Y / size);
+            fluidBar.get(i).setSize(6, 3 * Widget.DEFAULT_SLOT_SIZE_Y / size);
             AddWidget(fluidBar.get(i), true);
         }
     }

@@ -80,9 +80,75 @@
         </Input>
         <Output>
             <Element amount="100">O</Element>
-            <Element amount="50" percent="0.5">Si</Element>
-            <Element amount="16" percent="0.5">Al</Element>
-            <Element amount="10" percent="0.5">Fe</Element>
+            <Element amount="50" probability="0.5">Si</Element>
+            <Element amount="16" probability="0.5">Al</Element>
+            <Element amount="10" probability="0.5">Fe</Element>
+        </Output>
+    </Extractor>
+    <Extractor energy="4000">
+        <Input>
+            <OreDict amount="1">stoneDiorite</OreDict>
+        </Input>
+        <Output>
+            <Element amount="100">O</Element>
+            <Element amount="50" probability="0.5">Si</Element>
+            <Element amount="16" probability="0.75">Na</Element>
+            <Element amount="5" probability="0.5">Ca</Element>
+        </Output>
+    </Extractor>
+    <Extractor energy="4000">
+        <Input>
+            <OreDict amount="1">stoneGranite</OreDict>
+        </Input>
+        <Output>
+            <Element amount="140">O</Element>
+            <Element amount="50" probability="0.9">Si</Element>
+            <Element amount="17" probability="0.5">Na</Element>
+            <Element amount="17" probability="0.5">K</Element>
+        </Output>
+    </Extractor>
+    <Extractor energy="4000">
+        <Input>
+            <OreDict amount="1">stoneAndesite</OreDict>
+        </Input>
+        <Output>
+            <Element amount="100">O</Element>
+            <Element amount="50" probability="0.5">Si</Element>
+            <Element amount="16" probability="0.5">Al</Element>
+            <Element amount="10" probability="0.5">Na</Element>
+        </Output>
+    </Extractor>
+    <Extractor energy="4000">
+        <Input>
+            <OreDict amount="1">stoneDioritePolished</OreDict>
+        </Input>
+        <Output>
+            <Element amount="100">O</Element>
+            <Element amount="50" probability="0.75">Si</Element>
+            <Element amount="16" probability="0.9">Na</Element>
+            <Element amount="5" probability="0.75">Ca</Element>
+        </Output>
+    </Extractor>
+    <Extractor energy="4000">
+        <Input>
+            <OreDict amount="1">stoneGranitePolished</OreDict>
+        </Input>
+        <Output>
+            <Element amount="140">O</Element>
+            <Element amount="50">Si</Element>
+            <Element amount="17" probability="0.75">Na</Element>
+            <Element amount="17" probability="0.75">K</Element>
+        </Output>
+    </Extractor>
+    <Extractor energy="4000">
+        <Input>
+            <OreDict amount="1">stoneAndesitePolished</OreDict>
+        </Input>
+        <Output>
+            <Element amount="100">O</Element>
+            <Element amount="50" probability="0.75">Si</Element>
+            <Element amount="16" probability="0.75">Al</Element>
+            <Element amount="10" probability="0.75">Na</Element>
         </Output>
     </Extractor>
 
@@ -94,9 +160,9 @@
         </Input>
         <Output>
             <Element amount="100">C</Element>
-            <Element amount="50" percent="0.5">K</Element>
-            <Element amount="16" percent="0.5">Ca</Element>
-            <Element amount="10" percent="0.5">Mg</Element>
+            <Element amount="50" probability="0.5">K</Element>
+            <Element amount="16" probability="0.5">Ca</Element>
+            <Element amount="10" probability="0.5">Mg</Element>
         </Output>
     </Extractor>
 
@@ -196,11 +262,11 @@
         </Input>
         <Output>
             <Element amount="100">C</Element>
-            <Element amount="50" percent="0.5">K</Element>
-            <Element amount="16" percent="0.5">Ca</Element>
-            <Element amount="10" percent="0.5">Mg</Element>
-            <Element amount="16" percent="0.5">S</Element>
-            <Element amount="10" percent="0.5">P</Element>
+            <Element amount="50" probability="0.5">K</Element>
+            <Element amount="16" probability="0.5">Ca</Element>
+            <Element amount="10" probability="0.5">Mg</Element>
+            <Element amount="16" probability="0.5">S</Element>
+            <Element amount="10" probability="0.5">P</Element>
         </Output>
     </Centrifuge>
 

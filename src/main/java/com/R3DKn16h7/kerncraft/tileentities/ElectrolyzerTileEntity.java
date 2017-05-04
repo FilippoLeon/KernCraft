@@ -1,7 +1,7 @@
 package com.R3DKn16h7.kerncraft.tileentities;
 
-import com.R3DKn16h7.kerncraft.capabilities.ElementCapabilities;
-import com.R3DKn16h7.kerncraft.capabilities.IElementContainer;
+import com.R3DKn16h7.kerncraft.capabilities.element.ElementCapabilities;
+import com.R3DKn16h7.kerncraft.capabilities.element.IElementContainer;
 import com.R3DKn16h7.kerncraft.client.gui.MachineGuiContainer;
 import com.R3DKn16h7.kerncraft.crafting.ElectrolyzerRecipe;
 import com.R3DKn16h7.kerncraft.crafting.KernCraftRecipes;

@@ -1,7 +1,7 @@
 package com.R3DKn16h7.kerncraft.crafting;
 
-import com.R3DKn16h7.kerncraft.capabilities.ElementCapabilities;
-import com.R3DKn16h7.kerncraft.capabilities.IElementContainer;
+import com.R3DKn16h7.kerncraft.capabilities.element.ElementCapabilities;
+import com.R3DKn16h7.kerncraft.capabilities.element.IElementContainer;
 import com.R3DKn16h7.kerncraft.elements.ElementStack;
 import net.minecraft.block.Block;
 import net.minecraft.inventory.InventoryCrafting;

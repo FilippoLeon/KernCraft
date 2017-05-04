@@ -1,7 +1,7 @@
 package com.R3DKn16h7.kerncraft.plugins.JEI;
 
-import com.R3DKn16h7.kerncraft.capabilities.ElementCapabilities;
-import com.R3DKn16h7.kerncraft.capabilities.IElementContainer;
+import com.R3DKn16h7.kerncraft.capabilities.element.ElementCapabilities;
+import com.R3DKn16h7.kerncraft.capabilities.element.IElementContainer;
 import mezz.jei.api.ISubtypeRegistry;
 import net.minecraft.item.ItemStack;
 

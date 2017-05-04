@@ -1,3 +1,7 @@
+- battery
+- fluids in Extractor
+- waila
+
 High priority:
     - FIX: add progress bar to Chemical Furnace
     - FIX: time machine find way to activate/deactivate
@@ -17,7 +21,7 @@ High priority:
     - ADD: images into manual? mhhhh we'll see
     - ADD: extractor fluids usage, production
     - ADD: more outputs for electrolyzer?
-    - ADD: more fluids for machines (2 fluids?)
+    - ADD: generic battery refueling your inventory (bauble)
 
 Soon:
     - Unify energy, wrapper around forge energy with tesla, possibly cofh?

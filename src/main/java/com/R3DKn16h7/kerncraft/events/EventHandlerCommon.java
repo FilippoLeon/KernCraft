@@ -2,10 +2,10 @@ package com.R3DKn16h7.kerncraft.events;
 
 import com.R3DKn16h7.kerncraft.KernCraft;
 import com.R3DKn16h7.kerncraft.achievements.AchievementHandler;
-import com.R3DKn16h7.kerncraft.capabilities.ITyrociniumProgressCapability;
-import com.R3DKn16h7.kerncraft.capabilities.TyrociniumProgressDefaultCapability;
-import com.R3DKn16h7.kerncraft.items.ExtraShield;
+import com.R3DKn16h7.kerncraft.capabilities.manual.ITyrociniumProgressCapability;
+import com.R3DKn16h7.kerncraft.capabilities.manual.TyrociniumProgressDefaultCapability;
 import com.R3DKn16h7.kerncraft.items.KernCraftItems;
+import com.R3DKn16h7.kerncraft.items.shields.ExtraShield;
 import com.R3DKn16h7.kerncraft.utils.PotionImprovedHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;

@@ -2,8 +2,8 @@ package com.R3DKn16h7.kerncraft.plugins.JEI;
 
 import com.R3DKn16h7.kerncraft.crafting.*;
 import com.R3DKn16h7.kerncraft.elements.ElementRegistry;
-import com.R3DKn16h7.kerncraft.items.Canister;
 import com.R3DKn16h7.kerncraft.items.KernCraftItems;
+import com.R3DKn16h7.kerncraft.items.containers.Canister;
 import com.R3DKn16h7.kerncraft.tileentities.KernCraftTileEntities;
 import com.R3DKn16h7.kerncraft.utils.config.KernCraftConfig;
 import mezz.jei.api.*;

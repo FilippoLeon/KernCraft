@@ -1,11 +1,9 @@
 package com.R3DKn16h7.kerncraft.network;
 
-import com.R3DKn16h7.kerncraft.capabilities.ITyrociniumProgressCapability;
-import com.R3DKn16h7.kerncraft.capabilities.TyrociniumProgressDefaultCapability;
+import com.R3DKn16h7.kerncraft.capabilities.manual.ITyrociniumProgressCapability;
 import io.netty.buffer.ByteBuf;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;

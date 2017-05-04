@@ -36,7 +36,7 @@ public class TexturedElement extends Widget {
                                                         int xPosition, int yPosition) {
         return new TexturedElement(container, "kerncraft:textures/gui/container/extractor_gui.png",
                 xPosition, yPosition, 8, 3 * DEFAULT_SLOT_SIZE_Y,
-                16, 16);
+                7, 16);
 
     }
 

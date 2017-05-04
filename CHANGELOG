@@ -1,4 +1,12 @@
-2017-05-02  F. <>
+2017-05-04  F. <>
+    * ADD: more fluids for machines
+    * Better support for fluids in machines
+    * Dynamic sized textures
+    * Lithium day and special stones, grass days
+    * Refactoring package
+    * Material support: new salts
+
+2017-05-03  F. <>
     * Helium and Dirt day, descriptions and recipes
     * New element names, localized
 

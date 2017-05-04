@@ -1,9 +1,9 @@
 package com.R3DKn16h7.kerncraft;
 
+import com.R3DKn16h7.kerncraft.capabilities.energy.EnergyContainer;
 import com.R3DKn16h7.kerncraft.elements.ElementRegistry;
-import com.R3DKn16h7.kerncraft.items.Canister;
-import com.R3DKn16h7.kerncraft.items.EnergyContainer;
 import com.R3DKn16h7.kerncraft.items.KernCraftItems;
+import com.R3DKn16h7.kerncraft.items.containers.Canister;
 import com.R3DKn16h7.kerncraft.utils.config.KernCraftConfig;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;

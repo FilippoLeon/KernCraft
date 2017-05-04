@@ -1,9 +1,9 @@
 package com.R3DKn16h7.kerncraft.items;
 
 import com.R3DKn16h7.kerncraft.KernCraft;
-import com.R3DKn16h7.kerncraft.capabilities.ElementCapabilities;
-import com.R3DKn16h7.kerncraft.capabilities.ElementContainerProvider;
-import com.R3DKn16h7.kerncraft.capabilities.IElementContainer;
+import com.R3DKn16h7.kerncraft.capabilities.element.ElementCapabilities;
+import com.R3DKn16h7.kerncraft.capabilities.element.ElementContainerProvider;
+import com.R3DKn16h7.kerncraft.capabilities.element.IElementContainer;
 import com.R3DKn16h7.kerncraft.elements.Element;
 import com.R3DKn16h7.kerncraft.utils.PlayerHelper;
 import com.R3DKn16h7.kerncraft.utils.PotionImprovedHelper;

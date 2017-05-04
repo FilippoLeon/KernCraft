@@ -56,9 +56,9 @@ public class ExtractorJEIRecipeWrapper extends BlankRecipeWrapper {
             String prob_string = String.format("%d%%",
                     (int) Math.floor(i.probability * 100));
             int color;
-            if (i.probability < 0.9f) color = Color.red.getRGB();
-            if (0.6f < i.probability && i.probability <= 0.9f) color = Color.yellow.getRGB();
-            else color = Color.green.getRGB();
+            if (i.probability >= 0.9f) color = Color.green.getRGB();
+            else if (0.5f < i.probability && i.probability < 0.9f) color = Color.yellow.getRGB();
+            else color = Color.red.getRGB();
 
             minecraft.fontRendererObj.drawStringWithShadow(prob_string,
                     18 * (5 + j), 18 * 3 - 37, color);

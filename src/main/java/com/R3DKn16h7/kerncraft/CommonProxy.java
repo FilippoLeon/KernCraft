@@ -2,7 +2,12 @@ package com.R3DKn16h7.kerncraft;
 
 import com.R3DKn16h7.kerncraft.achievements.AchievementHandler;
 import com.R3DKn16h7.kerncraft.blocks.KernCraftBlocks;
-import com.R3DKn16h7.kerncraft.capabilities.*;
+import com.R3DKn16h7.kerncraft.capabilities.element.ElementContainerDefaultCapability;
+import com.R3DKn16h7.kerncraft.capabilities.element.ElementContainerStorage;
+import com.R3DKn16h7.kerncraft.capabilities.element.IElementContainer;
+import com.R3DKn16h7.kerncraft.capabilities.manual.ITyrociniumProgressCapability;
+import com.R3DKn16h7.kerncraft.capabilities.manual.TyrociniumProgressFactory;
+import com.R3DKn16h7.kerncraft.capabilities.manual.TyrociniumProgressStorage;
 import com.R3DKn16h7.kerncraft.crafting.KernCraftRecipes;
 import com.R3DKn16h7.kerncraft.elements.ElementRegistry;
 import com.R3DKn16h7.kerncraft.events.EventHandlerCommon;

@@ -1,7 +1,7 @@
 package com.R3DKn16h7.kerncraft.network;
 
-import com.R3DKn16h7.kerncraft.capabilities.ITyrociniumProgressCapability;
-import com.R3DKn16h7.kerncraft.capabilities.TyrociniumProgressDefaultCapability;
+import com.R3DKn16h7.kerncraft.capabilities.manual.ITyrociniumProgressCapability;
+import com.R3DKn16h7.kerncraft.capabilities.manual.TyrociniumProgressDefaultCapability;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;

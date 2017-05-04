@@ -1,5 +1,7 @@
 package com.R3DKn16h7.kerncraft.items;
 
+import com.R3DKn16h7.kerncraft.capabilities.energy.EnergyContainer;
+import com.R3DKn16h7.kerncraft.capabilities.energy.EnergyContainerItemCapabilityProvider;
 import net.darkhax.tesla.lib.TeslaUtils;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;

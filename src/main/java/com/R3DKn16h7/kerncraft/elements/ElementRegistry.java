@@ -1,6 +1,6 @@
 package com.R3DKn16h7.kerncraft.elements;
 
-import com.R3DKn16h7.kerncraft.items.Canister;
+import com.R3DKn16h7.kerncraft.items.containers.Canister;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
