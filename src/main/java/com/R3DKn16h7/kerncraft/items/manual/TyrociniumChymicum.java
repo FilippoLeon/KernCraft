@@ -40,7 +40,7 @@ public class TyrociniumChymicum extends Item {
     @Override
     public void onUpdate(ItemStack stack, World worldIn,
                          Entity entityIn, int itemSlot, boolean isSelected) {
-        if(!sync && Minecraft.getMinecraft().player != null && Minecraft.getMinecraft().player.hasCapability(TyrociniumProgressDefaultCapability.INSTANCE, null)) {
+        if (!sync && Minecraft.getMinecraft().player != null && Minecraft.getMinecraft().player.hasCapability(TyrociniumProgressDefaultCapability.INSTANCE, null)) {
             Minecraft.getMinecraft().player.getCapability(TyrociniumProgressDefaultCapability.INSTANCE, null).sync();
             sync = true;
         }

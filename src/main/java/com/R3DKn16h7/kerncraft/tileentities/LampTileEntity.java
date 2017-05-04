@@ -90,7 +90,7 @@ public class LampTileEntity extends TileEntity implements IRedstoneSettable, IMe
     @SideOnly(Side.CLIENT)
     public SPacketUpdateTileEntity getUpdatePacket() {
         SPacketUpdateTileEntity packet = super.getUpdatePacket();
-            NBTTagCompound tag = packet != null ? packet.getNbtCompound() : new NBTTagCompound();
+        NBTTagCompound tag = packet != null ? packet.getNbtCompound() : new NBTTagCompound();
 
         writeToNBT(tag);
 

@@ -36,13 +36,13 @@ public class LampGui extends AdvancedGui {
         Runnable r = () -> {
             this.te.receiveMessage(-1);
             //KernCraftNetwork.networkWrapper.sendToAll(new MessageInt(0, te.getPos()));
-            KernCraftNetwork.networkWrapper.sendToServer(new MessageInt(-1,  pos));
+            KernCraftNetwork.networkWrapper.sendToServer(new MessageInt(-1, pos));
             txt.setText(Integer.toString(this.te.lightLevel));
         };
         Runnable r2 = () -> {
             this.te.receiveMessage(-2);
             //KernCraftNetwork.networkWrapper.sendToAll(new MessageInt(0, te.getPos()));
-            KernCraftNetwork.networkWrapper.sendToServer(new MessageInt(-2,  pos));
+            KernCraftNetwork.networkWrapper.sendToServer(new MessageInt(-2, pos));
             txt.setText(Integer.toString(this.te.lightLevel));
         };
 

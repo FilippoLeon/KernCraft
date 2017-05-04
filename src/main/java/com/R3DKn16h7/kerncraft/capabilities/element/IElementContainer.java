@@ -8,7 +8,7 @@ import java.util.Map;
 
 /**
  * Created by Filippo on 22-Apr-17.
- *
+ * <p>
  * The basic interface for containers that are able to store elements.
  */
 public interface IElementContainer extends INBTSerializable<NBTTagCompound> {
@@ -81,8 +81,8 @@ public interface IElementContainer extends INBTSerializable<NBTTagCompound> {
      * <p>
      * Pass null to addAmountOf for Entities instead.
      *
-     * @param id The id of the element.
-     * @param amount The amount to add.
+     * @param id       The id of the element.
+     * @param amount   The amount to add.
      * @param simulate Do not acutally perform the transfer.
      * @return
      */

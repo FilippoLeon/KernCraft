@@ -1,6 +1,5 @@
 package com.R3DKn16h7.kerncraft.network;
 
-import com.R3DKn16h7.kerncraft.tileentities.IRedstoneSettable;
 import com.R3DKn16h7.kerncraft.tileentities.ISideConfigurable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;

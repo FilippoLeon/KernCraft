@@ -98,7 +98,7 @@ public class KernCraftJEIPlugin implements IModPlugin {
         if (KernCraftConfig.DISPLAY_ALL_ELEMENTS) {
             for (int i = 1; i <= ElementRegistry.NUMBER_OF_ELEMENTS; ++i) {
                 String descr = ElementRegistry.getElement(i).getDescription();
-                if(descr != null) {
+                if (descr != null) {
                     registry.addDescription(Canister.getElementItemStack(i), descr);
                 }
             }

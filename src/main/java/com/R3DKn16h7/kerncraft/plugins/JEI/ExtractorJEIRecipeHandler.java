@@ -29,7 +29,6 @@ public class ExtractorJEIRecipeHandler implements IRecipeHandler {
     }
 
 
-
     @Override
     public boolean isRecipeValid(Object recipe) {
         return true;

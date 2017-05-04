@@ -155,7 +155,7 @@ public class TyrociniumChymicumIndexGui extends TyrociniumChymicumGui implements
 
     protected void unlock(String str) {
         // Locally set Capability on client
-        if(mc.player.hasCapability(TyrociniumProgressDefaultCapability.INSTANCE, null)) {
+        if (mc.player.hasCapability(TyrociniumProgressDefaultCapability.INSTANCE, null)) {
             ITyrociniumProgressCapability capability =
                     mc.player.getCapability(TyrociniumProgressDefaultCapability.INSTANCE, null);
             capability.unlockContent(str);

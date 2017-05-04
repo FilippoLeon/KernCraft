@@ -36,14 +36,18 @@ public class ExtractorTileEntity extends SmeltingTileEntity<ExtractorRecipe>
     }
 
     @Override
-    public int[][] getInputCoords() {return inputCoords; }
+    public int[][] getInputCoords() {
+        return inputCoords;
+    }
 
     @Override
-    public int[][] getOutputCoords() {return outputCoords; }
+    public int[][] getOutputCoords() {
+        return outputCoords;
+    }
 
     @Override
     public int[] getFuelIconCoordinate() {
-        return new int[]{1,1};
+        return new int[]{1, 1};
     }
 
     @Override
@@ -53,7 +57,7 @@ public class ExtractorTileEntity extends SmeltingTileEntity<ExtractorRecipe>
 
     @Override
     public int[] getProgressTextCoordinate() {
-        return new int[]{5,0};
+        return new int[]{5, 0};
     }
 
     @Override

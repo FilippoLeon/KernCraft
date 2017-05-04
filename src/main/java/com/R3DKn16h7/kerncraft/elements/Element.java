@@ -19,14 +19,14 @@ import java.io.DataInputStream;
 
 /**
  * Created by Filippo on 20-Apr-17.
- *
+ * <p>
  * Represent a single element. Contains all the information of a single
  * element of the Periodic Table, including all details such as group, mass,
  * (short) shortDescription, color, ...
- *
+ * <p>
  * This is instantiated only once and then it is just retrieved and
  * used. Never modified.
- *
+ * <p>
  * TODO: support for shortDescription and name localization
  */
 public class Element {

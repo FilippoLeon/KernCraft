@@ -78,8 +78,8 @@ public abstract class EnergyContainerItem extends Item {
 
     @Override
     @Optional.Method(modid = "tesla")
-    public void addInformation (ItemStack stack, EntityPlayer playerIn,
-                                List<String> tooltip, boolean advanced) {
+    public void addInformation(ItemStack stack, EntityPlayer playerIn,
+                               List<String> tooltip, boolean advanced) {
 //         else {
         //
         // TODO: custom info

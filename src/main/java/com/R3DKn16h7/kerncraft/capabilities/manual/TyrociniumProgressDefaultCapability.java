@@ -38,7 +38,7 @@ public class TyrociniumProgressDefaultCapability
 
     @Override
     public boolean isContentLocked(String content) {
-        if(lockingMap.containsKey(content)) {
+        if (lockingMap.containsKey(content)) {
             return !lockingMap.get(content);
         }
         return true;
@@ -46,7 +46,7 @@ public class TyrociniumProgressDefaultCapability
 
     @Override
     public boolean isContentUnlocked(String content) {
-        if(lockingMap.containsKey(content)) {
+        if (lockingMap.containsKey(content)) {
             return lockingMap.get(content);
         }
         return false;
@@ -65,7 +65,7 @@ public class TyrociniumProgressDefaultCapability
     @Nullable
     @Override
     public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
-        if(INSTANCE != null && capability == INSTANCE) return INSTANCE.cast(this);
+        if (INSTANCE != null && capability == INSTANCE) return INSTANCE.cast(this);
         return null;
     }
 
@@ -73,7 +73,7 @@ public class TyrociniumProgressDefaultCapability
     @Override
     public NBTTagCompound serializeNBT() {
         NBTTagCompound nbt = new NBTTagCompound();
-        for(Map.Entry<String, Boolean> entry : lockingMap.entrySet()) {
+        for (Map.Entry<String, Boolean> entry : lockingMap.entrySet()) {
             nbt.setBoolean(entry.getKey(), entry.getValue());
         }
         return nbt;
@@ -81,14 +81,14 @@ public class TyrociniumProgressDefaultCapability
 
     @Override
     public void deserializeNBT(NBTTagCompound nbt) {
-        for(String key : nbt.getKeySet()) {
+        for (String key : nbt.getKeySet()) {
             lockingMap.put(key, nbt.getBoolean(key));
         }
     }
 
     @Override
     public void clone(ITyrociniumProgressCapability clone) {
-        if(clone instanceof TyrociniumProgressDefaultCapability) {
+        if (clone instanceof TyrociniumProgressDefaultCapability) {
             this.lockingMap = new HashMap<>(((TyrociniumProgressDefaultCapability) clone).lockingMap);
         }
     }

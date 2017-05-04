@@ -2,11 +2,11 @@ package com.R3DKn16h7.kerncraft.elements;
 
 /**
  * Created by Filippo on 20-Apr-17.
- *
+ * <p>
  * This is used to specify custom recipes that use Elements inside
  * containers that have the appropriate capability. Probability is used
  * only to specify outputs.
- *
+ * <p>
  * TODO: maybe use some "Ingredient" wrapper class?
  */
 public class ElementStack {

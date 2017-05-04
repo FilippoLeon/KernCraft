@@ -29,6 +29,7 @@ import java.util.Map;
 /**
  * Portable beacon that doesn't need to be placed in the world.
  * TODO: baubles + COFH compoatibility
+ *
  * @author R3DKn16h7
  */
 @Optional.Interface(iface = "baubles.api.IBauble", modid = "baubles")
@@ -153,43 +154,43 @@ public class PortableBeacon extends Item implements IBauble {
     }
 
     @Override
-    @Optional.Method(modid="baubles")
+    @Optional.Method(modid = "baubles")
     public BaubleType getBaubleType(ItemStack itemStack) {
         return BaubleType.BELT;
     }
 
     @Override
-    @Optional.Method(modid="baubles")
+    @Optional.Method(modid = "baubles")
     public void onWornTick(ItemStack itemstack, EntityLivingBase player) {
         tryApplyEffect(player, itemstack, Target.Self);
     }
 
     @Override
-    @Optional.Method(modid="baubles")
+    @Optional.Method(modid = "baubles")
     public void onEquipped(ItemStack itemstack, EntityLivingBase player) {
 
     }
 
     @Override
-    @Optional.Method(modid="baubles")
+    @Optional.Method(modid = "baubles")
     public void onUnequipped(ItemStack itemstack, EntityLivingBase player) {
 
     }
 
     @Override
-    @Optional.Method(modid="baubles")
+    @Optional.Method(modid = "baubles")
     public boolean canEquip(ItemStack itemstack, EntityLivingBase player) {
         return true;
     }
 
     @Override
-    @Optional.Method(modid="baubles")
+    @Optional.Method(modid = "baubles")
     public boolean canUnequip(ItemStack itemstack, EntityLivingBase player) {
         return true;
     }
 
     @Override
-    @Optional.Method(modid="baubles")
+    @Optional.Method(modid = "baubles")
     public boolean willAutoSync(ItemStack itemstack, EntityLivingBase player) {
         return false;
     }

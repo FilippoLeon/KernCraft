@@ -8,7 +8,7 @@ import net.minecraft.util.math.BlockPos;
 public interface IRedstoneSettable {
     BlockPos getPos();
 
-    void setRedstoneMode(int i);
-
     int getRedstoneMode();
+
+    void setRedstoneMode(int i);
 }

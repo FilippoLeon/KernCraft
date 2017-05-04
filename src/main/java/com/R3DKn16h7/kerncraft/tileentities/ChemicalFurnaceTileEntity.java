@@ -40,7 +40,7 @@ public class ChemicalFurnaceTileEntity extends SmeltingTileEntity<ChemicalFurnac
 
     @Override
     public int[] getFuelIconCoordinate() {
-        return new int[]{-4,1};
+        return new int[]{-4, 1};
     }
 
     @Override
@@ -50,7 +50,7 @@ public class ChemicalFurnaceTileEntity extends SmeltingTileEntity<ChemicalFurnac
 
     @Override
     public int[] getProgressTextCoordinate() {
-        return new int[]{6,1};
+        return new int[]{6, 1};
     }
 
     @Override
@@ -74,7 +74,7 @@ public class ChemicalFurnaceTileEntity extends SmeltingTileEntity<ChemicalFurnac
         }
 
         // Try use inputs, if fail return
-        for(ElementStack elem: chemrec.inputs) {
+        for (ElementStack elem : chemrec.inputs) {
             if (elem == null) continue;
             int to_remove = elem.quantity;
             for (int i = 0; i < input.getSlots(); ++i) {
@@ -133,12 +133,12 @@ public class ChemicalFurnaceTileEntity extends SmeltingTileEntity<ChemicalFurnac
         for (ElementStack elem : currentlySmelting.inputs) {
             if (elem == null) continue;
             int to_remove = elem.quantity;
-            for(int i = 0; i < input.getSlots(); ++i) {
+            for (int i = 0; i < input.getSlots(); ++i) {
                 ItemStack stack = input.getStackInSlot(i);
                 if (ElementCapabilities.hasCapability(stack)) {
                     IElementContainer cap = ElementCapabilities.getCapability(stack);
                     to_remove -= cap.removeAmountOf(elem.id, to_remove, false);
-                    if(to_remove <= 0) {
+                    if (to_remove <= 0) {
                         break;
                     }
                 }
@@ -171,11 +171,11 @@ public class ChemicalFurnaceTileEntity extends SmeltingTileEntity<ChemicalFurnac
         }
 
         int producedEnergy = currentlySmelting.energy;
-        if(producedEnergy > 0) {
+        if (producedEnergy > 0) {
             storage.receiveEnergy(producedEnergy, false);
         }
 
         markDirty();
-        world.scheduleBlockUpdate(pos, getBlockType(), 0,0);
+        world.scheduleBlockUpdate(pos, getBlockType(), 0, 0);
     }
 }

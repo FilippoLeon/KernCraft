@@ -17,6 +17,7 @@ public class TyrociniumChymicumXmlGui extends TyrociniumChymicumGui {
     private final ManualEntry entry;
     List<String> listOfStringToDisplay;
     private int currentStartIndex = 0;
+
     TyrociniumChymicumXmlGui(ManualEntry entry) {
         super();
         this.entry = entry;

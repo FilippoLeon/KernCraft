@@ -43,7 +43,7 @@ public class MachineGuiContainer extends AdvancedGuiContainer {
         fluidBarBackground = new ArrayList<>(1);
         createFluidBars(1);
 
-        if(te instanceof IRedstoneSettable) {
+        if (te instanceof IRedstoneSettable) {
             StateButton redstoneModeButton = StateButton.REDSTONE_MODE(this,
                     ((IRedstoneSettable) te)
             );
@@ -86,7 +86,7 @@ public class MachineGuiContainer extends AdvancedGuiContainer {
                 AddWidget(brewing, true);
             }
             int[] pos = progr_te.getProgressTextCoordinate();
-            if(pos != null) {
+            if (pos != null) {
                 progressText = new Text(this,
                         gridCoord(pos[0]),
                         gridCoord(pos[1]) + 3,
@@ -149,7 +149,7 @@ public class MachineGuiContainer extends AdvancedGuiContainer {
     }
 
     private void setupSideConfiguration() {
-        if(!(te instanceof ISideConfigurable)) return;
+        if (!(te instanceof ISideConfigurable)) return;
         ISideConfigurable side_te = ((ISideConfigurable) te);
 
         // Side configuration button
@@ -178,7 +178,7 @@ public class MachineGuiContainer extends AdvancedGuiContainer {
             int T1 = I;
             IntConsumer onSlotConfigurationChanged = (int state) -> {
                 side_te.setSlotSide(T1, state);
-                KernCraftNetwork.networkWrapper.sendToServer(new MessageSideConfig(T1,  state, te.getPos()));
+                KernCraftNetwork.networkWrapper.sendToServer(new MessageSideConfig(T1, state, te.getPos()));
                 System.out.println("Click! " + state);
             };
             StateButton btbX = new StateButton(this, outputCoord[0] * 18 + borderLeft - 4,
@@ -219,11 +219,11 @@ public class MachineGuiContainer extends AdvancedGuiContainer {
 
         if (te instanceof IProgressMachine) {
             IProgressMachine cast_te = ((IProgressMachine) te);
-            if(progressText != null) {
+            if (progressText != null) {
                 String progressPercent = String.format("%.2f%%", cast_te.getProgressPercent() * 100);
                 progressText.setText(progressPercent);
             }
-            if(brewing != null) {
+            if (brewing != null) {
                 String fancyProgressPercent = String.format("Progress %.2f%%", cast_te.getProgressPercent() * 100);
                 brewing.setPercentage(cast_te.getProgressPercent());
                 brewing.setTooltip(fancyProgressPercent);

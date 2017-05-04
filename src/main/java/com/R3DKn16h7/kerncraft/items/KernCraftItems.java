@@ -14,6 +14,7 @@ import com.R3DKn16h7.kerncraft.items.materials.MaterialItem;
 import com.R3DKn16h7.kerncraft.items.shields.ExtraShield;
 import com.R3DKn16h7.kerncraft.items.shields.GlassShield;
 import com.R3DKn16h7.kerncraft.items.shields.RomanShield;
+import com.R3DKn16h7.kerncraft.items.upgrades.UpgradeItem;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 
@@ -40,6 +41,7 @@ public class KernCraftItems {
     public static PressurizedCell PRESSURIZED_CELL;
 
     public static Map<String, MaterialItem> MATERIALS = new HashMap<>();
+    public static Map<String, UpgradeItem> UPGRADES = new HashMap<>();
 
     public KernCraftItems() {
         PORTABLE_BEACON = new PortableBeacon();
@@ -67,5 +69,7 @@ public class KernCraftItems {
         MaterialItem.create("lithium_chloride");
         MaterialItem.create("calcium_chloride");
         MaterialItem.create("potassium_chloride");
+
+        UpgradeItem.create("extra_slot");
     }
 }

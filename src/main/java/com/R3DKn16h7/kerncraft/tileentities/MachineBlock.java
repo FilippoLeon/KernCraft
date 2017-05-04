@@ -268,7 +268,7 @@ public abstract class MachineBlock extends BlockContainer {
     @Override
     public IBlockState getStateFromMeta(int meta) {
         boolean powered = false;
-        if(meta > 8) {
+        if (meta > 8) {
             powered = true;
             meta -= 8;
         }
@@ -303,7 +303,7 @@ public abstract class MachineBlock extends BlockContainer {
 
         MachineTileEntity te = (MachineTileEntity) world.getTileEntity(pos);
         NBTTagCompound nbt = stack.getTagCompound();
-        if(te != null) {
+        if (te != null) {
             te.restoreFromNBT(nbt);
         }
     }

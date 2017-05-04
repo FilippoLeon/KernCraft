@@ -19,14 +19,14 @@ public class MessageUnlockHandler implements IMessageHandler<MessageUnlock, IMes
 
     @Override
     public IMessage onMessage(MessageUnlock message, MessageContext ctx) {
-        if(ctx.side == Side.SERVER) {
+        if (ctx.side == Side.SERVER) {
             System.out.println(String.format("Recv. unlock message '%s' from client", message.message));
             EntityPlayer player = ctx.getServerHandler().playerEntity;
 
             if (player.hasCapability(TyrociniumProgressDefaultCapability.INSTANCE, null)) {
                 ITyrociniumProgressCapability capability = player.getCapability(TyrociniumProgressDefaultCapability.INSTANCE, null);
 
-                if(message.message.equals("sync")) {
+                if (message.message.equals("sync")) {
                     player.sendMessage(new TextComponentString("Request sync from client."));
                     KernCraftNetwork.networkWrapper.sendTo(new MessageSyncTyrociniumProgress(capability), ((EntityPlayerMP) player));
                     return null;

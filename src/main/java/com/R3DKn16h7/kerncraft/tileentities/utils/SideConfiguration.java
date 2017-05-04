@@ -49,8 +49,8 @@ public class SideConfiguration {
     }
 
     public void setSlotSide(int slot_id, int side) {
-        if(slot_id < inputSides.length) inputSides[slot_id] = side;
-        else if(slot_id >= inputSides.length) outputSides[slot_id - inputSides.length] = side;
+        if (slot_id < inputSides.length) inputSides[slot_id] = side;
+        else if (slot_id >= inputSides.length) outputSides[slot_id - inputSides.length] = side;
         else {
             System.out.println("Error, invalid slot!");
         }
@@ -61,8 +61,8 @@ public class SideConfiguration {
     }
 
     public EnumSide getSlotSide(int slot_id) {
-        if(slot_id < inputSides.length) return EnumSide.fromInt( inputSides[slot_id] );
-        else if(slot_id >= inputSides.length) return EnumSide.fromInt( outputSides[slot_id - inputSides.length] );
+        if (slot_id < inputSides.length) return EnumSide.fromInt(inputSides[slot_id]);
+        else if (slot_id >= inputSides.length) return EnumSide.fromInt(outputSides[slot_id - inputSides.length]);
         else {
             System.out.println("Error, invalid slot!");
             return EnumSide.Disabled;

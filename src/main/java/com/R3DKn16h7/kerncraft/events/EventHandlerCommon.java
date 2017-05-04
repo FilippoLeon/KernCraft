@@ -73,7 +73,7 @@ public class EventHandlerCommon {
     @SubscribeEvent(priority = EventPriority.LOW)
     public void entityConstructing(AttachCapabilitiesEvent<Entity> event) {
         // Attach capability to players
-        if(event.getObject() instanceof EntityPlayer){
+        if (event.getObject() instanceof EntityPlayer) {
             event.addCapability(
                     new ResourceLocation(KernCraft.MODID + ":tyrociniumProgressCapability"),
                     new TyrociniumProgressDefaultCapability()
@@ -89,7 +89,7 @@ public class EventHandlerCommon {
     @SubscribeEvent(priority = EventPriority.LOW)
     public void respawning(PlayerEvent.Clone event) {
         // Reattach capabilities on death, not if returning from end
-        if(event.isWasDeath()) {
+        if (event.isWasDeath()) {
             EntityPlayerMP playerOriginal = ((EntityPlayerMP) event.getOriginal());
             EntityPlayerMP playerNew = ((EntityPlayerMP) event.getEntityPlayer());
 

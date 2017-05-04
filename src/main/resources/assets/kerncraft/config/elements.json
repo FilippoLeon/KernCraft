@@ -1,18 +1,18 @@
 {
     "1": {
         "symbol": "H",
-        "group": 1,
-        "period": 1,
+      "group": 1,
+      "period": 1,
         "family": "NonMetal",
-        "mass": 1.008,
-        "density": 6.99E-05,
-        "radius": 0.79,
+      "mass": 1.008,
+      "density": 6.99E-05,
+      "radius": 0.79,
         "conductivity": "",
-        "specificHeat": 14.304,
-        "thermalConductivity": 0.1815,
+      "specificHeat": 14.304,
+      "thermalConductivity": 0.1815,
         "color": "colorless",
         "toxic": "",
-        "state": "g"
+      "state": "g"
     },
     "2": {
         "symbol": "He",
@@ -20,15 +20,15 @@
         "period": "1",
         "family": "Noble",
         "english": "helium",
-        "mass": 4.003,
-        "density": 0.000179,
-        "radius": 0.49,
+      "mass": 4.003,
+      "density": 0.000179,
+      "radius": 0.49,
         "conductivity": "",
-        "specificHeat": 5.193,
-        "thermalConductivity": 0.152,
+      "specificHeat": 5.193,
+      "thermalConductivity": 0.152,
         "color": "colorless",
         "toxic": "FALSE",
-        "state": "g"
+      "state": "g"
     },
     "3": {
         "symbol": "Li",
@@ -39,15 +39,15 @@
         "density": "0.543",
         "radius": "2.05",
         "conductivity": "0.108",
-        "specificHeat": "3.6",
-        "thermalConductivity": "84.7",
+      "specificHeat": "3.6",
+      "thermalConductivity": "84.7",
         "Notes": "",
         "source": "Spodumene (silicate)",
         "color": "silvery",
         "characteristics": "soft, lightest solid",
         "uses": "batteries, lubricant",
         "toxic": "",
-        "state": "s"
+      "state": "s"
     },
     "4": {
         "symbol": "Be",
@@ -58,15 +58,15 @@
         "density": "1.85",
         "radius": "1.4",
         "conductivity": "0.313",
-        "specificHeat": "1.82",
-        "thermalConductivity": "200",
+      "specificHeat": "1.82",
+      "thermalConductivity": "200",
         "Notes": "",
         "source": "Beryl (silicate)",
         "color": "steel gray",
         "characteristics": "toxic",
         "uses": "Cu alloys, X-ray windows",
         "toxic": "TRUE",
-        "state": "s"
+      "state": "s"
     },
     "5": {
         "symbol": "B",
@@ -77,15 +77,15 @@
         "density": "2.34",
         "radius": "1.17",
         "conductivity": "1E-12",
-        "specificHeat": "1.02",
-        "thermalConductivity": "27",
+      "specificHeat": "1.02",
+      "thermalConductivity": "27",
         "Notes": "sublimes",
         "source": "Na and Ca borates (misc)",
         "color": "black",
         "characteristics": "B12 icosahedra",
         "uses": " 3 forms",
         "toxic": "borax, glass making(B2O3)",
-        "state": "s"
+      "state": "s"
     },
     "6": {
         "symbol": "C",
@@ -96,15 +96,15 @@
         "density": "2.25",
         "radius": "0.91",
         "conductivity": "0.00061",
-        "specificHeat": "0.71",
-        "thermalConductivity": "129",
+      "specificHeat": "0.71",
+      "thermalConductivity": "129",
         "Notes": "graphite",
         "source": "Coal,Petroleum,Natural gas",
         "color": "black",
         "characteristics": "6 forms: graphite,diamond",
         "uses": "fuel(coal), lubricant",
         "toxic": "",
-        "state": "s"
+      "state": "s"
     },
     "7": {
         "symbol": "N",
@@ -115,15 +115,15 @@
         "density": "0.00125",
         "radius": "0.75",
         "conductivity": "",
-        "specificHeat": "1.04",
-        "thermalConductivity": "0.02598",
+      "specificHeat": "1.04",
+      "thermalConductivity": "0.02598",
         "Notes": "",
         "source": "Air",
         "color": "colorless",
         "characteristics": "diatomic(N2)",
         "uses": "fertilizer, cryogenics",
         "toxic": "FALSE",
-        "state": "g"
+      "state": "g"
     },
     "8": {
         "symbol": "O",
@@ -134,15 +134,15 @@
         "density": "0.00143",
         "radius": "0.65",
         "conductivity": "",
-        "specificHeat": "0.92",
-        "thermalConductivity": "0.02674",
+      "specificHeat": "0.92",
+      "thermalConductivity": "0.02674",
         "Notes": "",
         "source": "Air",
         "color": "colorless",
         "characteristics": "diatomic,2 forms: O2, O3",
         "uses": "rocket fuel, steel mfr.",
         "toxic": "FALSE",
-        "state": "g"
+      "state": "g"
     },
     "9": {
         "symbol": "F",
@@ -153,15 +153,15 @@
         "density": "0.0017",
         "radius": "0.57",
         "conductivity": "",
-        "specificHeat": "0.82",
-        "thermalConductivity": "0.0279",
+      "specificHeat": "0.82",
+      "thermalConductivity": "0.0279",
         "Notes": "",
         "source": "Fluorite (misc)",
         "color": "colorless",
         "characteristics": "diatomic(F2), corrosive",
         "uses": "fluorocarbons, toothpaste",
         "toxic": "TRUE",
-        "state": "g"
+      "state": "g"
     },
     "10": {
         "symbol": "Ne",
@@ -172,15 +172,15 @@
         "density": "0.0009",
         "radius": "0.51",
         "conductivity": "",
-        "specificHeat": "0.904",
-        "thermalConductivity": "0.0493",
+      "specificHeat": "0.904",
+      "thermalConductivity": "0.0493",
         "Notes": "",
         "source": "Air",
         "color": "colorless",
         "characteristics": "Inert, dens<air at r.t.",
         "uses": "Neon signs",
         "toxic": "FALSE",
-        "state": "g"
+      "state": "g"
     },
     "11": {
         "symbol": "Na",
@@ -191,15 +191,15 @@
         "density": "0.971",
         "radius": "2.23",
         "conductivity": "0.21",
-        "specificHeat": "1.23",
-        "thermalConductivity": "141",
+      "specificHeat": "1.23",
+      "thermalConductivity": "141",
         "Notes": "",
         "source": "Halite (misc)",
         "color": "silvery",
         "characteristics": "soft",
         "uses": "lamps, table salt",
         "toxic": "",
-        "state": "s"
+      "state": "s"
     },
     "12": {
         "symbol": "Mg",
@@ -210,15 +210,15 @@
         "density": "1.74",
         "radius": "1.72",
         "conductivity": "0.226",
-        "specificHeat": "1.02",
-        "thermalConductivity": "156",
+      "specificHeat": "1.02",
+      "thermalConductivity": "156",
         "Notes": "",
         "source": "Seawater, magnesite",
         "color": "silvery",
         "characteristics": "burns brightly",
         "uses": "alloys, flash bulbs",
         "toxic": "",
-        "state": "s"
+      "state": "s"
     },
     "13": {
         "symbol": "Al",
@@ -229,15 +229,15 @@
         "density": "2.7",
         "radius": "1.82",
         "conductivity": "0.377",
-        "specificHeat": "0.9",
-        "thermalConductivity": "237",
+      "specificHeat": "0.9",
+      "thermalConductivity": "237",
         "Notes": "",
         "source": "Bauxite (oxide)",
         "color": "silvery",
         "characteristics": "passivated: surface oxide",
         "uses": "Al cans & foil,reflectors",
         "toxic": "",
-        "state": "s"
+      "state": "s"
     },
     "14": {
         "symbol": "Si",
@@ -248,15 +248,15 @@
         "density": "2.33",
         "radius": "1.46",
         "conductivity": "2.52E-12",
-        "specificHeat": "0.71",
-        "thermalConductivity": "148",
+      "specificHeat": "0.71",
+      "thermalConductivity": "148",
         "Notes": "",
         "source": "Quartz (oxide)",
         "color": "gray-black",
         "characteristics": "semimetal",
         "uses": "comp chip,lubricant,glass",
         "toxic": "",
-        "state": "s"
+      "state": "s"
     },
     "15": {
         "symbol": "P",
@@ -267,15 +267,15 @@
         "density": "1.82",
         "radius": "1.23",
         "conductivity": "1E-17",
-        "specificHeat": "0.77",
-        "thermalConductivity": "0.235",
+      "specificHeat": "0.77",
+      "thermalConductivity": "0.235",
         "Notes": "white",
         "source": "Apatite (phosphate)",
         "color": "white-yellow",
         "characteristics": "(P4) pyrophoric, 15 forms",
         "uses": "fertilizer, detergents",
         "toxic": "TRUE",
-        "state": "s"
+      "state": "s"
     },
     "16": {
         "symbol": "S",
@@ -286,15 +286,15 @@
         "density": "2.07",
         "radius": "1.09",
         "conductivity": "5E-24",
-        "specificHeat": "0.71",
-        "thermalConductivity": "0.269",
+      "specificHeat": "0.71",
+      "thermalConductivity": "0.269",
         "Notes": "yellow",
         "source": "Sulfur,pyrite,natural gas",
         "color": "yellow(pale)",
         "characteristics": "(S8)brittle, 19 forms",
         "uses": "rubber, batteries (H2SO4)",
         "toxic": "",
-        "state": "s"
+      "state": "s"
     },
     "17": {
         "symbol": "Cl",
@@ -305,15 +305,15 @@
         "density": "0.00321",
         "radius": "0.97",
         "conductivity": "",
-        "specificHeat": "0.48",
-        "thermalConductivity": "0.0089",
+      "specificHeat": "0.48",
+      "thermalConductivity": "0.0089",
         "Notes": "",
         "source": "Halite, brine (misc)",
         "color": "greenish-yellow",
         "characteristics": "diatomic(Cl2), corrosive",
         "uses": "bleach (NaOCl), PVC pipe",
         "toxic": "TRUE",
-        "state": "g"
+      "state": "g"
     },
     "18": {
         "symbol": "Ar",
@@ -324,15 +324,15 @@
         "density": "0.00178",
         "radius": "0.88",
         "conductivity": "",
-        "specificHeat": "0.52",
-        "thermalConductivity": "0.01772",
+      "specificHeat": "0.52",
+      "thermalConductivity": "0.01772",
         "Notes": "",
         "source": "Air",
         "color": "colorless",
         "characteristics": "Inert",
         "uses": "lasers, light bulbs",
         "toxic": "FALSE",
-        "state": "g"
+      "state": "g"
     },
     "19": {
         "symbol": "K",
@@ -343,15 +343,15 @@
         "density": "0.86",
         "radius": "2.77",
         "conductivity": "0.139",
-        "specificHeat": "0.75",
-        "thermalConductivity": "102.4",
+      "specificHeat": "0.75",
+      "thermalConductivity": "102.4",
         "Notes": "",
         "source": "Sylvite, carnallite (misc)",
         "color": "silvery-white",
         "characteristics": "soft",
         "uses": "fertilizer, low-Na salt",
         "toxic": "",
-        "state": "s"
+      "state": "s"
     },
     "20": {
         "symbol": "Ca",
@@ -362,15 +362,15 @@
         "density": "1.55",
         "radius": "2.23",
         "conductivity": "0.298",
-        "specificHeat": "0.63",
-        "thermalConductivity": "200",
+      "specificHeat": "0.63",
+      "thermalConductivity": "200",
         "Notes": "",
         "source": "Calcite (oxide)",
         "color": "silvery-white",
         "characteristics": "burns brightly",
         "uses": "lime, cement",
         "toxic": "",
-        "state": "s"
+      "state": "s"
     },
     "21": {
         "symbol": "Sc",
@@ -381,15 +381,15 @@
         "density": "2.99",
         "radius": "2.09",
         "conductivity": "0.0177",
-        "specificHeat": "0.6",
-        "thermalConductivity": "15.8",
+      "specificHeat": "0.6",
+      "thermalConductivity": "15.8",
         "Notes": "",
         "source": "U extractn by-product",
         "color": "silvery-white",
         "characteristics": "soft",
         "uses": "no significant uses",
         "toxic": "",
-        "state": "s"
+      "state": "s"
     },
     "22": {
         "symbol": "Ti",
@@ -400,15 +400,15 @@
         "density": "4.54",
         "radius": "2",
         "conductivity": "0.0234",
-        "specificHeat": "0.52",
-        "thermalConductivity": "21.9",
+      "specificHeat": "0.52",
+      "thermalConductivity": "21.9",
         "Notes": "",
         "source": "Ilmenite, rutile(oxide)",
         "color": "gray",
         "characteristics": "max strength/weight ratio",
         "uses": "steel,white pigment(TiO2)",
         "toxic": "",
-        "state": "s"
+      "state": "s"
     },
     "23": {
         "symbol": "V",
@@ -419,15 +419,15 @@
         "density": "6.11",
         "radius": "1.92",
         "conductivity": "0.0489",
-        "specificHeat": "0.49",
-        "thermalConductivity": "30.7",
+      "specificHeat": "0.49",
+      "thermalConductivity": "30.7",
         "Notes": "",
         "source": "U, Pb vanadates (misc)",
         "color": "bright white",
         "characteristics": "soft",
         "uses": "tool steel, V2O5 catalyst",
         "toxic": "TRUE",
-        "state": "s"
+      "state": "s"
     },
     "24": {
         "symbol": "Cr",
@@ -438,15 +438,15 @@
         "density": "7.19",
         "radius": "1.85",
         "conductivity": "0.0774",
-        "specificHeat": "0.45",
-        "thermalConductivity": "93.7",
+      "specificHeat": "0.45",
+      "thermalConductivity": "93.7",
         "Notes": "",
         "source": "Chromite (oxide)",
         "color": "silvery-white",
         "characteristics": "hard",
         "uses": "CrO2 tape, paint, steel",
         "toxic": "",
-        "state": "s"
+      "state": "s"
     },
     "25": {
         "symbol": "Mn",
@@ -457,15 +457,15 @@
         "density": "7.43",
         "radius": "1.79",
         "conductivity": "0.00695",
-        "specificHeat": "0.48",
-        "thermalConductivity": "7.82",
+      "specificHeat": "0.48",
+      "thermalConductivity": "7.82",
         "Notes": "",
         "source": "Pyrolusite,psilomelane(oxide)",
         "color": "gray-white",
         "characteristics": "hard, brittle",
         "uses": "steel, dry cells(MnO2)",
         "toxic": "",
-        "state": "s"
+      "state": "s"
     },
     "26": {
         "symbol": "Fe",
@@ -476,15 +476,15 @@
         "density": "7.86",
         "radius": "1.72",
         "conductivity": "0.0993",
-        "specificHeat": "0.44",
-        "thermalConductivity": "80.2",
+      "specificHeat": "0.44",
+      "thermalConductivity": "80.2",
         "Notes": "",
         "source": "Hematite,magnetite(oxide)",
         "color": "gray",
         "characteristics": "fairly soft when pure",
         "uses": "steel",
         "toxic": "",
-        "state": "s"
+      "state": "s"
     },
     "27": {
         "symbol": "Co",
@@ -495,15 +495,15 @@
         "density": "8.9",
         "radius": "1.67",
         "conductivity": "0.172",
-        "specificHeat": "0.42",
-        "thermalConductivity": "100",
+      "specificHeat": "0.42",
+      "thermalConductivity": "100",
         "Notes": "",
         "source": "Co sulfides & arsenides",
         "color": "bluish-white",
         "characteristics": "hard",
         "uses": "magnets, Co glass (blue)",
         "toxic": "",
-        "state": "s"
+      "state": "s"
     },
     "28": {
         "symbol": "Ni",
@@ -514,15 +514,15 @@
         "density": "8.9",
         "radius": "1.62",
         "conductivity": "0.143",
-        "specificHeat": "0.44",
-        "thermalConductivity": "90.7",
+      "specificHeat": "0.44",
+      "thermalConductivity": "90.7",
         "Notes": "",
         "source": "sulfides, oxide/silicates",
         "color": "silvery-white",
         "characteristics": "hard, takes a high polish",
         "uses": "alloys, coins, batteries",
         "toxic": "TRUE",
-        "state": "s"
+      "state": "s"
     },
     "29": {
         "symbol": "Cu",
@@ -533,15 +533,15 @@
         "density": "8.96",
         "radius": "1.57",
         "conductivity": "0.596",
-        "specificHeat": "0.38",
-        "thermalConductivity": "401",
+      "specificHeat": "0.38",
+      "thermalConductivity": "401",
         "Notes": "",
         "source": "Cu pyrite,chalcocite(sulfide)",
         "color": "orange-red",
         "characteristics": "soft, ductile",
         "uses": "wire, bronze, coins",
         "toxic": "",
-        "state": "s"
+      "state": "s"
     },
     "30": {
         "symbol": "Zn",
@@ -552,15 +552,15 @@
         "density": "7.13",
         "radius": "1.53",
         "conductivity": "0.166",
-        "specificHeat": "0.39",
-        "thermalConductivity": "116",
+      "specificHeat": "0.39",
+      "thermalConductivity": "116",
         "Notes": "",
         "source": "Sphalerite (sulfide)",
         "color": "silvery",
         "characteristics": "brittle",
         "uses": "batteries, galvanizing",
         "toxic": "",
-        "state": "s"
+      "state": "s"
     },
     "31": {
         "symbol": "Ga",
@@ -571,15 +571,15 @@
         "density": "5.9",
         "radius": "1.81",
         "conductivity": "0.0678",
-        "specificHeat": "0.37",
-        "thermalConductivity": "40.6",
+      "specificHeat": "0.37",
+      "thermalConductivity": "40.6",
         "Notes": "",
         "source": "Bauxite (oxide)",
         "color": "silvery-blue",
         "characteristics": "melts near r.t.wets glass",
         "uses": "photocells, transistors",
         "toxic": "",
-        "state": "s"
+      "state": "s"
     },
     "32": {
         "symbol": "Ge",
@@ -590,15 +590,15 @@
         "density": "5.32",
         "radius": "1.52",
         "conductivity": "1.45E-08",
-        "specificHeat": "0.32",
-        "thermalConductivity": "59.9",
+      "specificHeat": "0.32",
+      "thermalConductivity": "59.9",
         "Notes": "",
         "source": "Zn smelting by-product",
         "color": "gray-black",
         "characteristics": "semimetal, brittle",
         "uses": "transistor, wide-ang lens",
         "toxic": "",
-        "state": "s"
+      "state": "s"
     },
     "33": {
         "symbol": "As",
@@ -609,15 +609,15 @@
         "density": "5.73",
         "radius": "1.33",
         "conductivity": "0.0345",
-        "specificHeat": "0.33",
-        "thermalConductivity": "50",
+      "specificHeat": "0.33",
+      "thermalConductivity": "50",
         "Notes": "sublimes (28 atm) ",
         "source": "Arsenopyrite, enargite (misc)",
         "color": "gray",
         "characteristics": "semimetal,brittle,3 forms",
         "uses": "photocells (GaAs), poisons",
         "toxic": "",
-        "state": "s"
+      "state": "s"
     },
     "34": {
         "symbol": "Se",
@@ -629,15 +629,15 @@
         "density": "4.79",
         "radius": "1.22",
         "conductivity": "1E-12",
-        "specificHeat": "0.32",
-        "thermalConductivity": "2.04",
+      "specificHeat": "0.32",
+      "thermalConductivity": "2.04",
         "Notes": "",
         "source": "Cu smelting by-product",
         "color": "black",
         "characteristics": "6 forms",
         "uses": "Xerography, medicines",
         "toxic": "TRUE",
-        "state": "s"
+      "state": "s"
     },
     "35": {
         "symbol": "Br",
@@ -648,15 +648,15 @@
         "density": "3.12",
         "radius": "1.12",
         "conductivity": "",
-        "specificHeat": "0.473",
-        "thermalConductivity": "0.122",
+      "specificHeat": "0.473",
+      "thermalConductivity": "0.122",
         "Notes": "",
         "source": "Seawater, brines",
         "color": "red-brown",
         "characteristics": "diatomic,corrosive,liquid",
         "uses": "pesticides,photography",
         "toxic": "TRUE",
-        "state": "l"
+      "state": "l"
     },
     "36": {
         "symbol": "Kr",
@@ -667,15 +667,15 @@
         "density": "0.00374",
         "radius": "1.03",
         "conductivity": "",
-        "specificHeat": "0.248",
-        "thermalConductivity": "0.00949",
+      "specificHeat": "0.248",
+      "thermalConductivity": "0.00949",
         "Notes": "",
         "source": "Air",
         "color": "colorless",
         "characteristics": "unreactive",
         "uses": "lamps, UV-laser",
         "toxic": "FALSE",
-        "state": "g"
+      "state": "g"
     },
     "37": {
         "symbol": "Rb",
@@ -686,15 +686,15 @@
         "density": "1.53",
         "radius": "2.98",
         "conductivity": "0.0779",
-        "specificHeat": "0.363",
-        "thermalConductivity": "58.2",
+      "specificHeat": "0.363",
+      "thermalConductivity": "58.2",
         "Notes": "",
         "source": "Li extractn by-product",
         "color": "silvery-white",
         "characteristics": "soft",
         "uses": "photocells",
         "toxic": "",
-        "state": "s"
+      "state": "s"
     },
     "38": {
         "symbol": "Sr",
@@ -705,15 +705,15 @@
         "density": "2.54",
         "radius": "2.45",
         "conductivity": "0.0762",
-        "specificHeat": "0.3",
-        "thermalConductivity": "35.3",
+      "specificHeat": "0.3",
+      "thermalConductivity": "35.3",
         "Notes": "",
         "source": "Celestite (sulfide)",
         "color": "silvery",
         "characteristics": "tarnishes",
         "uses": "fireworks (red flame)",
         "toxic": "",
-        "state": "s"
+      "state": "s"
     },
     "39": {
         "symbol": "Y",
@@ -724,15 +724,15 @@
         "density": "4.47",
         "radius": "2.27",
         "conductivity": "0.0166",
-        "specificHeat": "0.3",
-        "thermalConductivity": "17.2",
+      "specificHeat": "0.3",
+      "thermalConductivity": "17.2",
         "Notes": "",
         "source": "xenotime (phosphate)",
         "color": "silvery",
         "characteristics": "forms protective oxide",
         "uses": "YAG laser, TV phosphor",
         "toxic": "",
-        "state": "s"
+      "state": "s"
     },
     "40": {
         "symbol": "Zr",
@@ -743,15 +743,15 @@
         "density": "6.51",
         "radius": "2.16",
         "conductivity": "0.0236",
-        "specificHeat": "0.27",
-        "thermalConductivity": "22.7",
+      "specificHeat": "0.27",
+      "thermalConductivity": "22.7",
         "Notes": "",
         "source": "Zircon (silicate)",
         "color": "grayish-white",
         "characteristics": "hard, relatively inert",
         "uses": "deodorants, fuel rod clad",
         "toxic": "",
-        "state": "s"
+      "state": "s"
     },
     "41": {
         "symbol": "Nb",
@@ -762,15 +762,15 @@
         "density": "8.57",
         "radius": "2.08",
         "conductivity": "0.0693",
-        "specificHeat": "0.26",
-        "thermalConductivity": "53.7",
+      "specificHeat": "0.26",
+      "thermalConductivity": "53.7",
         "Notes": "",
         "source": "columbite (oxide)",
         "color": "silvery-white",
         "characteristics": "soft",
         "uses": "stainless steels, magnets",
         "toxic": "",
-        "state": "s"
+      "state": "s"
     },
     "42": {
         "symbol": "Mo",
@@ -781,15 +781,15 @@
         "density": "10.2",
         "radius": "2.01",
         "conductivity": "0.187",
-        "specificHeat": "0.25",
-        "thermalConductivity": "138",
+      "specificHeat": "0.25",
+      "thermalConductivity": "138",
         "Notes": "",
         "source": "Molybdenite (sulfide)",
         "color": "silvery-white",
         "characteristics": "very hard",
         "uses": "catalysts, tool steel",
         "toxic": "",
-        "state": "s"
+      "state": "s"
     },
     "43": {
         "symbol": "Tc",
@@ -800,8 +800,8 @@
         "density": "11.5",
         "radius": "1.95",
         "conductivity": "0.067",
-        "specificHeat": "0.21",
-        "thermalConductivity": "50.6",
+      "specificHeat": "0.21",
+      "thermalConductivity": "50.6",
         "Notes": "",
         "source": "Synthetic (U fission)",
         "color": "silvery gray",
@@ -809,7 +809,7 @@
         "uses": "medical imaging agents",
         "toxic": "",
         "state": "s",
-        "halfLife": "1300000000000000"
+      "halfLife": "1300000000000000"
     },
     "44": {
         "symbol": "Ru",
@@ -820,15 +820,15 @@
         "density": "12.4",
         "radius": "1.89",
         "conductivity": "0.137",
-        "specificHeat": "0.238",
-        "thermalConductivity": "117",
+      "specificHeat": "0.238",
+      "thermalConductivity": "117",
         "Notes": "",
         "source": "nickel ores (sulfides)",
         "color": "silvery-white",
         "characteristics": "hard",
         "uses": "catalysts",
         "toxic": "",
-        "state": "s"
+      "state": "s"
     },
     "45": {
         "symbol": "Rh",
@@ -839,15 +839,15 @@
         "density": "12.4",
         "radius": "1.83",
         "conductivity": "0.211",
-        "specificHeat": "0.242",
-        "thermalConductivity": "150",
+      "specificHeat": "0.242",
+      "thermalConductivity": "150",
         "Notes": "",
         "source": "nickel ores (sulfides)",
         "color": "silvery-white",
         "characteristics": "forms hard coatings",
         "uses": "catalysts, elec. contacts",
         "toxic": "",
-        "state": "s"
+      "state": "s"
     },
     "46": {
         "symbol": "Pd",
@@ -858,15 +858,15 @@
         "density": "12",
         "radius": "1.79",
         "conductivity": "0.095",
-        "specificHeat": "0.24",
-        "thermalConductivity": "71.8",
+      "specificHeat": "0.24",
+      "thermalConductivity": "71.8",
         "Notes": "",
         "source": "nickel ores (sulfides)",
         "color": "silvery-white",
         "characteristics": "absorbs H2",
         "uses": "catalysts, dental crowns",
         "toxic": "",
-        "state": "s"
+      "state": "s"
     },
     "47": {
         "symbol": "Ag",
@@ -877,15 +877,15 @@
         "density": "10.5",
         "radius": "1.75",
         "conductivity": "0.63",
-        "specificHeat": "0.235",
-        "thermalConductivity": "429",
+      "specificHeat": "0.235",
+      "thermalConductivity": "429",
         "Notes": "",
         "source": "Argentite (sulfide)",
         "color": "silvery",
         "characteristics": "soft, ductile, tarnishes",
         "uses": "film(AgBr),coins,jewelry",
         "toxic": "",
-        "state": "s"
+      "state": "s"
     },
     "48": {
         "symbol": "Cd",
@@ -896,15 +896,15 @@
         "density": "8.65",
         "radius": "1.71",
         "conductivity": "0.138",
-        "specificHeat": "0.23",
-        "thermalConductivity": "96.8",
+      "specificHeat": "0.23",
+      "thermalConductivity": "96.8",
         "Notes": "",
         "source": "Sphalerite (sulfide)",
         "color": "bluish-white",
         "characteristics": "soft",
         "uses": "battery,yel. pigment(CdS)",
         "toxic": "",
-        "state": "s"
+      "state": "s"
     },
     "49": {
         "symbol": "In",
@@ -915,15 +915,15 @@
         "density": "7.31",
         "radius": "2",
         "conductivity": "0.116",
-        "specificHeat": "0.23",
-        "thermalConductivity": "81.6",
+      "specificHeat": "0.23",
+      "thermalConductivity": "81.6",
         "Notes": "",
         "source": "Zn/Pb smelting by-product",
         "color": "silvery-white",
         "characteristics": "soft",
         "uses": "transistors, photocells",
         "toxic": "",
-        "state": "s"
+      "state": "s"
     },
     "50": {
         "symbol": "Sn",
@@ -934,15 +934,15 @@
         "density": "7.31",
         "radius": "1.72",
         "conductivity": "0.0917",
-        "specificHeat": "0.227",
-        "thermalConductivity": "66.6",
+      "specificHeat": "0.227",
+      "thermalConductivity": "66.6",
         "Notes": "",
         "source": "Cassiterite (oxide)",
         "color": "silvery-white",
         "characteristics": "resists corrosion",
         "uses": "2 forms",
         "toxic": "solder, pewter, bronze",
-        "state": "s"
+      "state": "s"
     },
     "51": {
         "symbol": "Sb",
@@ -953,15 +953,15 @@
         "density": "6.69",
         "radius": "1.53",
         "conductivity": "0.0288",
-        "specificHeat": "0.21",
-        "thermalConductivity": "24.3",
+      "specificHeat": "0.21",
+      "thermalConductivity": "24.3",
         "Notes": "",
         "source": "Stibnite (sulfide)",
         "color": "bluish-white",
         "characteristics": "brittle",
         "uses": " 5 forms",
         "toxic": "Pb alloy(battery), dyeing",
-        "state": "s"
+      "state": "s"
     },
     "52": {
         "symbol": "Te",
@@ -972,15 +972,15 @@
         "density": "6.24",
         "radius": "1.43",
         "conductivity": "2E-06",
-        "specificHeat": "0.2",
-        "thermalConductivity": "2.35",
+      "specificHeat": "0.2",
+      "thermalConductivity": "2.35",
         "Notes": "",
         "source": "Zn/Pb smelting by-product",
         "color": "silvery",
         "characteristics": "semimetal",
         "uses": "semiconductors, steel",
         "toxic": "TRUE",
-        "state": "s"
+      "state": "s"
     },
     "53": {
         "symbol": "I",
@@ -991,15 +991,15 @@
         "density": "4.93",
         "radius": "1.32",
         "conductivity": "8E-16",
-        "specificHeat": "0.214",
-        "thermalConductivity": "0.449",
+      "specificHeat": "0.214",
+      "thermalConductivity": "0.449",
         "Notes": "",
         "source": "Brines, Chilean nitrate (misc)",
         "color": "bluish-black",
         "characteristics": "diatomic",
         "uses": "nutrient, antiseptic",
         "toxic": "TRUE",
-        "state": "s"
+      "state": "s"
     },
     "54": {
         "symbol": "Xe",
@@ -1010,15 +1010,15 @@
         "density": "0.00589",
         "radius": "1.24",
         "conductivity": "",
-        "specificHeat": "0.158",
-        "thermalConductivity": "0.00569",
+      "specificHeat": "0.158",
+      "thermalConductivity": "0.00569",
         "Notes": "",
         "source": "Air",
         "color": "colorless",
         "characteristics": "unreactive",
         "uses": "UV-laser, hi intens lamps",
         "toxic": "FALSE",
-        "state": "g"
+      "state": "g"
     },
     "55": {
         "symbol": "Cs",
@@ -1029,15 +1029,15 @@
         "density": "1.87",
         "radius": "3.34",
         "conductivity": "0.0489",
-        "specificHeat": "0.24",
-        "thermalConductivity": "59",
+      "specificHeat": "0.24",
+      "thermalConductivity": "59",
         "Notes": "",
         "source": "Li extractn by-product",
         "color": "yellow/silvery",
         "characteristics": "softest metal",
         "uses": "photocells, IR lamps",
         "toxic": "",
-        "state": "s"
+      "state": "s"
     },
     "56": {
         "symbol": "Ba",
@@ -1048,15 +1048,15 @@
         "density": "3.5",
         "radius": "2.78",
         "conductivity": "0.03",
-        "specificHeat": "0.204",
-        "thermalConductivity": "18.4",
+      "specificHeat": "0.204",
+      "thermalConductivity": "18.4",
         "Notes": "",
         "source": "Barite (sulfate)",
         "color": "silvery-white",
         "characteristics": "soft",
         "uses": "X-ray imaging agnt(BaSO4)",
         "toxic": "",
-        "state": "s"
+      "state": "s"
     },
     "57": {
         "symbol": "La",
@@ -1067,15 +1067,15 @@
         "density": "6.15",
         "radius": "2.74",
         "conductivity": "0.0126",
-        "specificHeat": "0.19",
-        "thermalConductivity": "13.5",
+      "specificHeat": "0.19",
+      "thermalConductivity": "13.5",
         "Notes": "",
         "source": "Monazite(phosphate),bastnaesite",
         "color": "silvery-white",
         "characteristics": "soft, malleable",
         "uses": "lighter flints, CRTs",
         "toxic": "",
-        "state": "s"
+      "state": "s"
     },
     "58": {
         "symbol": "Ce",
@@ -1086,15 +1086,15 @@
         "density": "6.66",
         "radius": "2.7",
         "conductivity": "0.0115",
-        "specificHeat": "0.19",
-        "thermalConductivity": "11.4",
+      "specificHeat": "0.19",
+      "thermalConductivity": "11.4",
         "Notes": "",
         "source": "Monazite(phosphate),bastnaesite",
         "color": "silvery-white",
         "characteristics": "malleable",
         "uses": "self-cleaning ovens(CeO2)",
         "toxic": "",
-        "state": "s"
+      "state": "s"
     },
     "59": {
         "symbol": "Pr",
@@ -1105,15 +1105,15 @@
         "density": "6.77",
         "radius": "2.67",
         "conductivity": "0.0148",
-        "specificHeat": "0.19",
-        "thermalConductivity": "12.5",
+      "specificHeat": "0.19",
+      "thermalConductivity": "12.5",
         "Notes": "",
         "source": "Monazite(phosphate),bastnaesite",
         "color": "silvery-white",
         "characteristics": "soft",
         "uses": "alloys, Welder's mask",
         "toxic": "",
-        "state": "s"
+      "state": "s"
     },
     "60": {
         "symbol": "Nd",
@@ -1124,15 +1124,15 @@
         "density": "7",
         "radius": "2.64",
         "conductivity": "0.0157",
-        "specificHeat": "0.19",
-        "thermalConductivity": "16.5",
+      "specificHeat": "0.19",
+      "thermalConductivity": "16.5",
         "Notes": "",
         "source": "Monazite(phosphate),bastnaesite",
         "color": "silvery-white",
         "characteristics": "",
         "uses": "alloys, Welder's mask",
         "toxic": "",
-        "state": "s"
+      "state": "s"
     },
     "61": {
         "symbol": "Pm",
@@ -1143,8 +1143,8 @@
         "density": "7.26",
         "radius": "2.62",
         "conductivity": "",
-        "specificHeat": "0.18",
-        "thermalConductivity": "17.9",
+      "specificHeat": "0.18",
+      "thermalConductivity": "17.9",
         "Notes": "",
         "source": "Synthetic",
         "color": "silvery-white",
@@ -1152,7 +1152,7 @@
         "uses": "nuclear battery",
         "toxic": "",
         "state": "s",
-        "halfLife": "559000000"
+      "halfLife": "559000000"
     },
     "62": {
         "symbol": "Sm",
@@ -1163,15 +1163,15 @@
         "density": "7.52",
         "radius": "2.59",
         "conductivity": "0.00956",
-        "specificHeat": "0.2",
-        "thermalConductivity": "13.3",
+      "specificHeat": "0.2",
+      "thermalConductivity": "13.3",
         "Notes": "",
         "source": "Monazite(phosphate),bastnaesite",
         "color": "silvery-white",
         "characteristics": "",
         "uses": "alloys, headphones",
         "toxic": "",
-        "state": "s"
+      "state": "s"
     },
     "63": {
         "symbol": "Eu",
@@ -1182,15 +1182,15 @@
         "density": "5.24",
         "radius": "2.56",
         "conductivity": "0.00112",
-        "specificHeat": "0.18",
-        "thermalConductivity": "13.9",
+      "specificHeat": "0.18",
+      "thermalConductivity": "13.9",
         "Notes": "",
         "source": "Monazite(phosphate),bastnaesite",
         "color": "silvery-white",
         "characteristics": "hard",
         "uses": "alloys, color TV phosphor",
         "toxic": "",
-        "state": "s"
+      "state": "s"
     },
     "64": {
         "symbol": "Gd",
@@ -1201,15 +1201,15 @@
         "density": "7.9",
         "radius": "2.54",
         "conductivity": "0.00736",
-        "specificHeat": "0.23",
-        "thermalConductivity": "10.6",
+      "specificHeat": "0.23",
+      "thermalConductivity": "10.6",
         "Notes": "",
         "source": "Monazite(phosphate),bastnaesite",
         "color": "silvery-white",
         "characteristics": "",
         "uses": "alloys, CD disk",
         "toxic": "",
-        "state": "s"
+      "state": "s"
     },
     "65": {
         "symbol": "Tb",
@@ -1220,15 +1220,15 @@
         "density": "8.23",
         "radius": "2.51",
         "conductivity": "0.00889",
-        "specificHeat": "0.18",
-        "thermalConductivity": "11.1",
+      "specificHeat": "0.18",
+      "thermalConductivity": "11.1",
         "Notes": "",
         "source": "Monazite(phosphate),bastnaesite",
         "color": "silvery-white",
         "characteristics": "soft",
         "uses": "alloys",
         "toxic": "",
-        "state": "s"
+      "state": "s"
     },
     "66": {
         "symbol": "Dy",
@@ -1239,15 +1239,15 @@
         "density": "8.55",
         "radius": "2.49",
         "conductivity": "0.0108",
-        "specificHeat": "0.17",
-        "thermalConductivity": "10.7",
+      "specificHeat": "0.17",
+      "thermalConductivity": "10.7",
         "Notes": "",
         "source": "Monazite(phosphate),bastnaesite",
         "color": "silvery-white",
         "characteristics": "neutron absorber",
         "uses": "alloys, CD disk",
         "toxic": "",
-        "state": "s"
+      "state": "s"
     },
     "67": {
         "symbol": "Ho",
@@ -1258,15 +1258,15 @@
         "density": "8.8",
         "radius": "2.47",
         "conductivity": "0.0124",
-        "specificHeat": "0.16",
-        "thermalConductivity": "16.2",
+      "specificHeat": "0.16",
+      "thermalConductivity": "16.2",
         "Notes": "",
         "source": "Monazite(phosphate),bastnaesite",
         "color": "silvery-white",
         "characteristics": "",
         "uses": "alloys",
         "toxic": "",
-        "state": "s"
+      "state": "s"
     },
     "68": {
         "symbol": "Er",
@@ -1277,15 +1277,15 @@
         "density": "9.07",
         "radius": "2.45",
         "conductivity": "0.0117",
-        "specificHeat": "0.17",
-        "thermalConductivity": "14.3",
+      "specificHeat": "0.17",
+      "thermalConductivity": "14.3",
         "Notes": "",
         "source": "Monazite(phosphate),bastnaesite",
         "color": "silvery-white",
         "characteristics": "",
         "uses": "alloys, photogr. filter",
         "toxic": "",
-        "state": "s"
+      "state": "s"
     },
     "69": {
         "symbol": "Tm",
@@ -1296,15 +1296,15 @@
         "density": "9.32",
         "radius": "2.42",
         "conductivity": "0.015",
-        "specificHeat": "0.16",
-        "thermalConductivity": "16.8",
+      "specificHeat": "0.16",
+      "thermalConductivity": "16.8",
         "Notes": "",
         "source": "Monazite(phosphate),bastnaesite",
         "color": "silvery-white",
         "characteristics": "soft",
         "uses": "alloys",
         "toxic": "",
-        "state": "s"
+      "state": "s"
     },
     "70": {
         "symbol": "Yb",
@@ -1315,15 +1315,15 @@
         "density": "6.97",
         "radius": "2.4",
         "conductivity": "0.0351",
-        "specificHeat": "0.15",
-        "thermalConductivity": "34.9",
+      "specificHeat": "0.15",
+      "thermalConductivity": "34.9",
         "Notes": "",
         "source": "Monazite(phosphate),bastnaesite",
         "color": "silvery-white",
         "characteristics": "soft",
         "uses": "alloys",
         "toxic": "",
-        "state": "s"
+      "state": "s"
     },
     "71": {
         "symbol": "Lu",
@@ -1334,15 +1334,15 @@
         "density": "9.84",
         "radius": "2.25",
         "conductivity": "0.0185",
-        "specificHeat": "0.15",
-        "thermalConductivity": "16.4",
+      "specificHeat": "0.15",
+      "thermalConductivity": "16.4",
         "Notes": "",
         "source": "Monazite(phosphate),bastnaesite",
         "color": "silvery-white",
         "characteristics": "",
         "uses": "alloys",
         "toxic": "",
-        "state": "s"
+      "state": "s"
     },
     "72": {
         "symbol": "Hf",
@@ -1353,15 +1353,15 @@
         "density": "13.3",
         "radius": "2.16",
         "conductivity": "0.0312",
-        "specificHeat": "0.14",
-        "thermalConductivity": "23",
+      "specificHeat": "0.14",
+      "thermalConductivity": "23",
         "Notes": "",
         "source": "Zircon (silicate)",
         "color": "silvery",
         "characteristics": "hard",
         "uses": "nuclear control rods",
         "toxic": "",
-        "state": "s"
+      "state": "s"
     },
     "73": {
         "symbol": "Ta",
@@ -1372,15 +1372,15 @@
         "density": "16.6",
         "radius": "2.09",
         "conductivity": "0.0761",
-        "specificHeat": "0.14",
-        "thermalConductivity": "57.5",
+      "specificHeat": "0.14",
+      "thermalConductivity": "57.5",
         "Notes": "",
         "source": "Tantalite (oxide)",
         "color": "gray",
         "characteristics": "hard, inert at <100 deg.C",
         "uses": "surg. implants,heat exch.",
         "toxic": "",
-        "state": "s"
+      "state": "s"
     },
     "74": {
         "symbol": "W",
@@ -1391,15 +1391,15 @@
         "density": "19.3",
         "radius": "2.02",
         "conductivity": "0.189",
-        "specificHeat": "0.13",
-        "thermalConductivity": "174",
+      "specificHeat": "0.13",
+      "thermalConductivity": "174",
         "Notes": "",
         "source": "Scheelite,wolframite(oxide)",
         "color": "bluish-gray",
         "characteristics": "highest melting metal",
         "uses": "WC drill bits, bulb wire",
         "toxic": "",
-        "state": "s"
+      "state": "s"
     },
     "75": {
         "symbol": "Re",
@@ -1410,15 +1410,15 @@
         "density": "21",
         "radius": "1.97",
         "conductivity": "0.0542",
-        "specificHeat": "0.13",
-        "thermalConductivity": "47.9",
+      "specificHeat": "0.13",
+      "thermalConductivity": "47.9",
         "Notes": "",
         "source": "Molybdenite (sulfide)",
         "color": "silvery-white",
         "characteristics": "high melting point",
         "uses": "catalysts, thermocouples",
         "toxic": "",
-        "state": "s"
+      "state": "s"
     },
     "76": {
         "symbol": "Os",
@@ -1429,15 +1429,15 @@
         "density": "22.6",
         "radius": "1.92",
         "conductivity": "0.109",
-        "specificHeat": "0.13",
-        "thermalConductivity": "87.6",
+      "specificHeat": "0.13",
+      "thermalConductivity": "87.6",
         "Notes": "",
         "source": "nickel ores (sulfides)",
         "color": "bluish-white",
         "characteristics": "hard, dense, inert <100 C",
         "uses": "hard alloys,phono needles",
         "toxic": "",
-        "state": "s"
+      "state": "s"
     },
     "77": {
         "symbol": "Ir",
@@ -1448,15 +1448,15 @@
         "density": "22.4",
         "radius": "1.87",
         "conductivity": "0.197",
-        "specificHeat": "0.13",
-        "thermalConductivity": "147",
+      "specificHeat": "0.13",
+      "thermalConductivity": "147",
         "Notes": "",
         "source": "nickel ores (sulfides)",
         "color": "white",
         "characteristics": "hard, densest el, inert",
         "uses": "Pt/Ir sparkplugs",
         "toxic": "",
-        "state": "s"
+      "state": "s"
     },
     "78": {
         "symbol": "Pt",
@@ -1467,15 +1467,15 @@
         "density": "21.4",
         "radius": "1.83",
         "conductivity": "0.0966",
-        "specificHeat": "0.13",
-        "thermalConductivity": "71.6",
+      "specificHeat": "0.13",
+      "thermalConductivity": "71.6",
         "Notes": "",
         "source": "nickel ores (sulfides)",
         "color": "silvery-white",
         "characteristics": "Inert, ductile",
         "uses": "jewelry, catalysts",
         "toxic": "",
-        "state": "s"
+      "state": "s"
     },
     "79": {
         "symbol": "Au",
@@ -1486,15 +1486,15 @@
         "density": "19.3",
         "radius": "1.79",
         "conductivity": "0.452",
-        "specificHeat": "0.128",
-        "thermalConductivity": "317",
+      "specificHeat": "0.128",
+      "thermalConductivity": "317",
         "Notes": "",
         "source": "Gold, gold bearing rock (misc)",
         "color": "golden yellow",
         "characteristics": "Inert, ductile malleable",
         "uses": "jewelry, electronics",
         "toxic": "",
-        "state": "s"
+      "state": "s"
     },
     "80": {
         "symbol": "Hg",
@@ -1505,15 +1505,15 @@
         "density": "13.5",
         "radius": "1.76",
         "conductivity": "0.0104",
-        "specificHeat": "0.139",
-        "thermalConductivity": "8.34",
+      "specificHeat": "0.139",
+      "thermalConductivity": "8.34",
         "Notes": "",
         "source": "Cinnabar (sulfide)",
         "color": "silvery-white",
         "characteristics": "liquid at r.t., volatile",
         "uses": "amalgams, Cl2, NaOH prod.",
         "toxic": "TRUE",
-        "state": "l"
+      "state": "l"
     },
     "81": {
         "symbol": "Tl",
@@ -1524,15 +1524,15 @@
         "density": "11.9",
         "radius": "2.08",
         "conductivity": "0.0617",
-        "specificHeat": "0.13",
-        "thermalConductivity": "46.1",
+      "specificHeat": "0.13",
+      "thermalConductivity": "46.1",
         "Notes": "",
         "source": "Zn/Pb smelting by-product",
         "color": "bluish-gray",
         "characteristics": "soft",
         "uses": "IR detectors, photomult.",
         "toxic": "",
-        "state": "s"
+      "state": "s"
     },
     "82": {
         "symbol": "Pb",
@@ -1543,15 +1543,15 @@
         "density": "11.4",
         "radius": "1.81",
         "conductivity": "0.0481",
-        "specificHeat": "0.13",
-        "thermalConductivity": "35.3",
+      "specificHeat": "0.13",
+      "thermalConductivity": "35.3",
         "Notes": "",
         "source": "Galena (sulfide)",
         "color": "gray",
         "characteristics": "soft",
         "uses": "batteries, solder, paints",
         "toxic": "",
-        "state": "s"
+      "state": "s"
     },
     "83": {
         "symbol": "Bi",
@@ -1562,8 +1562,8 @@
         "density": "9.75",
         "radius": "1.63",
         "conductivity": "0.00867",
-        "specificHeat": "0.12",
-        "thermalConductivity": "7.87",
+      "specificHeat": "0.12",
+      "thermalConductivity": "7.87",
         "Notes": "",
         "source": "Pb smelting by-product",
         "color": "white",
@@ -1571,7 +1571,7 @@
         "uses": "antacid, fusible alloy",
         "toxic": "",
         "state": "s",
-        "halfLife": "5.99E+027"
+      "halfLife": "5.99E+027"
     },
     "84": {
         "symbol": "Po",
@@ -1582,8 +1582,8 @@
         "density": "9.32",
         "radius": "1.53",
         "conductivity": "0.0219",
-        "specificHeat": "0.12",
-        "thermalConductivity": "20",
+      "specificHeat": "0.12",
+      "thermalConductivity": "20",
         "Notes": "",
         "source": "pitchblende, synthetic",
         "color": "blue glow",
@@ -1591,7 +1591,7 @@
         "uses": " 2 forms",
         "toxic": "thermoelectric power",
         "state": "s",
-        "halfLife": "3220000000"
+      "halfLife": "3220000000"
     },
     "85": {
         "symbol": "At",
@@ -1602,8 +1602,8 @@
         "density": "",
         "radius": "1.43",
         "conductivity": "",
-        "specificHeat": "",
-        "thermalConductivity": "1.7",
+      "specificHeat": "",
+      "thermalConductivity": "1.7",
         "Notes": "",
         "source": "Synthetic(Th or U decay)",
         "color": "",
@@ -1611,7 +1611,7 @@
         "uses": "",
         "toxic": "",
         "state": "s",
-        "halfLife": "29000"
+      "halfLife": "29000"
     },
     "86": {
         "symbol": "Rn",
@@ -1622,8 +1622,8 @@
         "density": "0.00973",
         "radius": "1.34",
         "conductivity": "",
-        "specificHeat": "0.09",
-        "thermalConductivity": "0.00364",
+      "specificHeat": "0.09",
+      "thermalConductivity": "0.00364",
         "Notes": "",
         "source": "Synthetic(Ra-226 decay)",
         "color": "colorless",
@@ -1631,7 +1631,7 @@
         "uses": "earthquake prediction",
         "toxic": "",
         "state": "g",
-        "halfLife": "330000"
+      "halfLife": "330000"
     },
     "87": {
         "symbol": "Fr",
@@ -1642,8 +1642,8 @@
         "density": "",
         "radius": "",
         "conductivity": "0.03",
-        "specificHeat": "",
-        "thermalConductivity": "15",
+      "specificHeat": "",
+      "thermalConductivity": "15",
         "Notes": "",
         "source": "Synthetic(U-235 decay)",
         "color": "",
@@ -1651,7 +1651,7 @@
         "uses": "",
         "toxic": "",
         "state": "s",
-        "halfLife": "1300"
+      "halfLife": "1300"
     },
     "88": {
         "symbol": "Ra",
@@ -1662,8 +1662,8 @@
         "density": "5",
         "radius": "",
         "conductivity": "",
-        "specificHeat": "0.12",
-        "thermalConductivity": "18.6",
+      "specificHeat": "0.12",
+      "thermalConductivity": "18.6",
         "Notes": "",
         "source": "pitchblende(U-238 decay)",
         "color": "white",
@@ -1671,7 +1671,7 @@
         "uses": "neutron source",
         "toxic": "",
         "state": "s",
-        "halfLife": "501000000000"
+      "halfLife": "501000000000"
     },
     "89": {
         "symbol": "Ac",
@@ -1682,8 +1682,8 @@
         "density": "10.1",
         "radius": "",
         "conductivity": "",
-        "specificHeat": "",
-        "thermalConductivity": "12",
+      "specificHeat": "",
+      "thermalConductivity": "12",
         "Notes": "",
         "source": "Synthetic(U-235 decay)",
         "color": "silvery-white",
@@ -1691,7 +1691,7 @@
         "uses": "thermoelectric power",
         "toxic": "",
         "state": "s",
-        "halfLife": "687000000"
+      "halfLife": "687000000"
     },
     "90": {
         "symbol": "Th",
@@ -1702,8 +1702,8 @@
         "density": "11.7",
         "radius": "",
         "conductivity": "0.0653",
-        "specificHeat": "0.12",
-        "thermalConductivity": "54",
+      "specificHeat": "0.12",
+      "thermalConductivity": "54",
         "Notes": "",
         "source": "Monazite(phosphate),U extractn",
         "color": "white",
@@ -1711,7 +1711,7 @@
         "uses": "gas mantles (ThO2)",
         "toxic": "",
         "state": "s",
-        "halfLife": "4.43E+018"
+      "halfLife": "4.43E+018"
     },
     "91": {
         "symbol": "Pa",
@@ -1722,8 +1722,8 @@
         "density": "15.4",
         "radius": "",
         "conductivity": "0.0529",
-        "specificHeat": "0.12",
-        "thermalConductivity": "47",
+      "specificHeat": "0.12",
+      "thermalConductivity": "47",
         "Notes": "",
         "source": "Synthetic(U-235 decay)",
         "color": "silvery",
@@ -1731,7 +1731,7 @@
         "uses": "",
         "toxic": "",
         "state": "s",
-        "halfLife": "1030000000000"
+      "halfLife": "1030000000000"
     },
     "92": {
         "symbol": "U",
@@ -1742,8 +1742,8 @@
         "density": "19",
         "radius": "",
         "conductivity": "0.038",
-        "specificHeat": "0.12",
-        "thermalConductivity": "27.6",
+      "specificHeat": "0.12",
+      "thermalConductivity": "27.6",
         "Notes": "",
         "source": "Uranite (oxide)",
         "color": "silvery",
@@ -1751,7 +1751,7 @@
         "uses": "nuclear reactor fuel",
         "toxic": "",
         "state": "s",
-        "halfLife": "1.41E+018"
+      "halfLife": "1.41E+018"
     },
     "93": {
         "symbol": "Np",
@@ -1762,8 +1762,8 @@
         "density": "20.2",
         "radius": "",
         "conductivity": "0.00822",
-        "specificHeat": "0.12",
-        "thermalConductivity": "6.3",
+      "specificHeat": "0.12",
+      "thermalConductivity": "6.3",
         "Notes": "",
         "source": "Synthetic",
         "color": "silvery",
@@ -1771,7 +1771,7 @@
         "uses": "",
         "toxic": "",
         "state": "s",
-        "halfLife": "677000000000000"
+      "halfLife": "677000000000000"
     },
     "94": {
         "symbol": "Pu",
@@ -1782,8 +1782,8 @@
         "density": "19.8",
         "radius": "",
         "conductivity": "0.00666",
-        "specificHeat": "0.13",
-        "thermalConductivity": "6.74",
+      "specificHeat": "0.13",
+      "thermalConductivity": "6.74",
         "Notes": "",
         "source": "Synthetic",
         "color": "silvery",
@@ -1791,8 +1791,8 @@
         "uses": "weapon fuel, pacemakers",
         "toxic": "",
         "state": "s",
-        "halfLife": "2.5E+016",
-        "criticalMass": "70"
+      "halfLife": "2.5E+016",
+      "criticalMass": "70"
     },
     "95": {
         "symbol": "Am",
@@ -1803,8 +1803,8 @@
         "density": "13.7",
         "radius": "",
         "conductivity": "0.022",
-        "specificHeat": "0.11",
-        "thermalConductivity": "10",
+      "specificHeat": "0.11",
+      "thermalConductivity": "10",
         "Notes": "",
         "source": "Synthetic",
         "color": "silvery-white",
@@ -1812,7 +1812,7 @@
         "uses": "smoke detector",
         "toxic": "",
         "state": "s",
-        "halfLife": "233000000000"
+      "halfLife": "233000000000"
     },
     "96": {
         "symbol": "Cm",
@@ -1823,8 +1823,8 @@
         "density": "13.5",
         "radius": "",
         "conductivity": "",
-        "specificHeat": "",
-        "thermalConductivity": "10",
+      "specificHeat": "",
+      "thermalConductivity": "10",
         "Notes": "",
         "source": "Synthetic",
         "color": "silvery-white",
@@ -1832,7 +1832,7 @@
         "uses": "thermoelec. pwr, n source",
         "toxic": "",
         "state": "s",
-        "halfLife": "4920000000000000"
+      "halfLife": "4920000000000000"
     },
     "97": {
         "symbol": "Bk",
@@ -1843,8 +1843,8 @@
         "density": "14",
         "radius": "",
         "conductivity": "",
-        "specificHeat": "",
-        "thermalConductivity": "10",
+      "specificHeat": "",
+      "thermalConductivity": "10",
         "Notes": "",
         "source": "Synthetic",
         "color": "silvery",
@@ -1852,7 +1852,7 @@
         "uses": "",
         "toxic": "",
         "state": "s",
-        "halfLife": "43500000000"
+      "halfLife": "43500000000"
     },
     "98": {
         "symbol": "Cf",
@@ -1863,8 +1863,8 @@
         "density": "",
         "radius": "",
         "conductivity": "",
-        "specificHeat": "",
-        "thermalConductivity": "10",
+      "specificHeat": "",
+      "thermalConductivity": "10",
         "Notes": "",
         "source": "Synthetic",
         "color": "",
@@ -1872,7 +1872,7 @@
         "uses": "neutron source",
         "toxic": "",
         "state": "",
-        "halfLife": "28400000000"
+      "halfLife": "28400000000"
     },
     "99": {
         "symbol": "Es",
@@ -1883,8 +1883,8 @@
         "density": "",
         "radius": "",
         "conductivity": "",
-        "specificHeat": "",
-        "thermalConductivity": "10",
+      "specificHeat": "",
+      "thermalConductivity": "10",
         "Notes": "",
         "source": "Synthetic",
         "color": "",
@@ -1892,7 +1892,7 @@
         "uses": "",
         "toxic": "",
         "state": "",
-        "halfLife": "40800000"
+      "halfLife": "40800000"
     },
     "100": {
         "symbol": "Fm",
@@ -1903,8 +1903,8 @@
         "density": "",
         "radius": "",
         "conductivity": "",
-        "specificHeat": "",
-        "thermalConductivity": "10",
+      "specificHeat": "",
+      "thermalConductivity": "10",
         "Notes": "",
         "source": "Synthetic",
         "color": "",
@@ -1912,7 +1912,7 @@
         "uses": "",
         "toxic": "",
         "state": "",
-        "halfLife": "8680000"
+      "halfLife": "8680000"
     },
     "101": {
         "symbol": "Md",
@@ -1923,8 +1923,8 @@
         "density": "",
         "radius": "",
         "conductivity": "",
-        "specificHeat": "",
-        "thermalConductivity": "10",
+      "specificHeat": "",
+      "thermalConductivity": "10",
         "Notes": "",
         "source": "Synthetic",
         "color": "",
@@ -1932,7 +1932,7 @@
         "uses": "",
         "toxic": "",
         "state": "",
-        "halfLife": "4450000"
+      "halfLife": "4450000"
     },
     "102": {
         "symbol": "No",
@@ -1943,8 +1943,8 @@
         "density": "",
         "radius": "",
         "conductivity": "",
-        "specificHeat": "",
-        "thermalConductivity": "10",
+      "specificHeat": "",
+      "thermalConductivity": "10",
         "Notes": "",
         "source": "Synthetic",
         "color": "",
@@ -1952,7 +1952,7 @@
         "uses": "",
         "toxic": "",
         "state": "",
-        "halfLife": "10000"
+      "halfLife": "10000"
     },
     "103": {
         "symbol": "Lr",
@@ -1963,8 +1963,8 @@
         "density": "",
         "radius": "",
         "conductivity": "",
-        "specificHeat": "",
-        "thermalConductivity": "10",
+      "specificHeat": "",
+      "thermalConductivity": "10",
         "Notes": "",
         "source": "Synthetic",
         "color": "",
@@ -1972,7 +1972,7 @@
         "uses": "",
         "toxic": "",
         "state": "",
-        "halfLife": "36000"
+      "halfLife": "36000"
     },
     "104": {
         "symbol": "Rf",
@@ -1983,8 +1983,8 @@
         "density": "",
         "radius": "",
         "conductivity": "",
-        "specificHeat": "",
-        "thermalConductivity": "23",
+      "specificHeat": "",
+      "thermalConductivity": "23",
         "Notes": "",
         "source": "",
         "color": "",
@@ -1992,7 +1992,7 @@
         "uses": "",
         "toxic": "",
         "state": "",
-        "halfLife": "47200"
+      "halfLife": "47200"
     },
     "105": {
         "symbol": "Db",
@@ -2003,8 +2003,8 @@
         "density": "",
         "radius": "",
         "conductivity": "",
-        "specificHeat": "",
-        "thermalConductivity": "58",
+      "specificHeat": "",
+      "thermalConductivity": "58",
         "Notes": "",
         "source": "",
         "color": "",
@@ -2012,7 +2012,7 @@
         "uses": "",
         "toxic": "",
         "state": "",
-        "halfLife": "20000"
+      "halfLife": "20000"
     },
     "106": {
         "symbol": "Sg",
@@ -2023,8 +2023,8 @@
         "density": "",
         "radius": "",
         "conductivity": "",
-        "specificHeat": "",
-        "thermalConductivity": "",
+      "specificHeat": "",
+      "thermalConductivity": "",
         "Notes": "",
         "source": "",
         "color": "",
@@ -2032,7 +2032,7 @@
         "uses": "",
         "toxic": "",
         "state": "",
-        "halfLife": "6980"
+      "halfLife": "6980"
     },
     "107": {
         "symbol": "Bh",
@@ -2043,8 +2043,8 @@
         "density": "",
         "radius": "",
         "conductivity": "",
-        "specificHeat": "",
-        "thermalConductivity": "",
+      "specificHeat": "",
+      "thermalConductivity": "",
         "Notes": "",
         "source": "",
         "color": "",
@@ -2052,7 +2052,7 @@
         "uses": "",
         "toxic": "",
         "state": "",
-        "halfLife": "5400"
+      "halfLife": "5400"
     },
     "108": {
         "symbol": "Hs",
@@ -2063,8 +2063,8 @@
         "density": "",
         "radius": "",
         "conductivity": "",
-        "specificHeat": "",
-        "thermalConductivity": "",
+      "specificHeat": "",
+      "thermalConductivity": "",
         "Notes": "",
         "source": "",
         "color": "",
@@ -2072,7 +2072,7 @@
         "uses": "",
         "toxic": "",
         "state": "",
-        "halfLife": "4000"
+      "halfLife": "4000"
     },
     "109": {
         "symbol": "Mt",
@@ -2083,8 +2083,8 @@
         "density": "",
         "radius": "",
         "conductivity": "",
-        "specificHeat": "",
-        "thermalConductivity": "",
+      "specificHeat": "",
+      "thermalConductivity": "",
         "Notes": "",
         "source": "",
         "color": "",
@@ -2092,7 +2092,7 @@
         "uses": "",
         "toxic": "",
         "state": "",
-        "halfLife": "1800"
+      "halfLife": "1800"
     },
     "110": {
         "symbol": "Ds",
@@ -2103,8 +2103,8 @@
         "density": "",
         "radius": "",
         "conductivity": "",
-        "specificHeat": "",
-        "thermalConductivity": "",
+      "specificHeat": "",
+      "thermalConductivity": "",
         "Notes": "",
         "source": "",
         "color": "",
@@ -2112,7 +2112,7 @@
         "uses": "",
         "toxic": "",
         "state": "",
-        "halfLife": "240"
+      "halfLife": "240"
     },
     "111": {
         "symbol": "Rg",
@@ -2123,8 +2123,8 @@
         "density": "",
         "radius": "",
         "conductivity": "",
-        "specificHeat": "",
-        "thermalConductivity": "",
+      "specificHeat": "",
+      "thermalConductivity": "",
         "Notes": "",
         "source": "",
         "color": "",
@@ -2132,7 +2132,7 @@
         "uses": "",
         "toxic": "",
         "state": "",
-        "halfLife": "600"
+      "halfLife": "600"
     },
     "112": {
         "symbol": "Cn",
@@ -2143,8 +2143,8 @@
         "density": "",
         "radius": "",
         "conductivity": "",
-        "specificHeat": "",
-        "thermalConductivity": "",
+      "specificHeat": "",
+      "thermalConductivity": "",
         "Notes": "",
         "source": "",
         "color": "",
@@ -2152,7 +2152,7 @@
         "uses": "",
         "toxic": "",
         "state": "",
-        "halfLife": "2400"
+      "halfLife": "2400"
     },
     "113": {
         "symbol": "Nh",
@@ -2163,8 +2163,8 @@
         "density": "",
         "radius": "",
         "conductivity": "",
-        "specificHeat": "",
-        "thermalConductivity": "",
+      "specificHeat": "",
+      "thermalConductivity": "",
         "Notes": "",
         "source": "",
         "color": "",
@@ -2172,7 +2172,7 @@
         "uses": "",
         "toxic": "",
         "state": "",
-        "halfLife": "1200"
+      "halfLife": "1200"
     },
     "114": {
         "symbol": "Fl",
@@ -2183,8 +2183,8 @@
         "density": "",
         "radius": "",
         "conductivity": "",
-        "specificHeat": "",
-        "thermalConductivity": "",
+      "specificHeat": "",
+      "thermalConductivity": "",
         "Notes": "",
         "source": "",
         "color": "",
@@ -2192,7 +2192,7 @@
         "uses": "",
         "toxic": "",
         "state": "",
-        "halfLife": "79.8"
+      "halfLife": "79.8"
     },
     "115": {
         "symbol": "Mc",
@@ -2203,8 +2203,8 @@
         "density": "",
         "radius": "",
         "conductivity": "",
-        "specificHeat": "",
-        "thermalConductivity": "",
+      "specificHeat": "",
+      "thermalConductivity": "",
         "Notes": "",
         "source": "",
         "color": "",
@@ -2212,7 +2212,7 @@
         "uses": "",
         "toxic": "",
         "state": "",
-        "halfLife": "60"
+      "halfLife": "60"
     },
     "116": {
         "symbol": "Lv",
@@ -2223,8 +2223,8 @@
         "density": "",
         "radius": "",
         "conductivity": "",
-        "specificHeat": "",
-        "thermalConductivity": "",
+      "specificHeat": "",
+      "thermalConductivity": "",
         "Notes": "",
         "source": "",
         "color": "",
@@ -2232,7 +2232,7 @@
         "uses": "",
         "toxic": "",
         "state": "",
-        "halfLife": "0.12"
+      "halfLife": "0.12"
     },
     "117": {
         "symbol": "Ts",
@@ -2243,8 +2243,8 @@
         "density": "",
         "radius": "",
         "conductivity": "",
-        "specificHeat": "",
-        "thermalConductivity": "",
+      "specificHeat": "",
+      "thermalConductivity": "",
         "Notes": "",
         "source": "",
         "color": "",
@@ -2252,7 +2252,7 @@
         "uses": "",
         "toxic": "",
         "state": "",
-        "halfLife": "0.05"
+      "halfLife": "0.05"
     },
     "118": {
         "symbol": "Og",
@@ -2263,8 +2263,8 @@
         "density": "",
         "radius": "",
         "conductivity": "",
-        "specificHeat": "",
-        "thermalConductivity": "",
+      "specificHeat": "",
+      "thermalConductivity": "",
         "Notes": "",
         "source": "",
         "color": "",
@@ -2272,6 +2272,6 @@
         "uses": "",
         "toxic": "",
         "state": "",
-        "halfLife": "0.005"
+      "halfLife": "0.005"
     }
 }

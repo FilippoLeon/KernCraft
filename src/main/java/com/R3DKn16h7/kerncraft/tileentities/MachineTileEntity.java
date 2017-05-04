@@ -111,14 +111,14 @@ public abstract class MachineTileEntity extends TileEntity
     }
 
     public void restoreFromNBT(NBTTagCompound nbt) {
-        if(nbt != null) {
-            if ( nbt.hasKey("Input")) {
+        if (nbt != null) {
+            if (nbt.hasKey("Input")) {
                 input.deserializeNBT(nbt.getCompoundTag("Input"));
             }
-            if ( nbt.hasKey("Output")) {
+            if (nbt.hasKey("Output")) {
                 output.deserializeNBT(nbt.getCompoundTag("Output"));
             }
-            if ( nbt.hasKey("sideConfiguration")) {
+            if (nbt.hasKey("sideConfiguration")) {
                 sideConfig.deserializeNBT(nbt.getCompoundTag("sideConfiguration"));
             }
         }

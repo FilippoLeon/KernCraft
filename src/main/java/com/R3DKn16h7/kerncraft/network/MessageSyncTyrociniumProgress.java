@@ -25,12 +25,12 @@ public class MessageSyncTyrociniumProgress implements IMessage {
     public void toBytes(ByteBuf buf) {
         int nkeys = unlocksMap.entrySet().size();
         buf.writeInt(nkeys);
-        for(Map.Entry<String, Boolean> entry : unlocksMap.entrySet()) {
+        for (Map.Entry<String, Boolean> entry : unlocksMap.entrySet()) {
             byte[] bytes = entry.getKey().getBytes(StandardCharsets.US_ASCII);
             buf.writeInt(bytes.length);
         }
 
-        for(Map.Entry<String, Boolean> entry : unlocksMap.entrySet()) {
+        for (Map.Entry<String, Boolean> entry : unlocksMap.entrySet()) {
             if (entry.getValue()) {
                 buf.writeBytes(entry.getKey().getBytes(StandardCharsets.US_ASCII));
             }
@@ -41,10 +41,10 @@ public class MessageSyncTyrociniumProgress implements IMessage {
     public void fromBytes(ByteBuf buf) {
         int nkeys = buf.readInt();
         int[] keylengths = new int[nkeys];
-        for(int i = 0; i < nkeys; ++i) {
+        for (int i = 0; i < nkeys; ++i) {
             keylengths[i] = buf.readInt();
         }
-        for(int i = 0; i < nkeys; ++i) {
+        for (int i = 0; i < nkeys; ++i) {
             unlocksMap.put(buf.readBytes(keylengths[i]).toString(StandardCharsets.US_ASCII), true);
         }
     }

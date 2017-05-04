@@ -34,9 +34,9 @@ public class EnergyContainerItemCapabilityProvider
     public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
         if (
                 (KernCraft.FOUND_TESLA && (capability == TeslaCapabilities.CAPABILITY_CONSUMER
-                || capability == TeslaCapabilities.CAPABILITY_HOLDER
+                        || capability == TeslaCapabilities.CAPABILITY_HOLDER
                         || capability == TeslaCapabilities.CAPABILITY_PRODUCER))
-                || capability == CapabilityEnergy.ENERGY) {
+                        || capability == CapabilityEnergy.ENERGY) {
             return (T) this.container;
         }
 

@@ -1,7 +1,6 @@
 package com.R3DKn16h7.kerncraft.network;
 
 import io.netty.buffer.ByteBuf;
-import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 
 import java.nio.charset.StandardCharsets;

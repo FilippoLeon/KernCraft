@@ -71,15 +71,15 @@ public class AlchemistRing extends AbstractElementContainerItem implements IBaub
     }
 
     @Override
-    @Optional.Method(modid="baubles")
+    @Optional.Method(modid = "baubles")
     public BaubleType getBaubleType(ItemStack itemStack) {
         return BaubleType.RING;
     }
 
     @Override
-    @Optional.Method(modid="baubles")
+    @Optional.Method(modid = "baubles")
     public void onWornTick(ItemStack itemstack, EntityLivingBase player) {
-        if( player.world.isRemote) return;
+        if (player.world.isRemote) return;
 
 //        BlockPos pos = player.getPosition();
         Vec3d pos1 = player.getForward().scale(0.2);
@@ -95,37 +95,37 @@ public class AlchemistRing extends AbstractElementContainerItem implements IBaub
     }
 
     @Override
-    @Optional.Method(modid="baubles")
+    @Optional.Method(modid = "baubles")
     public void onEquipped(ItemStack itemstack, EntityLivingBase player) {
 
     }
 
     @Override
-    @Optional.Method(modid="baubles")
+    @Optional.Method(modid = "baubles")
     public void onUnequipped(ItemStack itemstack, EntityLivingBase player) {
 
     }
 
     @Override
-    @Optional.Method(modid="baubles")
+    @Optional.Method(modid = "baubles")
     public boolean canEquip(ItemStack itemstack, EntityLivingBase player) {
         return true;
     }
 
     @Override
-    @Optional.Method(modid="baubles")
+    @Optional.Method(modid = "baubles")
     public boolean canUnequip(ItemStack itemstack, EntityLivingBase player) {
         return true;
     }
 
     @Override
-    @Optional.Method(modid="baubles")
+    @Optional.Method(modid = "baubles")
     public boolean willAutoSync(ItemStack itemstack, EntityLivingBase player) {
         return false;
     }
 
     @Override
-    @Optional.Method(modid="baubles")
+    @Optional.Method(modid = "baubles")
     public boolean onLeftClickEntity(ItemStack stack,
                                      EntityPlayer player,
                                      Entity entity) {

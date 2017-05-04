@@ -15,9 +15,11 @@ import java.util.Map;
 public interface ITyrociniumProgressCapability extends ICapabilitySerializable<NBTTagCompound>, IClonable<ITyrociniumProgressCapability> {
 
     void unlockContent(String content);
+
     void setContentLock(String content, boolean lock);
 
     boolean isContentLocked(String content);
+
     boolean isContentUnlocked(String content);
 
     Map<String, Boolean> getMap();

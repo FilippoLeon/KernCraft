@@ -29,7 +29,7 @@ import java.util.List;
 abstract public class SmeltingTileEntity<SmeltingRecipe extends ISmeltingRecipe>
         extends MachineTileEntity
         implements IRedstoneSettable, IFuelUser,
-                   IEnergyContainer, IProgressMachine, IFluidStorage {
+        IEnergyContainer, IProgressMachine, IFluidStorage {
 
     //// Status variables
     // Are we currently smelting
@@ -156,7 +156,7 @@ abstract public class SmeltingTileEntity<SmeltingRecipe extends ISmeltingRecipe>
     }
 
     private void setSmelting(boolean isSmelting) {
-        if(smelting != isSmelting) {
+        if (smelting != isSmelting) {
             IBlockState state = world.getBlockState(this.pos);
             world.setBlockState(this.pos, state.withProperty(MachineBlock.POWERED, isSmelting));
         }
@@ -414,12 +414,12 @@ abstract public class SmeltingTileEntity<SmeltingRecipe extends ISmeltingRecipe>
             }
             if (nbt.hasKey("maxEnergyStored") && nbt.getInteger("maxEnergyStored") != storage.getMaxEnergyStored()) {
                 int temp = storage.getEnergyStored();
-                storage = new EnergyStorage( nbt.getInteger("maxEnergyStored"));
-                storage.receiveEnergy(temp,false);
+                storage = new EnergyStorage(nbt.getInteger("maxEnergyStored"));
+                storage.receiveEnergy(temp, false);
             }
             if (nbt.hasKey("energyStored")) {
                 storage.extractEnergy(1000000000, false);
-                storage.receiveEnergy(nbt.getInteger("energyStored"),false);
+                storage.receiveEnergy(nbt.getInteger("energyStored"), false);
             }
             if (nbt.hasKey("fuel")) {
                 storedFuel = nbt.getInteger("fuel");
