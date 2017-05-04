@@ -22,7 +22,7 @@ public class CentrifugeTileEntity extends SmeltingTileEntity<CentrifugeRecipe> {
     };
 
     public CentrifugeTileEntity() {
-
+        super(1);
     }
 
     @Override
@@ -72,9 +72,9 @@ public class CentrifugeTileEntity extends SmeltingTileEntity<CentrifugeRecipe> {
             if (left > 0) return false;
         }
 
-        if (recipe.fluid != null && getFluid() != null
-                && getFluid().isFluidEqual(recipe.fluid)) {
-            if (recipe.fluid.amount > tank.drain(recipe.fluid, false).amount) {
+        if (recipe.fluid != null && getFluid(0) != null
+                && getFluid(0).isFluidEqual(recipe.fluid)) {
+            if (recipe.fluid.amount > tank.get(0).drain(recipe.fluid, false).amount) {
                 return false;
             }
         }
@@ -111,7 +111,7 @@ public class CentrifugeTileEntity extends SmeltingTileEntity<CentrifugeRecipe> {
 
         // Consume fluid
         if (currentlySmelting.fluid != null) {
-            tank.drain(currentlySmelting.fluid, true);
+            tank.get(0).drain(currentlySmelting.fluid, true);
         }
 
         Random rand = new Random();

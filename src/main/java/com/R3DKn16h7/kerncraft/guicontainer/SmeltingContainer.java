@@ -59,7 +59,9 @@ public class SmeltingContainer extends MachineContainer<SmeltingTileEntity> {
             this.side_params[i] = this.te.getField(-i);
         }
 
-        KernCraftNetwork.networkWrapper.sendToAll(new MessageFluidStackSync(0, te.tank.getFluid(), te.getPos()));
+        KernCraftNetwork.networkWrapper.sendToAll(
+                new MessageFluidStackSync(te.tank, te.getPos())
+        );
     }
 
     @SideOnly(Side.CLIENT)

@@ -1,6 +1,7 @@
 package com.R3DKn16h7.kerncraft.client.gui;
 
 import com.R3DKn16h7.kerncraft.client.gui.widgets.IWidget;
+import com.R3DKn16h7.kerncraft.client.gui.widgets.Widget;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
@@ -102,6 +103,12 @@ public class AdvancedGuiContainer extends GuiContainer implements IAdvancedGui {
             foreground_widgets.add(widget);
         else
             background_widgets.add(widget);
+    }
+
+
+    void RemoveWidget(Widget wid) {
+        foreground_widgets.remove(wid);
+        background_widgets.remove(wid);
     }
 
     public void updateWidgets() {

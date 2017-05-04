@@ -31,6 +31,7 @@ public class ExtractorTileEntity extends SmeltingTileEntity<ExtractorRecipe>
     static private int generatedFuelPerEnergyDrain = 100;
 
     public ExtractorTileEntity() {
+        super(1);
         generatedFuelPerEnergyDrain = TileEntityFurnace.getItemBurnTime(new ItemStack(Items.COAL));
     }
 

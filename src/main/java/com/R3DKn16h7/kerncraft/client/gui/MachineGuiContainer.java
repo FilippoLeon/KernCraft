@@ -1,9 +1,6 @@
 package com.R3DKn16h7.kerncraft.client.gui;
 
-import com.R3DKn16h7.kerncraft.client.gui.widgets.AnimatedTexturedElement;
-import com.R3DKn16h7.kerncraft.client.gui.widgets.StateButton;
-import com.R3DKn16h7.kerncraft.client.gui.widgets.Text;
-import com.R3DKn16h7.kerncraft.client.gui.widgets.TexturedElement;
+import com.R3DKn16h7.kerncraft.client.gui.widgets.*;
 import com.R3DKn16h7.kerncraft.guicontainer.AdvancedContainer;
 import com.R3DKn16h7.kerncraft.network.KernCraftNetwork;
 import com.R3DKn16h7.kerncraft.network.MessageSideConfig;
@@ -14,6 +11,8 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.util.Tuple;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.IntConsumer;
 
 /**
@@ -23,14 +22,15 @@ public class MachineGuiContainer extends AdvancedGuiContainer {
     public static final int itemStackIconSize = 18;
     protected AnimatedTexturedElement energyBar;
     protected TexturedElement energyBarBackGround;
-    protected AnimatedTexturedElement fluidBar;
-    protected TexturedElement fluidBarBackground;
+    protected List<AnimatedTexturedElement> fluidBar;
+    protected List<TexturedElement> fluidBarBackground;
     protected AnimatedTexturedElement flame;
     protected AnimatedTexturedElement brewing;
     protected Text progressText;
 
     public MachineGuiContainer(Container container, IInventory playerInv, MachineTileEntity te) {
         super(container, playerInv, te);
+
 
         energyBarBackGround = TexturedElement.ENERGY_BAR_BACKGROUND(this,
                 -2 + this.borderLeft, -2 + this.borderTop);
@@ -39,13 +39,9 @@ public class MachineGuiContainer extends AdvancedGuiContainer {
         energyBar.setAutoAnimated(false, 0);
         AddWidget(energyBar, true);
 
-        fluidBarBackground = TexturedElement.ENERGY_BAR_BACKGROUND(this,
-                -2 + this.borderLeft + 9, -2 + this.borderTop);
-        AddWidget(fluidBarBackground, false);
-        fluidBar = AnimatedTexturedElement.ENERGY_BAR(this, -1 + 9, -1);
-        fluidBar.setTint(Color.blue);
-        fluidBar.setAutoAnimated(false, 0);
-        AddWidget(fluidBar, true);
+        fluidBar = new ArrayList<>(1);
+        fluidBarBackground = new ArrayList<>(1);
+        createFluidBars(1);
 
         if(te instanceof IRedstoneSettable) {
             StateButton redstoneModeButton = StateButton.REDSTONE_MODE(this,
@@ -116,6 +112,36 @@ public class MachineGuiContainer extends AdvancedGuiContainer {
         AddWidget(titleText, true);
 
         setupSideConfiguration();
+    }
+
+    private void createFluidBars(int size) {
+        if (fluidBar != null) {
+            for (Widget wid : fluidBar) {
+                RemoveWidget(wid);
+            }
+        }
+        if (fluidBarBackground != null) {
+            for (Widget wid : fluidBarBackground) {
+                RemoveWidget(wid);
+            }
+        }
+
+        fluidBar.clear();
+        fluidBarBackground.clear();
+        for (int i = 0; i < size; ++i) {
+            fluidBarBackground.add(TexturedElement.ENERGY_BAR_BACKGROUND(this,
+                    -2 + this.borderLeft + 9, -2
+                            + this.borderTop + i * 3 * Widget.DEFAULT_SLOT_SIZE_Y / size));
+            fluidBarBackground.get(i).setSize(8, 3 * Widget.DEFAULT_SLOT_SIZE_Y / size);
+            fluidBarBackground.get(i).setDynamicSized();
+            AddWidget(fluidBarBackground.get(i), false);
+            fluidBar.add(AnimatedTexturedElement.ENERGY_BAR(this, -1 + 9, -1
+                    + i * 3 * Widget.DEFAULT_SLOT_SIZE_Y / size - 1));
+            fluidBar.get(i).setTint(Color.blue);
+            fluidBar.get(i).setAutoAnimated(false, 0);
+            fluidBar.get(i).setSize(8, 3 * Widget.DEFAULT_SLOT_SIZE_Y / size);
+            AddWidget(fluidBar.get(i), true);
+        }
     }
 
     private int gridCoord(int pos) {
@@ -215,21 +241,31 @@ public class MachineGuiContainer extends AdvancedGuiContainer {
         }
 
         if (te instanceof IFluidStorage) {
+            // FIXME: display more fluids
             IFluidStorage fluid_te = ((IFluidStorage) te);
-            float fluidAmountPercent = (float) fluid_te.getFluidAmount() / fluid_te.getCapacity();
-            String name;
-            if (fluid_te.getFluid() != null) {
-                name = fluid_te.getFluid().getLocalizedName();
-                if (!name.equals("Water") && !name.equals("Lava")) {
-                    fluidBar.setTint(new Color(fluid_te.getFluid().getFluid().getColor()));
-                }
-            } else {
-                name = "Empty";
+            if (fluid_te.getNumberOfTanks() != fluidBarBackground.size()) {
+                createFluidBars(fluid_te.getNumberOfTanks());
             }
-            String tooltipFluid = String.format("%s: %d/%d",
-                    name, fluid_te.getFluidAmount(), fluid_te.getCapacity());
-            fluidBar.setTooltip(tooltipFluid);
-            fluidBar.setPercentage(fluidAmountPercent);
+            for (int i = 0; i < fluid_te.getNumberOfTanks(); ++i) {
+                float fluidAmountPercent = (float) fluid_te.getFluidAmount(i) / fluid_te.getCapacity(i);
+                String name;
+                if (fluid_te.getFluid(i) != null) {
+                    name = fluid_te.getFluid(0).getLocalizedName();
+                    if (name.equals("Water")) {
+                        fluidBar.get(i).setTint(Color.blue);
+                    } else if (name.equals("Lava")) {
+                        fluidBar.get(i).setTint(Color.red);
+                    } else {
+                        fluidBar.get(i).setTint(new Color(fluid_te.getFluid(i).getFluid().getColor()));
+                    }
+                } else {
+                    name = "Empty";
+                }
+                String tooltipFluid = String.format("%s: %d/%d",
+                        name, fluid_te.getFluidAmount(i), fluid_te.getCapacity(i));
+                fluidBar.get(i).setTooltip(tooltipFluid);
+                fluidBar.get(i).setPercentage(fluidAmountPercent);
+            }
         }
     }
 

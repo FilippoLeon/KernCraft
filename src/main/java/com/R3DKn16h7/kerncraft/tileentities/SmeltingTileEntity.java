@@ -23,6 +23,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
 import java.util.List;
 
 abstract public class SmeltingTileEntity<SmeltingRecipe extends ISmeltingRecipe>
@@ -33,7 +34,7 @@ abstract public class SmeltingTileEntity<SmeltingRecipe extends ISmeltingRecipe>
     //// Status variables
     // Are we currently smelting
     static final float ticTime = 5f;
-    public FluidTank tank;
+    public List<FluidTank> tank = new ArrayList<>();
     // Is the machine currently smelting
     protected boolean smelting = false;
     // Current progress oin smelting
@@ -53,12 +54,14 @@ abstract public class SmeltingTileEntity<SmeltingRecipe extends ISmeltingRecipe>
     boolean lastSmeltig = false;
     private boolean must_spin_down = false;
 
-    public SmeltingTileEntity() {
+    public SmeltingTileEntity(int tankSize) {
         super();
 
         // Internal storages
         storage = new EnergyStorage(100000);
-        tank = new FluidTank(16000);
+        for (int i = 0; i < tankSize; ++i) {
+            tank.add(new FluidTank(16000));
+        }
     }
 
     @Override
@@ -85,18 +88,23 @@ abstract public class SmeltingTileEntity<SmeltingRecipe extends ISmeltingRecipe>
     }
 
     @Override
-    public int getCapacity() {
-        return tank.getCapacity();
+    public int getNumberOfTanks() {
+        return tank.size();
     }
 
     @Override
-    public FluidStack getFluid() {
-        return tank.getFluid();
+    public int getCapacity(int i) {
+        return tank.get(i).getCapacity();
     }
 
     @Override
-    public int getFluidAmount() {
-        return tank.getFluidAmount();
+    public FluidStack getFluid(int i) {
+        return tank.get(i).getFluid();
+    }
+
+    @Override
+    public int getFluidAmount(int i) {
+        return tank.get(i).getFluidAmount();
     }
 
     @Override
@@ -127,7 +135,8 @@ abstract public class SmeltingTileEntity<SmeltingRecipe extends ISmeltingRecipe>
         if (capability == CapabilityEnergy.ENERGY) {
             return CapabilityEnergy.ENERGY.cast(storage);
         } else if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
-            return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(tank);
+            // FIXME: Use side config for fluid (shall have a fluid slot?)
+            return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(tank.get(0));
         }
         return super.getCapability(capability, facing);
     }
@@ -307,13 +316,15 @@ abstract public class SmeltingTileEntity<SmeltingRecipe extends ISmeltingRecipe>
                 return storedFuel;
             case SmeltingContainer.PROGRESS_ID:
                 return (int) Math.floor(progress * 100);
-            case SmeltingContainer.FLUID_AMOUNT:
-                return this.tank.getFluidAmount();
             case SmeltingContainer.ENERGY:
                 return this.getEnergyStored();
             case SmeltingContainer.REDSTONE_MODE:
                 return this.getRedstoneMode();
         }
+//        if(id >= SmeltingContainer.FLUID_AMOUNT
+//                && id < SmeltingContainer.FLUID_AMOUNT + getNumberOfTanks()) {
+//            return  this.getFluidAmount(id - SmeltingContainer.FLUID_AMOUNT);
+//        }
         if (id < 0) {
             return sideConfig.getSlotSide(-id).getValue();
         }
@@ -328,9 +339,9 @@ abstract public class SmeltingTileEntity<SmeltingRecipe extends ISmeltingRecipe>
             case SmeltingContainer.PROGRESS_ID:
                 this.progress = value / 100.f;
                 break;
-            case SmeltingContainer.FLUID_AMOUNT:
-//                this.tank.setFluid(new FluidStack(FluidRegistry.LAVA, value));
-                break;
+//            case SmeltingContainer.FLUID_AMOUNT:
+////                this.tank.setFluid(new FluidStack(FluidRegistry.LAVA, value));
+//                break;
             case SmeltingContainer.ENERGY:
                 this.storage.receiveEnergy(value - this.storage.getEnergyStored(), false);
                 break;
@@ -367,9 +378,15 @@ abstract public class SmeltingTileEntity<SmeltingRecipe extends ISmeltingRecipe>
 
         nbt.setInteger("redstoneMode", redstoneMode);
 
-        NBTTagCompound nbt_tank = new NBTTagCompound();
-        tank.writeToNBT(nbt_tank);
-        nbt.setTag("tank", nbt_tank);
+        NBTTagCompound nbt_all_tanks = new NBTTagCompound();
+        for (int i = 0; i < getNumberOfTanks(); ++i) {
+            NBTTagCompound nbt_tank = new NBTTagCompound();
+            tank.get(i).writeToNBT(nbt_tank);
+            nbt_all_tanks.setTag("tank_" + i, nbt_tank);
+            nbt_all_tanks.setInteger("tank_" + i + "_capacity", tank.get(i).getCapacity());
+        }
+        nbt_all_tanks.setInteger("number_of_tanks", getNumberOfTanks());
+        nbt.setTag("smeltingMachineTank", nbt_all_tanks);
 
         nbt.setInteger("energyStored", storage.getEnergyStored());
         nbt.setInteger("maxEnergyStored", storage.getMaxEnergyStored());
@@ -386,8 +403,14 @@ abstract public class SmeltingTileEntity<SmeltingRecipe extends ISmeltingRecipe>
             if (nbt.hasKey("redstoneMode")) {
                 redstoneMode = nbt.getInteger("redstoneMode");
             }
-            if (nbt.hasKey("tank")) {
-                tank.readFromNBT(nbt.getCompoundTag("tank"));
+            if (nbt.hasKey("smeltingMachineTank")) {
+                NBTTagCompound nbt_all_tanks = nbt.getCompoundTag("smeltingMachineTank");
+                int size = nbt_all_tanks.getInteger("number_of_tanks");
+                tank = new ArrayList<>(size);
+                for (int i = 0; i < size; ++i) {
+                    tank.add(new FluidTank(nbt_all_tanks.getInteger("tank_" + i + "_capacity")));
+                    tank.get(i).readFromNBT(nbt_all_tanks.getCompoundTag("tank_" + i));
+                }
             }
             if (nbt.hasKey("maxEnergyStored") && nbt.getInteger("maxEnergyStored") != storage.getMaxEnergyStored()) {
                 int temp = storage.getEnergyStored();

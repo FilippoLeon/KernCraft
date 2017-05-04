@@ -29,7 +29,9 @@ import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.fml.relauncher.Side;
@@ -121,12 +123,20 @@ public abstract class MachineBlock extends BlockContainer {
         if (player.getHeldItem(hand) != ItemStack.EMPTY) {
             MachineTileEntity te = (MachineTileEntity) world.getTileEntity(pos);
             ItemStack itemStack = player.getHeldItem(hand);
-            if (itemStack.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null)) {
-                IFluidHandlerItem cap = itemStack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
+            if (itemStack.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null)
+                    || itemStack.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, null)) {
+                IFluidHandler cap = itemStack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
+                // If an item implements only non-item capability: fiiiiiiiiine
+                if (cap == null) {
+                    cap = itemStack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, null);
+                }
+
                 if (te instanceof SmeltingTileEntity) {
+                    SmeltingTileEntity smeltingTe = ((SmeltingTileEntity) te);
+
                     FluidStack fluid = cap.drain(Fluid.BUCKET_VOLUME, false);
                     if (fluid != null && fluid.amount >= Fluid.BUCKET_VOLUME) {
-                        int try_fill = ((SmeltingTileEntity) te).tank.fill(fluid, false);
+                        int try_fill = ((FluidTank) smeltingTe.tank.get(0)).fill(fluid, false);
                         if (try_fill >= fluid.amount) {
                             // FIXME
 //                            Minecraft.getMinecraft().getSoundHandler().playSound(
@@ -134,14 +144,14 @@ public abstract class MachineBlock extends BlockContainer {
 //                                            new SoundEvent(new ResourceLocation("item.bucket.empty")),
 //                                            1)
 //                            );
-                            ((SmeltingTileEntity) te).tank.fill(fluid, true);
+                            ((FluidTank) smeltingTe.tank.get(0)).fill(fluid, true);
                             cap.drain(Fluid.BUCKET_VOLUME, true);
-                            player.setHeldItem(hand, cap.getContainer());
-//                            player.setHeldItem(hand, cap.getContainer());
-//                            player.setHeldItem(hand, new ItemStack(Items.BUCKET));
+                            if (cap instanceof IFluidHandlerItem) {
+                                player.setHeldItem(hand, ((IFluidHandlerItem) cap).getContainer());
+                            }
                         }
                     } else {
-                        FluidStack try_drain = ((SmeltingTileEntity) te).tank.drain(Fluid.BUCKET_VOLUME, false);
+                        FluidStack try_drain = ((FluidTank) smeltingTe.tank.get(0)).drain(Fluid.BUCKET_VOLUME, false);
                         if (try_drain != null && try_drain.amount >= Fluid.BUCKET_VOLUME) {
                             // FIXME
 //                            Minecraft.getMinecraft().getSoundHandler().playSound(
@@ -149,10 +159,12 @@ public abstract class MachineBlock extends BlockContainer {
 //                                            new SoundEvent(new ResourceLocation("item.bucket.full")),
 //                                            1)
 //                            );
-                            FluidStack stack = ((SmeltingTileEntity) te).tank.drain(Fluid.BUCKET_VOLUME, true);
+                            FluidStack stack = ((FluidTank) smeltingTe.tank.get(0)).drain(Fluid.BUCKET_VOLUME, true);
 
                             cap.fill(stack, true);
-                            player.setHeldItem(hand, cap.getContainer());
+                            if (cap instanceof IFluidHandlerItem) {
+                                player.setHeldItem(hand, ((IFluidHandlerItem) cap).getContainer());
+                            }
                         }
                     }
                 }

@@ -19,7 +19,7 @@ public class ChemicalFurnaceTileEntity extends SmeltingTileEntity<ChemicalFurnac
     public static final int[][] outputCoords = {{4, 2}, {5, 2}};
 
     public ChemicalFurnaceTileEntity() {
-
+        super(2);
     }
 
     @Override
@@ -58,16 +58,17 @@ public class ChemicalFurnaceTileEntity extends SmeltingTileEntity<ChemicalFurnac
 
         // TODO: return false if tank full?
         if (chemrec.fluid != null) {
-            if (getFluid() == null || getFluid().isFluidEqual(chemrec.fluid)) {
+            if (tank.size() < 1) return false;
+            if (getFluid(0) == null || getFluid(0).isFluidEqual(chemrec.fluid)) {
                 if (chemrec.fluid.amount < 0) {
-                    if (-chemrec.fluid.amount > getFluid().amount) return false;
+                    if (-chemrec.fluid.amount > getFluid(0).amount) return false;
                     FluidStack positiveFluid = new FluidStack(chemrec.fluid, -chemrec.fluid.amount);
                     // If we cannot drain sufficient amount of fluid, just go home
-                    if (-chemrec.fluid.amount > tank.drain(positiveFluid, false).amount) {
+                    if (-chemrec.fluid.amount > tank.get(0).drain(positiveFluid, false).amount) {
                         return false;
                     }
                 } else {
-                    tank.fill(chemrec.fluid, false);
+                    tank.get(0).fill(chemrec.fluid, false);
                 }
             }
         }
@@ -149,9 +150,9 @@ public class ChemicalFurnaceTileEntity extends SmeltingTileEntity<ChemicalFurnac
         if (currentlySmelting.fluid != null) {
             FluidStack positiveFluid = new FluidStack(currentlySmelting.fluid, -currentlySmelting.fluid.amount);
             if (currentlySmelting.fluid.amount <= 0) {
-                tank.drain(positiveFluid, true);
+                tank.get(0).drain(positiveFluid, true);
             } else {
-                tank.fill(currentlySmelting.fluid, true);
+                tank.get(0).fill(currentlySmelting.fluid, true);
             }
         }
         // TODO: WARN IF FAIL

@@ -16,7 +16,7 @@ public class FillerTileEntity extends SmeltingTileEntity {
     public static final int[][] outputCoords = {{3, 2}, {4, 2}, {5, 2}, {6, 2}};
 
     public FillerTileEntity() {
-        super();
+        super(1);
     }
 
     @Override
