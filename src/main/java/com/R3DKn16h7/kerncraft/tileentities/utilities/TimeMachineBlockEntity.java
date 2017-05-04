@@ -1,4 +1,4 @@
-package com.R3DKn16h7.kerncraft.tileentities;
+package com.R3DKn16h7.kerncraft.tileentities.utilities;
 
 import com.R3DKn16h7.kerncraft.KernCraft;
 import net.minecraft.block.BlockContainer;
@@ -13,7 +13,7 @@ import net.minecraft.world.World;
 
 public class TimeMachineBlockEntity extends BlockContainer {
 
-    protected TimeMachineBlockEntity(String unlocalizedName) {
+    public TimeMachineBlockEntity(String unlocalizedName) {
         super(Material.IRON);
         this.setUnlocalizedName(unlocalizedName);
         this.setHardness(2.0f);

@@ -1,29 +1,40 @@
-package com.R3DKn16h7.kerncraft.tileentities;
+package com.R3DKn16h7.kerncraft.tileentities.machines;
 
 import com.R3DKn16h7.kerncraft.capabilities.element.ElementCapabilities;
 import com.R3DKn16h7.kerncraft.capabilities.element.IElementContainer;
 import com.R3DKn16h7.kerncraft.client.gui.MachineGuiContainer;
-import com.R3DKn16h7.kerncraft.crafting.ElectrolyzerRecipe;
+import com.R3DKn16h7.kerncraft.crafting.CentrifugeRecipe;
 import com.R3DKn16h7.kerncraft.crafting.KernCraftRecipes;
 import com.R3DKn16h7.kerncraft.elements.ElementStack;
+import com.R3DKn16h7.kerncraft.tileentities.SmeltingTileEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Tuple;
 
 import java.util.List;
 import java.util.Random;
 
-public class ElectrolyzerTileEntity
-        extends SmeltingTileEntity<ElectrolyzerRecipe> {
+public class CentrifugeTileEntity extends SmeltingTileEntity<CentrifugeRecipe> {
 
     // Slot IDs
-    public static final int[][] inputCoords = {{2, 0}, {5, 0}, {8, 0}};
-    public static final int[][] outputCoords = {{2, 2}, {8, 2}};
-    private static final int ANODE_SLOT = 0;
-    private static final int CATHODE_SLOT = 1;
-    private static final int INPUT_SLOT = 2;
+    private static final int[][] inputCoords = {{3, 0}, {3, 2}};
+    private static final int[][] outputCoords = {
+            {5, 0}, {5, 1}, {5, 2},
+            {6, 0}, {6, 1}, {6, 2}
+    };
 
-    public ElectrolyzerTileEntity() {
+
+    public CentrifugeTileEntity() {
         super(1);
+    }
+
+    @Override
+    public int getInputSize() {
+        return 2;
+    }
+
+    @Override
+    public int getOutputSize() {
+        return 6;
     }
 
     @Override
@@ -37,8 +48,9 @@ public class ElectrolyzerTileEntity
     }
 
     @Override
-    public List<ElectrolyzerRecipe> getRecipes() {
-        return KernCraftRecipes.ELECTROLYZER_RECIPES;
+    public List<CentrifugeRecipe> getRecipes() {
+
+        return KernCraftRecipes.CENTRIFUGE_RECIPES;
     }
 
     @Override
@@ -58,34 +70,27 @@ public class ElectrolyzerTileEntity
     }
 
     @Override
-    public boolean canSmelt(ElectrolyzerRecipe recipe) {
-        if ((
-                !input.getStackInSlot(ANODE_SLOT).isItemEqual(recipe.anode)
-                        && !input.getStackInSlot(ANODE_SLOT).isItemEqual(recipe.cathode)
-        ) || (
-                !input.getStackInSlot(CATHODE_SLOT).isItemEqual(recipe.anode)
-                        && !input.getStackInSlot(CATHODE_SLOT).isItemEqual(recipe.cathode)
-        )) {
-            return false;
-        }
-
-        outerloop:
-        for (ItemStack recipeInput : recipe.input) {
-            for (int i = INPUT_SLOT; i < input.getSlots(); ++i) {
-                if (input.getStackInSlot(i).isItemEqual(recipeInput)) {
-                    continue outerloop;
+    public boolean canSmelt(CentrifugeRecipe recipe) {
+        for (ItemStack stack : recipe.inputs) {
+            int left = stack.getCount();
+            for (int i = 0; i < getInputSize(); ++i) {
+                if (getInput().getStackInSlot(i).isItemEqual(stack)) {
+                    left -= getInput().getStackInSlot(i).getCount();
+                    if (left <= 0) {
+                        break;
+                    }
                 }
             }
-            return false;
+            if (left > 0) return false;
         }
 
-        if (recipe.fluid != null && getFluid(0) != null && getFluid(0).isFluidEqual(recipe.fluid)) {
+        if (recipe.fluid != null && getFluid(0) != null
+                && getFluid(0).isFluidEqual(recipe.fluid)) {
             if (recipe.fluid.amount > tank.get(0).drain(recipe.fluid, false).amount) {
                 return false;
             }
         }
 
-        // TODO
         return true;
     }
 
@@ -102,22 +107,28 @@ public class ElectrolyzerTileEntity
 
     @Override
     public void doneSmelting() {
-        // TODO
-        for (ItemStack item : currentlySmelting.input) {
-            int to_be_removed = item.getCount();
-            for (int i = INPUT_SLOT; i < input.getSlots(); ++i) {
-                if (item.isItemEqual(input.getStackInSlot(i))) {
-                    to_be_removed -= input.getStackInSlot(i).splitStack(to_be_removed).getCount();
+        // Consume items
+        for (ItemStack stack : currentlySmelting.inputs) {
+            int left = stack.getCount();
+            for (int i = 0; i < getInputSize(); ++i) {
+                if (getInput().getStackInSlot(i).isItemEqual(stack)) {
+                    ItemStack res = getInput().getStackInSlot(i).splitStack(left);
+                    left -= res.getCount();
+                    if (left <= 0) {
+                        break;
+                    }
                 }
-                if (to_be_removed <= 0) break;
             }
         }
 
+        // Consume fluid
         if (currentlySmelting.fluid != null) {
             tank.get(0).drain(currentlySmelting.fluid, true);
         }
+
         Random rand = new Random();
 
+        // Create elements
         for (ElementStack created : currentlySmelting.outputs) {
 
             if (rand.nextFloat() > created.probability) continue;

@@ -44,10 +44,10 @@ abstract public class SmeltingTileEntity<SmeltingRecipe extends ISmeltingRecipe>
     protected int redstoneMode = 0;
     //// Static constants
     // Internal energy storage
-    EnergyStorage storage;
-    int storedFuel = 0;
+    protected EnergyStorage storage;
+    protected int storedFuel = 0;
     // Recipe Id currently smelting
-    SmeltingRecipe currentlySmelting;
+    protected SmeltingRecipe currentlySmelting;
 
     /// TODO FIXME ARGH THIS SUCKS BIG TIME; HOW TO DO THIS PROPERLY?
     int elapsedT = 0;

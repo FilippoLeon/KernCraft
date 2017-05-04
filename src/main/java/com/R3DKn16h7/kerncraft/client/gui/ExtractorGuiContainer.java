@@ -1,7 +1,7 @@
 package com.R3DKn16h7.kerncraft.client.gui;
 
 import com.R3DKn16h7.kerncraft.guicontainer.ExtractorContainer;
-import com.R3DKn16h7.kerncraft.tileentities.ExtractorTileEntity;
+import com.R3DKn16h7.kerncraft.tileentities.machines.ExtractorTileEntity;
 import net.minecraft.inventory.IInventory;
 
 public class ExtractorGuiContainer extends MachineGuiContainer {

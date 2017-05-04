@@ -1,4 +1,4 @@
-package com.R3DKn16h7.kerncraft.tileentities;
+package com.R3DKn16h7.kerncraft.tileentities.utilities;
 
 import com.R3DKn16h7.kerncraft.KernCraft;
 import net.minecraft.block.BlockContainer;
@@ -26,7 +26,7 @@ public class DetectorBlockEntity extends BlockContainer {
 
     public static final PropertyBool POWERED = PropertyBool.create("powered");
 
-    protected DetectorBlockEntity() {
+    public DetectorBlockEntity() {
         super(Material.IRON);
         String name = "detector";
         this.setUnlocalizedName(name);

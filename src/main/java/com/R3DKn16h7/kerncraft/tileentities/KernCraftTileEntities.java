@@ -1,5 +1,7 @@
 package com.R3DKn16h7.kerncraft.tileentities;
 
+import com.R3DKn16h7.kerncraft.tileentities.machines.*;
+import com.R3DKn16h7.kerncraft.tileentities.utilities.*;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;

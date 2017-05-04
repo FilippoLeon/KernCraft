@@ -89,14 +89,14 @@ public class SmeltingContainer extends MachineContainer<SmeltingTileEntity> {
         IItemHandler input = te.getInput();
         IItemHandler output = te.getOutput();
 
-        for (int i = 0; i < te.getInputCoords().length; ++i) {
+        for (int i = 0; i < te.getInputSize(); ++i) {
             this.addSlotToContainer(
                     createSlotItemHandler(input, i, ItemHandlerCategory.Input,
                             bdLeft + te.getInputCoords()[i][0] * xSlotSize,
                             bdTop + te.getInputCoords()[i][1] * ySlotSize)
             );
         }
-        for (int i = 0; i < te.getOutputCoords().length; ++i) {
+        for (int i = 0; i < te.getOutputSize(); ++i) {
             this.addSlotToContainer(
                     createSlotItemHandler(output, i, ItemHandlerCategory.Output,
                             bdLeft + te.getOutputCoords()[i][0] * xSlotSize,

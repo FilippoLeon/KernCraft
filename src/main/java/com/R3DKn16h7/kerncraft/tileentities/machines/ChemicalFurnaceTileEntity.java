@@ -1,4 +1,4 @@
-package com.R3DKn16h7.kerncraft.tileentities;
+package com.R3DKn16h7.kerncraft.tileentities.machines;
 
 import com.R3DKn16h7.kerncraft.capabilities.element.ElementCapabilities;
 import com.R3DKn16h7.kerncraft.capabilities.element.IElementContainer;
@@ -6,6 +6,7 @@ import com.R3DKn16h7.kerncraft.client.gui.MachineGuiContainer;
 import com.R3DKn16h7.kerncraft.crafting.ChemicalFurnaceRecipe;
 import com.R3DKn16h7.kerncraft.crafting.KernCraftRecipes;
 import com.R3DKn16h7.kerncraft.elements.ElementStack;
+import com.R3DKn16h7.kerncraft.tileentities.SmeltingTileEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Tuple;
 import net.minecraftforge.fluids.FluidStack;
@@ -15,11 +16,22 @@ import java.util.List;
 public class ChemicalFurnaceTileEntity extends SmeltingTileEntity<ChemicalFurnaceRecipe> {
 
     // Slot IDs
-    public static final int[][] inputCoords = {{4, 0}, {5, 0}};
-    public static final int[][] outputCoords = {{4, 2}, {5, 2}};
+    private static final int[][] inputCoords = {{4, 0}, {5, 0}};
+    private static final int[][] outputCoords = {{4, 2}, {5, 2}};
 
     public ChemicalFurnaceTileEntity() {
         super(2);
+    }
+
+
+    @Override
+    public int getInputSize() {
+        return 2;
+    }
+
+    @Override
+    public int getOutputSize() {
+        return 2;
     }
 
     @Override

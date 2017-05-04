@@ -108,7 +108,7 @@ public abstract class MachineBlock extends BlockContainer {
                         this.getUnlocalizedName().substring(5), "inventory"));
     }
 
-    void setGui(int gui) {
+    protected void setGui(int gui) {
         this.gui = gui;
         this.has_gui = true;
     }

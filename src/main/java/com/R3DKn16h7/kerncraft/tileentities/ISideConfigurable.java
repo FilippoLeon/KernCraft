@@ -10,6 +10,10 @@ public interface ISideConfigurable {
 
     int[][] getOutputCoords();
 
+    int getInputSize();
+
+    int getOutputSize();
+
     void setSlotSide(int slotId, int side);
 
     SideConfiguration getSideConfig();

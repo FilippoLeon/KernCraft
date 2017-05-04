@@ -1,6 +1,6 @@
 package com.R3DKn16h7.kerncraft.guicontainer;
 
-import com.R3DKn16h7.kerncraft.tileentities.ExtractorTileEntity;
+import com.R3DKn16h7.kerncraft.tileentities.machines.ExtractorTileEntity;
 import net.minecraft.inventory.IInventory;
 import net.minecraftforge.items.IItemHandler;
 

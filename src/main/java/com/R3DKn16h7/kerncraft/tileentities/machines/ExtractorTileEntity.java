@@ -1,4 +1,4 @@
-package com.R3DKn16h7.kerncraft.tileentities;
+package com.R3DKn16h7.kerncraft.tileentities.machines;
 
 import com.R3DKn16h7.kerncraft.capabilities.element.ElementCapabilities;
 import com.R3DKn16h7.kerncraft.capabilities.element.IElementContainer;
@@ -6,6 +6,7 @@ import com.R3DKn16h7.kerncraft.client.gui.MachineGuiContainer;
 import com.R3DKn16h7.kerncraft.crafting.ExtractorRecipe;
 import com.R3DKn16h7.kerncraft.crafting.KernCraftRecipes;
 import com.R3DKn16h7.kerncraft.elements.ElementStack;
+import com.R3DKn16h7.kerncraft.tileentities.SmeltingTileEntity;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntityFurnace;
@@ -23,8 +24,8 @@ public class ExtractorTileEntity extends SmeltingTileEntity<ExtractorRecipe>
     static final public int catalystSlot = 1;
     static final public int canisterSlot = 2;
     static final public int fuelSlot = 3;
-    public static final int[][] inputCoords = {{1, 0}, {3, 0}, {8, 0}, {1, 0}};
-    public static final int[][] outputCoords = {{5, 2}, {6, 2}, {7, 2}, {8, 2}};
+    private static final int[][] inputCoords = {{1, 0}, {3, 0}, {8, 0}, {1, 0}};
+    private static final int[][] outputCoords = {{5, 2}, {6, 2}, {7, 2}, {8, 2}};
     //// Static constants
     static private final int consumedEnergyPerFuelRefill = 100;
     static private final int consumedFuelPerTic = 20;
@@ -33,6 +34,17 @@ public class ExtractorTileEntity extends SmeltingTileEntity<ExtractorRecipe>
     public ExtractorTileEntity() {
         super(1);
         generatedFuelPerEnergyDrain = TileEntityFurnace.getItemBurnTime(new ItemStack(Items.COAL));
+    }
+
+
+    @Override
+    public int getInputSize() {
+        return 4;
+    }
+
+    @Override
+    public int getOutputSize() {
+        return 4;
     }
 
     @Override

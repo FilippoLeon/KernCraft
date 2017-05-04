@@ -1,6 +1,7 @@
-package com.R3DKn16h7.kerncraft.tileentities;
+package com.R3DKn16h7.kerncraft.tileentities.machines;
 
 import com.R3DKn16h7.kerncraft.network.ModGuiHandler;
+import com.R3DKn16h7.kerncraft.tileentities.MachineBlock;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 

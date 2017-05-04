@@ -1,7 +1,8 @@
-package com.R3DKn16h7.kerncraft.tileentities;
+package com.R3DKn16h7.kerncraft.tileentities.utilities;
 
 import com.R3DKn16h7.kerncraft.KernCraft;
 import com.R3DKn16h7.kerncraft.network.ModGuiHandler;
+import com.R3DKn16h7.kerncraft.tileentities.KernCraftTileEntities;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
@@ -37,7 +38,7 @@ public class LampBlockEntity extends BlockContainer {
      * Constructor, set names, set default params and register to Block register.
      * @param unlocalizedName
      */
-    protected LampBlockEntity(String unlocalizedName) {
+    public LampBlockEntity(String unlocalizedName) {
         super(Material.IRON);
         this.setUnlocalizedName(unlocalizedName);
         this.setHardness(2.0f);

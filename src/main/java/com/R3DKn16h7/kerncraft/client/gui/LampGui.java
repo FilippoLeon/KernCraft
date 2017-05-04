@@ -3,7 +3,7 @@ package com.R3DKn16h7.kerncraft.client.gui;
 import com.R3DKn16h7.kerncraft.client.gui.widgets.*;
 import com.R3DKn16h7.kerncraft.network.KernCraftNetwork;
 import com.R3DKn16h7.kerncraft.network.MessageInt;
-import com.R3DKn16h7.kerncraft.tileentities.LampTileEntity;
+import com.R3DKn16h7.kerncraft.tileentities.utilities.LampTileEntity;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.util.math.BlockPos;
 

@@ -1,6 +1,8 @@
 package com.R3DKn16h7.kerncraft.tileentities;
 
 import com.R3DKn16h7.kerncraft.tileentities.utils.SideConfiguration;
+import com.R3DKn16h7.kerncraft.tileentities.utils.Upgrade;
+import com.R3DKn16h7.kerncraft.tileentities.utils.UpgradeHandler;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
@@ -22,7 +24,7 @@ import javax.annotation.Nullable;
  * Created by Filippo on 14/12/2016.
  */
 public abstract class MachineTileEntity extends TileEntity
-        implements ITickable, ISideConfigurable {
+        implements ITickable, ISideConfigurable, IUpgradeable {
 
     // Capability slot container
     public final ItemStackHandler input;
@@ -32,14 +34,25 @@ public abstract class MachineTileEntity extends TileEntity
 
     // Has the input changed since last check?
     public boolean inputChanged = false;
+    /**
+     * Generic manager for machine upgrades.
+     */
+    private UpgradeHandler upgradeHandler;
 
     public MachineTileEntity() {
         super();
 
-        input = new ItemStackHandler(getInputCoords().length);
-        output = new ItemStackHandler(getOutputCoords().length);
+        input = new ItemStackHandler(getInputSize());
+        output = new ItemStackHandler(getOutputSize());
 
         sideConfig = new SideConfiguration(input, output, this);
+
+        upgradeHandler = new UpgradeHandler();
+    }
+
+    @Override
+    public UpgradeHandler getUpgrade() {
+        return upgradeHandler;
     }
 
     @Nullable
@@ -59,7 +72,8 @@ public abstract class MachineTileEntity extends TileEntity
     public abstract void stop();
 
     public int getTotalSlots() {
-        return getInputCoords().length + getOutputCoords().length;
+
+        return getInput().getSlots() + getOutput().getSlots();
     }
 
     public ItemStackHandler getInput() {
@@ -102,11 +116,23 @@ public abstract class MachineTileEntity extends TileEntity
     }
 
     @Override
+    public void AddUpgrade(Upgrade upgrade) {
+        getUpgrade().add(upgrade);
+        resizeSlots();
+    }
+
+    private void resizeSlots() {
+        input.setSize(getInputSize());
+        output.setSize(getOutputSize());
+    }
+
+    @Override
     public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
         nbt = super.writeToNBT(nbt);
         nbt.setTag("Input", input.serializeNBT());
         nbt.setTag("Output", output.serializeNBT());
         nbt.setTag("sideConfiguration", sideConfig.serializeNBT());
+        nbt.setTag("Upgrades", getUpgrade().serializeNBT());
         return nbt;
     }
 
@@ -120,6 +146,9 @@ public abstract class MachineTileEntity extends TileEntity
             }
             if (nbt.hasKey("sideConfiguration")) {
                 sideConfig.deserializeNBT(nbt.getCompoundTag("sideConfiguration"));
+            }
+            if (nbt.hasKey("Upgrades")) {
+                getUpgrade().deserializeNBT(nbt.getCompoundTag("Upgrades"));
             }
         }
     }

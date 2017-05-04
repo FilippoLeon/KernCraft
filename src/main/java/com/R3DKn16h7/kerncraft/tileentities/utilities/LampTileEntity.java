@@ -1,5 +1,8 @@
-package com.R3DKn16h7.kerncraft.tileentities;
+package com.R3DKn16h7.kerncraft.tileentities.utilities;
 
+import com.R3DKn16h7.kerncraft.tileentities.IMessageIntReceiver;
+import com.R3DKn16h7.kerncraft.tileentities.IRedstoneSettable;
+import com.R3DKn16h7.kerncraft.tileentities.KernCraftTileEntities;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;

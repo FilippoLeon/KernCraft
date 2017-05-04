@@ -1,6 +1,6 @@
 package com.R3DKn16h7.kerncraft.guicontainer;
 
-import com.R3DKn16h7.kerncraft.tileentities.ElectrolyzerTileEntity;
+import com.R3DKn16h7.kerncraft.tileentities.machines.ElectrolyzerTileEntity;
 import net.minecraft.inventory.IInventory;
 
 /**

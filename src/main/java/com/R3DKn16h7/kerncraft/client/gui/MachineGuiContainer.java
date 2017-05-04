@@ -154,7 +154,8 @@ public class MachineGuiContainer extends AdvancedGuiContainer {
 
         // Side configuration button
         int I = 0;
-        for (int[] inputCoord : side_te.getInputCoords()) {
+        for (int inputIdx = 0; inputIdx < side_te.getInputSize(); ++inputIdx) {
+            int[] inputCoord = side_te.getInputCoords()[inputIdx];
             int T1 = I;
             IntConsumer onSlotConfigurationChanged = (int state) -> {
                 side_te.setSlotSide(T1, state);
@@ -174,7 +175,8 @@ public class MachineGuiContainer extends AdvancedGuiContainer {
             btbX.setState(side_te.getSideConfig().getSlotSide(I++).getValue());
             AddWidget(btbX, true);
         }
-        for (int[] outputCoord : side_te.getOutputCoords()) {
+        for (int outputIdx = 0; outputIdx < side_te.getOutputSize(); ++outputIdx) {
+            int[] outputCoord = side_te.getOutputCoords()[outputIdx];
             int T1 = I;
             IntConsumer onSlotConfigurationChanged = (int state) -> {
                 side_te.setSlotSide(T1, state);

@@ -1,4 +1,4 @@
-package com.R3DKn16h7.kerncraft.tileentities;
+package com.R3DKn16h7.kerncraft.tileentities.utilities;
 
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
@@ -22,7 +22,7 @@ public class ClockBlockEntity extends BlockContainer {
 
     public static final PropertyInteger TIME = PropertyInteger.create("time", 0, 15);
 
-    protected ClockBlockEntity() {
+    public ClockBlockEntity() {
         super(Material.IRON);
         String name = "clock";
         this.setUnlocalizedName(name);

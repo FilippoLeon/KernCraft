@@ -1,9 +1,10 @@
-package com.R3DKn16h7.kerncraft.tileentities;
+package com.R3DKn16h7.kerncraft.tileentities.machines;
 
 import com.R3DKn16h7.kerncraft.capabilities.element.ElementCapabilities;
 import com.R3DKn16h7.kerncraft.capabilities.element.IElementContainer;
 import com.R3DKn16h7.kerncraft.client.gui.MachineGuiContainer;
 import com.R3DKn16h7.kerncraft.crafting.ISmeltingRecipe;
+import com.R3DKn16h7.kerncraft.tileentities.SmeltingTileEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Tuple;
 
@@ -17,6 +18,17 @@ public class FillerTileEntity extends SmeltingTileEntity {
 
     public FillerTileEntity() {
         super(1);
+    }
+
+
+    @Override
+    public int getInputSize() {
+        return 4;
+    }
+
+    @Override
+    public int getOutputSize() {
+        return 4;
     }
 
     @Override
@@ -68,7 +80,7 @@ public class FillerTileEntity extends SmeltingTileEntity {
 
         // TODO
         int amount = 0;
-        for (int i = 0; i < getInputCoords().length; ++i) {
+        for (int i = 0; i < getInputSize(); ++i) {
             int maxTotAmount = 100;
 
             ItemStack from = getInput().getStackInSlot(i);
@@ -97,7 +109,7 @@ public class FillerTileEntity extends SmeltingTileEntity {
     @Override
     public void doneSmelting() {
         // TODO
-        for (int i = 0; i < getInputCoords().length; ++i) {
+        for (int i = 0; i < getInputSize(); ++i) {
             int maxTotAmount = 100;
 
             ItemStack from = getInput().getStackInSlot(i);
