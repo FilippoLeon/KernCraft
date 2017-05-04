@@ -10,10 +10,16 @@ import net.minecraftforge.items.ItemStackHandler;
 
 /**
  * Created by Filippo on 14/12/2016.
+ *
+ * Generic Machine class. Implemets basic control, such as  slots,
+ * redstone control, registering and yadayada.
  */
 public abstract class MachineTileEntity extends TileEntity
         implements ITickable {
 
+    /**
+     * Input slots.
+     */
     public final ItemStackHandler input;
     public final ItemStackHandler output;
     private final int inputSize;
@@ -38,6 +44,12 @@ public abstract class MachineTileEntity extends TileEntity
         return output;
     }
 
+    /**
+     * Returns capability depending on state.
+     * @param capability
+     * @param facing
+     * @return
+     */
     @Override
     public boolean hasCapability(Capability<?> capability,
                                  EnumFacing facing) {
