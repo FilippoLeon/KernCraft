@@ -1,0 +1,60 @@
+2017-05-04  F. <>
+    * ADD: more fluids for machines
+    * Better support for fluids in machines
+    * Dynamic sized textures
+    * Lithium day and special stones, grass days
+    * Refactoring package
+    * Material support: new salts
+
+2017-05-03  F. <>
+    * Helium and Dirt day, descriptions and recipes
+    * New element names, localized
+
+2017-05-02  F. <>
+    * As of now, each day will be an element day. Today's element: our dearly beloved H.
+    * Also each day will be a vanilla item day. Today: stone
+    * Improved details on H
+    * More i18n
+    * Crafting recipes for Manual
+    * Improved manual BBcode
+
+2017-05-01  F. <>
+    * Logo
+    * Config file and GUI
+    * FIX: sync capabilities with client on dedicated servers
+    * New "alchemist rings"
+    * ElementShapedRecipe to craft with elements on crafting table
+    * JEI integration for ElementShapedRecipe
+    * Disabled sounds for now
+    * Improved GUIs (JEI and Machines)
+    * FIX: textures now correct for machines
+    * Improved OreDict support in recipes
+
+2017-04-30  F. <>
+    * Fixed JEI recipes
+    * FIX: crash when Tesla was missing
+    * Minor fixes and improvements
+
+2017-04-27  F. <>
+    * Pressure cell
+    * Erlenmeyer Flask
+    * Initial support for sounds
+    * New machines: Filler, Centrifuge, and Electorlyzer
+    * Recipes reader improved
+    * Fix some crash
+
+2017-04-24  F. <>
+    * Unify energy, wrapper around forge (for items)
+    * Send fluid nbt data to client when interface is open
+    * Fix potato battery
+    * Deprecate addAmount to ElementContainer to specify Entity, check if crit. mass reached
+    * Add chem. furn. JEI integration
+    * Refactoring Element
+    * Xml Recipes
+
+2017-04-23  F. <>
+    * KernCraft is in a decent state
+    * Some basic way to have machines
+    * Some basic way to have elements
+    * Some basic manual feature
+    * Some useful item: detector, lamp, time machine and portable beacon

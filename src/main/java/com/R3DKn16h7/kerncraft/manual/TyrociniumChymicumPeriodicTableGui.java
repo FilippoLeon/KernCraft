@@ -2,9 +2,11 @@ package com.R3DKn16h7.kerncraft.manual;
 
 import com.R3DKn16h7.kerncraft.client.gui.widgets.BetterButton;
 import com.R3DKn16h7.kerncraft.client.gui.widgets.Widget;
-import com.R3DKn16h7.kerncraft.elements.ElementBase;
+import com.R3DKn16h7.kerncraft.elements.Element;
+import com.R3DKn16h7.kerncraft.elements.ElementRegistry;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.util.ResourceLocation;
 import org.apache.commons.lang3.StringUtils;
 
@@ -19,7 +21,8 @@ import java.util.List;
 public class TyrociniumChymicumPeriodicTableGui extends TyrociniumChymicumGui {
 
     static int STARTING_ID = 20;
-    private ArrayList<GuiButton> periodicButtonList = new ArrayList<GuiButton>(ElementBase.NUMBER_OF_ELEMENTS);
+    private ArrayList<GuiButton> periodicButtonList =
+            new ArrayList<>(ElementRegistry.NUMBER_OF_ELEMENTS);
 
     public TyrociniumChymicumPeriodicTableGui() {
 
@@ -42,13 +45,13 @@ public class TyrociniumChymicumPeriodicTableGui extends TyrociniumChymicumGui {
         int b = 0;
         int padLeft = guiLeft + 10;
         int padTop = guiTop + 20;
-        for (ElementBase.Element element : ElementBase.getElements()) {
+        for (Element element : ElementRegistry.getElements()) {
             int g = element.group;
             int p = element.period;
-            if (g == ElementBase.GROUP.Actinide.getValue()) {
+            if (g == Element.Group.ACTINIDE.getValue()) {
                 g = 3 + a++;
                 p += 3;
-            } else if (g == ElementBase.GROUP.Lanthanide.getValue()) {
+            } else if (g == Element.Group.LANTHANIDE.getValue()) {
                 g = 3 + b++;
                 p += 3;
             }
@@ -71,8 +74,8 @@ public class TyrociniumChymicumPeriodicTableGui extends TyrociniumChymicumGui {
     @Override
     protected void actionPerformed(GuiButton button) throws IOException {
         super.actionPerformed(button);
-        if (button.id >= STARTING_ID && button.id < STARTING_ID + ElementBase.NUMBER_OF_ELEMENTS) {
-            mc.displayGuiScreen(new TyrociniumChymicumElementGui(ElementBase.getElement(button.id - STARTING_ID + 1)));
+        if (button.id >= STARTING_ID && button.id < STARTING_ID + ElementRegistry.NUMBER_OF_ELEMENTS) {
+            mc.displayGuiScreen(new TyrociniumChymicumElementGui(ElementRegistry.getElement(button.id - STARTING_ID + 1)));
         }
     }
 
@@ -89,26 +92,29 @@ public class TyrociniumChymicumPeriodicTableGui extends TyrociniumChymicumGui {
     }
 
     @Override
+    public String getTitle() {
+        return I18n.format("manual.title.periodic_table");
+    } // "of Elements"
+
+    @Override
     public void drawScreen(int par1, int par2, float par3) {
         super.drawScreen(par1, par2, par3);
-
 
         List<String> str = new ArrayList<String>();
         for (GuiButton btn : periodicButtonList) {
             if (par1 > btn.xPosition && par1 < btn.xPosition + btn.width &&
                     par2 > btn.yPosition && par2 < btn.yPosition + btn.height) {
-                ElementBase.Element elem = ElementBase.getElement(btn.id - STARTING_ID + 1);
+                Element elem = ElementRegistry.getElement(btn.id - STARTING_ID + 1);
 
 
                 String formatting = elem.state.toColor();
 
-                str.add(formatting + StringUtils.capitalize(elem.name) + " (" + elem.symbol + ")");
+                str.add(formatting + StringUtils.capitalize(elem.getName()) + " (" + elem.symbol + ")");
                 str.add(formatting + "Element " + elem.id);
                 break;
             }
         }
         drawHoveringText(str, par1, par2);
-
     }
 
 }

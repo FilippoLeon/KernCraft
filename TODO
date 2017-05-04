@@ -1,0 +1,54 @@
+SUper high priority:
+    - battery
+    - fluids in Extractor
+    - waila
+    - take first available input for anode/cathode and for extractor inputs?
+    - two inputs for electrolyzer? (maybe with upgrade?)
+    - upgrade system
+
+High priority:
+    - FIX: add progress bar to Chemical Furnace
+    - FIX: time machine find way to activate/deactivate
+    - More XMl recipes? improvements
+    - Filtering slots for input, make inputs go in the correct place when shift clicked
+    - ADD: more recipes for Electrolyzer/Centrifuge etc...
+    - ADD: way do disable/enable energy/fluid storage at runtime
+    - Attach proper decay to ElementContainer?
+    - CHANGE: use generics for JEI Gui stuffs
+    - JEI add nicer energy water and cost information
+    - FIX: wrong JEI display of energy and water consumption
+    - FIX: tint of fluid inside machines
+    - ADD: element capabilities to Alchemist Ring
+    - ADD: recipe for H and O using Item Electrolyzer
+    - ADD: element as output for recipe
+    - ADD: shapeless element recipe
+    - ADD: images into manual? mhhhh we'll see
+    - ADD: extractor fluids usage, production
+    - ADD: more outputs for electrolyzer?
+    - ADD: generic battery refueling your inventory (bauble)
+
+Soon:
+    - Unify energy, wrapper around forge energy with tesla, possibly cofh?
+    - Figure a way to deal with half life. Store NBT data
+    with last update timestamp
+    and (to add to capability, so it is checked on addAmount?
+    Store timestamp + tick up or something?
+    - Glassware? New container feature, suck as stabilizer, gas/liquid/solid, containment, isolation.
+    - Sync lamp GUI when open
+    - NEW: a variable redstone signal emitter
+    - NEW: an lithium-zinc battery and magnesium-sodium? Or generic battery,
+    using pair of elements and maybe a "container" which gives very different properties.
+    - improve oreDict integration for recipes
+    - localizations for elements, likely setup an extra file just for elements
+    - Waila support
+
+Soonish:
+    - ADD: write manual pages
+    - ADD: write recipes (XMl, Shaped and Shapeless)
+    - ADD: README page with demo images
+    - ADD: support for wrenches
+    - ADD: air compressor?
+
+Maybe never:
+    - isotopes and molecules
+    - sounds

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Elements>
+    <Element symbol="H">
+        <Description lang="en_us">
+            [b][blue]Hydrogen[/b] is the simplest element you can think of. In its common
+            form it's made out of a single [red]Proton[reset], with, most of the time,
+            an [gold]Electron[reset]
+            wandering around like a moon. However, it can be found
+            in two rare variants: [b]Deuterium[/b] (with a single [green]Neutron[reset] and
+            a single [red]Proton[reset]) and [b]Tritium[/b], which is made out of a Neutron
+            and two Protons.
+            [p/]
+            Most of the Universe (say 75%) is made out of Hydrogen. On [s]Earth[/s] Mineworld,
+            most of the Hydrogen is in its bi-atomic form H_2, which consists of two atoms
+            of Hydrogen glued together trough what is known (with a fancy term) as
+            [b]Covalent bound[/b].
+            This just means that the two Hydrogen atoms share (most of the time happily)
+            their own Electrons.
+            [p/]
+            Hydrogen is odorless, colorless (why can't we just say it's transparent?)
+            and tasteless (yes, you've read this correctly).
+            [p/]
+            The [u]novel chemist[u/] might want to obtain [blue]Hydrogen[reset]
+            as first thing. Hydrogen is easy to obtain: you just need a source of electricity
+            (somebody said potato?) and some fresh water. The idea is the following:
+            a molecule of Water (H_20 for short) is made out of two atoms of Hydrogen
+            and one of [b]Oxygen[/b]. Those two atoms are glued together.
+            We just need to pull them
+            apart using electricity and observe the magic as it happens.
+            [p/]
+            [u]Precautions:[u/][br/]
+            [li] [red]Explosive[reset]: Hydrogen is dangerous and together with Oxygen
+            and a spark it causes a violent explosion.
+            If you do not believe me, look up the Wikipedia page for Hindenburg disaster.
+            [br/]
+            [li] [magenta]Not tasty[reset]: yeah, do not use Hydrogen as salad dressing.
+            [br/]
+            [u]Uses:[u/][br/]
+            [li] [red]Fuel[reset]: due to his high reactivity it is very useful as
+            fuel. In particular for rockets. But also for cars. It is also very light,
+            so you can use it to fill your Zeppelin (strongly discouraged, see above).
+            The nice thing is that the discarded element from Hydrogen combustion is just
+            Water.
+            [br/]
+            [u]Obtained from:[u/][br/]
+            [li] [blue]Water[reset]: using water electrolysis
+            [br/]
+            [li] [gold]Methane[reset][br/]
+            [li] [red]Stars[reset]: just need to reach for the sun and grab an handful.
+        </Description>
+    </Element>
+    <Element symbol="He">
+        <Description lang="en_us">
+            [b][blue]Helium[/b] is the second element of the periodic table.
+            [br/]
+            [u]Uses:[u/][br/]
+            [li] [red]Cryogenics[reset]: being liquid at even the smallest temperatures
+            (Helium melts at [blue]1K[reset], but only with high pressure),
+            Helium is quite useful to cool down stuff,
+            without solidifying or condensing. This can be used to cool
+            down superconductors (that can
+            be used to power very strong magnets).
+            [br/]
+            [li] [red]Balloons[reset]: since helium is quite light, it can be used to
+            lift balloons into the air.
+            [u]Obtained from:[u/][br/]
+            [li] [blue]Air[reset]: Helium can be extracted from earths atmosphere
+            using its lightness and low boiling point.
+            [li] [red]Stars[reset]: stars contain a big quantity of Helium.
+        </Description>
+    </Element>
+</Elements>

@@ -1,19 +1,43 @@
 {
+  "forge_marker": 1,
+  "defaults": {
+    "textures": {
+      "top": "kerncraft:blocks/extractor_top",
+      "front": "kerncraft:blocks/extractor_front_off",
+      "side": "kerncraft:blocks/extractor_side"
+    },
+    "model": "kerncraft:extractor",
+    "uvlock": true
+  },
   "variants": {
-    "facing=north": {
-      "model": "kerncraft:extractor"
+    "powered": {
+      "true": {
+        "textures": {
+          "front": "kerncraft:blocks/extractor_front_on"
+        }
+      },
+      "false": {
+        "textures": {
+          "front": "kerncraft:blocks/extractor_front_off"
+        }
+      }
     },
-    "facing=south": {
-      "model": "kerncraft:extractor",
-      "y": 180
-    },
-    "facing=west": {
-      "model": "kerncraft:extractor",
-      "y": 270
-    },
-    "facing=east": {
-      "model": "kerncraft:extractor",
-      "y": 90
+    "facing": {
+      "north": {
+        "model": "kerncraft:extractor"
+      },
+      "south": {
+        "model": "kerncraft:extractor",
+        "y": 180
+      },
+      "west": {
+        "model": "kerncraft:extractor",
+        "y": 270
+      },
+      "east": {
+        "model": "kerncraft:extractor",
+        "y": 90
+      }
     }
   }
 }

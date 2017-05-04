@@ -1,19 +1,43 @@
 {
+  "forge_marker": 1,
+  "defaults": {
+    "textures": {
+      "top": "kerncraft:blocks/extractor_top",
+      "front": "kerncraft:blocks/chemical_furnace_front_off",
+      "side": "kerncraft:blocks/extractor_side"
+    },
+    "model": "kerncraft:chemical_furnace",
+    "uvlock": true
+  },
   "variants": {
-    "facing=north": {
-      "model": "kerncraft:chemical_furnace"
+    "powered": {
+      "true": {
+        "textures": {
+          "front": "kerncraft:blocks/chemical_furnace_front_on"
+        }
+      },
+      "false": {
+        "textures": {
+          "front": "kerncraft:blocks/chemical_furnace_front_off"
+        }
+      }
     },
-    "facing=south": {
-      "model": "kerncraft:chemical_furnace",
-      "y": 180
-    },
-    "facing=west": {
-      "model": "kerncraft:chemical_furnace",
-      "y": 270
-    },
-    "facing=east": {
-      "model": "kerncraft:chemical_furnace",
-      "y": 90
+    "facing": {
+      "north": {
+        "model": "kerncraft:chemical_furnace"
+      },
+      "south": {
+        "model": "kerncraft:chemical_furnace",
+        "y": 180
+      },
+      "west": {
+        "model": "kerncraft:chemical_furnace",
+        "y": 270
+      },
+      "east": {
+        "model": "kerncraft:chemical_furnace",
+        "y": 90
+      }
     }
   }
 }

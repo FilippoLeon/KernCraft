@@ -19,7 +19,7 @@ public class MessageRedstoneControlHandler implements IMessageHandler<MessageRed
         TileEntity te = player.world.getTileEntity(message.pos);
         if (te instanceof IRedstoneSettable) {
 
-            ((IRedstoneSettable) te).setMode(message.mode);
+            ((IRedstoneSettable) te).setRedstoneMode(message.mode);
         }
         // TODO: handle any tile entity
         return null;

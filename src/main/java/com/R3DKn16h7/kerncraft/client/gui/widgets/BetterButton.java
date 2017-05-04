@@ -1,6 +1,6 @@
 package com.R3DKn16h7.kerncraft.client.gui.widgets;
 
-import com.R3DKn16h7.kerncraft.client.gui.IAdvancedGuiContainer;
+import com.R3DKn16h7.kerncraft.client.gui.IAdvancedGui;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
@@ -27,7 +27,7 @@ public class BetterButton extends GuiButton implements IWidget {
     Widget.Alignment alignment = Widget.Alignment.LEFT;
     private int yRelPosition;
     private int xRelPosition;
-    private IAdvancedGuiContainer container;
+    private IAdvancedGui container;
     private int xIcon;
     private int yIcon;
     private int xIconSize;
@@ -44,7 +44,7 @@ public class BetterButton extends GuiButton implements IWidget {
     private String tooltip;
     private Runnable runnable;
 
-    public BetterButton(IAdvancedGuiContainer container, int id, int x, int y,
+    public BetterButton(IAdvancedGui container, int id, int x, int y,
                         int widthIn, int heightIn) {
         super(id, x, y, widthIn, heightIn, "");
         this.container = container;
@@ -52,7 +52,7 @@ public class BetterButton extends GuiButton implements IWidget {
         this.yRelPosition = y;
     }
 
-    public BetterButton(IAdvancedGuiContainer container, int x, int y,
+    public BetterButton(IAdvancedGui container, int x, int y,
                         int widthIn, int heightIn) {
         super(container.nextId(), x, y, widthIn, heightIn, "");
         this.container = container;
@@ -60,7 +60,8 @@ public class BetterButton extends GuiButton implements IWidget {
         this.yRelPosition = y;
     }
 
-    public BetterButton(IAdvancedGuiContainer container, int x, int y) {
+    public BetterButton(IAdvancedGui container, int x, int y) {
+
         this(container, x, y, 200, 20);
     }
 
@@ -76,7 +77,8 @@ public class BetterButton extends GuiButton implements IWidget {
     }
 
     public BetterButton setSize(int xSize, int ySize) {
-
+        this.width = xSize;
+        this.height = ySize;
         return this;
     }
 
@@ -125,7 +127,6 @@ public class BetterButton extends GuiButton implements IWidget {
         if (hover) {
             this.textHoverColor = textColor;
         } else {
-
             this.textColor = textColor;
         }
         return this;
@@ -184,7 +185,9 @@ public class BetterButton extends GuiButton implements IWidget {
             int j = 14737632;
             if (textColor != null) j = textColor.getRGB();
 
-            if (packedFGColour != 0) {
+            if (has_icon && !this.hovered) {
+                j = 10526880;
+            } else if (packedFGColour != 0) {
                 j = packedFGColour;
             } else if (!this.enabled) {
                 j = 10526880;
@@ -210,6 +213,7 @@ public class BetterButton extends GuiButton implements IWidget {
             }
 
             if (has_icon) {
+                GlStateManager.resetColor();
                 mc.getTextureManager().bindTexture(ICON_TEXTURES);
                 if (this.displayString.equals("") && Text.Alignment.MIDDLE == alignment) {
                     this.drawTexturedModalRect(xAbsPosition + (this.width - 16) / 2, yAbsPosition + (this.height - 16) / 2,
@@ -234,6 +238,9 @@ public class BetterButton extends GuiButton implements IWidget {
         return yPosition;
     }
 
+    /**
+     * A button is automatically added to the container
+     */
     @Override
     public void init() {
         container.add(this);

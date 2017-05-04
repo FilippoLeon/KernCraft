@@ -2,7 +2,7 @@
   "forge_marker": 1,
   "defaults": {
     "textures": {
-      "all": "kerncraft:blocks/test_block"
+      "all": "kerncraft:blocks/variadic_lamp"
     },
     "model": "cube_all",
     "uvlock": true
@@ -11,42 +11,42 @@
     "lightlevel": {
       "0": {
         "textures": {
-          "all": "kerncraft:blocks/test_block"
+          "all": "kerncraft:blocks/variadic_lamp"
         }
       },
       "1": {
         "textures": {
-          "side": "kerncraft:blocks/test_block"
+          "all": "kerncraft:blocks/variadic_lamp"
         }
       },
       "2": {
         "textures": {
-          "side": "kerncraft:blocks/test_block"
+          "all": "kerncraft:blocks/variadic_lamp"
         }
       },
       "3": {
         "textures": {
-          "side": "kerncraft:blocks/test_block"
+          "all": "kerncraft:blocks/variadic_lamp"
         }
       },
       "4": {
         "textures": {
-          "side": "kerncraft:blocks/test_block"
+          "all": "kerncraft:blocks/variadic_lamp"
         }
       },
       "5": {
         "textures": {
-          "side": "kerncraft:blocks/test_block"
+          "all": "kerncraft:blocks/variadic_lamp"
         }
       },
       "6": {
         "textures": {
-          "side": "kerncraft:blocks/test_block"
+          "all": "kerncraft:blocks/variadic_lamp"
         }
       },
       "7": {
         "textures": {
-          "side": "kerncraft:blocks/test_block"
+          "all": "kerncraft:blocks/variadic_lamp"
         }
       },
       "8": {

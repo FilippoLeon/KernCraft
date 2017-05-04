@@ -1,0 +1,63 @@
+{
+  "parent": "builtin/generated",
+  "textures": {
+    "layer0": "kerncraft:items/flask"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "color": 1
+      },
+      "model": "kerncraft:item/flasks/black"
+    },
+    {
+      "predicate": {
+        "color": 2
+      },
+      "model": "kerncraft:item/flasks/white"
+    },
+    {
+      "predicate": {
+        "color": 3
+      },
+      "model": "kerncraft:item/flasks/gray"
+    },
+    {
+      "predicate": {
+        "color": 4
+      },
+      "model": "kerncraft:item/flasks/yellow"
+    },
+    {
+      "predicate": {
+        "color": 5
+      },
+      "model": "kerncraft:item/flasks/blue"
+    },
+    {
+      "predicate": {
+        "color": 6
+      },
+      "model": "kerncraft:item/flasks/red"
+    }
+  ],
+  "display": {
+    "ground": {
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "translation": [
+        0.00,
+        0.00,
+        0.00
+      ],
+      "scale": [
+        0.25,
+        0.25,
+        0.25
+      ]
+    }
+  }
+}

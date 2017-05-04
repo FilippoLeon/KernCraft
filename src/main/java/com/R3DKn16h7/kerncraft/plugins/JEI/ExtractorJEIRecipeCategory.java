@@ -1,6 +1,6 @@
 package com.R3DKn16h7.kerncraft.plugins.JEI;
 
-import com.R3DKn16h7.kerncraft.items.ModItems;
+import com.R3DKn16h7.kerncraft.items.KernCraftItems;
 import mcp.MethodsReturnNonnullByDefault;
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.*;
@@ -19,16 +19,17 @@ import java.util.List;
  * Created by filippo on 23/11/16.
  */
 public class ExtractorJEIRecipeCategory implements IRecipeCategory {
+    public static final String CATEGORY_UID = "kerncraft.extractor";
     protected static final int inputSlot = 1;
     protected static final int catalystSlot = 2;
     protected static final int canisterSlot = 3;
     protected static final int fuelSlot = 4;
     protected static final int outputSlotStart = 5;
     protected static final int outputSlotSize = 4;
-    public final String CATEGORY_UID = "kerncraft.extractor";
     protected final ResourceLocation backgroundLocation;
     protected final IDrawableAnimated flame;
-    protected final IDrawableAnimated arrow;
+    protected final IDrawableAnimated brewing;
+    //    protected final IDrawableAnimated arrow;
     private final IDrawable background;
     private final String localizedName;
 
@@ -41,16 +42,22 @@ public class ExtractorJEIRecipeCategory implements IRecipeCategory {
         flame = guiHelper.createAnimatedDrawable(flameDrawable,
                 300, IDrawableAnimated.StartDirection.TOP, true);
 
-        IDrawableStatic arrowDrawable = guiHelper.createDrawable(backgroundLocation,
-                176, 14, 24, 17);
-        this.arrow = guiHelper.createAnimatedDrawable(arrowDrawable,
-                200, IDrawableAnimated.StartDirection.LEFT, false);
+//        IDrawableStatic arrowDrawable = guiHelper.createDrawable(backgroundLocation,
+//                176, 14, 24, 17);
+//        this.arrow = guiHelper.createAnimatedDrawable(arrowDrawable,
+//                200, IDrawableAnimated.StartDirection.LEFT, false);
 
         ResourceLocation location =
                 new ResourceLocation(
                         "kerncraft:textures/gui/container/extractor_gui.png");
+
+        IDrawableStatic brewingDrawable = guiHelper.createDrawable(location,
+                182, 0, 12, 28);
+        brewing = guiHelper.createAnimatedDrawable(brewingDrawable,
+                100, IDrawableAnimated.StartDirection.BOTTOM, false);
+
         background = guiHelper.createDrawable(location,
-                7, 16, 163, 54);
+                7, 16, 163, 57);
         localizedName = "Extractor";
     }
 
@@ -77,35 +84,10 @@ public class ExtractorJEIRecipeCategory implements IRecipeCategory {
 
     @Override
     public void drawExtras(Minecraft minecraft) {
-
-    }
-
-//    @Override
-//    public void drawAnimations(Minecraft minecraft) {
-//        flame.draw(minecraft, 2 + 18, 2 + 18 * 1);
+        flame.draw(minecraft, 2 + 18, 2 + 18 * 1);
 //        arrow.draw(minecraft, 18 + 18 * 2, 18 * 2);
-//    }
-
-//    @Override
-//    public void setRecipe(IRecipeLayout recipeLayout,
-//                          IRecipeWrapper recipeWrapper, IIngredients ingr) {
-//        IGuiItemStackGroup guiItemStacks = recipeLayout.getItemStacks();
-//
-//        guiItemStacks.init(inputSlot, true, 0, 0);
-//        guiItemStacks.init(catalystSlot, false, 60, 18);
-//        guiItemStacks.init(canisterSlot, false, 1200, 18);
-//
-//
-//        IIngredients ingredients = null;
-//        recipeWrapper.getIngredients(ingredients);
-//        int i = -1;
-//        guiItemStacks.set(inputSlot, ingredients.getInputs(ItemStack.class).get(++i));
-//        if(ingredients.getInputs(ItemStack.class).size() > 1)
-//            guiItemStacks.set(catalystSlot,
-//                    ingredients.getInputs(ItemStack.class).get(++i));
-//        guiItemStacks.set(canisterSlot, new ItemStack(ModItems.CANISTER));
-//        //guiItemStacks.set(outputSlot, ingredients.getOutputs(ItemStack.class).get(0));
-//    }
+        brewing.draw(minecraft, 18 + 3 + 18 * 2, 18 + 12);
+    }
 
     @Override
     public void setRecipe(IRecipeLayout recipeLayout,
@@ -124,14 +106,14 @@ public class ExtractorJEIRecipeCategory implements IRecipeCategory {
         if(((ExtractorJEIRecipeWrapper) recipeWrapper).recipe.catalyst != null)
             guiItemStacks.set(catalystSlot,
                     ingredients.getInputs(ItemStack.class).get(++i));
-        guiItemStacks.set(canisterSlot, new ItemStack(ModItems.CANISTER));
+        guiItemStacks.set(canisterSlot, new ItemStack(KernCraftItems.CANISTER));
 
         List<List<ItemStack>> outs = ingredients.getOutputs(ItemStack.class);
         int min = Math.min(outs.size(), outputSlotSize);
         for (int j = 0; j < min; ++j) {
             guiItemStacks.init(j + outputSlotStart,
                     false, 0 + 18 * (j + 5), 18 * 2);
-            ItemStack item = outs.get(0).get(j);
+            ItemStack item = outs.get(j).get(0);
             if (item != null)
                 guiItemStacks.set(j + outputSlotStart, item);
         }
@@ -141,7 +123,7 @@ public class ExtractorJEIRecipeCategory implements IRecipeCategory {
     @MethodsReturnNonnullByDefault
     public List<String> getTooltipStrings(int mouseX, int mouseY) {
         ArrayList a = new ArrayList<String>();
-        a.add("");
+        //a.add("Extractor recipes");
         return a;
     }
 }

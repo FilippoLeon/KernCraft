@@ -15,6 +15,8 @@ public class TexturedElement extends Widget {
     public ResourceLocation textureLocation;
     public int offsetX, offsetY;
     public Color tint;
+    public boolean dynamicSize = false;
+    public int xTextureSize, yTextureSize;
 
     public TexturedElement(AdvancedGuiContainer container, String texture,
                            int xPosition, int yPosition,
@@ -25,6 +27,22 @@ public class TexturedElement extends Widget {
         // Offset within texture
         this.offsetX = offsetX;
         this.offsetY = offsetY;
+        this.xTextureSize = xSize;
+        this.yTextureSize = ySize;
+        this.tint = null;
+    }
+
+    public static TexturedElement ENERGY_BAR_BACKGROUND(AdvancedGuiContainer container,
+                                                        int xPosition, int yPosition) {
+        return new TexturedElement(container, "kerncraft:textures/gui/container/extractor_gui.png",
+                xPosition, yPosition, 8, 3 * DEFAULT_SLOT_SIZE_Y,
+                7, 16);
+
+    }
+
+    public TexturedElement setDynamicSized() {
+        this.dynamicSize = true;
+        return this;
     }
 
     public TexturedElement setTint(Color tint) {
@@ -37,9 +55,7 @@ public class TexturedElement extends Widget {
         if (!(container instanceof GuiScreen)) {
             return;
         }
-        GuiScreen C = (GuiScreen) container;
-
-        C.mc.getTextureManager().bindTexture(textureLocation);
+        GuiScreen guiScreen = (GuiScreen) container;
 
         if (tint != null) {
             GlStateManager.color(tint.getRed() / 255.f,
@@ -48,9 +64,32 @@ public class TexturedElement extends Widget {
                     1.0F);
         }
 
-        C.drawTexturedModalRect(xPosition, yPosition,
-                offsetX, offsetY,
-                xSize, ySize);
+        guiScreen.mc.getTextureManager().bindTexture(textureLocation);
+
+
+        if (dynamicSize) {
+            int xPadding = xSize % 2;
+            int yPadding = ySize % 2;
+            guiScreen.drawTexturedModalRect(xPosition, yPosition,
+                    offsetX, offsetY,
+                    xSize / 2, ySize / 2);
+            guiScreen.drawTexturedModalRect(xPosition + xSize / 2, yPosition,
+                    offsetX + (xTextureSize - xSize / 2) - xPadding, offsetY,
+                    xSize / 2 + xPadding, ySize / 2);
+            guiScreen.drawTexturedModalRect(xPosition, yPosition + ySize / 2,
+                    offsetX, offsetY + (yTextureSize - ySize / 2) - yPadding,
+                    xSize / 2, ySize / 2 + yPadding);
+            guiScreen.drawTexturedModalRect(xPosition + xSize / 2, yPosition + ySize / 2,
+                    offsetX + (xTextureSize - xSize / 2) - xPadding, offsetY + (yTextureSize - ySize / 2) - yPadding,
+                    xSize / 2 + xPadding, ySize / 2 + yPadding);
+        } else {
+            guiScreen.drawTexturedModalRect(xPosition, yPosition,
+                    offsetX, offsetY,
+                    xSize, ySize);
+        }
+
+        GlStateManager.resetColor();
+
     }
 
 }

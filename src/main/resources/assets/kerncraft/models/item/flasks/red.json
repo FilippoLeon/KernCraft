@@ -1,0 +1,7 @@
+{
+  "parent": "builtin/generated",
+  "textures": {
+    "layer0": "kerncraft:items/flask",
+    "layer1": "kerncraft:items/flask_content/red"
+  }
+}

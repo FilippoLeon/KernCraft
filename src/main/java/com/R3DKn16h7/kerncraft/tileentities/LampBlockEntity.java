@@ -9,10 +9,8 @@ import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
@@ -22,7 +20,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -46,20 +43,15 @@ public class LampBlockEntity extends BlockContainer {
         this.setHardness(2.0f);
         this.setResistance(6.0f);
         this.setHarvestLevel("pickaxe", 2);
-        this.setCreativeTab(CreativeTabs.MISC);
+        this.setCreativeTab(KernCraft.KERNCRAFT_CREATIVE_TAB);
 
         setLightLevel(0f);
         setLightOpacity(1);
         this.setDefaultState(this.blockState.getBaseState()
                 .withProperty(POWERED, 0));
-        //this.setLightLevel(1.0F);
 
         setUnlocalizedName(unlocalizedName);
         setRegistryName(unlocalizedName);
-
-        GameRegistry.register(this);
-        GameRegistry.register(new ItemBlock(this), this.getRegistryName());
-        GameRegistry.registerTileEntity(LampTileEntity.class, "lamp");
     }
 
     /**
@@ -72,7 +64,6 @@ public class LampBlockEntity extends BlockContainer {
     @Override
     public int getLightValue(IBlockState state, IBlockAccess world, BlockPos pos) {
         return state.getValue(POWERED).intValue();
-        //return super.getLightValue(state, world, pos);
     }
 
     /**
@@ -128,46 +119,47 @@ public class LampBlockEntity extends BlockContainer {
     @Override
     public void onNeighborChange(IBlockAccess world, BlockPos pos, BlockPos neighbor) {
         super.onNeighborChange(world, pos, neighbor);
-//        if (!world.isRemote) {
-            LampTileEntity tileentity = (LampTileEntity) world.getTileEntity(pos);
-            tileentity.updateState();
-//        }
+
+        LampTileEntity tileentity = (LampTileEntity) world.getTileEntity(pos);
+        tileentity.updateState();
     }
 
-    public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
-        if (!worldIn.isRemote) {
-            //IBlockState iblockstate = worldIn.getBlockState(pos);
-            //LampTileEntity tileentity = (LampTileEntity) worldIn.getTileEntity(pos);
+    @Override
+    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
+        super.neighborChanged(state, worldIn, pos, blockIn, fromPos);
 
-            //setLightOpacity(1);
-            // setLightLevel(tileentity.redstoneMode);
-            //if (this.isOn && !worldIn.isBlockPowered(pos))
-            //{
-            //   worldIn.setBlockState(pos, ModTileEntities.LAMP.getDefaultState(), 2);
-            //}
-        }
+        LampTileEntity tileentity = (LampTileEntity) worldIn.getTileEntity(pos);
+        tileentity.updateState();
+    }
+
+    @Override
+    public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
+
     }
 
     /**
      * Get the Item that this Block should drop when harvested.
      */
     @Nullable
+    @Override
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-        return Item.getItemFromBlock(ModTileEntities.LAMP);
+        return Item.getItemFromBlock(KernCraftTileEntities.LAMP);
     }
 
+    @Override
     public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state) {
-        return new ItemStack(ModTileEntities.LAMP);
+        return new ItemStack(KernCraftTileEntities.LAMP);
     }
 
     protected ItemStack createStackedBlock(IBlockState state) {
-        return new ItemStack(ModTileEntities.LAMP);
+        return new ItemStack(KernCraftTileEntities.LAMP);
     }
 
 
     /**
      * Convert the given metadata into a BlockState for this Block
      */
+    @Override
     public IBlockState getStateFromMeta(int meta) {
         return this.getDefaultState().withProperty(POWERED, meta);
     }
@@ -176,6 +168,7 @@ public class LampBlockEntity extends BlockContainer {
     /**
      * Convert the BlockState into the correct metadata value
      */
+    @Override
     public int getMetaFromState(IBlockState state) {
         return state.getValue(POWERED).intValue();
     }

@@ -1,6 +1,7 @@
 package com.R3DKn16h7.kerncraft.client.gui;
 
 import com.R3DKn16h7.kerncraft.client.gui.widgets.IWidget;
+import com.R3DKn16h7.kerncraft.client.gui.widgets.Widget;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
@@ -18,24 +19,34 @@ import java.util.List;
 /**
  * Created by Filippo on 27/11/2016.
  */
-public class AdvancedGuiContainer extends GuiContainer implements IAdvancedGuiContainer {
+public class AdvancedGuiContainer extends GuiContainer implements IAdvancedGui {
 
     public IWidget activeWidget;
 
     // Margin of gui backgound
-
     public int borderLeft = 9;
     public int borderTop = 18;
+    // Gui Id
     public int id = 0;
+    // Is the GUI using a dynamic background
     public boolean use_dynamic_background = false;
+
     protected IInventory playerInv;
     protected TileEntity te;
+
     private ArrayList<IWidget> background_widgets = new ArrayList<IWidget>();
     private ArrayList<IWidget> foreground_widgets = new ArrayList<IWidget>();
+
+    //// Background info
     // Background offset within texture
     private int offsetX = 0;
     private int offsetY = 0;
+    // Background texture
     private ResourceLocation backgroundResource;
+    // Size of backfreound texture
+    private int xBackgroundSize = 250;
+    private int yBackgroundSize = 176;
+
     private int btn_id = 0;
 
     public AdvancedGuiContainer(Container container,
@@ -92,6 +103,12 @@ public class AdvancedGuiContainer extends GuiContainer implements IAdvancedGuiCo
             foreground_widgets.add(widget);
         else
             background_widgets.add(widget);
+    }
+
+
+    void RemoveWidget(Widget wid) {
+        foreground_widgets.remove(wid);
+        background_widgets.remove(wid);
     }
 
     public void updateWidgets() {
@@ -167,14 +184,13 @@ public class AdvancedGuiContainer extends GuiContainer implements IAdvancedGuiCo
         super.keyTyped(typedChar, keyCode);
     }
 
-    void setDynamicBackground(int xSize, int Ysize) {
 
+    void setDynamicBackground() {
         use_dynamic_background = true;
         backgroundResource = new ResourceLocation("textures/gui/demo_background.png");
-        this.xSize = xSize;
-        this.ySize = ySize;
+        this.xBackgroundSize = 250;
+        this.yBackgroundSize = 167;
     }
-
 
     void setBackground(String location,
                        int offsetX, int offsetY,
@@ -183,24 +199,28 @@ public class AdvancedGuiContainer extends GuiContainer implements IAdvancedGuiCo
         backgroundResource = new ResourceLocation(location);
         this.offsetX = offsetX;
         this.offsetY = offsetY;
-        this.xSize = xSize;
-        this.ySize = ySize;
+        this.xBackgroundSize = xSize;
+        this.yBackgroundSize = ySize;
     }
 
     void drawBackground() {
         this.mc.getTextureManager().bindTexture(backgroundResource);
         if (use_dynamic_background) {
+            // Top-left corner
             this.drawTexturedModalRect(this.guiLeft, this.guiTop,
                     offsetX, offsetY,
                     this.xSize / 2, this.ySize / 2);
+            // Bottom-left
             this.drawTexturedModalRect(this.guiLeft, this.guiTop + this.ySize / 2,
-                    offsetX, offsetY + this.ySize / 2,
+                    offsetX, offsetY + this.yBackgroundSize - this.ySize / 2,
                     this.xSize / 2, this.ySize / 2);
+            // Top-right
             this.drawTexturedModalRect(this.guiLeft + this.xSize / 2, this.guiTop,
-                    offsetX + this.xSize / 2, offsetY,
+                    offsetX + this.xBackgroundSize - this.xSize / 2, offsetY,
                     this.xSize / 2, this.ySize / 2);
+            // Bottom-right
             this.drawTexturedModalRect(this.guiLeft + this.xSize / 2, this.guiTop + this.ySize / 2,
-                    offsetX + this.xSize / 2, offsetY + this.ySize / 2,
+                    offsetX + this.xBackgroundSize - this.xSize / 2, offsetY + this.yBackgroundSize - this.ySize / 2,
                     this.xSize / 2, this.ySize / 2);
         } else {
             this.drawTexturedModalRect(this.guiLeft, this.guiTop,

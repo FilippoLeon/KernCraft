@@ -15,80 +15,40 @@ import java.util.List;
 
 /**
  * Created by Filippo on 27/11/2016.
- *
- * An advance gui that provides some Widget functionality to a standard
- * GuiScreen.
  */
-public class AdvancedGui extends GuiScreen implements IAdvancedGuiContainer {
-    /**
-     * Null or active widget if any.
-     */
+public class AdvancedGui extends GuiScreen implements IAdvancedGui {
     public IWidget activeWidget;
 
-    /**
-     * The margin on the left (and right of the interface).
-     */
+    // Margin of gui backgound
     public int borderLeft = 9;
-    /**
-     * The margin from the top interface.
-     */
     public int borderTop = 18;
 
-    /**
-     * Each GUI as an unique identifier.
-     */
     public int id = 0;
-    /**
-     * A dinamic background is a standardized background that
-     * can be resized according to the size of the GUI.
-     */
     public boolean use_dynamic_background = false;
-    /**
-     * The player inventory, which is displayed then the GUI is displayed.
-     * (If needed)
-     * TODO: this might be removed?
-     */
     protected IInventory playerInv;
-    /**
-     * Tile entity to which this GUI belongs to, on null if no tile entity is needed.
-     */
     protected TileEntity te;
-    /**
-     * List of all interface widgets.
-     */
     private ArrayList<IWidget> widgets = new ArrayList<IWidget>();
-    /**
-     * Background offset within texture
-     * I.e. start coordinates of the actual background on the texture.
-     */
+    // Background offset within texture
     private int offsetX = 0;
     private int offsetY = 0;
-    /**
-     * Location of the background.
-     */
     private ResourceLocation backgroundResource;
     private int btn_id = 0;
     private int guiLeft, guiTop;
     private int xSize, ySize;
+
+    private int xBackgroundSize = 250;
+    private int yBackgroundSize = 176;
+
     public AdvancedGui(IInventory playerInv,
                        TileEntity te) {
         this.playerInv = playerInv;
         this.te = te;
     }
 
-    /**
-     * Middle point of the GUI in local coordinates.
-     * @return coordinate of the middle point
-     * of the interface, coordinate zero is top-left corner.
-     */
     public int getMiddle() {
         return this.xSize / 2;
     }
 
-    /**
-     * Get left position with the addition of the border.
-     * @return
-     */
     public int getBorderLeft() {
         return borderLeft;
     }
@@ -97,11 +57,6 @@ public class AdvancedGui extends GuiScreen implements IAdvancedGuiContainer {
         return borderTop;
     }
 
-    /**
-     * Each GUI as one, and only one, active widget.
-     * TODO: this routine does nothing.
-     * @param widget unused.
-     */
     public void setActiveWidget(IWidget widget) {
 
     }
@@ -129,11 +84,8 @@ public class AdvancedGui extends GuiScreen implements IAdvancedGuiContainer {
         }
     }
 
-    /**
-     * ???
-     * @return
-     */
     public FontRenderer getFontRenderer() {
+
         return fontRendererObj;
     }
 
@@ -207,6 +159,8 @@ public class AdvancedGui extends GuiScreen implements IAdvancedGuiContainer {
         this.offsetY = offsetY;
         this.xSize = xSize;
         this.ySize = ySize;
+        this.xBackgroundSize = xSize;
+        this.yBackgroundSize = ySize;
     }
 
 //    @Override
@@ -215,21 +169,24 @@ public class AdvancedGui extends GuiScreen implements IAdvancedGuiContainer {
 //
 //        initGui();
 //    }
-
     void drawBackground() {
         this.mc.getTextureManager().bindTexture(backgroundResource);
         if (use_dynamic_background) {
+            // Top-left corner
             this.drawTexturedModalRect(this.guiLeft, this.guiTop,
-                    0, 0,
+                    offsetX, offsetY,
                     this.xSize / 2, this.ySize / 2);
+            // Bottom-left
             this.drawTexturedModalRect(this.guiLeft, this.guiTop + this.ySize / 2,
-                    0, 165 - this.ySize / 2,
+                    offsetX, offsetY + this.yBackgroundSize - this.ySize / 2,
                     this.xSize / 2, this.ySize / 2);
+            // Top-right
             this.drawTexturedModalRect(this.guiLeft + this.xSize / 2, this.guiTop,
-                    256 - this.xSize / 2, 0,
+                    offsetX + this.xBackgroundSize - this.xSize / 2, offsetY,
                     this.xSize / 2, this.ySize / 2);
+            // Bottom-right
             this.drawTexturedModalRect(this.guiLeft + this.xSize / 2, this.guiTop + this.ySize / 2,
-                    256 - this.xSize / 2, 165 - this.ySize / 2,
+                    offsetX + this.xBackgroundSize - this.xSize / 2, offsetY + this.yBackgroundSize - this.ySize / 2,
                     this.xSize / 2, this.ySize / 2);
         } else {
             this.drawTexturedModalRect(this.guiLeft, this.guiTop,

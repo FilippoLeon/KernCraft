@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Recipes>
+    <!-- ************************************************** -->
+    <!-- ************************************************** -->
+    <!-- ****************  EXTRACTOR RECIPES ************** -->
+    <!-- ************************************************** -->
+    <!-- ************************************************** -->
+
+    <!-- IRON RELATED ITEMS, energy positive is cost, negative invalid -->
+    <Extractor energy="100">
+        <Input>
+            <Item>iron_nugget</Item>
+        </Input>
+        <Output>
+            <Element amount="10">Fe</Element>
+        </Output>
+    </Extractor>
+    <Extractor energy="900">
+        <Input>
+            <Item>iron_ingot</Item>
+        </Input>
+        <Output>
+            <Element amount="90">Fe</Element>
+        </Output>
+    </Extractor>
+    <Extractor energy="8100">
+        <Input>
+            <Block>iron_block</Block>
+        </Input>
+        <Output>
+            <Element amount="810">Fe</Element>
+        </Output>
+    </Extractor>
+    <Extractor energy="27900">
+        <Input>
+            <Block>anvil</Block>
+        </Input>
+        <Output>
+            <Element amount="2790">Fe</Element>
+        </Output>
+    </Extractor>
+    <Extractor energy="4000">
+        <Input>
+            <OreDict amount="1">oreIron</OreDict>
+        </Input>
+        <Output>
+            <Element amount="270">Fe</Element>
+        </Output>
+    </Extractor>
+
+    <!-- Methane reforming -->
+    <!-- Eats your bucket, must find a better way -->
+    <Extractor energy="900">
+        <Input>
+            <Item>water_bucket</Item>
+        </Input>
+        <Output>
+            <Element amount="80">H</Element>
+            <Element amount="10">C</Element>
+            <Element amount="10">O</Element>
+        </Output>
+        <Fluid amount="-10">methane</Fluid>
+        <!--  <Fluid amount="-10">water</Fluid> -->
+    </Extractor>
+
+    <!-- COPPER BASED RECIPES -->
+    <Extractor energy="4000">
+        <Input>
+            <OreDict amount="1">oreCopper</OreDict>
+        </Input>
+        <Output>
+            <Element amount="270">Cu</Element>
+        </Output>
+    </Extractor>
+
+    <!-- STONE BASED RECIPES -->
+    <Extractor energy="4000">
+        <Input>
+            <Block amount="1">stone</Block>
+        </Input>
+        <Output>
+            <Element amount="100">O</Element>
+            <Element amount="50" probability="0.5">Si</Element>
+            <Element amount="16" probability="0.5">Al</Element>
+            <Element amount="10" probability="0.5">Fe</Element>
+        </Output>
+    </Extractor>
+    <Extractor energy="4000">
+        <Input>
+            <OreDict amount="1">stoneDiorite</OreDict>
+        </Input>
+        <Output>
+            <Element amount="100">O</Element>
+            <Element amount="50" probability="0.5">Si</Element>
+            <Element amount="16" probability="0.75">Na</Element>
+            <Element amount="5" probability="0.5">Ca</Element>
+        </Output>
+    </Extractor>
+    <Extractor energy="4000">
+        <Input>
+            <OreDict amount="1">stoneGranite</OreDict>
+        </Input>
+        <Output>
+            <Element amount="140">O</Element>
+            <Element amount="50" probability="0.9">Si</Element>
+            <Element amount="17" probability="0.5">Na</Element>
+            <Element amount="17" probability="0.5">K</Element>
+        </Output>
+    </Extractor>
+    <Extractor energy="4000">
+        <Input>
+            <OreDict amount="1">stoneAndesite</OreDict>
+        </Input>
+        <Output>
+            <Element amount="100">O</Element>
+            <Element amount="50" probability="0.5">Si</Element>
+            <Element amount="16" probability="0.5">Al</Element>
+            <Element amount="10" probability="0.5">Na</Element>
+        </Output>
+    </Extractor>
+    <Extractor energy="4000">
+        <Input>
+            <OreDict amount="1">stoneDioritePolished</OreDict>
+        </Input>
+        <Output>
+            <Element amount="100">O</Element>
+            <Element amount="50" probability="0.75">Si</Element>
+            <Element amount="16" probability="0.9">Na</Element>
+            <Element amount="5" probability="0.75">Ca</Element>
+        </Output>
+    </Extractor>
+    <Extractor energy="4000">
+        <Input>
+            <OreDict amount="1">stoneGranitePolished</OreDict>
+        </Input>
+        <Output>
+            <Element amount="140">O</Element>
+            <Element amount="50">Si</Element>
+            <Element amount="17" probability="0.75">Na</Element>
+            <Element amount="17" probability="0.75">K</Element>
+        </Output>
+    </Extractor>
+    <Extractor energy="4000">
+        <Input>
+            <OreDict amount="1">stoneAndesitePolished</OreDict>
+        </Input>
+        <Output>
+            <Element amount="100">O</Element>
+            <Element amount="50" probability="0.75">Si</Element>
+            <Element amount="16" probability="0.75">Al</Element>
+            <Element amount="10" probability="0.75">Na</Element>
+        </Output>
+    </Extractor>
+
+
+    <!-- STONE BASED RECIPES -->
+    <Extractor energy="4000">
+        <Input>
+            <Block amount="1">dirt</Block>
+        </Input>
+        <Output>
+            <Element amount="100">C</Element>
+            <Element amount="50" probability="0.5">K</Element>
+            <Element amount="16" probability="0.5">Ca</Element>
+            <Element amount="10" probability="0.5">Mg</Element>
+        </Output>
+    </Extractor>
+
+    <!-- ************************************************** -->
+    <!-- ************************************************** -->
+    <!-- ************* CHEMICAL FURNACE RECIPES *********** -->
+    <!-- ************************************************** -->
+    <!-- ************************************************** -->
+    <!-- Recipe example for Chemical furnace, energy positive is creation, negative is cost -->
+
+    <!-- Hydrogen burning -->
+    <ChemicalFurnace energy="100" cost="5">
+        <Input>
+            <Element amount="200">H</Element>
+            <Element amount="100">O</Element>
+        </Input>
+        <Fluid amount="1000">water</Fluid>
+    </ChemicalFurnace>
+
+    <!-- Ore casting -->
+    <ChemicalFurnace energy="-900" cost="5">
+        <Input>
+            <Element amount="90">Fe</Element>
+        </Input>
+        <Output>
+            <Item amount="1">iron_ingot</Item>
+        </Output>
+    </ChemicalFurnace>
+
+    <!-- ************************************************** -->
+    <!-- ************************************************** -->
+    <!-- ************* ELECTROLYZER RECIPES *************** -->
+    <!-- ************************************************** -->
+    <!-- ************************************************** -->
+    <Electrolyzer energy="9" cost="1">
+        <Anode>
+            <OreDict amount="1">ingotZinc</OreDict>
+        </Anode>
+        <Cathode>
+            <OreDict amount="1">ingotCopper</OreDict>
+        </Cathode>
+        <Fluid amount="10">water</Fluid>
+        <Output>
+            <Element amount="2">H</Element>
+            <Element amount="1">O</Element>
+        </Output>
+    </Electrolyzer>
+
+    <Electrolyzer energy="5" cost="1">
+        <Anode>
+            <OreDict amount="1">rodZinc</OreDict>
+        </Anode>
+        <Cathode>
+            <OreDict amount="1">rodCopper</OreDict>
+        </Cathode>
+        <Fluid amount="10">water</Fluid>
+        <Output>
+            <Element amount="2">H</Element>
+            <Element amount="1">O</Element>
+        </Output>
+    </Electrolyzer>
+
+    <Electrolyzer energy="50" cost="1">
+        <Anode>
+            <Item amount="1">iron_ingot</Item>
+        </Anode>
+        <Cathode>
+            <Item amount="1">gold_ingot</Item>
+        </Cathode>
+        <Fluid amount="10">water</Fluid>
+        <Output>
+            <Element amount="2">H</Element>
+            <Element amount="1">O</Element>
+        </Output>
+    </Electrolyzer>
+
+    <Electrolyzer energy="5" cost="1">
+        <Anode>
+            <OreDict amount="1">rodZinc</OreDict>
+        </Anode>
+        <Cathode>
+            <OreDict amount="1">rodCopper</OreDict>
+        </Cathode>
+        <Fluid amount="10">water</Fluid>
+        <Input>
+            <OreDict>lithiumChloride</OreDict>
+        </Input>
+        <Output>
+            <Element amount="1">Li</Element>
+            <Element amount="1">Cl</Element>
+        </Output>
+    </Electrolyzer>
+
+    <Electrolyzer energy="5" cost="1">
+        <Anode>
+            <OreDict amount="1">rodZinc</OreDict>
+        </Anode>
+        <Cathode>
+            <OreDict amount="1">rodCopper</OreDict>
+        </Cathode>
+        <Fluid amount="10">water</Fluid>
+        <Input>
+            <OreDict>potassiumChloride</OreDict>
+        </Input>
+        <Output>
+            <Element amount="1">K</Element>
+            <Element amount="1">Cl</Element>
+        </Output>
+    </Electrolyzer>
+
+    <!-- ************************************************** -->
+    <!-- ************************************************** -->
+    <!-- ************* CENTRIFUGE RECIPES ***************** -->
+    <!-- ************************************************** -->
+    <!-- ************************************************** -->
+    <!-- Exa,ple centrifuge recipe -->
+    <Centrifuge energy="0" cost="1">
+        <Input>
+            <Item>iron_ingot</Item>
+        </Input>
+        <Output>
+            <Element amount="2" probability="0.78">Xe</Element>
+            <Element amount="2" probability="1.0">Pu</Element>
+        </Output>
+    </Centrifuge>
+
+    <!-- Dirt recipes -->
+    <Centrifuge energy="40">
+        <Input>
+            <Block amount="1">dirt</Block>
+        </Input>
+        <Output>
+            <Element amount="100">C</Element>
+            <Element amount="50" probability="0.5">K</Element>
+            <Element amount="16" probability="0.5">Ca</Element>
+            <Element amount="10" probability="0.5">Mg</Element>
+            <Element amount="16" probability="0.5">S</Element>
+            <Element amount="10" probability="0.5">P</Element>
+        </Output>
+    </Centrifuge>
+
+    <!-- Until priorities are there we must keep this recipe last -->
+    <Centrifuge energy="50" cost="1">
+        <Output>
+            <Element amount="2" probability="0.78">N</Element>
+            <Element amount="2" probability="0.20">O</Element>
+            <Element amount="1" probability="0.05">Ar</Element>
+            <Element amount="1" probability="0.05">Ne</Element>
+            <Element amount="1" probability="0.05">He</Element>
+        </Output>
+    </Centrifuge>
+
+</Recipes>
