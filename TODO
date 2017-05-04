@@ -1,8 +1,7 @@
-SUper high priority:
-    - battery
-    - fluids in Extractor
-    - waila
-    - take first available input for anode/cathode and for extractor inputs?
+Super high priority:
+    - Batteries obtained from many elements
+    - More fluids in Extractor JEI interface
+    - Waila support
 
 High priority:
     - FIX: add progress bar to Chemical Furnace

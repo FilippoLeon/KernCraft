@@ -139,9 +139,9 @@ public class ElectrolyzerTileEntity
             if (rand.nextFloat() > created.probability) continue;
 
             int leftover = created.quantity;
-            for (int i = 0; i < getOutputCoords().length; ++i) {
+            for (int i = 0; i < getOutput().getSlots(); ++i) {
                 ItemStack out = getOutput().getStackInSlot(i);
-                if (!ElementCapabilities.hasCapability(out)) continue;
+                if (out.isEmpty() || !ElementCapabilities.hasCapability(out)) continue;
                 IElementContainer cap = ElementCapabilities.getCapability(out);
                 leftover -= cap.addAmountOf(created.id, leftover, false, this);
                 if (leftover <= 0) break;
