@@ -2,18 +2,18 @@
 <Elements>
     <Element symbol="H">
         <Description lang="en_us">
-            [b][blue]Hydrogen[/b] is the simplest element you can think of. In its common
+            [b][blue]Hydrogen[b/] is the simplest element you can think of. In its common
             form it's made out of a single [red]Proton[reset], with, most of the time,
             an [gold]Electron[reset]
             wandering around like a moon. However, it can be found
-            in two rare variants: [b]Deuterium[/b] (with a single [green]Neutron[reset] and
-            a single [red]Proton[reset]) and [b]Tritium[/b], which is made out of a Neutron
+            in two rare variants: [b]Deuterium[b/] (with a single [green]Neutron[reset] and
+            a single [red]Proton[reset]) and [b]Tritium[b/], which is made out of a Neutron
             and two Protons.
             [p/]
-            Most of the Universe (say 75%) is made out of Hydrogen. On [s]Earth[/s] Mineworld,
+            Most of the Universe (say 75%) is made out of Hydrogen. On [s]Earth[s/] Mineworld,
             most of the Hydrogen is in its bi-atomic form H_2, which consists of two atoms
             of Hydrogen glued together trough what is known (with a fancy term) as
-            [b]Covalent bound[/b].
+            [b]Covalent bound[b/].
             This just means that the two Hydrogen atoms share (most of the time happily)
             their own Electrons.
             [p/]
@@ -24,7 +24,7 @@
             as first thing. Hydrogen is easy to obtain: you just need a source of electricity
             (somebody said potato?) and some fresh water. The idea is the following:
             a molecule of Water (H_20 for short) is made out of two atoms of Hydrogen
-            and one of [b]Oxygen[/b]. Those two atoms are glued together.
+            and one of [b]Oxygen[b/]. Those two atoms are glued together.
             We just need to pull them
             apart using electricity and observe the magic as it happens.
             [p/]
@@ -51,7 +51,7 @@
     </Element>
     <Element symbol="He">
         <Description lang="en_us">
-            [b][blue]Helium[/b] is the second element of the periodic table.
+            [b][blue]Helium[b/] is the second element of the periodic table.
             [br/]
             [u]Uses:[u/][br/]
             [li] [red]Cryogenics[reset]: being liquid at even the smallest temperatures
@@ -67,6 +67,33 @@
             [li] [blue]Air[reset]: Helium can be extracted from earths atmosphere
             using its lightness and low boiling point.
             [li] [red]Stars[reset]: stars contain a big quantity of Helium.
+        </Description>
+    </Element>
+
+    <Element symbol="Li">
+        <Description lang="en_us">
+            [b][blue]Lithium[b/] is the first solid of the periodic table of elements.
+            It is very reactive and flammable, and tends to form bonds with almost anything.
+            [p/]
+            [u]Precautions:[u/][br/]
+            [li] [red]Reactive[reset]: Lithium is extremely reactive, keep it away from
+            water and possibly store it in oil.
+            [br/]
+            [li] [gold]Flammable[reset]: this element tends to catch fire very quickly.
+            [br/]
+            [li] [magenta]Friendly[reset]: this element tends to befriend many elements.
+            While doing this, it tends to be rather explosive.
+            [br/]
+            [u]Uses:[u/][br/]
+            [li] [red]Batteries[reset]: Lithium is used in Lithium Ion batteries.
+            [li] [blue]Glass/Ceramic[reset]: Lithium Oxide can be used to facilitate
+            the working of glasses and ceramics.
+            [br/]
+            [u]Obtained from:[u/][br/]
+            [li] [blue]Electrolysis[reset]: of a solution of [red]Potassium Chloride [KCl][reset] and [blue]Lithium
+            Chloride [LiCl][reset] (both salts).
+            [br/]
+            [li] [gold]Brine/Clay[reset][br/]
         </Description>
     </Element>
 </Elements>

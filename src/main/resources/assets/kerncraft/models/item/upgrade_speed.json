@@ -1,0 +1,25 @@
+{
+  "parent": "builtin/generated",
+  "textures": {
+    "layer0": "kerncraft:items/upgrade_speed"
+  },
+  "display": {
+    "ground": {
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "translation": [
+        0.00,
+        0.00,
+        0.00
+      ],
+      "scale": [
+        0.25,
+        0.25,
+        0.25
+      ]
+    }
+  }
+}

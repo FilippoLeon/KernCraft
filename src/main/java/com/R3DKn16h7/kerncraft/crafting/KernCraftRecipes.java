@@ -139,11 +139,12 @@ public class KernCraftRecipes {
             System.err.println("Warning: Too many inputs for Recipe.");
         }
         int avail = nChildList.getLength();
-        if (maxLength > 0) avail = Math.min(nChildList.getLength(), maxLength);
-        for (int j = 0; j < avail; j++) {
-            itemStackList.add(
-                    KernCraftRecipes.parseAsItemStack((Element) nChildList.item(j))
-            );
+        for (int j = 0; j < nChildList.getLength(); j++) {
+            ItemStack stack = KernCraftRecipes.parseAsItemStack((Element) nChildList.item(j));
+            if (stack != null && !stack.isEmpty()) {
+                itemStackList.add(stack);
+            }
+            if (itemStackList.size() >= maxLength) break;
         }
         if (avail < minLength) {
             System.err.println("Warning: Too few inputs for Recipe.");

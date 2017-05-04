@@ -13,6 +13,16 @@ item.glass_shield.name=Glass shield
 item.roman_shield.name=Roman shield
 item.alchemist_ring.name=Alchemist Ring
 
+item.upgrade_speed.name=Speed upgrade
+item.upgrade_size.name=Extra slot upgrade
+item.upgrade_output.name=Production upgrade
+item.upgrade_energy.name=Efficiency upgrade
+
+item.lithium_chloride.name=Lithium Chloride (LiCL)
+item.potassium_chloride.name=Potassium Chloride (KCL)
+item.calcium_chloride.name=Calcium Chloride (CaCl)
+item.sodium_chloride.name=Sodium Chloride (NaCL)
+
 item.test_item.name=Placeholder
 
 item.labcoat_helmet.name=Lab cap

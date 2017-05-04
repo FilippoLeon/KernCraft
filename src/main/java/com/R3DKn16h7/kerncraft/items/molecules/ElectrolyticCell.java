@@ -1,4 +1,4 @@
-package com.R3DKn16h7.kerncraft.items.materials;
+package com.R3DKn16h7.kerncraft.items.molecules;
 
 import com.R3DKn16h7.kerncraft.KernCraft;
 import net.minecraft.item.Item;

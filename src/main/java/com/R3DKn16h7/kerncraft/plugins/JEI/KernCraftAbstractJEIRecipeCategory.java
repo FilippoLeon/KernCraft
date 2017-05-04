@@ -83,7 +83,7 @@ public abstract class KernCraftAbstractJEIRecipeCategory implements IRecipeCateg
         return new Tuple<>(
                 guiHelper.createDrawable(
                         new ResourceLocation("kerncraft:textures/gui/container/extractor_gui.png"),
-                        16, 16,
+                        7, 16,
                         8, 3 * DEFAULT_SLOT_SIZE_Y),
                 new int[]{coordX, coordY});
     }

@@ -9,8 +9,8 @@ import com.R3DKn16h7.kerncraft.items.containers.PressurizedCell;
 import com.R3DKn16h7.kerncraft.items.disabled.TestItem;
 import com.R3DKn16h7.kerncraft.items.energy.PotatoBattery;
 import com.R3DKn16h7.kerncraft.items.manual.TyrociniumChymicum;
-import com.R3DKn16h7.kerncraft.items.materials.ElectrolyticCell;
-import com.R3DKn16h7.kerncraft.items.materials.MaterialItem;
+import com.R3DKn16h7.kerncraft.items.molecules.ElectrolyticCell;
+import com.R3DKn16h7.kerncraft.items.molecules.MoleculeItem;
 import com.R3DKn16h7.kerncraft.items.shields.ExtraShield;
 import com.R3DKn16h7.kerncraft.items.shields.GlassShield;
 import com.R3DKn16h7.kerncraft.items.shields.RomanShield;
@@ -41,7 +41,7 @@ public class KernCraftItems {
     public static PotatoBattery POTATO_BATTERY;
     public static PressurizedCell PRESSURIZED_CELL;
 
-    public static Map<String, MaterialItem> MATERIALS = new HashMap<>();
+    public static Map<String, MoleculeItem> MATERIALS = new HashMap<>();
     public static Map<String, UpgradeItem> UPGRADES = new HashMap<>();
 
     public KernCraftItems() {
@@ -67,11 +67,14 @@ public class KernCraftItems {
 
         ALCHEMIST_RING = new AlchemistRing();
 
-        MaterialItem.create("lithium_chloride");
-        MaterialItem.create("calcium_chloride");
-        MaterialItem.create("potassium_chloride");
+        MoleculeItem.create("lithium_chloride", "lithiumChloride");
+        MoleculeItem.create("calcium_chloride", "calciumChloride");
+        MoleculeItem.create("potassium_chloride", "potassiumChloride");
+        MoleculeItem.create("sodium_chloride", new String[]{"sodiumChloride", "dustSalt"});
 
-        UpgradeItem.create("extra_slot", Upgrade.EXTRA_SLOT);
-        UpgradeItem.create("speed", Upgrade.SPEED);
+        UpgradeItem.create("upgrade_energy", Upgrade.ENERGY_EFFICIENTY);
+        UpgradeItem.create("upgrade_speed", Upgrade.SPEED);
+        UpgradeItem.create("upgrade_slot", Upgrade.EXTRA_SLOT);
+        UpgradeItem.create("upgrade_output", Upgrade.PRODUCTION);
     }
 }

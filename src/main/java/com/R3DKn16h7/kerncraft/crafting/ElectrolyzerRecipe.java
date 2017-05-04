@@ -80,7 +80,7 @@ public class ElectrolyzerRecipe implements ISmeltingRecipe {
                 case "Input":
                     try {
                         input = KernCraftRecipes.parseAsItemStackList(nChildNode,
-                                1, 1);
+                                1, 3);
                     } catch (Exception e) {
                         KernCraft.LOGGER.error("No anode specified, invalid recipe");
                         e.printStackTrace();
@@ -89,7 +89,7 @@ public class ElectrolyzerRecipe implements ISmeltingRecipe {
                     break;
                 case "Output":
                     outputs = KernCraftRecipes.parseAsElementStackList(nChildNode,
-                            -1, 2);
+                            -1, 6);
                     break;
                 case "Fluid":
                     if (fluid != null) {
