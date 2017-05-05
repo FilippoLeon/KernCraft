@@ -1,5 +1,6 @@
 package com.R3DKn16h7.kerncraft.items;
 
+import com.R3DKn16h7.kerncraft.KernCraft;
 import com.R3DKn16h7.kerncraft.capabilities.energy.EnergyContainer;
 import com.R3DKn16h7.kerncraft.capabilities.energy.EnergyContainerItemCapabilityProvider;
 import net.darkhax.tesla.lib.TeslaUtils;
@@ -13,6 +14,7 @@ import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.fml.common.Optional;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -24,6 +26,17 @@ import java.util.List;
 //@Optional.Interface( iname = IntegrationType.RF, iface = "cofh.api.energy.IEnergyReceiver" )
 //@Optional.Interface( iname = IntegrationType.RF, iface = "cofh.api.energy.IEnergyReceiver" )
 public abstract class EnergyContainerItem extends Item {
+
+    public EnergyContainerItem() {
+
+        this.setUnlocalizedName(getName());
+        this.setRegistryName(getName());
+        this.setCreativeTab(KernCraft.KERNCRAFT_CREATIVE_TAB);
+        this.setMaxStackSize(1);
+        GameRegistry.register(this);
+    }
+
+    abstract public String getName();
 
     protected abstract int getMaxInput();
 
@@ -80,8 +93,7 @@ public abstract class EnergyContainerItem extends Item {
     @Optional.Method(modid = "tesla")
     public void addInformation(ItemStack stack, EntityPlayer playerIn,
                                List<String> tooltip, boolean advanced) {
-//         else {
-        //
+
         // TODO: custom info
         TeslaUtils.createTooltip(stack, tooltip);
     }

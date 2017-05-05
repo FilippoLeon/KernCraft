@@ -45,7 +45,6 @@ public abstract class AbstractElementContainerItem extends Item {
         return new ElementContainerProvider(1, 1000);
     }
 
-
     @Nullable
     @Override
     public NBTTagCompound getNBTShareTag(ItemStack stack) {
@@ -108,9 +107,9 @@ public abstract class AbstractElementContainerItem extends Item {
         if (worldIn.isRemote) return new ActionResult<>(EnumActionResult.PASS, playerIn.getHeldItem(handIn));
 
         if (PlayerHelper.isCtrlKeyDown() ? handIn.equals(EnumHand.MAIN_HAND) : handIn.equals(EnumHand.OFF_HAND)) {
-            // Stack held in hand you are transfering from
+            // Stack held in hand you are transferring from
             ItemStack itemStack = playerIn.getHeldItem(handIn);
-            // Stack held in hand you are transfering to
+            // Stack held in hand you are transferring to
             ItemStack otherHandStack = playerIn.getHeldItem(PlayerHelper.otherHand(handIn));
             if (ElementCapabilities.hasCapability(otherHandStack)) {
                 IElementContainer otherCap = ElementCapabilities.getCapability(otherHandStack);

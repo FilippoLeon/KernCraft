@@ -190,7 +190,9 @@ public abstract class MachineBlock extends BlockContainer {
             } else if (player.getHeldItem(hand).getItem() instanceof UpgradeItem) {
                 Upgrade upgrade = UpgradeItem.getUpgrade(player.getHeldItem(hand));
                 if (upgrade != null) {
-                    te.AddUpgrade(upgrade);
+                    if (te.AddUpgrade(upgrade)) {
+                        player.getHeldItem(hand).splitStack(1);
+                    }
                 }
                 return true;
             } else {

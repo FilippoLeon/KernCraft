@@ -29,9 +29,12 @@ public final class ItemRenderRegister {
         register(KernCraftItems.TYROCINIUM_CHYMICUM);
 
         register(KernCraftItems.POTATO_BATTERY);
+        register(KernCraftItems.GENERIC_BATTERY);
         register(KernCraftItems.ELECTROLYTIC_CELL);
 
         register(KernCraftItems.ALCHEMIST_RING);
+
+        register(KernCraftItems.MULTI_TOOL);
 
         for (Map.Entry<String, MoleculeItem> item : KernCraftItems.MATERIALS.entrySet()) {
             register(item.getValue());
@@ -40,7 +43,6 @@ public final class ItemRenderRegister {
             register(item.getValue());
         }
     }
-
 
     public static void register(Item item) {
         Minecraft.getMinecraft().getRenderItem().getItemModelMesher()

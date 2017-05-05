@@ -165,6 +165,17 @@
             <Element amount="10" probability="0.5">Mg</Element>
         </Output>
     </Extractor>
+    <Extractor energy="4000">
+        <Input>
+            <Block amount="1">grass</Block>
+        </Input>
+        <Output>
+            <Element amount="120">C</Element>
+            <Element amount="40" probability="0.5">N</Element>
+            <Element amount="32" probability="0.5">K</Element>
+            <Element amount="20" probability="0.5">Mg</Element>
+        </Output>
+    </Extractor>
 
     <!-- ************************************************** -->
     <!-- ************************************************** -->

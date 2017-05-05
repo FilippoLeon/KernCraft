@@ -14,5 +14,5 @@ public interface IUpgradeable {
 
     int getOutputSize();
 
-    void AddUpgrade(Upgrade upgrade);
+    boolean AddUpgrade(Upgrade upgrade);
 }

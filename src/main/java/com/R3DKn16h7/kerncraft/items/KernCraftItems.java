@@ -7,6 +7,7 @@ import com.R3DKn16h7.kerncraft.items.containers.Canister;
 import com.R3DKn16h7.kerncraft.items.containers.Flask;
 import com.R3DKn16h7.kerncraft.items.containers.PressurizedCell;
 import com.R3DKn16h7.kerncraft.items.disabled.TestItem;
+import com.R3DKn16h7.kerncraft.items.energy.GenericBattery;
 import com.R3DKn16h7.kerncraft.items.energy.PotatoBattery;
 import com.R3DKn16h7.kerncraft.items.manual.TyrociniumChymicum;
 import com.R3DKn16h7.kerncraft.items.molecules.ElectrolyticCell;
@@ -14,6 +15,7 @@ import com.R3DKn16h7.kerncraft.items.molecules.MoleculeItem;
 import com.R3DKn16h7.kerncraft.items.shields.ExtraShield;
 import com.R3DKn16h7.kerncraft.items.shields.GlassShield;
 import com.R3DKn16h7.kerncraft.items.shields.RomanShield;
+import com.R3DKn16h7.kerncraft.items.tools.MultiTool;
 import com.R3DKn16h7.kerncraft.items.upgrades.UpgradeItem;
 import com.R3DKn16h7.kerncraft.tileentities.utils.Upgrade;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -43,6 +45,9 @@ public class KernCraftItems {
 
     public static Map<String, MoleculeItem> MATERIALS = new HashMap<>();
     public static Map<String, UpgradeItem> UPGRADES = new HashMap<>();
+    public static GenericBattery GENERIC_BATTERY;
+
+    public static MultiTool MULTI_TOOL;
 
     public KernCraftItems() {
         PORTABLE_BEACON = new PortableBeacon();
@@ -64,8 +69,11 @@ public class KernCraftItems {
 
         ELECTROLYTIC_CELL = new ElectrolyticCell();
         POTATO_BATTERY = new PotatoBattery();
+        GENERIC_BATTERY = new GenericBattery();
 
         ALCHEMIST_RING = new AlchemistRing();
+
+        MULTI_TOOL = new MultiTool("multi_tool");
 
         MoleculeItem.create("lithium_chloride", "lithiumChloride");
         MoleculeItem.create("calcium_chloride", "calciumChloride");
