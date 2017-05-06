@@ -2,13 +2,10 @@ package com.R3DKn16h7.kerncraft.blocks;
 
 import com.R3DKn16h7.kerncraft.KernCraft;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockStainedGlassPane;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
-import net.minecraft.util.BlockRenderLayer;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
@@ -57,22 +54,6 @@ public class BasicBlock extends Block {
         KernCraftBlocks.BLOCKS.put(unlocalizedName,
                 new BasicBlock(unlocalizedName, oreDictNames)
         );
-    }
-
-    @SideOnly(Side.CLIENT)
-    public BlockRenderLayer getBlockLayer() {
-        return BlockRenderLayer.CUTOUT;
-    }
-
-    public boolean isFullCube(IBlockState state) {
-        return false;
-    }
-
-    @Override
-    public boolean isOpaqueCube(IBlockState state) {
-        BlockStainedGlassPane
-
-        return false;
     }
 
     @SideOnly(Side.CLIENT)

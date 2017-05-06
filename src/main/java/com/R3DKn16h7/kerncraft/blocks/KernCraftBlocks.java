@@ -1,5 +1,6 @@
 package com.R3DKn16h7.kerncraft.blocks;
 
+import net.minecraft.block.material.Material;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -11,7 +12,10 @@ public class KernCraftBlocks {
 
     public static void createBlocks() {
         BasicBlock.create("test_block", null);
-        BasicBlock.create("borosilicate_glass", "glassReinforced");
+        GlassBlock.create("borosilicate_glass",
+                "glassReinforced");
+        BlockBorosilicateGlassPane.create(Material.GLASS,
+                "borosilicate_glass_pane", true);
     }
 
     @SideOnly(Side.CLIENT)
