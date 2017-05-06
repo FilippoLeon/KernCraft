@@ -11,11 +11,11 @@ public class KernCraftBlocks {
 
     public static void createBlocks() {
         BasicBlock.create("test_block", null);
+        BasicBlock.create("borosilicate_glass", "glassReinforced");
     }
 
     @SideOnly(Side.CLIENT)
     public static void initModels() {
-
         for (Map.Entry<String, BasicBlock> entry : BLOCKS.entrySet()) {
             entry.getValue().initModel();
         }

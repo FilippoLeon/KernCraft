@@ -35,7 +35,7 @@ public class LampBlockEntity extends BlockContainer {
     public static final PropertyInteger POWERED = PropertyInteger.create("lightlevel", 0, 15);
 
     /**
-     * Constructor, set names, set default params and register to Block register.
+     * Constructor, set names, set default params and itemRenderRegister to Block itemRenderRegister.
      * @param unlocalizedName
      */
     public LampBlockEntity(String unlocalizedName) {

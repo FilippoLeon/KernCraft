@@ -13,43 +13,43 @@ import java.util.Map;
 public final class ItemRenderRegister {
 
     public static void registerItemRenderer() {
-        register(KernCraftItems.PORTABLE_BEACON);
-        register(KernCraftItems.CANISTER);
-        register(KernCraftItems.FLASK);
-        register(KernCraftItems.PRESSURIZED_CELL);
-        register(KernCraftItems.ROMAN_SHIELD);
-        register(KernCraftItems.GLASS_SHIELD);
+        itemRenderRegister(KernCraftItems.PORTABLE_BEACON);
+        itemRenderRegister(KernCraftItems.CANISTER);
+        itemRenderRegister(KernCraftItems.FLASK);
+        itemRenderRegister(KernCraftItems.PRESSURIZED_CELL);
+        itemRenderRegister(KernCraftItems.ROMAN_SHIELD);
+        itemRenderRegister(KernCraftItems.GLASS_SHIELD);
 
-        register(KernCraftItems.LAB_BONNET);
-        register(KernCraftItems.LAB_COAT);
-        register(KernCraftItems.LAB_BOOTS);
-        register(KernCraftItems.LAB_PANTS);
+        itemRenderRegister(KernCraftItems.LAB_BONNET);
+        itemRenderRegister(KernCraftItems.LAB_COAT);
+        itemRenderRegister(KernCraftItems.LAB_BOOTS);
+        itemRenderRegister(KernCraftItems.LAB_PANTS);
 
-        register(KernCraftItems.TEST_ITEM);
+        itemRenderRegister(KernCraftItems.TEST_ITEM);
 
-        register(KernCraftItems.TYROCINIUM_CHYMICUM);
+        itemRenderRegister(KernCraftItems.TYROCINIUM_CHYMICUM);
 
-        register(KernCraftItems.POTATO_BATTERY);
-        register(KernCraftItems.GENERIC_BATTERY);
-        register(KernCraftItems.ELECTROLYTIC_CELL);
+        itemRenderRegister(KernCraftItems.POTATO_BATTERY);
+        itemRenderRegister(KernCraftItems.GENERIC_BATTERY);
+        itemRenderRegister(KernCraftItems.ELECTROLYTIC_CELL);
 
-        register(KernCraftItems.ALCHEMIST_RING);
+        itemRenderRegister(KernCraftItems.ALCHEMIST_RING);
 
-//        register(KernCraftItems.MULTI_TOOL);
-//        register(KernCraftItems.MULTI_TOOL);
+//        itemRenderRegister(KernCraftItems.MULTI_TOOL);
+//        itemRenderRegister(KernCraftItems.MULTI_TOOL);
 //        Minecraft.getMinecraft().getRenderItem().renderItemOverlayIntoGUI();
         Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
                 .register(KernCraftItems.MULTI_TOOL, new SpecialRenderer());
 
         for (Map.Entry<String, MoleculeItem> item : KernCraftItems.MATERIALS.entrySet()) {
-            register(item.getValue());
+            itemRenderRegister(item.getValue());
         }
         for (Map.Entry<String, UpgradeItem> item : KernCraftItems.UPGRADES.entrySet()) {
-            register(item.getValue());
+            itemRenderRegister(item.getValue());
         }
     }
 
-    public static void register(Item item) {
+    public static void itemRenderRegister(Item item) {
         Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
                 .register(item, 0, new ModelResourceLocation(
                         KernCraft.MODID + ":" + item.getUnlocalizedName().substring(5),

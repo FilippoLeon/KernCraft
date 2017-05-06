@@ -32,7 +32,7 @@ import java.util.List;
  * Created by Filippo on 20-Apr-17.
  */
 public class KernCraftRecipes {
-    // Static register of recipes
+    // Static itemRenderRegister of recipes
     static public List<ExtractorRecipe> EXTRACTOR_RECIPES = new ArrayList<>();
     public static List<ChemicalFurnaceRecipe> CHEMICAL_FURNACE_RECIPES = new ArrayList<>();
     public static List<CentrifugeRecipe> CENTRIFUGE_RECIPES = new ArrayList<>();

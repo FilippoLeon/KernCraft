@@ -1,11 +1,14 @@
 package com.R3DKn16h7.kerncraft.items.energy;
 
+import baubles.api.BaubleType;
+import baubles.api.IBauble;
 import com.R3DKn16h7.kerncraft.capabilities.element.ElementCapabilities;
 import com.R3DKn16h7.kerncraft.capabilities.element.ElementContainerAndEnergyProvider;
 import com.R3DKn16h7.kerncraft.capabilities.element.IElementContainer;
 import com.R3DKn16h7.kerncraft.elements.ElementRegistry;
 import com.R3DKn16h7.kerncraft.items.EnergyContainerItem;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
@@ -17,12 +20,15 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
+import net.minecraftforge.fml.common.Optional;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GenericBattery extends EnergyContainerItem {
+@Optional.Interface(iface = "baubles.api.IBauble", modid = "baubles")
+public class GenericBattery extends EnergyContainerItem
+        implements IBauble {
     static public List<Tuple<Integer, Integer>> ELEMENT_PAIRS = new ArrayList<>();
 
     public GenericBattery() {
@@ -165,5 +171,58 @@ public class GenericBattery extends EnergyContainerItem {
                 1000, 100, 100
         );
         return cap;
+    }
+
+    @Override
+    @Optional.Method(modid = "baubles")
+    public BaubleType getBaubleType(ItemStack itemStack) {
+        return BaubleType.CHARM;
+    }
+
+    @Override
+    @Optional.Method(modid = "baubles")
+    public void onWornTick(ItemStack itemstack, EntityLivingBase player) {
+        if (player.world.isRemote) return;
+
+
+    }
+
+    @Override
+    @Optional.Method(modid = "baubles")
+    public void onEquipped(ItemStack itemstack, EntityLivingBase player) {
+
+    }
+
+    @Override
+    @Optional.Method(modid = "baubles")
+    public void onUnequipped(ItemStack itemstack, EntityLivingBase player) {
+
+    }
+
+    @Override
+    @Optional.Method(modid = "baubles")
+    public boolean canEquip(ItemStack itemstack, EntityLivingBase player) {
+
+        return true;
+    }
+
+    @Override
+    @Optional.Method(modid = "baubles")
+    public boolean canUnequip(ItemStack itemstack, EntityLivingBase player) {
+        return true;
+    }
+
+    @Override
+    @Optional.Method(modid = "baubles")
+    public boolean willAutoSync(ItemStack itemstack, EntityLivingBase player) {
+        return false;
+    }
+
+    @Override
+    @Optional.Method(modid = "baubles")
+    public boolean onLeftClickEntity(ItemStack stack,
+                                     EntityPlayer player,
+                                     Entity entity) {
+        return true;
     }
 }
