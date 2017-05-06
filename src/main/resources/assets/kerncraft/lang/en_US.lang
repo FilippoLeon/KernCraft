@@ -89,6 +89,8 @@ element.Be.name=Beryllium
 element.Be.description=Beryllium is the 4th element of the periodic table. It has low density and is very thermally stable.
 
 element.B.name=Boron
+element.B.description=Boron is the 5th element of the periodic table. It is solid at room temperature.
+
 element.C.name=Carbon
 element.N.name=Nitrogen
 element.O.name=Oxygen

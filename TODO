@@ -1,5 +1,4 @@
 Super high priority:
-    - Batteries obtained from many elements
     - More fluids in Extractor JEI interface
     - Waila support
 
@@ -19,8 +18,7 @@ High priority:
     - ADD: shapeless element recipe
     - ADD: images into manual? mhhhh we'll see
     - ADD: extractor fluids usage, production
-    - ADD: more outputs for electrolyzer?
-    - ADD: generic battery refueling your inventory (bauble)
+    - ADD: bauble to generic battery
 
 Soon:
     - Unify energy, wrapper around forge energy with tesla, possibly cofh?

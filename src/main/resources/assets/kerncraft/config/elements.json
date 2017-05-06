@@ -72,12 +72,7 @@
       "conductivity": 1E-12,
       "specificHeat": 1.02,
       "thermalConductivity": 27,
-        "Notes": "sublimes",
-        "source": "Na and Ca borates (misc)",
         "color": "black",
-        "characteristics": "B12 icosahedra",
-        "uses": " 3 forms",
-        "toxic": "borax, glass making(B2O3)",
       "state": "s"
     },
     "6": {

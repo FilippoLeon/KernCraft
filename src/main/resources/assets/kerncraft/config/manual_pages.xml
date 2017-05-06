@@ -2,13 +2,12 @@
 <Manual>
     <Chapter name="Frist Steps" unlockedWith="first_steps">
         <Entry name="Beginner Chemist">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit
-            in voluptate velit esse cillum [b]dolore[/b] eu fugiat nulla pariatur. Excepteur
-            sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-            mollit anim id est laborum.
+            [red]Chemical elements[reset] are the building block of everything you
+            see. Currently we know 118 chemical elements, but it is quite possible
+            we will be able to observe many more elements.
+            [p/]
+            The [b]first step[b/] of the aspiring chemist is to obtain suitable
+            containers for chemical elements.
         </Entry>
         <Entry name="The next step...">
             Sed ut perspiciatis unde omnis iste natus error sit voluptatem

@@ -103,18 +103,40 @@
             quite toxic and contact should be avoided.
             [p/]
             [u]Precautions:[u/][br/]
-            [li] [red]Toxic[reset]: .
-            [br/]
+            [li] [red]Toxic[reset]
             [br/]
             [u]Uses:[u/][br/]
             [li] [red]Alloys[reset]: Beryllium is very light and can be use to create metal alloys, together with
             Copper, Aluminium, Nickel, Iron.
+            [br/]
             [li] [blue]X-Rays/Particle detectors[reset]
             [br/] [magenta]Mirrors[reset]
             [br/]
             [u]Obtained from:[u/][br/]
             [li] [blue]Beryl (Silicate)[reset]
+            [br/]
             [li] [gold]Emerald[reset]
+        </Description>
+    </Element>
+    <Element symbol="B">
+        <Description lang="en_us">
+            [b][blue]Boron[b/] is the 5th element of the periodic table. It belongs to the family
+            of and is a blackish solid at room temperature.
+            [p/]
+            Interestingly enough, Boron does not melt, but instead becomes vapor when hot enough.
+            This process has the name of [b]sublimation[b/].
+            [u]Precautions:[u/][br/]
+            [li] [red]None[reset]: Boron is quite Bor-ing.
+            [br/]
+            [br/]
+            [u]Uses:[u/][br/]
+            [li] [red]Fertilizer[reset]: some Boron compound can be used as Fertilizer.
+            [br/]
+            [li] [blue]Glass/Ceramics[reset]: Boron can be used to strengthen various
+            glasses and ceramics.
+            [br/]
+            [u]Obtained from:[u/][br/]
+            [li] [blue]Sodium and Calcium Borates[reset]
         </Description>
     </Element>
 </Elements>

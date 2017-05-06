@@ -176,6 +176,28 @@
             <Element amount="20" probability="0.5">Mg</Element>
         </Output>
     </Extractor>
+    <Extractor energy="4000">
+        <Input>
+            <Block amount="1">coarse_dirt</Block>
+        </Input>
+        <Output>
+            <Element amount="120">C</Element>
+            <Element amount="30" probability="0.4">K</Element>
+            <Element amount="16" probability="0.4">Ca</Element>
+            <Element amount="10" probability="0.4">Mg</Element>
+        </Output>
+    </Extractor>
+    <Extractor energy="4000">
+        <Input>
+            <Block amount="1">podzol</Block>
+        </Input>
+        <Output>
+            <Element amount="100">C</Element>
+            <Element amount="50" probability="0.4">K</Element>
+            <Element amount="16" probability="0.4">Ca</Element>
+            <Element amount="20" probability="0.4">Mg</Element>
+        </Output>
+    </Extractor>
 
     <Extractor energy="2000">
         <Input>

@@ -120,7 +120,7 @@ public class EnergyContainer
     @Override
     public long takePower(long power, boolean simulated) {
         // From Tesla API
-        final long removedPower = Math.min(this.amount, this.getOutputRate());
+        final long removedPower = Math.min(Math.min(this.amount, this.getOutputRate()), power);
 
         if (!simulated) {
             this.amount -= removedPower;
