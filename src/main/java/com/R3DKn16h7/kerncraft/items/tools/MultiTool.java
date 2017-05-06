@@ -4,6 +4,7 @@ import com.R3DKn16h7.kerncraft.capabilities.itemhandler.ItemHandlerCapabilityPro
 import com.R3DKn16h7.kerncraft.items.BasicItem;
 import com.R3DKn16h7.kerncraft.utils.PlayerHelper;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -32,6 +33,27 @@ public class MultiTool extends BasicItem {
         super(name);
     }
 
+    static public ItemStack getCurrentHeldItem(ItemStack stack) {
+        int currentItem = getCurrentItem(stack);
+        return stack.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY,
+                null).getStackInSlot(currentItem);
+    }
+
+    private static int getCurrentItem(ItemStack stack) {
+        NBTTagCompound nbt;
+        if (stack.hasTagCompound()) {
+            nbt = stack.getTagCompound();
+        } else {
+            nbt = new NBTTagCompound();
+        }
+
+        if (nbt.hasKey("currentItem")) {
+            return nbt.getInteger("currentItem");
+        } else {
+            return 0;
+        }
+    }
+
     @Override
     public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
 
@@ -44,23 +66,32 @@ public class MultiTool extends BasicItem {
 
                 ItemStack other = playerIn.getHeldItem(PlayerHelper.otherHand(handIn));
                 if (!other.isEmpty()) {
-                    ItemStack split = other.splitStack(1);
-                    ItemStack amount = cap.insertItem(getNumberOfItems(stack), split, false);
-                    if (!amount.isEmpty()) {
-                        other.splitStack(-1);
-                    } else {
-                        setNumberOfItems(stack, getNumberOfItems(stack) + 1);
+                    if (getNumberOfItems(stack) < 5) {
+                        ItemStack split = other.splitStack(1);
+                        ItemStack amount = cap.insertItem(getNumberOfItems(stack), split, false);
+                        if (!amount.isEmpty()) {
+                            other.splitStack(-1);
+                        } else {
+                            setNumberOfItems(stack, getNumberOfItems(stack) + 1);
+                        }
                     }
                 } else {
                     if (getNumberOfItems(stack) > 0) {
                         ItemStack extract = cap.extractItem(getNumberOfItems(stack) - 1, 1, false);
                         if (!extract.isEmpty()) {
                             playerIn.setHeldItem(PlayerHelper.otherHand(handIn), extract);
-                            setNumberOfItems(stack, getNumberOfItems(stack) - 1);
                         }
+                        setNumberOfItems(stack, getNumberOfItems(stack) - 1);
                     }
                 }
             }
+        } else {
+            ItemStack currentHeldItem = getCurrentHeldItem(stack);
+
+            playerIn.setHeldItem(handIn, currentHeldItem);
+            playerIn.setActiveHand(handIn);
+            currentHeldItem.getItem().onItemRightClick(worldIn, playerIn, handIn);
+            playerIn.setHeldItem(handIn, stack);
         }
 
         return super.onItemRightClick(worldIn, playerIn, handIn);
@@ -68,11 +99,9 @@ public class MultiTool extends BasicItem {
 
     @Override
     public String getItemStackDisplayName(ItemStack stack) {
-
         ItemStack currentHeldItem = getCurrentHeldItem(stack);
-        return this.getName() + currentHeldItem.getDisplayName();
-
-//        return super.getItemStackDisplayName(stack);
+        return I18n.format(this.getUnlocalizedName() + ".name")
+                + ": " + currentHeldItem.getDisplayName();
     }
 
     @Override
@@ -90,27 +119,6 @@ public class MultiTool extends BasicItem {
         super.addInformation(stack, playerIn, tooltip, advanced);
     }
 
-    public ItemStack getCurrentHeldItem(ItemStack stack) {
-        int currentItem = getCurrentItem(stack);
-        return stack.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY,
-                null).getStackInSlot(currentItem);
-    }
-
-    private int getCurrentItem(ItemStack stack) {
-        NBTTagCompound nbt;
-        if (stack.hasTagCompound()) {
-            nbt = stack.getTagCompound();
-        } else {
-            nbt = new NBTTagCompound();
-        }
-
-        if (nbt.hasKey("currentItem")) {
-            return nbt.getInteger("currentItem");
-        } else {
-            return 0;
-        }
-    }
-
     private void nextItem(ItemStack stack) {
         NBTTagCompound nbt;
         if (stack.hasTagCompound()) {
@@ -119,58 +127,74 @@ public class MultiTool extends BasicItem {
             nbt = new NBTTagCompound();
         }
 
+        int numberOfItems = getNumberOfItems(stack);
+        if (numberOfItems == 0) return;
+
         int currentItem;
         if (nbt.hasKey("currentItem")) {
-            currentItem = (nbt.getInteger("currentItem") + 1) % getNumberOfItems(stack);
+            currentItem = (nbt.getInteger("currentItem") + 1) % numberOfItems;
         } else {
             currentItem = 1 % getNumberOfItems(stack);
         }
         nbt.setInteger("currentItem", currentItem);
         stack.setTagCompound(nbt);
+    }
 
-        ItemStack currentHeldItem = stack.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).getStackInSlot(currentItem);
 
+    /**
+     * How long it takes to use or consume an item
+     */
+    public int getMaxItemUseDuration(ItemStack stack) {
+
+        return getCurrentHeldItem(stack).getMaxItemUseDuration();
     }
 
     @Override
     public boolean canHarvestBlock(IBlockState state, ItemStack stack) {
-        int currentItem = getCurrentItem(stack);
-        ItemStack currentHeldItem = stack.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).getStackInSlot(currentItem);
+        ItemStack currentHeldItem = getCurrentHeldItem(stack);
 
         return currentHeldItem.canHarvestBlock(state);
     }
 
 
     @Override
-    public int getHarvestLevel(ItemStack stack, String toolClass, @Nullable EntityPlayer player, @Nullable IBlockState blockState) {
-        int currentItem = getCurrentItem(stack);
-        ItemStack currentHeldItem = stack.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).getStackInSlot(currentItem);
+    public int getHarvestLevel(ItemStack stack, String toolClass,
+                               @Nullable EntityPlayer player, @Nullable IBlockState blockState) {
+        ItemStack currentHeldItem = getCurrentHeldItem(stack);
 
         return getHarvestLevel(currentHeldItem, toolClass, player, blockState);
     }
 
+
+    /**
+     * Called when a Block is right-clicked with this Item
+     */
     @Override
     public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos,
                                       EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-        ItemStack currentHeldItem = getCurrentHeldItem(player.getHeldItem(hand));
+        ItemStack multiTool = player.getHeldItem(hand);
+        ItemStack currentHeldItem = getCurrentHeldItem(multiTool);
+
+        player.setHeldItem(hand, currentHeldItem);
         currentHeldItem.onItemUse(player, worldIn, pos, hand, facing, hitX, hitY, hitZ);
+        player.setHeldItem(hand, multiTool);
 
         return super.onItemUse(player, worldIn, pos, hand, facing, hitX, hitY, hitZ);
     }
 
     @Override
     public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase attacker) {
-
         ItemStack currentHeldItem = getCurrentHeldItem(stack);
         if (attacker instanceof EntityPlayer) {
+            attacker.setHeldItem(EnumHand.MAIN_HAND, currentHeldItem);
             currentHeldItem.hitEntity(target, ((EntityPlayer) attacker));
+            attacker.setHeldItem(EnumHand.MAIN_HAND, stack);
         }
         return false;
     }
 
     @Override
     public float getStrVsBlock(ItemStack stack, IBlockState state) {
-
         ItemStack currentHeldItem = getCurrentHeldItem(stack);
         return currentHeldItem.getStrVsBlock(state);
     }
@@ -178,11 +202,35 @@ public class MultiTool extends BasicItem {
     @Override
     public ItemStack onItemUseFinish(ItemStack stack, World worldIn, EntityLivingBase entityLiving) {
         ItemStack currentHeldItem = getCurrentHeldItem(stack);
-        return currentHeldItem.onItemUseFinish(worldIn, entityLiving);
+        entityLiving.setHeldItem(EnumHand.MAIN_HAND, currentHeldItem);
+        ItemStack returnStack = currentHeldItem.onItemUseFinish(worldIn, entityLiving);
+        entityLiving.setHeldItem(EnumHand.MAIN_HAND, stack);
+        setCurrentHeldItem(stack, returnStack);
+        return returnStack;
+    }
+
+    private void setCurrentHeldItem(ItemStack stack, ItemStack returnStack) {
+        int currentIndex = getCurrentItem(stack);
+        int currentAmount = getNumberOfItems(stack);
+
+        IItemHandler cap = stack.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
+        if (stack.isEmpty()) {
+            for (int i = currentAmount - 1; i > currentIndex + 1; ) {
+                ItemStack last = cap.extractItem(i, 1, false);
+                if (!last.isEmpty()) {
+                    cap.insertItem(currentIndex, last, false);
+                    setNumberOfItems(stack, getNumberOfItems(stack) - 1);
+                    break;
+                }
+            }
+        } else {
+            cap.insertItem(currentIndex, returnStack, false);
+        }
     }
 
     @Override
-    public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState state, BlockPos pos, EntityLivingBase entityLiving) {
+    public boolean onBlockDestroyed(ItemStack stack, World worldIn,
+                                    IBlockState state, BlockPos pos, EntityLivingBase entityLiving) {
         ItemStack currentHeldItem = getCurrentHeldItem(stack);
         if (entityLiving instanceof EntityPlayer) {
             currentHeldItem.onBlockDestroyed(worldIn, state, pos, ((EntityPlayer) entityLiving));
@@ -194,7 +242,10 @@ public class MultiTool extends BasicItem {
     @Override
     public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
         ItemStack currentHeldItem = getCurrentHeldItem(stack);
-        currentHeldItem.getItem().onUpdate(stack, worldIn, entityIn, itemSlot, isSelected);
+
+//        if(entityIn instanceof EntityPlayer) ((EntityPlayer) entityIn).setHeldItem(EnumHand.MAIN_HAND, currentHeldItem);
+        currentHeldItem.getItem().onUpdate(currentHeldItem, worldIn, entityIn, itemSlot, isSelected);
+//        if(entityIn instanceof EntityPlayer) ((EntityPlayer) entityIn).setHeldItem(EnumHand.MAIN_HAND, stack);
 
         super.onUpdate(stack, worldIn, entityIn, itemSlot, isSelected);
     }
@@ -204,17 +255,22 @@ public class MultiTool extends BasicItem {
         super.onCreated(stack, worldIn, playerIn);
     }
 
+
     @Override
     public EnumAction getItemUseAction(ItemStack stack) {
-
         ItemStack currentHeldItem = getCurrentHeldItem(stack);
+
         return currentHeldItem.getItemUseAction();
     }
 
     @Override
-    public void onPlayerStoppedUsing(ItemStack stack, World worldIn, EntityLivingBase entityLiving, int timeLeft) {
+    public void onPlayerStoppedUsing(ItemStack stack, World worldIn,
+                                     EntityLivingBase entityLiving, int timeLeft) {
         ItemStack currentHeldItem = getCurrentHeldItem(stack);
+
+        entityLiving.setHeldItem(EnumHand.MAIN_HAND, currentHeldItem);
         currentHeldItem.onPlayerStoppedUsing(worldIn, entityLiving, timeLeft);
+        entityLiving.setHeldItem(EnumHand.MAIN_HAND, stack);
 
         super.onPlayerStoppedUsing(stack, worldIn, entityLiving, timeLeft);
     }
@@ -223,8 +279,13 @@ public class MultiTool extends BasicItem {
     public EnumActionResult onItemUseFirst(EntityPlayer player, World world, BlockPos pos,
                                            EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
 
+        ItemStack stack = player.getHeldItem(hand);
         ItemStack currentHeldItem = getCurrentHeldItem(player.getHeldItem(hand));
-        return currentHeldItem.onItemUseFirst(player, world, pos, hand, side, hitX, hitY, hitZ);
+        player.setHeldItem(hand, currentHeldItem);
+        EnumActionResult ret = currentHeldItem.onItemUseFirst(player, world, pos, hand, side, hitX, hitY, hitZ);
+        player.setHeldItem(hand, stack);
+
+        return ret;
     }
 
     @Override
@@ -236,7 +297,9 @@ public class MultiTool extends BasicItem {
     @Override
     public void onUsingTick(ItemStack stack, EntityLivingBase player, int count) {
         ItemStack currentHeldItem = getCurrentHeldItem(stack);
+        player.setHeldItem(EnumHand.MAIN_HAND, currentHeldItem);
         currentHeldItem.getItem().onUsingTick(currentHeldItem, player, count);
+        player.setHeldItem(EnumHand.MAIN_HAND, stack);
 
         super.onUsingTick(stack, player, count);
     }
@@ -244,13 +307,19 @@ public class MultiTool extends BasicItem {
     @Override
     public boolean onLeftClickEntity(ItemStack stack, EntityPlayer player, Entity entity) {
         ItemStack currentHeldItem = getCurrentHeldItem(stack);
-        return currentHeldItem.getItem().onLeftClickEntity(currentHeldItem, player, entity);
+        player.setHeldItem(EnumHand.MAIN_HAND, currentHeldItem);
+        boolean ret = currentHeldItem.getItem().onLeftClickEntity(currentHeldItem, player, entity);
+        player.setHeldItem(EnumHand.MAIN_HAND, stack);
+        return ret;
     }
 
     @Override
     public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack) {
         ItemStack currentHeldItem = getCurrentHeldItem(stack);
-        return currentHeldItem.getItem().onEntitySwing(entityLiving, currentHeldItem);
+        entityLiving.setHeldItem(EnumHand.MAIN_HAND, currentHeldItem);
+        boolean bool = currentHeldItem.getItem().onEntitySwing(entityLiving, currentHeldItem);
+        entityLiving.setHeldItem(EnumHand.MAIN_HAND, stack);
+        return bool;
     }
 
     @Override

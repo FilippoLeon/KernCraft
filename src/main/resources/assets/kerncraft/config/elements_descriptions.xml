@@ -69,7 +69,6 @@
             [li] [red]Stars[reset]: stars contain a big quantity of Helium.
         </Description>
     </Element>
-
     <Element symbol="Li">
         <Description lang="en_us">
             [b][blue]Lithium[b/] is the first solid of the periodic table of elements.
@@ -88,12 +87,34 @@
             [li] [red]Batteries[reset]: Lithium is used in Lithium Ion batteries.
             [li] [blue]Glass/Ceramic[reset]: Lithium Oxide can be used to facilitate
             the working of glasses and ceramics.
+            [li] [gold]Lubricant[reset]
             [br/]
             [u]Obtained from:[u/][br/]
             [li] [blue]Electrolysis[reset]: of a solution of [red]Potassium Chloride [KCl][reset] and [blue]Lithium
             Chloride [LiCl][reset] (both salts).
             [br/]
             [li] [gold]Brine/Clay[reset][br/]
+            [li] [red]Spodumene (Silicate)[reset][br/]
+        </Description>
+    </Element>
+    <Element symbol="Be">
+        <Description lang="en_us">
+            [b][blue]Beryllium[b/] is a very light metalloid, the 4th element of the periodic table. It is
+            quite toxic and contact should be avoided.
+            [p/]
+            [u]Precautions:[u/][br/]
+            [li] [red]Toxic[reset]: .
+            [br/]
+            [br/]
+            [u]Uses:[u/][br/]
+            [li] [red]Alloys[reset]: Beryllium is very light and can be use to create metal alloys, together with
+            Copper, Aluminium, Nickel, Iron.
+            [li] [blue]X-Rays/Particle detectors[reset]
+            [br/] [magenta]Mirrors[reset]
+            [br/]
+            [u]Obtained from:[u/][br/]
+            [li] [blue]Beryl (Silicate)[reset]
+            [li] [gold]Emerald[reset]
         </Description>
     </Element>
 </Elements>

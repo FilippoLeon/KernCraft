@@ -2,6 +2,7 @@ package com.R3DKn16h7.kerncraft.items;
 
 import com.R3DKn16h7.kerncraft.KernCraft;
 import com.R3DKn16h7.kerncraft.items.molecules.MoleculeItem;
+import com.R3DKn16h7.kerncraft.items.tools.SpecialRenderer;
 import com.R3DKn16h7.kerncraft.items.upgrades.UpgradeItem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -34,7 +35,11 @@ public final class ItemRenderRegister {
 
         register(KernCraftItems.ALCHEMIST_RING);
 
-        register(KernCraftItems.MULTI_TOOL);
+//        register(KernCraftItems.MULTI_TOOL);
+//        register(KernCraftItems.MULTI_TOOL);
+//        Minecraft.getMinecraft().getRenderItem().renderItemOverlayIntoGUI();
+        Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
+                .register(KernCraftItems.MULTI_TOOL, new SpecialRenderer());
 
         for (Map.Entry<String, MoleculeItem> item : KernCraftItems.MATERIALS.entrySet()) {
             register(item.getValue());

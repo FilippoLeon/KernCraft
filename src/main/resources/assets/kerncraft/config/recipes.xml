@@ -177,6 +177,18 @@
         </Output>
     </Extractor>
 
+    <Extractor energy="2000">
+        <Input>
+            <Block amount="1">emerald</Block>
+        </Input>
+        <Output>
+            <Element amount="40">0</Element>
+            <Element amount="40">Be</Element>
+            <Element amount="32">Si</Element>
+        </Output>
+    </Extractor>
+
+
     <!-- ************************************************** -->
     <!-- ************************************************** -->
     <!-- ************* CHEMICAL FURNACE RECIPES *********** -->
@@ -194,9 +206,21 @@
     </ChemicalFurnace>
 
     <!-- Ore casting -->
+    <ChemicalFurnace energy="-900" cost="10">
+        <Input>
+            <Element amount="30">Be</Element>
+            <Element amount="20">Al</Element>
+            <Element amount="30">Si</Element>
+            <Element amount="180">O</Element>
+        </Input>
+        <Output>
+            <Item amount="1">emerald</Item>
+        </Output>
+    </ChemicalFurnace>
+
     <ChemicalFurnace energy="-900" cost="5">
         <Input>
-            <Element amount="90">Fe</Element>
+            <Element amount="90">Be</Element>
         </Input>
         <Output>
             <Item amount="1">iron_ingot</Item>
