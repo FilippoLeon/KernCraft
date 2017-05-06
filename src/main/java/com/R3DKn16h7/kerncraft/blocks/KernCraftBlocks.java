@@ -3,17 +3,21 @@ package com.R3DKn16h7.kerncraft.blocks;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class KernCraftBlocks {
-    public static TestBlock TEST_BLOCK;
+    public static Map<String, BasicBlock> BLOCKS = new HashMap<>();
 
     public static void createBlocks() {
-
-        TEST_BLOCK = new TestBlock("test_block");
-
+        BasicBlock.create("test_block", null);
     }
 
     @SideOnly(Side.CLIENT)
     public static void initModels() {
-        TEST_BLOCK.initModel();
+
+        for (Map.Entry<String, BasicBlock> entry : BLOCKS.entrySet()) {
+            entry.getValue().initModel();
+        }
     }
 }

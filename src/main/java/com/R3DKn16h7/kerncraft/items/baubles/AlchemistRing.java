@@ -2,13 +2,13 @@ package com.R3DKn16h7.kerncraft.items.baubles;
 
 import baubles.api.BaubleType;
 import baubles.api.IBauble;
-import com.R3DKn16h7.kerncraft.blocks.KernCraftBlocks;
 import com.R3DKn16h7.kerncraft.capabilities.element.ElementContainerProvider;
 import com.R3DKn16h7.kerncraft.items.AbstractElementContainerItem;
 import com.R3DKn16h7.kerncraft.utils.PlayerHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ActionResult;
@@ -90,7 +90,7 @@ public class AlchemistRing extends AbstractElementContainerItem implements IBaub
         if (!PlayerHelper.isShiftDown() && player.world.isAirBlock(intPos)) {
 
 //            worldIn.getBlockState(pos))
-            player.world.setBlockState(intPos, KernCraftBlocks.TEST_BLOCK.getDefaultState());
+            player.world.setBlockState(intPos, Blocks.COBBLESTONE.getDefaultState());
         }
     }
 

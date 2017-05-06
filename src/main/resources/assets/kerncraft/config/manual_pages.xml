@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Manual>
-    <Chapter name="first_steps" unlockedWith="first_steps">
-        <Entry name="beginner_chemist">
+    <Chapter name="Frist Steps" unlockedWith="first_steps">
+        <Entry name="Beginner Chemist">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
             ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
@@ -10,7 +10,7 @@
             sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
             mollit anim id est laborum.
         </Entry>
-        <Entry name="intermediate_chemist">
+        <Entry name="The next step...">
             Sed ut perspiciatis unde omnis iste natus error sit voluptatem
             accusantium doloremque laudantium, totam rem aperiam, eaque
             ipsa quae ab illo inventore veritatis et quasi architecto
@@ -27,8 +27,8 @@
             qui dolorem eum fugiat quo voluptas nulla pariatur?
         </Entry>
     </Chapter>
-    <Chapter name="second_steps">
-        <Entry name="expert_chemist">
+    <Chapter name="Intermediate" unlockedWith="second_steps">
+        <Entry name="Alloys">
             But I must explain to you how all this mistaken idea of denouncing
             pleasure and praising pain was born and I will give you a complete
             account of the system, and expound the actual teachings of the great
@@ -44,7 +44,7 @@
             chooses to enjoy a pleasure that has no annoying consequences, or one who
             avoids a pain that produces no resultant pleasure?
         </Entry>
-        <Entry name="kinda_master_chemist">
+        <Entry name="Crafting with elements">
             Description d
         </Entry>
     </Chapter>

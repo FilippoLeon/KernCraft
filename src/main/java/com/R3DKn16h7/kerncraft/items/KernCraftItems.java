@@ -10,6 +10,7 @@ import com.R3DKn16h7.kerncraft.items.disabled.TestItem;
 import com.R3DKn16h7.kerncraft.items.energy.GenericBattery;
 import com.R3DKn16h7.kerncraft.items.energy.PotatoBattery;
 import com.R3DKn16h7.kerncraft.items.manual.TyrociniumChymicum;
+import com.R3DKn16h7.kerncraft.items.molecules.AlloyItem;
 import com.R3DKn16h7.kerncraft.items.molecules.ElectrolyticCell;
 import com.R3DKn16h7.kerncraft.items.molecules.MoleculeItem;
 import com.R3DKn16h7.kerncraft.items.shields.ExtraShield;
@@ -79,6 +80,8 @@ public class KernCraftItems {
         MoleculeItem.create("calcium_chloride", "calciumChloride");
         MoleculeItem.create("potassium_chloride", "potassiumChloride");
         MoleculeItem.create("sodium_chloride", new String[]{"sodiumChloride", "dustSalt"});
+
+        new AlloyItem("copper_beryllium", "SpringCopper");
 
         UpgradeItem.create("upgrade_energy", Upgrade.ENERGY_EFFICIENTY);
         UpgradeItem.create("upgrade_speed", Upgrade.SPEED);

@@ -208,6 +208,16 @@
     <!-- Ore casting -->
     <ChemicalFurnace energy="-900" cost="10">
         <Input>
+            <Element amount="45">Be</Element>
+            <Element amount="45">Cu</Element>
+        </Input>
+        <Output>
+            <OreDict amount="1">ingotBerylliumCopper</OreDict>
+        </Output>
+    </ChemicalFurnace>
+
+    <ChemicalFurnace energy="-900" cost="10">
+        <Input>
             <Element amount="30">Be</Element>
             <Element amount="20">Al</Element>
             <Element amount="30">Si</Element>

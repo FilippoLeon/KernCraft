@@ -1,9 +1,9 @@
 package com.R3DKn16h7.kerncraft.crafting;
 
-import com.R3DKn16h7.kerncraft.blocks.KernCraftBlocks;
 import com.R3DKn16h7.kerncraft.elements.ElementRegistry;
 import com.R3DKn16h7.kerncraft.elements.ElementStack;
 import com.R3DKn16h7.kerncraft.items.KernCraftItems;
+import com.R3DKn16h7.kerncraft.items.molecules.AlloyItem;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -40,6 +40,7 @@ public class KernCraftRecipes {
 
     public KernCraftRecipes() {
         RegisterCraftingRecipes();
+        AlloyItem.addAlloyRecipes();
 
         parseRecipeXml();
     }
@@ -185,7 +186,7 @@ public class KernCraftRecipes {
     private void RegisterCraftingRecipes() {
         //// TEST RECIPE
         GameRegistry.addRecipe(new ItemStack(KernCraftItems.PORTABLE_BEACON),
-                "##", "##", '#', KernCraftBlocks.TEST_BLOCK);
+                "##", "##", '#', Blocks.BEACON);
 
         //// CANISTER RECIPE
         if (OreDictionary.doesOreNameExist("plateIron") && OreDictionary.doesOreNameExist("rodIron")) {

@@ -1,6 +1,5 @@
 package com.R3DKn16h7.kerncraft;
 
-import com.R3DKn16h7.kerncraft.blocks.BlockRenderRegister;
 import com.R3DKn16h7.kerncraft.blocks.KernCraftBlocks;
 import com.R3DKn16h7.kerncraft.items.ItemRenderRegister;
 import com.R3DKn16h7.kerncraft.tileentities.KernCraftTileEntities;
@@ -23,7 +22,6 @@ public class ClientProxy extends CommonProxy {
         super.init(e);
 
         ItemRenderRegister.registerItemRenderer();
-        BlockRenderRegister.registerBlockRenderer();
     }
 
     @Override
