@@ -87,12 +87,12 @@
     }
   },
   "textures": {
-    "side": "blocks/planks_oak",
-    "particle": "blocks/planks_oak",
-    "bottom": "blocks/planks_oak",
-    "top": "blocks/planks_oak",
+    "side": "kerncraft:blocks/copper_beryllium_block",
+    "particle": "kerncraft:blocks/copper_beryllium_block",
+    "bottom": "kerncraft:blocks/copper_beryllium_block",
+    "top": "kerncraft:blocks/copper_beryllium_block",
     "handle": "blocks/iron_block",
-    "back": "blocks/obsidian",
+    "back": "kerncraft:blocks/copper_beryllium_block",
     "front": "kerncraft:items/shield"
   },
   "elements": [
@@ -388,9 +388,9 @@
         "north": {
           "texture": "#front",
           "uv": [
-            4.5,
             0.0,
-            9,
+            0.0,
+            4.5,
             9.5
           ]
         },

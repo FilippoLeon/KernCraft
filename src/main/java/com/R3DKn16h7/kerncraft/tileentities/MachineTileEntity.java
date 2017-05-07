@@ -115,7 +115,7 @@ public abstract class MachineTileEntity extends TileEntity
 
     @Override
     public boolean AddUpgrade(Upgrade upgrade) {
-        if (maxUpgradeCount(upgrade) < getUpgrade().getCount(upgrade)) {
+        if (maxUpgradeCount(upgrade) > getUpgrade().getCount(upgrade)) {
             getUpgrade().add(upgrade);
             resizeSlots();
             return true;

@@ -13,9 +13,12 @@ public class KernCraftBlocks {
     public static void createBlocks() {
         BasicBlock.create("test_block", null);
         GlassBlock.create("borosilicate_glass",
-                "glassReinforced");
+                new String[]{"blockGlassReinforced", "blockGlassBorosilicate"}
+        );
         BlockBorosilicateGlassPane.create(Material.GLASS,
-                "borosilicate_glass_pane", true);
+                "borosilicate_glass_pane", true,
+                new String[]{"paneGlassBorosilicate", "paneGlassReinforced"}
+        );
     }
 
     @SideOnly(Side.CLIENT)

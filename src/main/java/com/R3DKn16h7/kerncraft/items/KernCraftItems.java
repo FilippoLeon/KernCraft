@@ -81,7 +81,9 @@ public class KernCraftItems {
         MoleculeItem.create("potassium_chloride", "potassiumChloride");
         MoleculeItem.create("sodium_chloride", new String[]{"sodiumChloride", "dustSalt"});
 
-        new AlloyItem("copper_beryllium", "SpringCopper");
+        new AlloyItem("copper_beryllium",
+                new String[]{"SpringCopper", "BerylliumCopper"}
+        );
 
         UpgradeItem.create("upgrade_energy", Upgrade.ENERGY_EFFICIENTY);
         UpgradeItem.create("upgrade_speed", Upgrade.SPEED);

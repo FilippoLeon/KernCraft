@@ -7,6 +7,7 @@ import com.R3DKn16h7.kerncraft.crafting.ChemicalFurnaceRecipe;
 import com.R3DKn16h7.kerncraft.crafting.KernCraftRecipes;
 import com.R3DKn16h7.kerncraft.elements.ElementStack;
 import com.R3DKn16h7.kerncraft.tileentities.SmeltingTileEntity;
+import com.R3DKn16h7.kerncraft.tileentities.utils.Upgrade;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Tuple;
 import net.minecraftforge.fluids.FluidStack;
@@ -16,8 +17,8 @@ import java.util.List;
 public class ChemicalFurnaceTileEntity extends SmeltingTileEntity<ChemicalFurnaceRecipe> {
 
     // Slot IDs
-    private static final int[][] inputCoords = {{4, 0}, {5, 0}};
-    private static final int[][] outputCoords = {{4, 2}, {5, 2}};
+    private static final int[][] inputCoords = {{4, 0}, {5, 0}, {3, 0}, {6, 0}};
+    private static final int[][] outputCoords = {{4, 2}, {5, 2}, {3, 2}, {6, 2}};
 
     public ChemicalFurnaceTileEntity() {
         super(2);
@@ -26,12 +27,16 @@ public class ChemicalFurnaceTileEntity extends SmeltingTileEntity<ChemicalFurnac
 
     @Override
     public int getInputSize() {
-        return 2;
+        int upg = getUpgrade().getCount(Upgrade.EXTRA_SLOT);
+        int[] slots = {2, 3, 4};
+        return slots[Math.min(upg, slots.length - 1)];
     }
 
     @Override
     public int getOutputSize() {
-        return 2;
+        int upg = getUpgrade().getCount(Upgrade.EXTRA_SLOT);
+        int[] slots = {2, 3, 4};
+        return slots[Math.min(upg, slots.length - 1)];
     }
 
     @Override

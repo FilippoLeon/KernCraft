@@ -1,5 +1,6 @@
 package com.R3DKn16h7.kerncraft.crafting;
 
+import com.R3DKn16h7.kerncraft.blocks.KernCraftBlocks;
 import com.R3DKn16h7.kerncraft.elements.ElementRegistry;
 import com.R3DKn16h7.kerncraft.elements.ElementStack;
 import com.R3DKn16h7.kerncraft.items.KernCraftItems;
@@ -184,10 +185,6 @@ public class KernCraftRecipes {
     }
 
     private void RegisterCraftingRecipes() {
-        //// TEST RECIPE
-        GameRegistry.addRecipe(new ItemStack(KernCraftItems.PORTABLE_BEACON),
-                "##", "##", '#', Blocks.BEACON);
-
         //// CANISTER RECIPE
         if (OreDictionary.doesOreNameExist("plateIron") && OreDictionary.doesOreNameExist("rodIron")) {
             GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(KernCraftItems.CANISTER, 16),
@@ -206,11 +203,15 @@ public class KernCraftRecipes {
                     '#', Items.IRON_INGOT, 'i', Blocks.IRON_BARS);
         }
         //// ERLENMEYER FLASK
-        GameRegistry.addShapedRecipe(new ItemStack(KernCraftItems.FLASK, 8),
+        GameRegistry.addRecipe(new ShapedOreRecipe(
+                new ItemStack(KernCraftItems.FLASK, 8),
+                new Object[]{
                 " # ",
                 " # ",
                 "###",
-                '#', Blocks.GLASS_PANE);
+                        '#', "paneGlassBorosilicate"
+                }
+        ));
         //// CELL RECIPE
         if (OreDictionary.doesOreNameExist("plateIron") && OreDictionary.doesOreNameExist("rodIron")) {
             GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(KernCraftItems.PRESSURIZED_CELL, 16),
@@ -218,7 +219,8 @@ public class KernCraftRecipes {
                             " i ",
                             " # ",
                             " # ",
-                            '#', "plateIron", 'i', "rodIron"
+                            '#', "plateIron",
+                            'i', "rodIron"
                     }
             ));
         } else {
@@ -318,6 +320,40 @@ public class KernCraftRecipes {
                         'B', Items.BOOK,
                         'O', new ElementStack("O", 4),
                         'H', new ElementStack("H", 4),
+                }
+        ));
+
+        //// Alchemist ring
+        GameRegistry.addRecipe(new ShapedOreRecipe(
+                KernCraftItems.ALCHEMIST_RING,
+                new Object[]{
+                        " D ",
+                        "O O",
+                        " O ",
+                        'D', Items.DIAMOND,
+                        'O', "nuggetBerylliumCopper"
+                }
+        ));
+
+        //// TEST RECIPE
+        GameRegistry.addRecipe(new ShapedOreRecipe(
+                        new ItemStack(KernCraftItems.PORTABLE_BEACON),
+                        new Object[]{
+                                "GBG",
+                                "B#B",
+                                "GBG",
+                                '#', Blocks.BEACON,
+                                'B', "blockGlassBorosilicate",
+                                'G', "blockBerylliumCopper"
+                        }
+                )
+        );
+
+        // Glass shaping (if we add new glass put that into the class)
+        GameRegistry.addRecipe(new ShapedOreRecipe(
+                KernCraftBlocks.BLOCKS.get("borosilicate_glass_pane"),
+                new Object[]{
+                        "OOO", "OOO", 'O', "blockGlassBorosilicate"
                 }
         ));
     }

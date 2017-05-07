@@ -36,8 +36,9 @@ public class BlockBorosilicateGlassPane extends BasicBlock {
             = new AxisAlignedBB[]{new AxisAlignedBB(0.4375D, 0.0D, 0.4375D, 0.5625D, 1.0D, 0.5625D), new AxisAlignedBB(0.4375D, 0.0D, 0.4375D, 0.5625D, 1.0D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.4375D, 0.5625D, 1.0D, 0.5625D), new AxisAlignedBB(0.0D, 0.0D, 0.4375D, 0.5625D, 1.0D, 1.0D), new AxisAlignedBB(0.4375D, 0.0D, 0.0D, 0.5625D, 1.0D, 0.5625D), new AxisAlignedBB(0.4375D, 0.0D, 0.0D, 0.5625D, 1.0D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 0.5625D, 1.0D, 0.5625D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 0.5625D, 1.0D, 1.0D), new AxisAlignedBB(0.4375D, 0.0D, 0.4375D, 1.0D, 1.0D, 0.5625D), new AxisAlignedBB(0.4375D, 0.0D, 0.4375D, 1.0D, 1.0D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.4375D, 1.0D, 1.0D, 0.5625D), new AxisAlignedBB(0.0D, 0.0D, 0.4375D, 1.0D, 1.0D, 1.0D), new AxisAlignedBB(0.4375D, 0.0D, 0.0D, 1.0D, 1.0D, 0.5625D), new AxisAlignedBB(0.4375D, 0.0D, 0.0D, 1.0D, 1.0D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 1.0D, 0.5625D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 1.0D, 1.0D)};
     private final boolean canDrop;
 
-    protected BlockBorosilicateGlassPane(Material materialIn, String name, boolean canDrop) {
-        super(materialIn, name, 0.0f, 0.0f, null);
+    protected BlockBorosilicateGlassPane(Material materialIn, String name,
+                                         boolean canDrop, Object oreDict) {
+        super(materialIn, name, 0.0f, 0.0f, oreDict);
         this.setDefaultState(this.blockState
                 .getBaseState()
                 .withProperty(NORTH, Boolean.valueOf(false))
@@ -48,9 +49,10 @@ public class BlockBorosilicateGlassPane extends BasicBlock {
         this.canDrop = canDrop;
     }
 
-    public static void create(Material mat, String unlocalizedName, boolean canDrop) {
+    public static void create(Material mat, String unlocalizedName,
+                              boolean canDrop, Object oreDict) {
         KernCraftBlocks.BLOCKS.put(unlocalizedName,
-                new BlockBorosilicateGlassPane(mat, unlocalizedName, canDrop)
+                new BlockBorosilicateGlassPane(mat, unlocalizedName, canDrop, oreDict)
         );
     }
 

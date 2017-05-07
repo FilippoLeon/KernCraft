@@ -14,7 +14,7 @@ item.roman_shield.name=Roman shield
 item.alchemist_ring.name=Alchemist Ring
 
 item.upgrade_speed.name=Speed upgrade
-item.upgrade_size.name=Extra slot upgrade
+item.upgrade_slot.name=Extra slot upgrade
 item.upgrade_output.name=Production upgrade
 item.upgrade_energy.name=Efficiency upgrade
 
@@ -92,6 +92,8 @@ element.B.name=Boron
 element.B.description=Boron is the 5th element of the periodic table. It is solid at room temperature.
 
 element.C.name=Carbon
+element.C.description=Carbon is the basis of all life we know of. It is so important for us, that there is an entire branch of chemistry dedicated to the study of this element.
+
 element.N.name=Nitrogen
 element.O.name=Oxygen
 element.F.name=Fluorine

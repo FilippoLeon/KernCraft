@@ -43,13 +43,16 @@ public abstract class KernCraftAbstractJEIRecipeCategory implements IRecipeCateg
         );
         background = guiHelper.createDrawable(backgroundLocation,
                 7, 16, 163, 54);
-
+        // Slot background
         ResourceLocation location = new ResourceLocation(
                 "kerncraft:textures/gui/container/extractor_gui.png"
         );
         slot = guiHelper.createDrawable(location,
                 7 + 1 * DEFAULT_SLOT_SIZE_X, 16 + 2 * DEFAULT_SLOT_SIZE_Y,
                 18, 18);
+        // Fluid bar background
+
+        // Energy bar
     }
 
     Tuple<IDrawable, int[]> createArrowDown(int coordX, int coordY) {

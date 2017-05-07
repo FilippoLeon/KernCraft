@@ -11,6 +11,7 @@ public class GlassShield extends ExtraShield {
 
     @Override
     public boolean getIsRepairable(ItemStack toRepair, ItemStack repair) {
-        return repair.getItem() == Item.getItemFromBlock(Blocks.GLASS) || super.getIsRepairable(toRepair, repair);
+        return repair.getItem() ==
+                Item.getItemFromBlock(Blocks.GLASS) || super.getIsRepairable(toRepair, repair);
     }
 }

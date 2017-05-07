@@ -139,4 +139,30 @@
             [li] [blue]Sodium and Calcium Borates[reset]
         </Description>
     </Element>
+    <Element symbol="C">
+        <Description lang="en_us">
+            [b][black]Carbon[reset] is the 5th element of the periodic table.
+            It is the
+            most important building block of life forms as we know it.
+            [u]Uses:[u/][br/]
+            [li] [magenta]Plastic, Paint and Fibres[reset]: carbon can be made into many
+            synthetic materials.[br/]
+            [li] [blue]Carbon fibre[reset]: used as lightweight material for airplanes
+            and many other things.[br/]
+            [li] [gold]Graphite/Diamonds[reset]: for pencils and shiny
+            blue rocks.[br/]
+            [li] [red]Fuel[reset]: can be used as fuel
+            in its many forms.[br/]
+            [li] [green]Lubricant[reset][br/]
+            [u]Obtained from:[u/][br/]
+            [li] [red]Fossil fuels[reset]: carbon can be
+            extracted from oil, coal and
+            natural gas.[br/]
+            [li] [gold]Graphite/Diamonds[reset][br/]
+            [li] [blue]Carbon dioxide and monoxide[reset],
+            infamous CO and CO_2, which
+            is one of the many things killing life on earth.
+        </Description>
+    </Element>
+
 </Elements>

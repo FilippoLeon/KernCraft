@@ -32,10 +32,14 @@ public abstract class ExtraShield extends Item {
         this.maxStackSize = 1;
         this.setCreativeTab(CreativeTabs.COMBAT);
         this.setMaxDamage(336);
-        this.addPropertyOverride(new ResourceLocation("blocking"), new IItemPropertyGetter() {
+        this.addPropertyOverride(new ResourceLocation("blocking"),
+                new IItemPropertyGetter() {
             @SideOnly(Side.CLIENT)
-            public float apply(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn) {
-                return entityIn != null && entityIn.isHandActive() && entityIn.getActiveItemStack() == stack ? 1.0F : 0.0F;
+            public float apply(ItemStack stack, @Nullable World worldIn,
+                               @Nullable EntityLivingBase entityIn) {
+                return entityIn != null
+                        && entityIn.isHandActive()
+                        && entityIn.getActiveItemStack() == stack ? 1.0F : 0.0F;
             }
         });
 
@@ -45,7 +49,8 @@ public abstract class ExtraShield extends Item {
 
     @SideOnly(Side.CLIENT)
     @Override
-    public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
+    public void addInformation(ItemStack stack, EntityPlayer playerIn,
+                               List<String> tooltip, boolean advanced) {
         ItemBanner.appendHoverTextFromTileEntityTag(stack, tooltip);
     }
 
@@ -71,7 +76,8 @@ public abstract class ExtraShield extends Item {
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
+    public ActionResult<ItemStack> onItemRightClick(World worldIn,
+                                                    EntityPlayer playerIn, EnumHand handIn) {
 
         playerIn.setActiveHand(handIn);
         return new ActionResult<>(EnumActionResult.SUCCESS, playerIn.getHeldItem(handIn));

@@ -250,7 +250,7 @@ public class MachineGuiContainer extends AdvancedGuiContainer {
                 float fluidAmountPercent = (float) fluid_te.getFluidAmount(i) / fluid_te.getCapacity(i);
                 String name;
                 if (fluid_te.getFluid(i) != null) {
-                    name = fluid_te.getFluid(0).getLocalizedName();
+                    name = fluid_te.getFluid(i).getLocalizedName();
                     if (name.equals("Water")) {
                         fluidBar.get(i).setTint(Color.blue);
                     } else if (name.equals("Lava")) {
