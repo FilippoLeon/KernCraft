@@ -16,6 +16,7 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
+import net.minecraftforge.oredict.RecipeSorter;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 import org.w3c.dom.Document;
@@ -40,6 +41,9 @@ public class KernCraftRecipes {
     public static List<ElectrolyzerRecipe> ELECTROLYZER_RECIPES = new ArrayList<>();
 
     public KernCraftRecipes() {
+        RecipeSorter.register("element_recipe",
+                ElementRecipe.class, RecipeSorter.Category.SHAPED, "");
+
         RegisterCraftingRecipes();
         AlloyItem.addAlloyRecipes();
 
@@ -70,6 +74,9 @@ public class KernCraftRecipes {
     static FluidStack parseAsFluid(Element elem) {
         int amount = readAsIntOrDefault(elem, "amount", 1000);
         String fluid = elem.getTextContent();
+        if (!FluidRegistry.isFluidRegistered(fluid)) {
+            return null;
+        }
         return new FluidStack(FluidRegistry.getFluid(fluid), amount);
     }
 

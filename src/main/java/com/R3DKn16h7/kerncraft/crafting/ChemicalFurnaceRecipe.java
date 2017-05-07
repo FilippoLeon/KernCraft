@@ -8,18 +8,22 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Represents the recipe for the extractor.
  */
 public class ChemicalFurnaceRecipe implements ISmeltingRecipe {
+    private static final int MAX_INPUTS = 4;
     // TODO: might want to switch to ArrayList to ease loop
-    public ElementStack[] inputs;
+    public List<ElementStack> inputs;
     public NonNullList<ItemStack> outputs;
     public int energy;
     public FluidStack fluid;
     public int cost;
 
-    public ChemicalFurnaceRecipe(ElementStack[] inputs,
+    public ChemicalFurnaceRecipe(List<ElementStack> inputs,
                                  NonNullList<ItemStack> outputs,
                                  int energy, FluidStack fluid, int cost) {
 
@@ -40,7 +44,7 @@ public class ChemicalFurnaceRecipe implements ISmeltingRecipe {
         int energy = KernCraftRecipes.readAsIntOrDefault(nElement, "energy", 0);
         int cost = KernCraftRecipes.readAsIntOrDefault(nElement, "cost", 0);
 
-        ElementStack[] inputs = new ElementStack[2];
+        List<ElementStack> inputs = new ArrayList<ElementStack>();
         NonNullList<ItemStack> outputs = NonNullList.create();
         FluidStack fluid = null;
 
@@ -51,13 +55,10 @@ public class ChemicalFurnaceRecipe implements ISmeltingRecipe {
             Element nChildNode = ((Element) nList.item(i));
             switch (nChildNode.getNodeName()) {
                 case "Input":
-                    NodeList nChildList = nChildNode.getElementsByTagName("*");
-                    if (nChildList.getLength() > 2) {
-                        System.err.println("Warning: Too many inputs elements for Extractor Recipe.");
-                    }
-                    for (int j = 0; j < Math.min(nChildList.getLength(), 2); j++) {
-                        inputs[j] = KernCraftRecipes.parseAsElementStack(((Element) nChildList.item(j)));
-                    }
+                    inputs = KernCraftRecipes.parseAsElementStackList(
+                            nChildNode,
+                            0, MAX_INPUTS
+                    );
                     break;
                 case "Output":
                     NodeList nChildListO = nChildNode.getElementsByTagName("*");

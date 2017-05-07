@@ -14,6 +14,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Tuple;
 
 import javax.annotation.Nullable;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -71,8 +72,8 @@ public abstract class KernCraftAbstractJEIRecipeCategory implements IRecipeCateg
                 "kerncraft:textures/gui/container/extractor_gui.png"
         );
         IDrawableStatic brewing = guiHelper.createDrawable(location,
-                176, 0,
-                6, 3 * DEFAULT_SLOT_SIZE_Y - 2);
+                182, 28 + 18,
+                DEFAULT_SLOT_SIZE_X, DEFAULT_SLOT_SIZE_Y);
         return new Tuple<>(
                 guiHelper.createAnimatedDrawable(brewing,
                         300, IDrawableAnimated.StartDirection.TOP,
@@ -80,7 +81,6 @@ public abstract class KernCraftAbstractJEIRecipeCategory implements IRecipeCateg
                 new int[]{coordX, coordY}
         );
     }
-
 
     Tuple<IDrawable, int[]> createBarBackground(int coordX, int coordY) {
         return new Tuple<>(
@@ -93,6 +93,11 @@ public abstract class KernCraftAbstractJEIRecipeCategory implements IRecipeCateg
 
 
     Tuple<IDrawable, int[]> createBarAnimate(int coordX, int coordY) {
+        return createBarAnimate(coordX, coordY, null, 300);
+    }
+
+    Tuple<IDrawable, int[]> createBarAnimate(int coordX, int coordY,
+                                             Color color, int speed) {
         ResourceLocation location = new ResourceLocation(
                 "kerncraft:textures/gui/container/extractor_gui.png"
         );
@@ -101,12 +106,11 @@ public abstract class KernCraftAbstractJEIRecipeCategory implements IRecipeCateg
                 6, 3 * DEFAULT_SLOT_SIZE_Y - 2);
         return new Tuple<>(
                 guiHelper.createAnimatedDrawable(energyBar,
-                        300, IDrawableAnimated.StartDirection.BOTTOM,
+                        speed, IDrawableAnimated.StartDirection.BOTTOM,
                         false),
                 new int[]{coordX, coordY}
         );
     }
-
 
     protected Tuple<IDrawable, int[]> createBrewingBackground(int coordX, int coordY) {
         return new Tuple<>(
@@ -119,7 +123,6 @@ public abstract class KernCraftAbstractJEIRecipeCategory implements IRecipeCateg
                 new int[]{coordX, coordY}
         );
     }
-
 
     protected Tuple<IDrawable, int[]> createBrewingAnimate(int coordX, int coordY) {
         ResourceLocation location = new ResourceLocation(

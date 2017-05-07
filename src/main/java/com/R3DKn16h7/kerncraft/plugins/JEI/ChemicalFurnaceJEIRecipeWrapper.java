@@ -20,8 +20,9 @@ public class ChemicalFurnaceJEIRecipeWrapper extends BlankRecipeWrapper {
 
     public ChemicalFurnaceRecipe recipe;
 
-    ChemicalFurnaceJEIRecipeWrapper(ChemicalFurnaceRecipe recipe_) {
-        recipe = recipe_;
+    ChemicalFurnaceJEIRecipeWrapper(ChemicalFurnaceRecipe recipe) {
+
+        this.recipe = recipe;
     }
 
     @Override
@@ -29,7 +30,7 @@ public class ChemicalFurnaceJEIRecipeWrapper extends BlankRecipeWrapper {
         ArrayList<ItemStack> inputs = new ArrayList<>();
         int j = 0;
         for (ElementStack i : recipe.inputs) {
-            if (recipe.inputs[j++] != null) {
+            if (recipe.inputs.get(j++) != null) {
                 inputs.add(ElementRegistry.getItem(i));
             }
         }
@@ -64,7 +65,7 @@ public class ChemicalFurnaceJEIRecipeWrapper extends BlankRecipeWrapper {
         }
 
         // Draw each output element
-        if (isInBox(mouseX, mouseY, 10, 10, 10, 10)) {
+        if (isInBox(mouseX, mouseY, 18 * 9 / 2, 18, 18, 18)) {
             tooltip.add(String.format("Time: %s t", recipe.cost * 5));
         }
         if (recipe.fluid != null) {

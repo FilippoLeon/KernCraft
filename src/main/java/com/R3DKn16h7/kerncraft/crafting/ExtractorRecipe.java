@@ -86,7 +86,12 @@ public class ExtractorRecipe implements ISmeltingRecipe {
                     break;
                 case "Fluid":
                     try {
-                        fluids.add(KernCraftRecipes.parseAsFluid(nChildNode));
+                        FluidStack fluidStack = KernCraftRecipes.parseAsFluid(nChildNode);
+                        if (fluidStack == null) {
+                            KernCraft.LOGGER.error("Invalid fluid for extractor recipe.");
+                            break;
+                        }
+                        fluids.add(fluidStack);
                     } catch (Exception e) {
                         KernCraft.LOGGER.error("Invalid fluid for extractor recipe.");
                         e.printStackTrace();

@@ -152,6 +152,129 @@
         </Output>
     </Extractor>
 
+    <Extractor energy="3600">
+        <Input>
+            <OreDict amount="1">treeWood</OreDict>
+        </Input>
+        <Output>
+            <Element amount="420">C</Element>
+            <Element amount="40" probability="0.5">N</Element>
+            <Element amount="16" probability="0.5">O</Element>
+            <Element amount="8" probability="0.5">H</Element>
+        </Output>
+    </Extractor>
+    <Extractor energy="900">
+        <Input>
+            <OreDict amount="1">plankWood</OreDict>
+        </Input>
+        <Output>
+            <Element amount="90">C</Element>
+            <Element amount="10" probability="0.5">N</Element>
+            <Element amount="4" probability="0.5">O</Element>
+            <Element amount="2" probability="0.5">H</Element>
+        </Output>
+    </Extractor>
+    <Extractor energy="450">
+        <Input>
+            <OreDict amount="1">slabWood</OreDict>
+        </Input>
+        <Output>
+            <Element amount="45">C</Element>
+            <Element amount="5" probability="0.5">N</Element>
+            <Element amount="2" probability="0.5">O</Element>
+            <Element amount="1" probability="0.5">H</Element>
+        </Output>
+    </Extractor>
+    <Extractor energy="900">
+        <Input>
+            <OreDict amount="1">stairWood</OreDict>
+        </Input>
+        <Output>
+            <Element amount="90">C</Element>
+            <Element amount="10" probability="0.5">N</Element>
+            <Element amount="4" probability="0.5">O</Element>
+            <Element amount="2" probability="0.5">H</Element>
+        </Output>
+    </Extractor>
+    <Extractor energy="450">
+        <Input>
+            <OreDict amount="1">stickWood</OreDict>
+        </Input>
+        <Output>
+            <Element amount="45">C</Element>
+            <Element amount="5" probability="0.5">N</Element>
+            <Element amount="2" probability="0.5">O</Element>
+            <Element amount="1" probability="0.5">H</Element>
+        </Output>
+    </Extractor>
+    <Extractor energy="450">
+        <Input>
+            <OreDict amount="1">treeSapling</OreDict>
+        </Input>
+        <Output>
+            <Element amount="45">C</Element>
+            <Element amount="5" probability="0.5">N</Element>
+            <Element amount="2" probability="0.5">O</Element>
+            <Element amount="1" probability="0.5">H</Element>
+        </Output>
+    </Extractor>
+    <Extractor energy="450">
+        <Input>
+            <OreDict amount="1">treeLEaves</OreDict>
+        </Input>
+        <Output>
+            <Element amount="45">C</Element>
+            <Element amount="5" probability="0.5">N</Element>
+            <Element amount="200" probability="0.5">O</Element>
+            <Element amount="1" probability="0.5">H</Element>
+        </Output>
+    </Extractor>
+
+    <!-- Eats your bucket, must find a better way -->
+    <Extractor energy="900">
+        <Input>
+            <Item>coal</Item>
+        </Input>
+        <Output>
+            <Element amount="90">C</Element>
+            <Element amount="10" probability="0.05">O</Element>
+            <Element amount="10" probability="0.05">S</Element>
+            <Element amount="10" probability="0.05">N</Element>
+        </Output>
+    </Extractor>
+
+    <Extractor energy="900">
+        <Input>
+            <Item>coal_block</Item>
+        </Input>
+        <Output>
+            <Element amount="810">C</Element>
+            <Element amount="90" probability="0.05">O</Element>
+            <Element amount="90" probability="0.05">S</Element>
+            <Element amount="90" probability="0.05">N</Element>
+        </Output>
+    </Extractor>
+
+    <Extractor energy="900">
+        <Input>
+            <Item>coal_ore</Item>
+        </Input>
+        <Output>
+            <Element amount="360">C</Element>
+            <Element amount="40" probability="0.3">O</Element>
+            <Element amount="40" probability="0.3">S</Element>
+            <Element amount="40" probability="0.3">N</Element>
+        </Output>
+    </Extractor>
+
+    <Extractor energy="90000">
+        <Input>
+            <Item>diamond</Item>
+        </Input>
+        <Output>
+            <Element amount="90000">C</Element>
+        </Output>
+    </Extractor>
 
     <!-- STONE BASED RECIPES -->
     <Extractor energy="4000">
@@ -227,6 +350,15 @@
         <Fluid amount="1000">water</Fluid>
     </ChemicalFurnace>
 
+    <ChemicalFurnace energy="9000" cost="100">
+        <Input>
+            <Element amount="90000">C</Element>
+        </Input>
+        <Output>
+            <Item>diamond</Item>
+        </Output>
+    </ChemicalFurnace>
+
     <!-- Ore casting -->
     <ChemicalFurnace energy="-900" cost="10">
         <Input>
@@ -252,7 +384,7 @@
 
     <ChemicalFurnace energy="-900" cost="5">
         <Input>
-            <Element amount="90">Be</Element>
+            <Element amount="90">Fe</Element>
         </Input>
         <Output>
             <Item amount="1">iron_ingot</Item>

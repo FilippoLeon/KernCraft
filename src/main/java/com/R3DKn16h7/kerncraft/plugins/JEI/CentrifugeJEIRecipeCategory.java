@@ -32,16 +32,20 @@ public class CentrifugeJEIRecipeCategory extends KernCraftAbstractJEIRecipeCateg
         elements.add(createBarBackground(8, 0));
         elements.add(createBarAnimate(9, 1));
 
+        // CENTRIFUGE BARS
         elements.add(new Tuple<>(
                 guiHelper.createDrawable(
-                        new ResourceLocation("kerncraft:textures/gui/container/extractor_gui.png"),
+                        new ResourceLocation(
+                                "kerncraft:textures/gui/container/extractor_gui.png"),
                         182, 64,
                         18, 3 * 18
                 ),
                 new int[]{18 * 4, 0}
         ));
         IDrawableStatic temp = guiHelper.createDrawable(
-                new ResourceLocation("kerncraft:textures/gui/container/extractor_gui.png"),
+                new ResourceLocation(
+                        "kerncraft:textures/gui/container/extractor_gui.png"
+                ),
                 182 + 18 + 3, 64,
                 18 - 6, 3 * 18
         );
@@ -61,6 +65,7 @@ public class CentrifugeJEIRecipeCategory extends KernCraftAbstractJEIRecipeCateg
 
     @Override
     public List<String> getTooltipStrings(int mouseX, int mouseY) {
+
         return new ArrayList<>();
     }
 
