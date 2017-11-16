@@ -15,7 +15,7 @@ public class MessageSideConfigHandler implements IMessageHandler<MessageSideConf
     @Override
     public IMessage onMessage(MessageSideConfig message, MessageContext ctx) {
         System.out.println("Block at " + message.pos + " set slot " + message.slotId + " to sideConfig " + message.side);
-        EntityPlayer player = ctx.getServerHandler().playerEntity;
+        EntityPlayer player = ctx.getServerHandler().player;
         TileEntity te = player.world.getTileEntity(message.pos);
         if (te instanceof ISideConfigurable) {
             ((ISideConfigurable) te).setSlotSide(message.slotId, message.side);

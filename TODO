@@ -3,7 +3,8 @@ Super high priority:
     - Waila support
 
 High priority:
-    - FIX: add progress bar to Chemical Furnace
+    - FIX: exctractor taking way too long to process
+    - FIX: extractor progress not syncing
     - FIX: time machine find way to activate/deactivate
     - More XMl recipes? improvements
     - Filtering slots for input, make inputs go in the correct place when shift clicked
@@ -11,10 +12,6 @@ High priority:
     - ADD: way do disable/enable energy/fluid storage at runtime
     - Attach proper decay to ElementContainer?
     - CHANGE: use generics for JEI Gui stuffs
-    - JEI add nicer energy water and cost information
-    - FIX: wrong JEI display of energy and water consumption
-    - FIX: tint of fluid inside machines
-    - ADD: element capabilities to Alchemist Ring
     - ADD: shapeless element recipe
     - ADD: images into manual? mhhhh we'll see
     - ADD: extractor fluids usage, production

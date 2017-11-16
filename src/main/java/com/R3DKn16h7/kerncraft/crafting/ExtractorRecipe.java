@@ -45,7 +45,7 @@ public class ExtractorRecipe implements ISmeltingRecipe {
         if (nElement == null) return;
 
         int energy = KernCraftRecipes.readAsIntOrDefault(nElement, "energy", 0);
-        ItemStack input = ItemStack.EMPTY;
+        ItemStack input = null;
         ItemStack catalyst = ItemStack.EMPTY;
         ElementStack[] elements = new ElementStack[4];
         List<FluidStack> fluids = new ArrayList<>();
@@ -57,16 +57,26 @@ public class ExtractorRecipe implements ISmeltingRecipe {
             Element nChildNode = ((Element) nList.item(i));
             switch (nChildNode.getNodeName()) {
                 case "Input":
-                    if (!input.isEmpty()) {
+                    if (input != null && !input.isEmpty()) {
                         KernCraft.LOGGER.warn("Too many inputs for Extractor Recipe.");
                     }
-                    input = KernCraftRecipes.parseAsItemStack(((Element) nChildNode.getElementsByTagName("*").item(0)));
+                    try {
+                        input = KernCraftRecipes.parseAsItemStack(
+                                ((Element) nChildNode.getElementsByTagName("*").item(0))
+                        );
+                    } catch (Exception e) {
+                        KernCraft.LOGGER.warn("Invalid input for extractor recipe.");
+                    }
                     break;
                 case "Catalyst":
                     if (!catalyst.isEmpty()) {
                         KernCraft.LOGGER.warn("Too many catalysts for Extractor Recipe.");
                     }
-                    catalyst = KernCraftRecipes.parseAsItemStack(((Element) nChildNode.getElementsByTagName("*").item(0)));
+                    try {
+                        catalyst = KernCraftRecipes.parseAsItemStack(((Element) nChildNode.getElementsByTagName("*").item(0)));
+                    } catch (Exception e) {
+                            KernCraft.LOGGER.warn("Invalid catalyst for extractor recipe.");
+                    }
                     break;
                 case "Output":
                     NodeList nChildList = nChildNode.getElementsByTagName("*");
@@ -77,7 +87,7 @@ public class ExtractorRecipe implements ISmeltingRecipe {
                         try {
                             elements[j] = KernCraftRecipes.parseAsElementStack(((Element) nChildList.item(j)));
                         } catch (Exception e) {
-                            KernCraft.LOGGER.error("Invalid recipe, cannot parse as element stack.");
+                            KernCraft.LOGGER.error("Invalid Extractor recipe, cannot parse as element stack.");
                             KernCraft.LOGGER.error(e.getLocalizedMessage());
                             e.printStackTrace();
                             break;
@@ -88,13 +98,14 @@ public class ExtractorRecipe implements ISmeltingRecipe {
                     try {
                         FluidStack fluidStack = KernCraftRecipes.parseAsFluid(nChildNode);
                         if (fluidStack == null) {
-                            KernCraft.LOGGER.error("Invalid fluid for extractor recipe.");
-                            break;
+                            KernCraft.LOGGER.error("Invalid fluid for Extractor recipe.");
+                            return;
                         }
                         fluids.add(fluidStack);
                     } catch (Exception e) {
-                        KernCraft.LOGGER.error("Invalid fluid for extractor recipe.");
+                        KernCraft.LOGGER.error("Invalid fluid for Extractor recipe.");
                         e.printStackTrace();
+                        return;
                     }
                     break;
                 default:
@@ -103,10 +114,11 @@ public class ExtractorRecipe implements ISmeltingRecipe {
             }
         }
 
-        if (input.isEmpty()) {
-            KernCraft.LOGGER.error("No input for Extractor Recipe.");
+        if (input != null && input.isEmpty()) {
+            KernCraft.LOGGER.error("Air as input recipe is a no-no.");
             return;
         }
+
         if (elements[0] == null) {
             KernCraft.LOGGER.error("No output elements for Extractor Recipe.");
             return;

@@ -1,5 +1,6 @@
 package com.R3DKn16h7.kerncraft.plugins.JEI;
 
+import com.R3DKn16h7.kerncraft.KernCraft;
 import com.R3DKn16h7.kerncraft.tileentities.KernCraftTileEntities;
 import mcp.MethodsReturnNonnullByDefault;
 import mezz.jei.api.IGuiHelper;
@@ -18,6 +19,11 @@ import java.util.List;
 public class ChemicalFurnaceJEIRecipeCategory
         extends KernCraftAbstractJEIRecipeCategory {
     public static final String CATEGORY_UID = "kerncraft.chemical_furnace";
+
+    @Override
+    public String getModName() {
+        return KernCraft.MODID;
+    }
 
     public ChemicalFurnaceJEIRecipeCategory(IGuiHelper guiHelper) {
         super(guiHelper,
@@ -44,6 +50,7 @@ public class ChemicalFurnaceJEIRecipeCategory
     @Override
     @MethodsReturnNonnullByDefault
     public List<String> getTooltipStrings(int mouseX, int mouseY) {
+
         return new ArrayList<>();
     }
 

@@ -8,6 +8,7 @@ import com.R3DKn16h7.kerncraft.elements.Element;
 import com.R3DKn16h7.kerncraft.utils.PlayerHelper;
 import com.R3DKn16h7.kerncraft.utils.PotionImprovedHelper;
 import net.minecraft.block.Block;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -18,6 +19,7 @@ import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import javax.annotation.Nullable;
@@ -34,7 +36,7 @@ public abstract class AbstractElementContainerItem extends Item {
         this.setRegistryName(getName());
         this.setCreativeTab(KernCraft.KERNCRAFT_CREATIVE_TAB);
 
-        GameRegistry.register(this);
+        ForgeRegistries.ITEMS.register(this);
     }
 
     public abstract String getName();
@@ -165,8 +167,7 @@ public abstract class AbstractElementContainerItem extends Item {
     }
 
     @Override
-    public void addInformation(ItemStack stack, EntityPlayer player,
-                               List<String> tooltipList, boolean b) {
-        ElementCapabilities.addDetailedTooltipForSingleElement(stack, tooltipList);
+    public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
+        ElementCapabilities.addDetailedTooltipForSingleElement(stack, tooltip);
     }
 }

@@ -102,8 +102,8 @@ public class TyrociniumChymicumPeriodicTableGui extends TyrociniumChymicumGui {
 
         List<String> str = new ArrayList<String>();
         for (GuiButton btn : periodicButtonList) {
-            if (par1 > btn.xPosition && par1 < btn.xPosition + btn.width &&
-                    par2 > btn.yPosition && par2 < btn.yPosition + btn.height) {
+            if (par1 > btn.x && par1 < btn.x + btn.width &&
+                    par2 > btn.y && par2 < btn.y + btn.height) {
                 Element elem = ElementRegistry.getElement(btn.id - STARTING_ID + 1);
 
 

@@ -164,5 +164,39 @@
             is one of the many things killing life on earth.
         </Description>
     </Element>
+    <Element symbol="N">
+        <Description lang="en_us">
+            [b][blue]Nitrogen[reset] is the most abundant gas in earth's athmosphere.
+            In t's most common form, it is found in it's diatomic state N_2.
+            [u]Uses:[u/][br/]
+            [li] [magenta]Fertilizer[reset][br/]
+            [li] [green]Coolant[reset][br/]
+            [u]Obtained from:[u/][br/]
+            [li] [red]Air[reset]
+        </Description>
+    </Element>
+    <Element symbol="O">
+        <Description lang="en_us">
+            [b][black]Oxygen[reset] is the 8th element of the periodic table. It
+            is very abundant in Earth's atmosphere. Generally is found in its
+            diatomic form. It has a number of uses, due it being
+            very reactive.
+            [p/]
+            Another form of Oxygen is [b]Ozone[b/], written O_3, which consists
+            of three atoms of Oxygen glued together. Ozone also constitutes
+            part of the famous layer surrounding earth, which has the, also very
+            famous, holes. This layer, among other things, protects earth from
+            nasty Sun's [purple]ultraviolet[reset] (UV) radiation.
+            [u]Uses:[u/][br/]
+            [li] [magenta]Yer know, breathing[reset].[br/]
+            [li] [gold]Steel production[reset].[br/]
+            [li] [blue]Welding/Metal cutting[reset].[br/]
+            [li] [blue]Water treatment[reset].[br/]
+            [li] [blue]Rocket fuel[reset].[br/]
+            [u]Obtained from:[u/][br/]
+            [li] [red]Air[reset][br/], which contains about 20% of
+            Oxygen.
+        </Description>
+    </Element>
 
 </Elements>

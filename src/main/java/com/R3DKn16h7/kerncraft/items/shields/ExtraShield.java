@@ -1,6 +1,7 @@
 package com.R3DKn16h7.kerncraft.items.shields;
 
 import net.minecraft.block.BlockDispenser;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -11,6 +12,7 @@ import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -27,7 +29,8 @@ public abstract class ExtraShield extends Item {
 
         this.setUnlocalizedName(unlocalizedName);
         this.setRegistryName(unlocalizedName);
-        GameRegistry.register(this);
+
+        ForgeRegistries.ITEMS.register(this);
 
         this.maxStackSize = 1;
         this.setCreativeTab(CreativeTabs.COMBAT);
@@ -49,8 +52,7 @@ public abstract class ExtraShield extends Item {
 
     @SideOnly(Side.CLIENT)
     @Override
-    public void addInformation(ItemStack stack, EntityPlayer playerIn,
-                               List<String> tooltip, boolean advanced) {
+    public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
         ItemBanner.appendHoverTextFromTileEntityTag(stack, tooltip);
     }
 

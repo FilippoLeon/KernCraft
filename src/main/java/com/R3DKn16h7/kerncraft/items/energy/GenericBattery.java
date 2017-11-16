@@ -7,6 +7,7 @@ import com.R3DKn16h7.kerncraft.capabilities.element.ElementContainerAndEnergyPro
 import com.R3DKn16h7.kerncraft.capabilities.element.IElementContainer;
 import com.R3DKn16h7.kerncraft.elements.ElementRegistry;
 import com.R3DKn16h7.kerncraft.items.EnergyContainerItem;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -154,13 +155,10 @@ public class GenericBattery extends EnergyContainerItem
     }
 
     @Override
-    public void addInformation(ItemStack stack, EntityPlayer playerIn,
-                               List<String> tooltip, boolean advanced) {
+    public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
         ElementCapabilities.addTooltip(stack, tooltip);
-
-        super.addInformation(stack, playerIn, tooltip, advanced);
+        super.addInformation(stack, worldIn, tooltip, flagIn);
     }
-
 
     @Nullable
     @Override

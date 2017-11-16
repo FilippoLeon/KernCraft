@@ -12,6 +12,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class TyrociniumChymicum extends Item {
@@ -25,7 +26,8 @@ public class TyrociniumChymicum extends Item {
         this.setUnlocalizedName(base_name);
         this.setRegistryName(base_name);
         this.setCreativeTab(CreativeTabs.MISC);
-        GameRegistry.register(this);
+
+        ForgeRegistries.ITEMS.register(this);
     }
 
     @Override

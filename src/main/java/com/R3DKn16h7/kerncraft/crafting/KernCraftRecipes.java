@@ -1,10 +1,12 @@
 package com.R3DKn16h7.kerncraft.crafting;
 
+import com.R3DKn16h7.kerncraft.KernCraft;
 import com.R3DKn16h7.kerncraft.blocks.KernCraftBlocks;
 import com.R3DKn16h7.kerncraft.elements.ElementRegistry;
 import com.R3DKn16h7.kerncraft.elements.ElementStack;
 import com.R3DKn16h7.kerncraft.items.KernCraftItems;
 import com.R3DKn16h7.kerncraft.items.molecules.AlloyItem;
+import com.R3DKn16h7.kerncraft.tileentities.machines.ExtractorTileEntity;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -50,9 +52,8 @@ public class KernCraftRecipes {
         parseRecipeXml();
     }
 
-    static ItemStack parseAsItemStack(Element elem) {
+    static ItemStack parseAsItemStack(Element elem) throws Exception {
         String nodeValue = elem.getTextContent();
-        // TODO default if empty
         int amount = readAsIntOrDefault(elem, "amount", 1);
         int meta = readAsIntOrDefault(elem, "meta", 0);
         String nbt = readAsStringOrDefault(elem, "nbt", "");
@@ -67,7 +68,7 @@ public class KernCraftRecipes {
                     return OreDictionary.getOres(nodeValue).get(0);
                 }
             default:
-                return ItemStack.EMPTY;
+                throw new Exception();
         }
     }
 
@@ -149,7 +150,12 @@ public class KernCraftRecipes {
         }
         int avail = nChildList.getLength();
         for (int j = 0; j < nChildList.getLength(); j++) {
-            ItemStack stack = KernCraftRecipes.parseAsItemStack((Element) nChildList.item(j));
+            ItemStack stack = null;
+            try {
+                stack = KernCraftRecipes.parseAsItemStack((Element) nChildList.item(j));
+            } catch (Exception e){
+                KernCraft.LOGGER.warn("Invalid ItemStack type when parsing ItemStack list.");
+            }
             if (stack != null && !stack.isEmpty()) {
                 itemStackList.add(stack);
             }
@@ -192,177 +198,179 @@ public class KernCraftRecipes {
     }
 
     private void RegisterCraftingRecipes() {
-        //// CANISTER RECIPE
-        if (OreDictionary.doesOreNameExist("plateIron") && OreDictionary.doesOreNameExist("rodIron")) {
-            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(KernCraftItems.CANISTER, 16),
-                    new Object[]{
-                            " # ",
-                            "# #",
-                            "i#i",
-                            '#', "plateIron", 'i', "rodIron"
-                    }
-            ));
-        } else {
-            GameRegistry.addShapedRecipe(new ItemStack(KernCraftItems.CANISTER, 16),
-                    " # ",
-                    "# #",
-                    "i#i",
-                    '#', Items.IRON_INGOT, 'i', Blocks.IRON_BARS);
-        }
-        //// ERLENMEYER FLASK
-        GameRegistry.addRecipe(new ShapedOreRecipe(
-                new ItemStack(KernCraftItems.FLASK, 8),
-                new Object[]{
-                " # ",
-                " # ",
-                "###",
-                        '#', "paneGlassBorosilicate"
-                }
-        ));
-        //// CELL RECIPE
-        if (OreDictionary.doesOreNameExist("plateIron") && OreDictionary.doesOreNameExist("rodIron")) {
-            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(KernCraftItems.PRESSURIZED_CELL, 16),
-                    new Object[]{
-                            " i ",
-                            " # ",
-                            " # ",
-                            '#', "plateIron",
-                            'i', "rodIron"
-                    }
-            ));
-        } else {
-            GameRegistry.addShapedRecipe(new ItemStack(KernCraftItems.PRESSURIZED_CELL, 16),
-                    " i ",
-                    " # ",
-                    " # ",
-                    '#', Items.IRON_INGOT, 'i', Blocks.IRON_BARS);
-        }
 
-        //// POTATO BATTERY RECIPE
-        if (OreDictionary.doesOreNameExist("rodZinc") && OreDictionary.doesOreNameExist("rodCopper")) {
-            GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(KernCraftItems.POTATO_BATTERY),
-                    new Object[]{Items.POISONOUS_POTATO, "rodZinc", "rodCopper"}
-            ));
-        } else if (OreDictionary.doesOreNameExist("ingotZinc") && OreDictionary.doesOreNameExist("ingotCopper")) {
-            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(KernCraftItems.POTATO_BATTERY),
-                    new Object[]{Items.POISONOUS_POTATO, "ingotZinc", "ingotCopper"}
-            ));
-        } else {
-            GameRegistry.addShapelessRecipe(new ItemStack(KernCraftItems.POTATO_BATTERY),
-                    Items.POISONOUS_POTATO, Items.GOLD_INGOT, Items.IRON_INGOT);
-        }
-
-        //// ELECTROLYTIC CELL
-        if (OreDictionary.doesOreNameExist("wireCopper") &&
-                OreDictionary.doesOreNameExist("rodZinc") &&
-                OreDictionary.doesOreNameExist("rodCopper")) {
-            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(KernCraftItems.ELECTROLYTIC_CELL),
-                    new Object[]{
-                            " P ",
-                            "c c",
-                            "ZWC",
-                            'W', new ItemStack(Items.POTIONITEM, 1),
-                            'c', "wireCopper",
-                            'C', "rodCopper",
-                            'Z', "rodZinc",
-                            'P', KernCraftItems.POTATO_BATTERY
-                    }
-            ));
-        } else {
-            GameRegistry.addRecipe(new ItemStack(KernCraftItems.ELECTROLYTIC_CELL),
-                    " P ",
-                    "c c",
-                    "ZWC",
-                    'W', PotionUtils.addPotionToItemStack(new ItemStack(Items.POTIONITEM, 1), PotionType.getPotionTypeForName("water")),
-                    'c', Blocks.IRON_BARS,
-                    'C', Items.GOLD_INGOT,
-                    'Z', Items.IRON_INGOT,
-                    'P', KernCraftItems.POTATO_BATTERY);
-        }
-
-        //// CRAFTING WITH ELEMENTS, old RECIPE
-//        ItemStack canister = new ItemStack(KernCraftItems.CANISTER, 1);
-//        //IRecipe
-//        GameRegistry.addShapelessRecipe(
+        // TODO 1.12 move
+//        //// CANISTER RECIPE
+//        if (OreDictionary.doesOreNameExist("plateIron") && OreDictionary.doesOreNameExist("rodIron")) {
+//            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(KernCraftItems.CANISTER, 16),
+//                    new Object[]{
+//                            " # ",
+//                            "# #",
+//                            "i#i",
+//                            '#', "plateIron", 'i', "rodIron"
+//                    }
+//            ));
+//        } else {
+//            GameRegistry.addShapedRecipe(new ItemStack(KernCraftItems.CANISTER, 16),
+//                    " # ",
+//                    "# #",
+//                    "i#i",
+//                    '#', Items.IRON_INGOT, 'i', Blocks.IRON_BARS);
+//        }
+//        //// ERLENMEYER FLASK
+//        GameRegistry.addRecipe(new ShapedOreRecipe(
+//                new ItemStack(KernCraftItems.FLASK, 8),
+//                new Object[]{
+//                " # ",
+//                " # ",
+//                "###",
+//                        '#', "paneGlassBorosilicate"
+//                }
+//        ));
+//        //// CELL RECIPE
+//        if (OreDictionary.doesOreNameExist("plateIron") && OreDictionary.doesOreNameExist("rodIron")) {
+//            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(KernCraftItems.PRESSURIZED_CELL, 16),
+//                    new Object[]{
+//                            " i ",
+//                            " # ",
+//                            " # ",
+//                            '#', "plateIron",
+//                            'i', "rodIron"
+//                    }
+//            ));
+//        } else {
+//            GameRegistry.addShapedRecipe(new ItemStack(KernCraftItems.PRESSURIZED_CELL, 16),
+//                    " i ",
+//                    " # ",
+//                    " # ",
+//                    '#', Items.IRON_INGOT, 'i', Blocks.IRON_BARS);
+//        }
+//
+//        //// POTATO BATTERY RECIPE
+//        if (OreDictionary.doesOreNameExist("rodZinc") && OreDictionary.doesOreNameExist("rodCopper")) {
+//            GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(KernCraftItems.POTATO_BATTERY),
+//                    new Object[]{Items.POISONOUS_POTATO, "rodZinc", "rodCopper"}
+//            ));
+//        } else if (OreDictionary.doesOreNameExist("ingotZinc") && OreDictionary.doesOreNameExist("ingotCopper")) {
+//            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(KernCraftItems.POTATO_BATTERY),
+//                    new Object[]{Items.POISONOUS_POTATO, "ingotZinc", "ingotCopper"}
+//            ));
+//        } else {
+//            GameRegistry.addShapelessRecipe(new ItemStack(KernCraftItems.POTATO_BATTERY),
+//                    Items.POISONOUS_POTATO, Items.GOLD_INGOT, Items.IRON_INGOT);
+//        }
+//
+//        //// ELECTROLYTIC CELL
+//        if (OreDictionary.doesOreNameExist("wireCopper") &&
+//                OreDictionary.doesOreNameExist("rodZinc") &&
+//                OreDictionary.doesOreNameExist("rodCopper")) {
+//            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(KernCraftItems.ELECTROLYTIC_CELL),
+//                    new Object[]{
+//                            " P ",
+//                            "c c",
+//                            "ZWC",
+//                            'W', new ItemStack(Items.POTIONITEM, 1),
+//                            'c', "wireCopper",
+//                            'C', "rodCopper",
+//                            'Z', "rodZinc",
+//                            'P', KernCraftItems.POTATO_BATTERY
+//                    }
+//            ));
+//        } else {
+//            GameRegistry.addRecipe(new ItemStack(KernCraftItems.ELECTROLYTIC_CELL),
+//                    " P ",
+//                    "c c",
+//                    "ZWC",
+//                    'W', PotionUtils.addPotionToItemStack(new ItemStack(Items.POTIONITEM, 1), PotionType.getPotionTypeForName("water")),
+//                    'c', Blocks.IRON_BARS,
+//                    'C', Items.GOLD_INGOT,
+//                    'Z', Items.IRON_INGOT,
+//                    'P', KernCraftItems.POTATO_BATTERY);
+//        }
+//
+//        //// CRAFTING WITH ELEMENTS, old RECIPE
+////        ItemStack canister = new ItemStack(KernCraftItems.CANISTER, 1);
+////        //IRecipe
+////        GameRegistry.addShapelessRecipe(
+////                new ItemStack(KernCraftItems.TYROCINIUM_CHYMICUM),
+////                Items.BOOK,
+////                canister
+////        );
+//
+//        /// FIXME: JUST A WEIRD TESTING RECIPE, REMOVE ON BUILD
+//        GameRegistry.addRecipe(new ElementRecipe(
 //                new ItemStack(KernCraftItems.TYROCINIUM_CHYMICUM),
-//                Items.BOOK,
-//                canister
+//                new Object[]{
+//                        "BOH",
+//                        "   ",
+//                        "HI ",
+//                        'B', Items.WATER_BUCKET,
+//                        'O', new ElementStack("O", 4),
+//                        'H', new ElementStack("Fe", 15),
+//                        'I', Items.IRON_INGOT
+//                }
+//        ));
+//
+//
+//        //// CRAFT SOME HELIUM
+//        GameRegistry.addRecipe(new ElementRecipe(
+//                KernCraftItems.ELECTROLYTIC_CELL,
+//                new Object[]{
+//                        "OBH",
+//                        "   ",
+//                        "   ",
+//                        'B', KernCraftItems.ELECTROLYTIC_CELL,
+//                        'O', new ElementStack("O", -4),
+//                        'H', new ElementStack("H", -4),
+//                }
+//        ));
+//
+//        //// MANUAL CRAFTING RECIPE, new EDITION
+//        GameRegistry.addRecipe(new ElementRecipe(
+//                new ItemStack(KernCraftItems.TYROCINIUM_CHYMICUM),
+//                new Object[]{
+//                        "OBH",
+//                        "   ",
+//                        "   ",
+//                        'B', Items.BOOK,
+//                        'O', new ElementStack("O", 4),
+//                        'H', new ElementStack("H", 4),
+//                }
+//        ));
+//
+//        //// Alchemist ring
+//        GameRegistry.addRecipe(new ShapedOreRecipe(
+//                KernCraftItems.ALCHEMIST_RING,
+//                new Object[]{
+//                        " D ",
+//                        "O O",
+//                        " O ",
+//                        'D', Items.DIAMOND,
+//                        'O', "nuggetBerylliumCopper"
+//                }
+//        ));
+//
+//        //// TEST RECIPE
+//        GameRegistry.addRecipe(new ShapedOreRecipe(
+//                        new ItemStack(KernCraftItems.PORTABLE_BEACON),
+//                        new Object[]{
+//                                "GBG",
+//                                "B#B",
+//                                "GBG",
+//                                '#', Blocks.BEACON,
+//                                'B', "blockGlassBorosilicate",
+//                                'G', "blockBerylliumCopper"
+//                        }
+//                )
 //        );
-
-        /// FIXME: JUST A WEIRD TESTING RECIPE, REMOVE ON BUILD
-        GameRegistry.addRecipe(new ElementRecipe(
-                new ItemStack(KernCraftItems.TYROCINIUM_CHYMICUM),
-                new Object[]{
-                        "BOH",
-                        "   ",
-                        "HI ",
-                        'B', Items.WATER_BUCKET,
-                        'O', new ElementStack("O", 4),
-                        'H', new ElementStack("Fe", 15),
-                        'I', Items.IRON_INGOT
-                }
-        ));
-
-
-        //// CRAFT SOME HELIUM
-        GameRegistry.addRecipe(new ElementRecipe(
-                KernCraftItems.ELECTROLYTIC_CELL,
-                new Object[]{
-                        "OBH",
-                        "   ",
-                        "   ",
-                        'B', KernCraftItems.ELECTROLYTIC_CELL,
-                        'O', new ElementStack("O", -4),
-                        'H', new ElementStack("H", -4),
-                }
-        ));
-
-        //// MANUAL CRAFTING RECIPE, new EDITION
-        GameRegistry.addRecipe(new ElementRecipe(
-                new ItemStack(KernCraftItems.TYROCINIUM_CHYMICUM),
-                new Object[]{
-                        "OBH",
-                        "   ",
-                        "   ",
-                        'B', Items.BOOK,
-                        'O', new ElementStack("O", 4),
-                        'H', new ElementStack("H", 4),
-                }
-        ));
-
-        //// Alchemist ring
-        GameRegistry.addRecipe(new ShapedOreRecipe(
-                KernCraftItems.ALCHEMIST_RING,
-                new Object[]{
-                        " D ",
-                        "O O",
-                        " O ",
-                        'D', Items.DIAMOND,
-                        'O', "nuggetBerylliumCopper"
-                }
-        ));
-
-        //// TEST RECIPE
-        GameRegistry.addRecipe(new ShapedOreRecipe(
-                        new ItemStack(KernCraftItems.PORTABLE_BEACON),
-                        new Object[]{
-                                "GBG",
-                                "B#B",
-                                "GBG",
-                                '#', Blocks.BEACON,
-                                'B', "blockGlassBorosilicate",
-                                'G', "blockBerylliumCopper"
-                        }
-                )
-        );
-
-        // Glass shaping (if we add new glass put that into the class)
-        GameRegistry.addRecipe(new ShapedOreRecipe(
-                KernCraftBlocks.BLOCKS.get("borosilicate_glass_pane"),
-                new Object[]{
-                        "OOO", "OOO", 'O', "blockGlassBorosilicate"
-                }
-        ));
+//
+//        // Glass shaping (if we add new glass put that into the class)
+//        GameRegistry.addRecipe(new ShapedOreRecipe(
+//                KernCraftBlocks.BLOCKS.get("borosilicate_glass_pane"),
+//                new Object[]{
+//                        "OOO", "OOO", 'O', "blockGlassBorosilicate"
+//                }
+//        ));
     }
 
     public void parseRecipeXml() {

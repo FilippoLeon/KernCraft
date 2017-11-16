@@ -8,6 +8,7 @@ import mezz.jei.api.recipe.IRecipeCategory;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -18,18 +19,38 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.lwjgl.opengl.GL11.GL_CURRENT_BIT;
+
 /**
  * Created by Filippo on 29-Apr-17.
  */
 public abstract class KernCraftAbstractJEIRecipeCategory implements IRecipeCategory {
     private static final int DEFAULT_SLOT_SIZE_Y = 18;
     private static final int DEFAULT_SLOT_SIZE_X = 18;
-    protected final IDrawable background;
+    protected IDrawable background;
     protected final IDrawable slot;
     protected final String localizedName;
-    protected List<Tuple<IDrawable, int[]>> elements = new ArrayList<>();
+    protected List<BetterDrawable> elements = new ArrayList<>();
     protected IGuiHelper guiHelper;
     protected MachineTileEntity te;
+
+    public class BetterDrawable {
+        IDrawable drawable;
+        int[] position;
+        Color tint;
+
+        public BetterDrawable(IDrawable drawable,
+                              int[] position, Color tint) {
+            this.drawable = drawable;
+            this.position = position;
+            this.tint = tint;
+        }
+
+        public BetterDrawable(IDrawable drawable,
+                              int[] position) {
+            this(drawable, position, null);
+        }
+    }
 
     public KernCraftAbstractJEIRecipeCategory(IGuiHelper guiHelper,
                                               Block block, MachineTileEntity te) {
@@ -56,25 +77,25 @@ public abstract class KernCraftAbstractJEIRecipeCategory implements IRecipeCateg
         // Energy bar
     }
 
-    Tuple<IDrawable, int[]> createArrowDown(int coordX, int coordY) {
+    BetterDrawable createArrowDown(int coordX, int coordY) {
         ResourceLocation location = new ResourceLocation(
                 "kerncraft:textures/gui/container/extractor_gui.png"
         );
-        return new Tuple<>(
+        return new BetterDrawable(
                 guiHelper.createDrawable(location, 182, 28,
                         DEFAULT_SLOT_SIZE_X, DEFAULT_SLOT_SIZE_Y),
                 new int[]{coordX, coordY}
         );
     }
 
-    Tuple<IDrawable, int[]> createArrowDownAnimate(int coordX, int coordY) {
+    BetterDrawable createArrowDownAnimate(int coordX, int coordY) {
         ResourceLocation location = new ResourceLocation(
                 "kerncraft:textures/gui/container/extractor_gui.png"
         );
         IDrawableStatic brewing = guiHelper.createDrawable(location,
                 182, 28 + 18,
                 DEFAULT_SLOT_SIZE_X, DEFAULT_SLOT_SIZE_Y);
-        return new Tuple<>(
+        return new BetterDrawable(
                 guiHelper.createAnimatedDrawable(brewing,
                         300, IDrawableAnimated.StartDirection.TOP,
                         false),
@@ -82,8 +103,27 @@ public abstract class KernCraftAbstractJEIRecipeCategory implements IRecipeCateg
         );
     }
 
-    Tuple<IDrawable, int[]> createBarBackground(int coordX, int coordY) {
-        return new Tuple<>(
+
+    BetterDrawable createFlameAnimate(int coordX, int coordY) {
+        ResourceLocation location = new ResourceLocation(
+                "minecraft",
+                "textures/gui/container/furnace.png"
+        );
+        IDrawableStatic flame = guiHelper.createDrawable(
+                location,
+                176, 0, 14, 14
+        );
+        return new BetterDrawable(
+                guiHelper.createAnimatedDrawable(flame,
+                        300,
+                        IDrawableAnimated.StartDirection.TOP,
+                        true),
+                new int[]{coordX, coordY}
+        );
+    }
+
+    BetterDrawable  createBarBackground(int coordX, int coordY) {
+        return new BetterDrawable(
                 guiHelper.createDrawable(
                         new ResourceLocation("kerncraft:textures/gui/container/extractor_gui.png"),
                         7, 16,
@@ -92,11 +132,11 @@ public abstract class KernCraftAbstractJEIRecipeCategory implements IRecipeCateg
     }
 
 
-    Tuple<IDrawable, int[]> createBarAnimate(int coordX, int coordY) {
+    BetterDrawable createBarAnimate(int coordX, int coordY) {
         return createBarAnimate(coordX, coordY, null, 300);
     }
 
-    Tuple<IDrawable, int[]> createBarAnimate(int coordX, int coordY,
+    BetterDrawable createBarAnimate(int coordX, int coordY,
                                              Color color, int speed) {
         ResourceLocation location = new ResourceLocation(
                 "kerncraft:textures/gui/container/extractor_gui.png"
@@ -104,16 +144,16 @@ public abstract class KernCraftAbstractJEIRecipeCategory implements IRecipeCateg
         IDrawableStatic energyBar = guiHelper.createDrawable(location,
                 176, 0,
                 6, 3 * DEFAULT_SLOT_SIZE_Y - 2);
-        return new Tuple<>(
+        return new BetterDrawable (
                 guiHelper.createAnimatedDrawable(energyBar,
                         speed, IDrawableAnimated.StartDirection.BOTTOM,
                         false),
-                new int[]{coordX, coordY}
+                new int[]{coordX, coordY}, color
         );
     }
 
-    protected Tuple<IDrawable, int[]> createBrewingBackground(int coordX, int coordY) {
-        return new Tuple<>(
+    protected BetterDrawable  createBrewingBackground(int coordX, int coordY) {
+        return new BetterDrawable (
                 guiHelper.createDrawable(
                         new ResourceLocation(
                                 "textures/gui/container/brewing_stand.png"),
@@ -124,7 +164,7 @@ public abstract class KernCraftAbstractJEIRecipeCategory implements IRecipeCateg
         );
     }
 
-    protected Tuple<IDrawable, int[]> createBrewingAnimate(int coordX, int coordY) {
+    protected BetterDrawable createBrewingAnimate(int coordX, int coordY) {
         ResourceLocation location = new ResourceLocation(
                 "textures/gui/container/brewing_stand.png"
         );
@@ -134,7 +174,7 @@ public abstract class KernCraftAbstractJEIRecipeCategory implements IRecipeCateg
                         185, 0,
                         12, 29
                 );
-        return new Tuple<>(
+        return new BetterDrawable(
                 guiHelper.createAnimatedDrawable(brewingStatic,
                         300, IDrawableAnimated.StartDirection.BOTTOM,
                         false),
@@ -213,8 +253,18 @@ public abstract class KernCraftAbstractJEIRecipeCategory implements IRecipeCateg
     }
 
     protected void drawWidgets(Minecraft minecraft) {
-        for (Tuple<IDrawable, int[]> elem : elements) {
-            elem.getFirst().draw(minecraft, elem.getSecond()[0], elem.getSecond()[1]);
+        for (BetterDrawable elem : elements) {
+            if(elem.tint != null) {
+                GlStateManager.pushAttrib();
+                GlStateManager.color(elem.tint.getRed(),
+                        elem.tint.getGreen(),
+                        elem.tint.getBlue());
+            }
+            elem.drawable.draw(minecraft, elem.position[0], elem.position[1]);
+            if(elem.tint != null) {
+                GlStateManager.color(255,255,255);
+                GlStateManager.popAttrib();
+            }
         }
     }
 }

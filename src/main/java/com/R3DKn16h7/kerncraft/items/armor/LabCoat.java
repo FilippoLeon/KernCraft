@@ -11,6 +11,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.EnumHelper;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 /**
@@ -32,7 +33,7 @@ public class LabCoat extends ItemArmor {
         setUnlocalizedName(str);
         setRegistryName(str);
 
-        GameRegistry.register(this);
+        ForgeRegistries.ITEMS.register(this);
     }
 
     public void setColor(ItemStack stack, int color) {

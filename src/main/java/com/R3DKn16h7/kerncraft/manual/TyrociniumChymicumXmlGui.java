@@ -31,7 +31,7 @@ public class TyrociniumChymicumXmlGui extends TyrociniumChymicumGui {
         if (str != null) {
             String str2 = XmlUtils.parseBBCodeIntoMCFormat(str);
 
-            listOfStringToDisplay = fontRendererObj.listFormattedStringToWidth(str2, PAGE_WIDTH);
+            listOfStringToDisplay = fontRenderer.listFormattedStringToWidth(str2, PAGE_WIDTH);
         }
     }
 
@@ -80,7 +80,7 @@ public class TyrociniumChymicumXmlGui extends TyrociniumChymicumGui {
         if (ix >= listOfStringToDisplay.size()) return;
         for (int col = 0; col < 2; ++col) {
             for (int row = 0; row < MAX_ROWS; ++row) {
-                fontRendererObj.drawString(listOfStringToDisplay.get(ix++),
+                fontRenderer.drawString(listOfStringToDisplay.get(ix++),
                         guiLeft + FIRST_COL_START + FIRST_COL_WIDTH * col, guiTop + HEADER_HEIGHT
                                 + row * ROW_HEIGHT,
                         0x555555);

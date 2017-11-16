@@ -14,10 +14,10 @@ public class KernCraftGuiConfigFactory implements IModGuiFactory {
     public void initialize(Minecraft minecraftInstance) {
     }
 
-    @Override
-    public Class<? extends GuiScreen> mainConfigGuiClass() {
-        return KernCraftConfigGui.class;
-    }
+//    @Override
+//    public Class<? extends GuiScreen> mainConfigGuiClass() {
+//        return KernCraftConfigGui.class;
+//    }
 
     @Override
     public Set<IModGuiFactory.RuntimeOptionCategoryElement> runtimeGuiCategories() {
@@ -34,8 +34,8 @@ public class KernCraftGuiConfigFactory implements IModGuiFactory {
         return new KernCraftConfigGui(parentScreen);
     }
 
-    @Override
-    public IModGuiFactory.RuntimeOptionGuiHandler getHandlerFor(IModGuiFactory.RuntimeOptionCategoryElement element) {
-        return null;
-    }
+//    @Override
+//    public IModGuiFactory.RuntimeOptionGuiHandler getHandlerFor(IModGuiFactory.RuntimeOptionCategoryElement element) {
+//        return null;
+//    }
 }

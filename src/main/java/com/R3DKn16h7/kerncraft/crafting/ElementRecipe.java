@@ -8,13 +8,16 @@ import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.item.crafting.ShapedRecipes;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.oredict.OreDictionary;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -40,6 +43,27 @@ public class ElementRecipe implements IRecipe {
 
     public ElementRecipe(Item result, Object... recipe) {
         this(new ItemStack(result), recipe);
+    }
+
+    @Override
+    public Class<IRecipe> getRegistryType() {
+        return null;
+    }
+
+    @Override
+    public boolean canFit(int width, int height) {
+        return false;
+    }
+
+    @Override
+    public IRecipe setRegistryName(ResourceLocation name) {
+        return null;
+    }
+
+    @Nullable
+    @Override
+    public ResourceLocation getRegistryName() {
+        return null;
     }
 
     public ElementRecipe(@Nonnull ItemStack result, Object... recipe) {
@@ -123,17 +147,17 @@ public class ElementRecipe implements IRecipe {
         width = recipe.recipeWidth;
         height = recipe.recipeHeight;
 
-        input = new Object[recipe.recipeItems.length];
+        input = new Object[recipe.recipeItems.size()];
 
         for (int i = 0; i < input.length; i++) {
-            ItemStack ingredient = recipe.recipeItems[i];
+            Ingredient ingredient = recipe.recipeItems.get(i);
 
-            if (ingredient.isEmpty()) continue;
+            if (ingredient == null) continue;
 
-            input[i] = recipe.recipeItems[i];
+            input[i] = recipe.recipeItems.get(i);
 
             for (Map.Entry<ItemStack, String> replace : replacements.entrySet()) {
-                if (OreDictionary.itemMatches(replace.getKey(), ingredient, true)) {
+                if (ingredient.test(replace.getKey())) {
                     input[i] = OreDictionary.getOres(replace.getValue());
                     break;
                 }
@@ -153,10 +177,12 @@ public class ElementRecipe implements IRecipe {
     /**
      * Returns the size of the recipe area
      */
-    @Override
+//    @Override
     public int getRecipeSize() {
         return input.length;
     }
+
+
 
     @Override
     @Nonnull

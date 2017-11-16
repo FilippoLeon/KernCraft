@@ -95,7 +95,7 @@ public class AdvancedGuiContainer extends GuiContainer implements IAdvancedGui {
     }
 
     public FontRenderer getFontRenderer() {
-        return fontRendererObj;
+        return fontRenderer;
     }
 
     public void AddWidget(IWidget widget, boolean foreground) {
@@ -138,7 +138,7 @@ public class AdvancedGuiContainer extends GuiContainer implements IAdvancedGui {
             }
         }
         if (!hoveringText.isEmpty()) {
-            drawHoveringText(hoveringText, mouseX - guiLeft, mouseY - guiTop, fontRendererObj);
+            drawHoveringText(hoveringText, mouseX - guiLeft, mouseY - guiTop, fontRenderer);
         }
         GlStateManager.popMatrix();
     }
@@ -156,7 +156,7 @@ public class AdvancedGuiContainer extends GuiContainer implements IAdvancedGui {
             }
         }
         if (!hoveringText.isEmpty()) {
-            drawHoveringText(hoveringText, mouseX - guiLeft, mouseY - guiTop, fontRendererObj);
+            drawHoveringText(hoveringText, mouseX - guiLeft, mouseY - guiTop, fontRenderer);
         }
     }
 

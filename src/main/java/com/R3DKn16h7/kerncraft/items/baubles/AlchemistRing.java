@@ -82,10 +82,10 @@ public class AlchemistRing extends AbstractElementContainerItem implements IBaub
         if (player.world.isRemote) return;
 
         Vec3d pos1 = player.getForward().scale(0.2);
-        Vec3d pos2 = new Vec3d(pos1.xCoord, 0, pos1.zCoord);
+        Vec3d pos2 = new Vec3d(pos1.x, 0, pos1.z);
         Vec3d pos = player.getPositionVector().add(pos2);
         pos = pos.addVector(0., PlayerHelper.isCtrlKeyDown() ? -2. : -1., 0.);
-        BlockPos intPos = new BlockPos(pos.xCoord, pos.yCoord, pos.zCoord);
+        BlockPos intPos = new BlockPos(pos.x, pos.y, pos.z);
         if (!PlayerHelper.isShiftDown() && player.world.isAirBlock(intPos)) {
             IElementContainer cap = ElementCapabilities.getCapability(itemstack);
             int sim = cap.removeAmountOf(id, 1, true);
@@ -132,13 +132,6 @@ public class AlchemistRing extends AbstractElementContainerItem implements IBaub
                                      EntityPlayer player,
                                      Entity entity) {
         return true;
-    }
-
-
-    @SuppressWarnings({"unchecked", "rawtypes"})
-    @Override
-    public void addInformation(ItemStack stack, EntityPlayer player, List lores, boolean b) {
-
     }
 
     @Nullable

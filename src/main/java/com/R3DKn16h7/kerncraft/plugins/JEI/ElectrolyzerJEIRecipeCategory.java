@@ -34,7 +34,7 @@ public class ElectrolyzerJEIRecipeCategory extends KernCraftAbstractJEIRecipeCat
         elements.add(createBrewingBackground(18 * 5 + 4, 18 * 1));
         elements.add(createBrewingAnimate(18 * 5 + 4, 18 * 1));
 
-        elements.add(new Tuple<>(
+        elements.add(new BetterDrawable(
                 guiHelper.createDrawable(
                         new ResourceLocation("kerncraft:textures/gui/container/extractor_gui.png"),
                         218, 64,
@@ -42,7 +42,7 @@ public class ElectrolyzerJEIRecipeCategory extends KernCraftAbstractJEIRecipeCat
                 ),
                 new int[]{18 * 2, 0}
         ));
-        elements.add(new Tuple<>(
+        elements.add(new BetterDrawable(
                 guiHelper.createDrawable(
                         new ResourceLocation("kerncraft:textures/gui/container/extractor_gui.png"),
                         218, 64,
@@ -50,6 +50,11 @@ public class ElectrolyzerJEIRecipeCategory extends KernCraftAbstractJEIRecipeCat
                 ),
                 new int[]{18 * 8, 0}
         ));
+    }
+
+    @Override
+    public String getModName() {
+        return "kernkraft";
     }
 
     @Override

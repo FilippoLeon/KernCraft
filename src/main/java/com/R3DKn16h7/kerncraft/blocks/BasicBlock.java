@@ -7,6 +7,7 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -23,8 +24,10 @@ public class BasicBlock extends Block {
         this.setResistance(resistance);
         this.setRegistryName(unlocalizedName);
 
-        GameRegistry.register(this);
-        GameRegistry.register(new ItemBlock(this), getRegistryName());
+        ForgeRegistries.BLOCKS.register(this);
+        Item it = new ItemBlock(this);
+        it.setRegistryName(KernCraft.MODID, unlocalizedName);
+        ForgeRegistries.ITEMS.register(it);
 
         if (oreDictNames != null) {
             if (oreDictNames instanceof String) {

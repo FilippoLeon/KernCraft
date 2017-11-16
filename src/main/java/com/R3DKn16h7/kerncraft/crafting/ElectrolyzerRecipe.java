@@ -62,7 +62,7 @@ public class ElectrolyzerRecipe implements ISmeltingRecipe {
                         anode = KernCraftRecipes.parseAsItemStackList(nChildNode,
                                 1, 1).get(0);
                     } catch (Exception e) {
-                        KernCraft.LOGGER.error("No anode specified, invalid recipe");
+                        KernCraft.LOGGER.error("No anode specified, invalid Electrolyzer recipe");
                         e.printStackTrace();
                         return;
                     }
@@ -72,7 +72,7 @@ public class ElectrolyzerRecipe implements ISmeltingRecipe {
                         cathode = KernCraftRecipes.parseAsItemStackList(nChildNode,
                                 1, 1).get(0);
                     } catch (Exception e) {
-                        KernCraft.LOGGER.error("No cathode specified, invalid recipe");
+                        KernCraft.LOGGER.error("No cathode specified, invalid Electrolyzer recipe");
                         e.printStackTrace();
                         return;
                     }
@@ -82,7 +82,7 @@ public class ElectrolyzerRecipe implements ISmeltingRecipe {
                         input = KernCraftRecipes.parseAsItemStackList(nChildNode,
                                 1, 3);
                     } catch (Exception e) {
-                        KernCraft.LOGGER.error("No anode specified, invalid recipe");
+                        KernCraft.LOGGER.error("No anode specified, invalid Electrolyzer recipe");
                         e.printStackTrace();
                         return;
                     }
@@ -93,18 +93,18 @@ public class ElectrolyzerRecipe implements ISmeltingRecipe {
                     break;
                 case "Fluid":
                     if (fluid != null) {
-                        KernCraft.LOGGER.warn("Too many fluids for Extractor Recipe.");
+                        KernCraft.LOGGER.warn("Too many fluids for Electrolyzer Recipe.");
                     }
                     fluid = KernCraftRecipes.parseAsFluid(nChildNode);
                     break;
                 default:
-                    KernCraft.LOGGER.warn("Unrecognized element for Extractor Recipe.");
+                    KernCraft.LOGGER.warn("Unrecognized element for Electrolyzer Recipe.");
                     break;
             }
         }
 
         if (cost < 0) {
-            KernCraft.LOGGER.error("Negative cost for Extractor Recipe.");
+            KernCraft.LOGGER.error("Negative cost for Electrolyzer Recipe.");
             return;
         }
 

@@ -15,7 +15,7 @@ public class MessageIntHandler implements IMessageHandler<MessageInt, IMessage> 
     @Override
     public IMessage onMessage(MessageInt message, MessageContext ctx) {
         System.out.println("Block at " + message.pos + " sent int " + message.message);
-        EntityPlayer player = ctx.getServerHandler().playerEntity;
+        EntityPlayer player = ctx.getServerHandler().player;
         TileEntity te = player.world.getTileEntity(message.pos);
         if (te instanceof IMessageIntReceiver) {
 

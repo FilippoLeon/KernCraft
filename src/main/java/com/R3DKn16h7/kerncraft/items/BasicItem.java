@@ -2,6 +2,7 @@ package com.R3DKn16h7.kerncraft.items;
 
 import com.R3DKn16h7.kerncraft.KernCraft;
 import net.minecraft.item.Item;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 abstract public class BasicItem extends Item {
@@ -14,7 +15,8 @@ abstract public class BasicItem extends Item {
         this.setUnlocalizedName(getName());
         this.setRegistryName(getName());
         this.setCreativeTab(KernCraft.KERNCRAFT_CREATIVE_TAB);
-        GameRegistry.register(this);
+
+        ForgeRegistries.ITEMS.register(this);
     }
 
     public String getName() {

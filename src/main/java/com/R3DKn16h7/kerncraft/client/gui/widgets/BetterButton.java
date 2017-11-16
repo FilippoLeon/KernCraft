@@ -147,13 +147,13 @@ public class BetterButton extends GuiButton implements IWidget {
      * Draws this button to the screen.
      */
     @Override
-    public void drawButton(Minecraft mc, int mouseX, int mouseY) {
+    public void drawButton(Minecraft mc, int mouseX, int mouseY, float partialTicks) {
 
-        int xAbsPosition = this.xPosition;
-        int yAbsPosition = this.yPosition;
+        int xAbsPosition = this.x;
+        int yAbsPosition = this.y;
 
         if (this.visible) {
-            FontRenderer fontrenderer = mc.fontRendererObj;
+            FontRenderer fontrenderer = mc.fontRenderer;
             if (use_texture) {
                 mc.getTextureManager().bindTexture(BUTTON_TEXTURES);
             }
@@ -230,12 +230,12 @@ public class BetterButton extends GuiButton implements IWidget {
 
     @Override
     public int getPositionX() {
-        return xPosition;
+        return x;
     }
 
     @Override
     public int getPositionY() {
-        return yPosition;
+        return y;
     }
 
     /**
@@ -245,8 +245,8 @@ public class BetterButton extends GuiButton implements IWidget {
     public void init() {
         container.add(this);
 
-        this.xPosition = this.xRelPosition + container.getGuiLeft();
-        this.yPosition = this.yRelPosition + container.getGuiTop();
+        this.x = this.xRelPosition + container.getGuiLeft();
+        this.y = this.yRelPosition + container.getGuiTop();
     }
 
     @Override
@@ -277,8 +277,8 @@ public class BetterButton extends GuiButton implements IWidget {
     @Override
     public boolean isMouseInArea(int mouseX, int mouseY) {
 
-        return (mouseX >= xPosition && mouseX <= xPosition + getButtonWidth() &&
-                mouseY >= yPosition && mouseY <= yPosition + height);
+        return (mouseX >= x && mouseX <= x + getButtonWidth() &&
+                mouseY >= y && mouseY <= y + height);
     }
 
     @Override

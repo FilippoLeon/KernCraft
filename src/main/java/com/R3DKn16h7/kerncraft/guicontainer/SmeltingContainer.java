@@ -42,12 +42,12 @@ public class SmeltingContainer extends MachineContainer<SmeltingTileEntity> {
 
             for (int j = 0; j < FIELDS; ++j) {
                 if (this.params[j] != this.te.getField(j)) {
-                    icontainerlistener.sendProgressBarUpdate(this, j, this.te.getField(j));
+                    icontainerlistener.sendWindowProperty(this, j, this.te.getField(j));
                 }
             }
             for (int j = 0; j < te.sideConfig.getSize(); ++j) {
                 if (this.side_params[j] != this.te.getField(-j)) {
-                    icontainerlistener.sendProgressBarUpdate(this, -j, this.te.getField(-j));
+                    icontainerlistener.sendWindowProperty(this, -j, this.te.getField(-j));
                 }
             }
         }

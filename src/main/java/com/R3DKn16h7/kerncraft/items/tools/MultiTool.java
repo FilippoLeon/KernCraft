@@ -5,6 +5,7 @@ import com.R3DKn16h7.kerncraft.items.BasicItem;
 import com.R3DKn16h7.kerncraft.utils.PlayerHelper;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -105,19 +106,21 @@ public class MultiTool extends BasicItem {
     }
 
     @Override
-    public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
+    public void addInformation(ItemStack stack, @Nullable World worldIn,
+                               List<String> tooltip, ITooltipFlag flagIn) {
         ItemStack currentHeldItem = getCurrentHeldItem(stack);
         if (!currentHeldItem.isEmpty()) {
             tooltip.add(String.format("Item: %s", stack.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null)
                     .getStackInSlot(getCurrentItem(stack)).getDisplayName()));
-            currentHeldItem.getItem().addInformation(currentHeldItem, playerIn, tooltip, advanced);
+            currentHeldItem.getItem().addInformation(currentHeldItem, worldIn, tooltip, flagIn);
             tooltip.add("------------");
         }
 
         tooltip.add(String.format("Item %d/%d (max: 5)", getCurrentItem(stack), getNumberOfItems(stack)));
 
-        super.addInformation(stack, playerIn, tooltip, advanced);
+        super.addInformation(stack, worldIn, tooltip, flagIn);
     }
+
 
     private void nextItem(ItemStack stack) {
         NBTTagCompound nbt;

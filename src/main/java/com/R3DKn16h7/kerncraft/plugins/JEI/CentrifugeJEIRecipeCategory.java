@@ -1,5 +1,6 @@
 package com.R3DKn16h7.kerncraft.plugins.JEI;
 
+import com.R3DKn16h7.kerncraft.KernCraft;
 import com.R3DKn16h7.kerncraft.tileentities.KernCraftTileEntities;
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.IDrawableAnimated;
@@ -20,6 +21,11 @@ import java.util.List;
 public class CentrifugeJEIRecipeCategory extends KernCraftAbstractJEIRecipeCategory {
     private static final String CATEGORY_UID = "kerncraft.centrifuge";
 
+    @Override
+    public String getModName() {
+        return KernCraft.MODID;
+    }
+
     public CentrifugeJEIRecipeCategory(IGuiHelper guiHelper) {
         super(guiHelper,
                 KernCraftTileEntities.CENTRIFUGE_MACHINE,
@@ -33,7 +39,7 @@ public class CentrifugeJEIRecipeCategory extends KernCraftAbstractJEIRecipeCateg
         elements.add(createBarAnimate(9, 1));
 
         // CENTRIFUGE BARS
-        elements.add(new Tuple<>(
+        elements.add(new BetterDrawable(
                 guiHelper.createDrawable(
                         new ResourceLocation(
                                 "kerncraft:textures/gui/container/extractor_gui.png"),
@@ -49,7 +55,7 @@ public class CentrifugeJEIRecipeCategory extends KernCraftAbstractJEIRecipeCateg
                 182 + 18 + 3, 64,
                 18 - 6, 3 * 18
         );
-        elements.add(new Tuple<>(
+        elements.add(new BetterDrawable(
                 guiHelper.createAnimatedDrawable(
                         temp, 300,
                         IDrawableAnimated.StartDirection.LEFT, false

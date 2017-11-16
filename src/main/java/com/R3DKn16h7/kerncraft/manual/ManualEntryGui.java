@@ -50,7 +50,7 @@ public abstract class ManualEntryGui extends GuiScreen implements IAdvancedGui {
 
     @Override
     public FontRenderer getFontRenderer() {
-        return fontRendererObj;
+        return fontRenderer;
     }
 
     public void previousPage() {

@@ -8,6 +8,7 @@ import com.R3DKn16h7.kerncraft.capabilities.element.ElementContainerProvider;
 import com.R3DKn16h7.kerncraft.capabilities.element.IElementContainer;
 import com.R3DKn16h7.kerncraft.elements.ElementRegistry;
 import com.R3DKn16h7.kerncraft.utils.PotionImprovedHelper;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -19,6 +20,7 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.fml.common.Optional;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import javax.annotation.Nullable;
@@ -44,7 +46,7 @@ public class PortableBeacon extends Item implements IBauble {
         this.setRegistryName(unlocalizedName);
         this.setCreativeTab(KernCraft.KERNCRAFT_CREATIVE_TAB);
         this.setMaxStackSize(1);
-        GameRegistry.register(this);
+        ForgeRegistries.ITEMS.register(this);
 
         // Tuned
         addEffect("He", Target.OnUse, PotionImprovedHelper.LEVITATION, 300, 1);
@@ -146,11 +148,10 @@ public class PortableBeacon extends Item implements IBauble {
     }
 
     @Override
-    public void addInformation(ItemStack stack, EntityPlayer playerIn,
-                               List<String> tooltip, boolean advanced) {
+    public void addInformation(ItemStack stack, @Nullable World worldIn,
+                               List<String> tooltip, ITooltipFlag flagIn) {
         ElementCapabilities.addTooltip(stack, tooltip);
-
-        super.addInformation(stack, playerIn, tooltip, advanced);
+        super.addInformation(stack, worldIn, tooltip, flagIn);
     }
 
     @Override

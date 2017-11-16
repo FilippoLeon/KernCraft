@@ -47,14 +47,14 @@ public class CentrifugeJEIRecipeWrapper extends BlankRecipeWrapper {
                          int mouseX, int mouseY) {
 
         // Draw each output element
-        minecraft.fontRendererObj.drawStringWithShadow(
+        minecraft.fontRenderer.drawStringWithShadow(
                 String.format("Time: %s t", recipe.cost * 5),
                 0, 18 * 1 + 9, Color.white.getRGB()
         );
         if (recipe.energy != 0) {
             String color = recipe.energy < 0 ?
                     TextFormatting.RED.toString() : TextFormatting.GREEN.toString();
-            minecraft.fontRendererObj.drawStringWithShadow(
+            minecraft.fontRenderer.drawStringWithShadow(
                     String.format(String.format("%s%s%s RF", color,
                             recipe.energy > 0 ? "+" : "", recipe.energy)
                     ),
@@ -63,14 +63,14 @@ public class CentrifugeJEIRecipeWrapper extends BlankRecipeWrapper {
         }
         if (recipe.fluid != null) {
             if (recipe.fluid.amount > 0) {
-                minecraft.fontRendererObj.drawStringWithShadow(
+                minecraft.fontRenderer.drawStringWithShadow(
                         String.format(String.format("+%d mb of %s",
                                 recipe.fluid.amount, recipe.fluid.getLocalizedName())
                         ),
                         0, 18 * 2 + 9, Color.white.getRGB()
                 );
             } else {
-                minecraft.fontRendererObj.drawStringWithShadow(
+                minecraft.fontRenderer.drawStringWithShadow(
                         String.format(String.format("-%d mb of %s",
                                 -recipe.fluid.amount, recipe.fluid.getLocalizedName())
                         ),

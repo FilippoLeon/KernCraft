@@ -27,15 +27,15 @@ public class ExtractorTileEntity extends SmeltingTileEntity<ExtractorRecipe>
     private static final int[][] inputCoords = {{1, 0}, {3, 0}, {8, 0}, {1, 0}};
     private static final int[][] outputCoords = {{5, 2}, {6, 2}, {7, 2}, {8, 2}};
     //// Static constants
-    static private final int consumedEnergyPerFuelRefill = 100;
-    static private final int consumedFuelPerTic = 20;
-    static private int generatedFuelPerEnergyDrain = 100;
+    public static final int CONSUMED_ENERGY_PER_FUEL_REFILL = 100;
+    public static final int CONSUMED_FUEL_PER_TIC = 20;
+    public static int GENERATED_FUEL_PER_ENERGY_DRAIN = 100;
 
     public ExtractorTileEntity() {
         super(1);
-        generatedFuelPerEnergyDrain = TileEntityFurnace.getItemBurnTime(new ItemStack(Items.COAL));
+        GENERATED_FUEL_PER_ENERGY_DRAIN
+                = TileEntityFurnace.getItemBurnTime(new ItemStack(Items.COAL));
     }
-
 
     @Override
     public int getInputSize() {
@@ -107,13 +107,13 @@ public class ExtractorTileEntity extends SmeltingTileEntity<ExtractorRecipe>
      */
     @Override
     public boolean tryProgress() {
-        if (storedFuel < consumedFuelPerTic) {
+        if (storedFuel < CONSUMED_FUEL_PER_TIC) {
             ItemStack fuelItem = input.getStackInSlot(fuelSlot);
             int fuel = TileEntityFurnace.getItemBurnTime(fuelItem);
             //GameRegistry.getFuelValue(fuelItem);
-            if (storage.getEnergyStored() > consumedEnergyPerFuelRefill) {
-                storage.extractEnergy(consumedEnergyPerFuelRefill, false);
-                storedFuel += generatedFuelPerEnergyDrain;
+            if (storage.getEnergyStored() > CONSUMED_ENERGY_PER_FUEL_REFILL) {
+                storage.extractEnergy(CONSUMED_ENERGY_PER_FUEL_REFILL, false);
+                storedFuel += GENERATED_FUEL_PER_ENERGY_DRAIN;
             } else if (fuelItem != ItemStack.EMPTY &&
                     fuelItem.getCount() >= 1 &&
                     fuel > 0) {
@@ -127,7 +127,7 @@ public class ExtractorTileEntity extends SmeltingTileEntity<ExtractorRecipe>
                 return false;
             }
         }
-        storedFuel -= consumedFuelPerTic;
+        storedFuel -= CONSUMED_FUEL_PER_TIC;
         return true;
     }
 
@@ -141,6 +141,7 @@ public class ExtractorTileEntity extends SmeltingTileEntity<ExtractorRecipe>
         // For each Element output, flag telling if this has already been produced
         int[] remaining = new int[currentlySmelting.outputs.length];
         for (int i = 0; i < currentlySmelting.outputs.length; ++i) {
+            if(currentlySmelting.outputs[i] == null) continue;
             remaining[i] = currentlySmelting.outputs[i].quantity * (Math.random() < currentlySmelting.outputs[i].probability ? 1 : 0);
         }
 
@@ -149,7 +150,7 @@ public class ExtractorTileEntity extends SmeltingTileEntity<ExtractorRecipe>
         // Try each output slot
         for (int rec_slot = 0; rec_slot < getOutputCoords().length; ++rec_slot) {
             ItemStack out = output.getStackInSlot(rec_slot);
-            if (out == ItemStack.EMPTY || !ElementCapabilities.hasCapability(out)) {
+            if (out.isEmpty() || !ElementCapabilities.hasCapability(out)) {
                 continue;
             }
 
@@ -181,37 +182,38 @@ public class ExtractorTileEntity extends SmeltingTileEntity<ExtractorRecipe>
         for (int rec_slot = 0; rec_slot < getOutputCoords().length; ++rec_slot) {
 
             ItemStack out = output.getStackInSlot(rec_slot);
-            if (out == ItemStack.EMPTY) {
+            if (out.isEmpty()) {
                 // Try each element
-                int i = 0;
-                for (ElementStack rec_out : currentlySmelting.outputs) {
+                for (int i = 0; i < currentlySmelting.outputs.length; ++i) {
+                    ElementStack rec_out = currentlySmelting.outputs[i];
+                    if(rec_out == null) { continue; }
 
-                    if (out == ItemStack.EMPTY) {
+                    if (out.isEmpty()) {
                         // If Element has not been produced and there is a CANISTER in
                         // the slot
                         ItemStack containerStack = input.getStackInSlot(canisterSlot);
-                        if (containerStack == ItemStack.EMPTY || !ElementCapabilities.hasCapability(containerStack)) {
-                            ++i;
+                        if (containerStack.isEmpty() || !ElementCapabilities.hasCapability(containerStack)) {
                             continue;
                         }
 
                         // Try to add element to item in canister slot.
                         // If you can, pull the stack down
                         IElementContainer cap = ElementCapabilities.getCapability(containerStack);
+                        if(cap == null) continue;
                         int tryAdd = cap.addAmountOf(rec_out.id, remaining[i], true);
                         if (tryAdd > 0) {
                             ItemStack newStack = containerStack.splitStack(1);
                             IElementContainer newCap = ElementCapabilities.getCapability(newStack);
+                            if(newCap == null) continue;
                             remaining[i] -= newCap.addAmountOf(rec_out.id, remaining[i], false, this);
                             output.setStackInSlot(rec_slot, newStack);
                             out = newStack;
                         }
                     } else {
                         IElementContainer cap = ElementCapabilities.getCapability(out);
+                        if(cap == null) continue;
                         remaining[i] -= cap.addAmountOf(rec_out.id, remaining[i], false, this);
                     }
-
-                    ++i;
                 }
             }
         }

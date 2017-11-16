@@ -47,22 +47,24 @@ public class AlloyItem {
             Item nugget = KernCraftItems.MATERIALS.get(entry + "_nugget");
             Item ingot = KernCraftItems.MATERIALS.get(entry + "_ingot");
             Item block = Item.getItemFromBlock(KernCraftBlocks.BLOCKS.get(entry + "_block"));
-            GameRegistry.addShapedRecipe(
-                    new ItemStack(ingot, 1),
-                    "GGG", "GGG", "GGG", 'G', nugget
-            );
-            GameRegistry.addShapedRecipe(
-                    new ItemStack(block, 1),
-                    "GGG", "GGG", "GGG", 'G', ingot
-            );
-            GameRegistry.addShapelessRecipe(
-                    new ItemStack(ingot, 9),
-                    new ItemStack(block, 9)
-            );
-            GameRegistry.addShapelessRecipe(
-                    new ItemStack(nugget, 9),
-                    new ItemStack(ingot, 1)
-            );
+
+            // TODO 1.12 move
+//            GameRegistry.addShapedRecipe(
+//                    new ItemStack(ingot, 1),
+//                    "GGG", "GGG", "GGG", 'G', nugget
+//            );
+//            GameRegistry.addShapedRecipe(
+//                    new ItemStack(block, 1),
+//                    "GGG", "GGG", "GGG", 'G', ingot
+//            );
+//            GameRegistry.addShapelessRecipe(
+//                    new ItemStack(ingot, 9),
+//                    new ItemStack(block, 9)
+//            );
+//            GameRegistry.addShapelessRecipe(
+//                    new ItemStack(nugget, 9),
+//                    new ItemStack(ingot, 1)
+//            );
         }
     }
 }

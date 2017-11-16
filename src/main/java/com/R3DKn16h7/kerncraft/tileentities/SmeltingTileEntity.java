@@ -33,7 +33,7 @@ abstract public class SmeltingTileEntity<SmeltingRecipe extends ISmeltingRecipe>
 
     //// Status variables
     // Are we currently smelting
-    static final float ticTime = 5f;
+    public static final float TICS_PER_OPERATION = 5f;
     public List<FluidTank> tank = new ArrayList<>();
     // Is the machine currently smelting
     protected boolean smelting = false;
@@ -245,7 +245,7 @@ abstract public class SmeltingTileEntity<SmeltingRecipe extends ISmeltingRecipe>
     @Override
     public void update() {
         if (!world.isRemote) {
-            if (elapsed > ticTime) {
+            if (elapsed > TICS_PER_OPERATION) {
                 progressSmelting();
 //                world.scheduleBlockUpdate(getPos(), blockType, 0, 1000);
                 elapsed = 0;

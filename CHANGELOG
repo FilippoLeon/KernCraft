@@ -1,10 +1,24 @@
 
-2017-05-05  F. <>
-    * Boron day and podzol
+2017-05-09  F. <>
+    * Add N, O and bedrock and sand
+
+2017-05-07  F. <>
+    * Carbon and wood related recipes
+    * Chemical furnace upgrades/fixes/GUI fixes
+    * Som crash fixed
+    * Fixed glass panes
+    * Fixed shield textures
+    * Tint into fluid GUIs
+    * Capabilities to items
+    * Generic battery initial setup
+    * Improved JEI display of many info
+
+2017-05-06  F. <>
+    * Boron day and Podzol
     * Alloys
     * Cleaned up multi tool
 
-2017-05-04  F. <>
+2017-05-05  F. <>
     * Beryllium day and coarse dirt
     * Multi-tool
 

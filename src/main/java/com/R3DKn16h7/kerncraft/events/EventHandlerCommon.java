@@ -55,13 +55,13 @@ public class EventHandlerCommon {
                 ) {
 
             // Add spectral effect to damage source
-            if (e.getSource().getSourceOfDamage() instanceof EntityArrow) {
-                EntityArrow a = (EntityArrow) e.getSource().getSourceOfDamage();
+            if (e.getSource().getImmediateSource() instanceof EntityArrow) {
+                EntityArrow a = (EntityArrow) e.getSource().getImmediateSource();
                 EntityLiving lv = (EntityLiving) a.shootingEntity;
                 lv.addPotionEffect(new PotionEffect(Potion.getPotionById(PotionImprovedHelper.SPECTRAL),
                         500, 300));
-            } else if (e.getSource().getSourceOfDamage() instanceof EntityLiving) {
-                EntityLiving lv = (EntityLiving) e.getSource().getSourceOfDamage();
+            } else if (e.getSource().getImmediateSource() instanceof EntityLiving) {
+                EntityLiving lv = (EntityLiving) e.getSource().getImmediateSource();
                 lv.addPotionEffect(new PotionEffect(Potion.getPotionById(PotionImprovedHelper.SPECTRAL),
                         500, 300));
             }
@@ -106,11 +106,11 @@ public class EventHandlerCommon {
     // LOL
     public void crafting(net.minecraftforge.fml.common.gameevent.PlayerEvent.ItemCraftedEvent event) {
         if (event.crafting.getItem() == KernCraftItems.CANISTER) {
-            event.player.addStat(AchievementHandler.APPRENTICE, 1);
+//            event.player.addStat(AchievementHandler.APPRENTICE, 1);
         } else if (event.crafting.getItem() == KernCraftItems.POTATO_BATTERY) {
-            event.player.addStat(AchievementHandler.MASTER_OF_POTATOES, 1);
+//            event.player.addStat(AchievementHandler.MASTER_OF_POTATOES, 1);
         } else if (event.crafting.getItem() == KernCraftItems.ELECTROLYTIC_CELL) {
-            event.player.addStat(AchievementHandler.CHEMIST, 1);
+//            event.player.addStat(AchievementHandler.CHEMIST, 1);
         }
     }
 

@@ -1,5 +1,6 @@
 package com.R3DKn16h7.kerncraft.tileentities;
 
+import com.R3DKn16h7.kerncraft.KernCraft;
 import com.R3DKn16h7.kerncraft.tileentities.machines.*;
 import com.R3DKn16h7.kerncraft.tileentities.utilities.*;
 import net.minecraft.block.Block;
@@ -8,19 +9,20 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class KernCraftTileEntities {
     public static ExtractorBlockEntity EXTRACTOR;
-    public static TileEntity EXTRACTOR_TE;
+    public static ExtractorTileEntity EXTRACTOR_TE;
 
     public static DetectorBlockEntity DETECTOR;
-    public static TileEntity DETECTOR_TE;
+    public static DetectorTileEntity DETECTOR_TE;
 
     public static ClockBlockEntity CLOCK;
-    public static TileEntity CLOCK_TE;
+    public static ClockTileEntity CLOCK_TE;
 
     public static LampBlockEntity LAMP;
     public static LampTileEntity LAMP_TE;
@@ -103,8 +105,13 @@ public class KernCraftTileEntities {
      * @param tileEntityClass
      */
     public static void register(Block tileEntity, Class tileEntityClass) {
-        GameRegistry.register(tileEntity);
-        GameRegistry.register(new ItemBlock(tileEntity), tileEntity.getRegistryName());
+        ForgeRegistries.BLOCKS.register(tileEntity);
+
+        Item it = new ItemBlock(tileEntity);
+//        it.setUnlocalizedName(tileEntity.getRegistryName().toString());
+        it.setRegistryName(tileEntity.getRegistryName().toString());
+
+        ForgeRegistries.ITEMS.register(it);
         GameRegistry.registerTileEntity(tileEntityClass, tileEntity.getRegistryName().toString());
     }
 

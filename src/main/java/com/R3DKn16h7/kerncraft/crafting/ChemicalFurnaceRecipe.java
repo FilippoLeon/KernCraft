@@ -1,5 +1,6 @@
 package com.R3DKn16h7.kerncraft.crafting;
 
+import com.R3DKn16h7.kerncraft.KernCraft;
 import com.R3DKn16h7.kerncraft.elements.ElementStack;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
@@ -61,28 +62,24 @@ public class ChemicalFurnaceRecipe implements ISmeltingRecipe {
                     );
                     break;
                 case "Output":
-                    NodeList nChildListO = nChildNode.getElementsByTagName("*");
-                    if (nChildListO.getLength() > 2) {
-                        System.err.println("Warning: Too many output elements for Extractor Recipe.");
-                    }
-                    for (int j = 0; j < Math.min(nChildListO.getLength(), 2); j++) {
-                        outputs.add(KernCraftRecipes.parseAsItemStack(((Element) nChildListO.item(j))));
-                    }
+                    outputs = KernCraftRecipes.parseAsItemStackList(nChildNode,
+                            0, 2
+                    );
                     break;
                 case "Fluid":
                     if (fluid != null) {
-                        System.err.println("Warning: Too many fluids for Extractor Recipe.");
+                        KernCraft.LOGGER.error("Warning: Too many fluids for Chemical Furnace Recipe.");
                     }
                     fluid = KernCraftRecipes.parseAsFluid(nChildNode);
                     break;
                 default:
-                    System.err.println("Warning: Unrecognized element for Extractor Recipe.");
+                    KernCraft.LOGGER.error("Warning: Unrecognized Xml Element for Chemical Furnace Recipe.");
                     break;
             }
         }
 
         if (cost < 0) {
-            System.err.println("Fatal: Negative cost for Extractor Recipe.");
+            KernCraft.LOGGER.error("Fatal: Negative cost for Extractor Recipe.");
             return;
         }
 

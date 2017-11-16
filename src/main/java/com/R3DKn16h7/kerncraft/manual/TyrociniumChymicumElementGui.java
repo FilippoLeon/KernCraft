@@ -38,7 +38,7 @@ public class TyrociniumChymicumElementGui extends TyrociniumChymicumGui {
         if (str != null) {
             String str2 = XmlUtils.parseBBCodeIntoMCFormat(str);
 
-            listOfStringToDisplay = fontRendererObj.listFormattedStringToWidth(str2, PAGE_WIDTH);
+            listOfStringToDisplay = fontRenderer.listFormattedStringToWidth(str2, PAGE_WIDTH);
         }
 
     }
@@ -117,27 +117,27 @@ public class TyrociniumChymicumElementGui extends TyrociniumChymicumGui {
         //int color = element.family.toColor().getRGB();
         int color = ElementRegistry.StringToColor(element.color).getRGB();
 
-        int le = fontRendererObj.getStringWidth(ids);
-        fontRendererObj.drawString(element.symbol, (guiLeft + 15) / 3, (guiTop + 15) / 3, color);
-        fontRendererObj.drawString(ids, (guiLeft + xSize - 10) / 3 - le, (guiTop + 15) / 3, 0x333333);
-        //fontRendererObj.drawStringWithShadow(element.symbol, (guiLeft + 15) / 3, (guiTop + 15)/ 3, color );
-        //fontRendererObj.drawStringWithShadow(ids, (guiLeft + xSize - 10) / 3 - le, (guiTop + 15)/ 3, 0x333333);
+        int le = fontRenderer.getStringWidth(ids);
+        fontRenderer.drawString(element.symbol, (guiLeft + 15) / 3, (guiTop + 15) / 3, color);
+        fontRenderer.drawString(ids, (guiLeft + xSize - 10) / 3 - le, (guiTop + 15) / 3, 0x333333);
+        //fontRenderer.drawStringWithShadow(element.symbol, (guiLeft + 15) / 3, (guiTop + 15)/ 3, color );
+        //fontRenderer.drawStringWithShadow(ids, (guiLeft + xSize - 10) / 3 - le, (guiTop + 15)/ 3, 0x333333);
 
         //drawString(fontRendererObj, StringUtils.capitalize(element.symbol), (guiLeft + 15) / 3, (guiTop + 15)/ 3,0xff3333);
 
         //drawString(fontRendererObj, ids, (guiLeft + xSize - 15 - 20*ids.length()) / 3, (guiTop + 15)/ 3, 0x333333);
         GL11.glPopMatrix();
-        fontRendererObj.drawString(StringUtils.capitalize(element.getName()),
+        fontRenderer.drawString(StringUtils.capitalize(element.getName()),
                 guiLeft + 50, guiTop + 10, 0x222222);
-        fontRendererObj.drawString("Group " + Element.Group.toString(element.group),
+        fontRenderer.drawString("Group " + Element.Group.toString(element.group),
                 guiLeft + 50, guiTop + 20, 0x222222);
-        fontRendererObj.drawString(element.toxic ? "Toxic" : "",
+        fontRenderer.drawString(element.toxic ? "Toxic" : "",
                 guiLeft + 50, guiTop + 30, new Color(21, 121, 18).getRGB());
-        fontRendererObj.drawString(StringUtils.capitalize(element.state.toString().toLowerCase()) + " " + element.family.I18n().toLowerCase(),
+        fontRenderer.drawString(StringUtils.capitalize(element.state.toString().toLowerCase()) + " " + element.family.I18n().toLowerCase(),
                 guiLeft + 15 + 125, guiTop + 10, element.family.toColor().getRGB());
-        fontRendererObj.drawString("Period " + element.period,
+        fontRenderer.drawString("Period " + element.period,
                 guiLeft + 15 + 125, guiTop + 20, 0x222222);
-        fontRendererObj.drawString(element.halfLife > 0 ? "Unstable" : "",
+        fontRenderer.drawString(element.halfLife > 0 ? "Unstable" : "",
                 guiLeft + 50, guiTop + 30, new Color(121, 116, 18).getRGB());
         //drawString(fontRendererObj , StringUtils.capitalize(element.name), guiLeft + 50, guiTop + 10, 0xdddddd);
         //drawString(fontRendererObj , StringUtils.capitalize(element.toxic ? "true" : "False"), guiLeft + 50, guiTop + 20, 0xdddddd);
@@ -145,26 +145,26 @@ public class TyrociniumChymicumElementGui extends TyrociniumChymicumGui {
         // TODO: i18n
         if (summaryPage) {
             int col = 0;
-            fontRendererObj.drawString("Family: " + element.family.I18n().toLowerCase(),
+            fontRenderer.drawString("Family: " + element.family.I18n().toLowerCase(),
                     guiLeft + FIRST_COL_START, guiTop + HEADER_HEIGHT + col++ * ROW_HEIGHT, 0x555555);
-            fontRendererObj.drawString("State: " + element.state.toString().toLowerCase(),
+            fontRenderer.drawString("State: " + element.state.toString().toLowerCase(),
                     guiLeft + FIRST_COL_START, guiTop + HEADER_HEIGHT + col++ * ROW_HEIGHT, 0x555555);
-            fontRendererObj.drawString("Mass: " + element.mass,
+            fontRenderer.drawString("Mass: " + element.mass,
                     guiLeft + FIRST_COL_START, guiTop + HEADER_HEIGHT + col++ * ROW_HEIGHT, 0x555555);
-            fontRendererObj.drawString("Density: " + element.density,
+            fontRenderer.drawString("Density: " + element.density,
                     guiLeft + FIRST_COL_START, guiTop + HEADER_HEIGHT + col++ * ROW_HEIGHT, 0x555555);
-            fontRendererObj.drawString("Radius: " + element.radius,
+            fontRenderer.drawString("Radius: " + element.radius,
                     guiLeft + FIRST_COL_START, guiTop + HEADER_HEIGHT + col++ * ROW_HEIGHT, 0x555555);
-            fontRendererObj.drawString("Color: " + element.color,
+            fontRenderer.drawString("Color: " + element.color,
                     guiLeft + FIRST_COL_START, guiTop + HEADER_HEIGHT + col++ * ROW_HEIGHT, 0x555555);
             col = 0;
-            fontRendererObj.drawString("Stable: " + (element.halfLife > 0 ? "no" : "yes"),
+            fontRenderer.drawString("Stable: " + (element.halfLife > 0 ? "no" : "yes"),
                     guiLeft + FIRST_COL_START + FIRST_COL_WIDTH, guiTop + HEADER_HEIGHT + col++ * ROW_HEIGHT, 0x555555);
             if (element.halfLife > 0) {
-                fontRendererObj.drawString(String.format("Half-life: %.2e", element.halfLife),
+                fontRenderer.drawString(String.format("Half-life: %.2e", element.halfLife),
                         guiLeft + FIRST_COL_START + FIRST_COL_WIDTH, guiTop + HEADER_HEIGHT + col++ * ROW_HEIGHT, 0x555555);
             }
-            fontRendererObj.drawString("Toxic: " + (element.toxic ? "yes" : "no"),
+            fontRenderer.drawString("Toxic: " + (element.toxic ? "yes" : "no"),
                     guiLeft + FIRST_COL_START + FIRST_COL_WIDTH, guiTop + HEADER_HEIGHT + col++ * ROW_HEIGHT, 0x555555);
             return;
         }
@@ -179,8 +179,8 @@ public class TyrociniumChymicumElementGui extends TyrociniumChymicumGui {
                 //int end = Math.min(start + size, l);
                 //String str = element.shortDescription.substring(start, end);
                 //if(str.equals("")) break;
-                //fontRendererObj.drawString(str, guiLeft + 15 + 125*col, guiTop + 45 + row * 10, 0x555555);
-                fontRendererObj.drawString(listOfStringToDisplay.get(ix++),
+                //fontRenderer.drawString(str, guiLeft + 15 + 125*col, guiTop + 45 + row * 10, 0x555555);
+                fontRenderer.drawString(listOfStringToDisplay.get(ix++),
                         guiLeft + FIRST_COL_START + FIRST_COL_WIDTH * col, guiTop + HEADER_HEIGHT
                                 + row * ROW_HEIGHT,
                         0x555555);
@@ -191,7 +191,7 @@ public class TyrociniumChymicumElementGui extends TyrociniumChymicumGui {
                 //start += size;
             }
         }
-        //fontRendererObj.drawSplitString(element.shortDescription, guiLeft + 15, guiTop + 45, 120, 0x555555);
+        //fontRenderer.drawSplitString(element.shortDescription, guiLeft + 15, guiTop + 45, 120, 0x555555);
     }
 
 }

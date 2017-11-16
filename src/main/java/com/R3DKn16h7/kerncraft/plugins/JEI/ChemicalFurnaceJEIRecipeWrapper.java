@@ -16,12 +16,12 @@ import java.util.List;
 /**
  * Created by filippo on 23/11/16.
  */
-public class ChemicalFurnaceJEIRecipeWrapper extends BlankRecipeWrapper {
+public class ChemicalFurnaceJEIRecipeWrapper
+        extends KernCraftAbstractJEIRecipeWrapper {
 
     public ChemicalFurnaceRecipe recipe;
 
     ChemicalFurnaceJEIRecipeWrapper(ChemicalFurnaceRecipe recipe) {
-
         this.recipe = recipe;
     }
 
@@ -88,17 +88,4 @@ public class ChemicalFurnaceJEIRecipeWrapper extends BlankRecipeWrapper {
         return tooltip;
     }
 
-    private boolean isInBox(int mouseX, int mouseY,
-                            int startX, int startY,
-                            int sizeX, int sizeY) {
-        return mouseX > startX && mouseX < startX + sizeX
-                && mouseY > startY && mouseY < startY + sizeY;
-    }
-
-    @Override
-    public boolean handleClick(Minecraft minecraft,
-                               int mouseX, int mouseY,
-                               int mouseButton) {
-        return false;
-    }
 }

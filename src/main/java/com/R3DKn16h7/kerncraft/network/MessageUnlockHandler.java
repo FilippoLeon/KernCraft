@@ -21,7 +21,7 @@ public class MessageUnlockHandler implements IMessageHandler<MessageUnlock, IMes
     public IMessage onMessage(MessageUnlock message, MessageContext ctx) {
         if (ctx.side == Side.SERVER) {
             System.out.println(String.format("Recv. unlock message '%s' from client", message.message));
-            EntityPlayer player = ctx.getServerHandler().playerEntity;
+            EntityPlayer player = ctx.getServerHandler().player;
 
             if (player.hasCapability(TyrociniumProgressDefaultCapability.INSTANCE, null)) {
                 ITyrociniumProgressCapability capability = player.getCapability(TyrociniumProgressDefaultCapability.INSTANCE, null);
@@ -32,9 +32,9 @@ public class MessageUnlockHandler implements IMessageHandler<MessageUnlock, IMes
                     return null;
                 }
 
-                if (AchievementHandler.achievementUnlocks.containsKey(message.message)) {
-                    player.addStat(AchievementHandler.achievementUnlocks.get(message.message), 1);
-                }
+//                if (AchievementHandler.achievementUnlocks.containsKey(message.message)) {
+//                    player.addStat(AchievementHandler.achievementUnlocks.get(message.message), 1);
+//                }
                 if (capability != null && capability.isContentLocked(message.message)) {
 
                     capability.unlockContent(message.message);

@@ -86,7 +86,7 @@ public class AdvancedGui extends GuiScreen implements IAdvancedGui {
 
     public FontRenderer getFontRenderer() {
 
-        return fontRendererObj;
+        return fontRenderer;
     }
 
     public void AddWidget(IWidget widget) {
@@ -121,7 +121,7 @@ public class AdvancedGui extends GuiScreen implements IAdvancedGui {
         }
         GlStateManager.popMatrix();
         if (!hoveringText.isEmpty()) {
-            drawHoveringText(hoveringText, mouseX, mouseY, fontRendererObj);
+            drawHoveringText(hoveringText, mouseX, mouseY, fontRenderer);
         }
     }
 

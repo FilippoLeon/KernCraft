@@ -4,6 +4,7 @@ import com.R3DKn16h7.kerncraft.KernCraft;
 import com.R3DKn16h7.kerncraft.capabilities.energy.EnergyContainer;
 import com.R3DKn16h7.kerncraft.capabilities.energy.EnergyContainerItemCapabilityProvider;
 import net.darkhax.tesla.lib.TeslaUtils;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -14,6 +15,7 @@ import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.fml.common.Optional;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import javax.annotation.Nullable;
@@ -33,7 +35,8 @@ public abstract class EnergyContainerItem extends Item {
         this.setRegistryName(getName());
         this.setCreativeTab(KernCraft.KERNCRAFT_CREATIVE_TAB);
         this.setMaxStackSize(1);
-        GameRegistry.register(this);
+
+        ForgeRegistries.ITEMS.register(this);
     }
 
     abstract public String getName();
@@ -91,13 +94,11 @@ public abstract class EnergyContainerItem extends Item {
 
     @Override
     @Optional.Method(modid = "tesla")
-    public void addInformation(ItemStack stack, EntityPlayer playerIn,
-                               List<String> tooltip, boolean advanced) {
-
+    public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
         // TODO: custom info
         TeslaUtils.createTooltip(stack, tooltip);
+        super.addInformation(stack, worldIn, tooltip, flagIn);
     }
-
 
     @Override
     public ICapabilityProvider initCapabilities(ItemStack stack,
