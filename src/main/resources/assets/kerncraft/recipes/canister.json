@@ -1,0 +1,22 @@
+{
+  "result": {
+    "item": "kerncraft:canister",
+    "count": 32
+  },
+  "pattern": [
+     " # ",
+     "# #",
+     "i#i"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "#": {
+      "type": "forge:ore_dict",
+      "ore": "plateIron"
+    },
+    "i": {
+      "type": "forge:ore_dict",
+      "ore": "rodIron"
+    }
+  }
+}

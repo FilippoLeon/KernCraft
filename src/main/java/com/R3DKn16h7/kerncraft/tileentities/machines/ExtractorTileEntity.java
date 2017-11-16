@@ -84,8 +84,8 @@ public class ExtractorTileEntity extends SmeltingTileEntity<ExtractorRecipe>
         if (input == null || input.getStackInSlot(inputSlot).isEmpty()) return false;
 
         // Input have same item and sufficient count
-        if (!OreDictionary.itemMatches(input.getStackInSlot(inputSlot), recipe.item, false)
-                || input.getStackInSlot(inputSlot).getCount() < recipe.item.getCount()) {
+        if (recipe.item != null && (!OreDictionary.itemMatches(input.getStackInSlot(inputSlot), recipe.item, false)
+                || input.getStackInSlot(inputSlot).getCount() < recipe.item.getCount())) {
             return false;
         }
 
@@ -133,7 +133,10 @@ public class ExtractorTileEntity extends SmeltingTileEntity<ExtractorRecipe>
 
     @Override
     public void doneSmelting() {
+        if( input.getStackInSlot(inputSlot).isEmpty() ) return;
+
         input.getStackInSlot(inputSlot).splitStack(currentlySmelting.item.getCount());
+
         if (currentlySmelting.catalyst != null) {
             input.getStackInSlot(catalystSlot).splitStack(currentlySmelting.catalyst.getCount());
         }

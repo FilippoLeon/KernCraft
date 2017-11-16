@@ -14,7 +14,7 @@ public class ElementJEISubtypeInterpreter implements ISubtypeRegistry.ISubtypeIn
 
     @Nullable
     @Override
-    public String getSubtypeInfo(ItemStack itemStack) {
+    public String apply(ItemStack itemStack) {
         if (ElementCapabilities.hasCapability(itemStack)) {
             IElementContainer cap = ElementCapabilities.getCapability(itemStack);
             if (cap.getNumberOfElements() <= 0) return "empty";

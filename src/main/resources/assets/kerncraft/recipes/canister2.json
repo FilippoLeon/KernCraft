@@ -1,0 +1,20 @@
+{
+  "result": {
+    "item": "kerncraft:canister",
+    "count" : 16
+  },
+  "pattern": [
+     " # ",
+     "# #",
+     "i#i"
+  ],
+  "type" : "minecraft:crafting_shaped",
+  "key": {
+    "#": {
+      "item": "minecraft:iron_ingot"
+    },
+    "i": {
+      "item": "minecraft:iron_bars"
+    }
+  }
+}

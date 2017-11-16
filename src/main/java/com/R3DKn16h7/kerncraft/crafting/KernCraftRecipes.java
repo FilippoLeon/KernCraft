@@ -7,13 +7,19 @@ import com.R3DKn16h7.kerncraft.elements.ElementStack;
 import com.R3DKn16h7.kerncraft.items.KernCraftItems;
 import com.R3DKn16h7.kerncraft.items.molecules.AlloyItem;
 import com.R3DKn16h7.kerncraft.tileentities.machines.ExtractorTileEntity;
+import com.google.gson.JsonObject;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionType;
 import net.minecraft.potion.PotionUtils;
+import net.minecraft.util.JsonUtils;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.crafting.CraftingHelper;
+import net.minecraftforge.common.crafting.IConditionFactory;
+import net.minecraftforge.common.crafting.JsonContext;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -31,6 +37,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.DataInputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.BooleanSupplier;
 
 /**
  * Created by Filippo on 20-Apr-17.
@@ -199,53 +206,10 @@ public class KernCraftRecipes {
 
     private void RegisterCraftingRecipes() {
 
+//        System.out.println("asdddddddddddddddddddddddddddddddddddd");
+
         // TODO 1.12 move
-//        //// CANISTER RECIPE
-//        if (OreDictionary.doesOreNameExist("plateIron") && OreDictionary.doesOreNameExist("rodIron")) {
-//            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(KernCraftItems.CANISTER, 16),
-//                    new Object[]{
-//                            " # ",
-//                            "# #",
-//                            "i#i",
-//                            '#', "plateIron", 'i', "rodIron"
-//                    }
-//            ));
-//        } else {
-//            GameRegistry.addShapedRecipe(new ItemStack(KernCraftItems.CANISTER, 16),
-//                    " # ",
-//                    "# #",
-//                    "i#i",
-//                    '#', Items.IRON_INGOT, 'i', Blocks.IRON_BARS);
-//        }
-//        //// ERLENMEYER FLASK
-//        GameRegistry.addRecipe(new ShapedOreRecipe(
-//                new ItemStack(KernCraftItems.FLASK, 8),
-//                new Object[]{
-//                " # ",
-//                " # ",
-//                "###",
-//                        '#', "paneGlassBorosilicate"
-//                }
-//        ));
 //        //// CELL RECIPE
-//        if (OreDictionary.doesOreNameExist("plateIron") && OreDictionary.doesOreNameExist("rodIron")) {
-//            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(KernCraftItems.PRESSURIZED_CELL, 16),
-//                    new Object[]{
-//                            " i ",
-//                            " # ",
-//                            " # ",
-//                            '#', "plateIron",
-//                            'i', "rodIron"
-//                    }
-//            ));
-//        } else {
-//            GameRegistry.addShapedRecipe(new ItemStack(KernCraftItems.PRESSURIZED_CELL, 16),
-//                    " i ",
-//                    " # ",
-//                    " # ",
-//                    '#', Items.IRON_INGOT, 'i', Blocks.IRON_BARS);
-//        }
-//
 //        //// POTATO BATTERY RECIPE
 //        if (OreDictionary.doesOreNameExist("rodZinc") && OreDictionary.doesOreNameExist("rodCopper")) {
 //            GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(KernCraftItems.POTATO_BATTERY),

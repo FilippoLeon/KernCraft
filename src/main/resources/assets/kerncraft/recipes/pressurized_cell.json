@@ -1,0 +1,22 @@
+{
+  "result": {
+    "item": "kerncraft:cell",
+    "count": 16
+  },
+  "pattern": [
+     " i ",
+     " # ",
+     " # "
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "i": {
+      "type": "forge:ore_dict",
+      "ore": "rodIron"
+    },
+    "#": {
+      "type": "forge:ore_dict",
+      "ore": "plateIron"
+    }
+  }
+}

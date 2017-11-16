@@ -58,7 +58,7 @@ public abstract class MachineBlock extends BlockContainer {
         this.setResistance(6.0f);
         this.setHarvestLevel("pickaxe", 2);
         this.setCreativeTab(KernCraft.KERNCRAFT_CREATIVE_TAB);
-        this.isBlockContainer = true;
+        this.hasTileEntity = true;
 
         setRegistryName(unlocalizedName);
         this.setDefaultState(this.blockState

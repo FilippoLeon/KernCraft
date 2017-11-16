@@ -1,0 +1,134 @@
+[
+  {
+    "conditions": [
+      {
+          "type": "kerncraft:forge_has_ore",
+          "ore": "rodCopper"
+      }
+    ],
+    "name" : "ANODE_ROD",
+    "ingredient" : {
+      "type" : "forge:ore_dict",
+      "ore" : "rodCopper"
+    }
+  },
+  {
+    "conditions": [
+      {
+        "type": "forge:and",
+        "values": [
+          {
+            "type" : "forge:not",
+            "value" : {
+              "type": "kerncraft:forge_has_ore",
+              "ore": "rodCopper"
+            }
+          },
+          {
+            "type": "kerncraft:forge_has_ore",
+            "ore": "ingotCopper"
+          }
+        ]
+      }
+    ],
+    "name" : "ANODE_ROD",
+    "ingredient" : {
+      "type" : "forge:ore_dict",
+      "ore" : "ingotCopper"
+    }
+  },
+  {
+    "conditions": [
+      {
+        "type": "forge:and",
+        "values": [
+          {
+            "type": "forge:not",
+            "value": {
+              "type": "kerncraft:forge_has_ore",
+              "ore": "rodCopper"
+            }
+          },
+          {
+            "type": "forge:not",
+            "value": {
+              "type": "kerncraft:forge_has_ore",
+              "ore": "ingotCopper"
+            }
+          }
+        ]
+      }
+    ],
+    "name" : "ANODE_ROD",
+    "ingredient" : {
+      "type" : "forge:ore_dict",
+      "ore" : "ingotGold"
+    }
+  },
+  {
+    "conditions": [
+      {
+        "type": "kerncraft:forge_has_ore",
+        "ore": "rodZinc"
+      }
+    ],
+    "name" : "CATHODE_ROD",
+    "ingredient" : {
+      "type" : "forge:ore_dict",
+      "ore" : "rodZinc"
+    }
+  },
+  {
+    "conditions": [
+      {
+        "type": "forge:and",
+        "values": [
+          {
+            "type": "forge:not",
+            "value": {
+              "type": "kerncraft:forge_has_ore",
+              "ore": "rodZinc"
+            }
+          },
+          {
+            "type": "kerncraft:forge_has_ore",
+            "ore": "ingotZinc"
+          }
+        ]
+      }
+    ],
+    "name" : "CATHODE_ROD",
+    "ingredient" : {
+      "type" : "forge:ore_dict",
+      "ore" : "ingotZinc"
+    }
+  },
+  {
+    "conditions": [
+      {
+        "type": "forge:and",
+        "values": [
+          {
+            "type": "forge:not",
+            "value": {
+              "type": "kerncraft:forge_has_ore",
+              "ore": "rodZinc"
+            }
+          },
+          {
+            "type": "forge:not",
+            "value": {
+              "type": "kerncraft:forge_has_ore",
+              "ore": "ingotZinc"
+            }
+          }
+        ]
+      }
+    ],
+    "name" : "CATHODE_ROD",
+    "ingredient" : {
+      "type" : "forge:ore_dict",
+      "ore" : "ingotIron"
+    }
+  }
+]

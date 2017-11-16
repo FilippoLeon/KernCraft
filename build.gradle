@@ -59,7 +59,7 @@ dependencies {
 
     compile "net.darkhax.tesla:Tesla-${mc_version_major}:${tesla_version}"
 
-    provided files("libs/Baubles-1.11-1.4.4-deobf.jar")
+    provided files("libs/Baubles-${mc_version_major}-${baubles_version}-deobf.jar")
 //    compile "mcp.mobius.waila:Waila:${waila_version}_${mc_version}:dev"
 
     // you may put jars on which you depend on in ./libs

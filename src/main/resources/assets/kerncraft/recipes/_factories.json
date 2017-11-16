@@ -1,0 +1,5 @@
+{
+  "conditions": {
+    "forge_has_ore": "com.R3DKn16h7.kerncraft.crafting.ForgeHasOreConditionFactory"
+  }
+}

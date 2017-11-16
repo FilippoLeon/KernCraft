@@ -197,9 +197,10 @@ public class MultiTool extends BasicItem {
     }
 
     @Override
-    public float getStrVsBlock(ItemStack stack, IBlockState state) {
+    public float getDestroySpeed(ItemStack stack, IBlockState state)
+    {
         ItemStack currentHeldItem = getCurrentHeldItem(stack);
-        return currentHeldItem.getStrVsBlock(state);
+        return currentHeldItem.getDestroySpeed(state);
     }
 
     @Override

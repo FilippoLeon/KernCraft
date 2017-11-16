@@ -1,0 +1,18 @@
+{
+  "result": {
+    "item": "kerncraft:potato_battery",
+    "count": 1
+  },
+  "type" : "forge:ore_shapeless",
+  "ingredients": [
+    {
+      "item": "#ANODE_ROD"
+    },
+    {
+      "item": "#CATHODE_ROD"
+    },
+    {
+      "item": "minecraft:poisonous_potato"
+    }
+  ]
+}
