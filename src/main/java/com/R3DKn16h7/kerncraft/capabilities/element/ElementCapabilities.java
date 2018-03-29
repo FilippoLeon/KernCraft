@@ -183,11 +183,14 @@ public class ElementCapabilities {
 
         if (PlayerHelper.isCtrlKeyDown()) {
             tooltipList.add(String.format("-------------\n" +
-                            "%s%sRight Click to transfer from\n" +
+                            "%s%sRight Click%s to transfer from\n" +
                             "off hand to main hand. Hold\n" +
-                            "%sCTRL%s and Right Click to transfer\n" +
+                            "%sCTRL%s and %sRight Click%s to transfer\n" +
                             "from main hand to off hand.",
                     com.mojang.realmsclient.gui.ChatFormatting.ITALIC,
+                    TextFormatting.AQUA.toString(),
+                    TextFormatting.GRAY.toString(),
+                    TextFormatting.AQUA.toString(),
                     TextFormatting.GRAY.toString(),
                     TextFormatting.AQUA.toString(),
                     TextFormatting.GRAY.toString()

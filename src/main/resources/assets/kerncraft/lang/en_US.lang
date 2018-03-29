@@ -33,6 +33,13 @@ item.labcoat_chestplate.name=Labcoat
 item.labcoat_leggings.name=Lab pants
 item.labcoat_boots.name=Lab boots
 
+tile.borosilicate_glass.name=Borosilicate Glass
+tile.borosilicate_glass_pane.name=Borosilicate Glass Pane
+
+item.copper_beryllium_nugget.name=Copper Beryllium Nugget
+item.copper_beryllium_ingot.name=Copper Beryllium Ingot
+tile.copper_beryllium_block.name=Copper Beryllium Block
+
 tile.test_block.name=Test Block
 tile.extractor.name=Extractor
 tile.detector.name=Detector
