@@ -1,32 +1,17 @@
 package com.R3DKn16h7.kerncraft.crafting;
 
 import com.R3DKn16h7.kerncraft.KernCraft;
-import com.R3DKn16h7.kerncraft.blocks.KernCraftBlocks;
 import com.R3DKn16h7.kerncraft.elements.ElementRegistry;
 import com.R3DKn16h7.kerncraft.elements.ElementStack;
-import com.R3DKn16h7.kerncraft.items.KernCraftItems;
 import com.R3DKn16h7.kerncraft.items.molecules.AlloyItem;
-import com.R3DKn16h7.kerncraft.tileentities.machines.ExtractorTileEntity;
-import com.google.gson.JsonObject;
 import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.PotionType;
-import net.minecraft.potion.PotionUtils;
-import net.minecraft.util.JsonUtils;
 import net.minecraft.util.NonNullList;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.common.crafting.CraftingHelper;
-import net.minecraftforge.common.crafting.IConditionFactory;
-import net.minecraftforge.common.crafting.JsonContext;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.RecipeSorter;
-import net.minecraftforge.oredict.ShapedOreRecipe;
-import net.minecraftforge.oredict.ShapelessOreRecipe;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -37,7 +22,6 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.DataInputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.BooleanSupplier;
 
 /**
  * Created by Filippo on 20-Apr-17.
@@ -206,23 +190,7 @@ public class KernCraftRecipes {
 
     private void RegisterCraftingRecipes() {
 
-//        System.out.println("asdddddddddddddddddddddddddddddddddddd");
-
         // TODO 1.12 move
-//        //// CELL RECIPE
-//        //// POTATO BATTERY RECIPE
-//        if (OreDictionary.doesOreNameExist("rodZinc") && OreDictionary.doesOreNameExist("rodCopper")) {
-//            GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(KernCraftItems.POTATO_BATTERY),
-//                    new Object[]{Items.POISONOUS_POTATO, "rodZinc", "rodCopper"}
-//            ));
-//        } else if (OreDictionary.doesOreNameExist("ingotZinc") && OreDictionary.doesOreNameExist("ingotCopper")) {
-//            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(KernCraftItems.POTATO_BATTERY),
-//                    new Object[]{Items.POISONOUS_POTATO, "ingotZinc", "ingotCopper"}
-//            ));
-//        } else {
-//            GameRegistry.addShapelessRecipe(new ItemStack(KernCraftItems.POTATO_BATTERY),
-//                    Items.POISONOUS_POTATO, Items.GOLD_INGOT, Items.IRON_INGOT);
-//        }
 //
 //        //// ELECTROLYTIC CELL
 //        if (OreDictionary.doesOreNameExist("wireCopper") &&
