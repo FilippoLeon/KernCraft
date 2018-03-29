@@ -20,6 +20,7 @@ item.upgrade_energy.name=Efficiency upgrade
 
 item.generic_battery.name=Battery
 item.multi_tool.name=Multi tool
+item.multi_tool.description=Multi tool
 
 item.lithium_chloride.name=Lithium Chloride (LiCL)
 item.potassium_chloride.name=Potassium Chloride (KCL)
