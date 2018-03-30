@@ -36,22 +36,20 @@ minecraft {
 
 
 repositories {
+    mavenCentral()
     maven {
         // location of the maven that hosts JEI files
         url "http://dvs1.progwml6.com/files/maven"
     }
-}
-
-
-repositories {
     maven {
         url "http://maven.epoxide.org"
     }
-}
-
-repositories {
     maven {
         url 'http://maven.mcmoddev.com'
+    }
+    maven {
+        name = "thiakil"
+        url = "http://maven.thiakil.com"
     }
 }
 
@@ -63,7 +61,9 @@ dependencies {
 
     compile "net.darkhax.tesla:Tesla-${mc_version}:${tesla_version}"
 
-    provided files("libs/Baubles-${mc_version_major}-${baubles_version}-deobf.jar")
+    deobfCompile "com.azanor.baubles:Baubles:1.12-1.5.2"
+
+//    provided files("libs/Baubles-${mc_version_major}-${baubles_version}-deobf.jar")
 //    compile "mcp.mobius.waila:Waila:${waila_version}_${mc_version}:dev"
 
     // you may put jars on which you depend on in ./libs
@@ -106,4 +106,13 @@ processResources {
     from(sourceSets.main.resources.srcDirs) {
         exclude 'mcmod.info'
     }
+}
+
+task deobfJar(type: Jar) {
+    from(sourceSets.main.output)
+    archiveName = "${archivesBaseName} ${version}-deobf.jar"
+}
+
+artifacts {
+    archives deobfJar
 }
