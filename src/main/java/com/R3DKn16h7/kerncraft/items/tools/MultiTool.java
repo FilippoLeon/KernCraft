@@ -4,6 +4,7 @@ import com.R3DKn16h7.kerncraft.capabilities.itemhandler.ItemHandlerCapabilityPro
 import com.R3DKn16h7.kerncraft.items.BasicItem;
 import com.R3DKn16h7.kerncraft.utils.PlayerHelper;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
@@ -65,17 +66,36 @@ public class MultiTool extends BasicItem {
             if (stack.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null)) {
                 IItemHandler cap = stack.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
 
+                // Item held in other hand
                 ItemStack other = playerIn.getHeldItem(PlayerHelper.otherHand(handIn));
+                // Add item to wand
                 if (!other.isEmpty()) {
-                    if (getNumberOfItems(stack) < 5) {
-                        ItemStack split = other.splitStack(1);
-                        ItemStack amount = cap.insertItem(getNumberOfItems(stack), split, false);
+                    ItemStack split = other.splitStack(1);
+                    ItemStack amount = split;
+                    // Try and insert in current slot
+                    if (getNumberOfItems(stack) > 0) {
+                        amount = cap.insertItem(getCurrentItem(stack), split, false);
+                    }
+                    if (!amount.isEmpty() && getNumberOfItems(stack) < 5) {
+                        amount = cap.insertItem(getNumberOfItems(stack), split, false);
                         if (!amount.isEmpty()) {
-                            other.splitStack(-1);
+                            if(other.isEmpty()) {
+                                other = split;
+                            } else {
+                                // If other is air restore
+                                other.setCount(other.getCount() + 1);
+                            }
                         } else {
                             setNumberOfItems(stack, getNumberOfItems(stack) + 1);
                         }
                     }
+                    if(other.isEmpty()) {
+                        other = split;
+                    } else {
+                        // If other is air restore
+                        other.setCount(other.getCount() + 1);
+                    }
+                // Remove from wand to hand
                 } else {
                     if (getNumberOfItems(stack) > 0) {
                         ItemStack extract = cap.extractItem(getNumberOfItems(stack) - 1, 1, false);
@@ -118,6 +138,13 @@ public class MultiTool extends BasicItem {
 
         tooltip.add(String.format("Item %d/%d (max: 5)", getCurrentItem(stack), getNumberOfItems(stack)));
 
+        tooltip.add("------------");
+        tooltip.add(String.format(
+                "Hold SHIFT + RIGHT CLICK to add an item held in the off hand.\n" +
+                "Hold SHIFT + RIGHT CLICK to remove an item and place in the off hand (while empty).\n" +
+                "Hold CTRL + RIGHT CLICK to go to the next item."
+        ));
+
         super.addInformation(stack, worldIn, tooltip, flagIn);
     }
 
@@ -138,6 +165,13 @@ public class MultiTool extends BasicItem {
             currentItem = (nbt.getInteger("currentItem") + 1) % numberOfItems;
         } else {
             currentItem = 1 % getNumberOfItems(stack);
+        }
+        if(!Minecraft.getMinecraft().world.isRemote) {
+            Minecraft.getMinecraft().player.sendChatMessage(String.format(
+                    "Currently selected item (%d/%d): %s",
+                    currentItem, numberOfItems, stack.getDisplayName()
+                    )
+            );
         }
         nbt.setInteger("currentItem", currentItem);
         stack.setTagCompound(nbt);
@@ -164,6 +198,9 @@ public class MultiTool extends BasicItem {
     public int getHarvestLevel(ItemStack stack, String toolClass,
                                @Nullable EntityPlayer player, @Nullable IBlockState blockState) {
         ItemStack currentHeldItem = getCurrentHeldItem(stack);
+        if(currentHeldItem.isEmpty()) {
+            super.getHarvestLevel(stack, toolClass, player, blockState);
+        }
 
         return getHarvestLevel(currentHeldItem, toolClass, player, blockState);
     }
@@ -180,9 +217,27 @@ public class MultiTool extends BasicItem {
 
         player.setHeldItem(hand, currentHeldItem);
         currentHeldItem.onItemUse(player, worldIn, pos, hand, facing, hitX, hitY, hitZ);
+        RemoveIfEmpty(multiTool, currentHeldItem);
         player.setHeldItem(hand, multiTool);
 
         return super.onItemUse(player, worldIn, pos, hand, facing, hitX, hitY, hitZ);
+    }
+
+    public void RemoveIfEmpty(ItemStack tool, ItemStack currentHeldItem) {
+        if(currentHeldItem.isEmpty()) {
+            IItemHandler cap = tool.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
+
+            // Shift down all items
+            int noItems = getNumberOfItems(tool);
+            for(int currentIndex = getCurrentItem(tool); currentIndex < noItems - 1; ++currentIndex) {
+                ItemStack s = cap.extractItem( currentIndex + 1, 64, false);
+                cap.insertItem( currentIndex, s,false);
+            }
+            setNumberOfItems(tool,Math.max(0, noItems -1) );
+            if( getCurrentItem(tool) == noItems - 1 ) {
+                nextItem(tool);
+            }
+        }
     }
 
     @Override

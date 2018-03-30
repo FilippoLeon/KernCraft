@@ -1,6 +1,6 @@
 language: java
 jdk: oraclejdk8
 
+before_install: chmod +x gradlew
 install: "./gradlew setupCIWorkspace"
 script: "./gradlew build"
-after_success: "./gradlew binaryUpload"
