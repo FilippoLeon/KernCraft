@@ -36,14 +36,12 @@ minecraft {
 
 
 repositories {
-//    maven {
-//        url = 'http://maven.epoxide.xyz'
-//    }
     maven {
         // location of the maven that hosts JEI files
         url "http://dvs1.progwml6.com/files/maven"
     }
 }
+
 
 repositories {
     maven {
@@ -52,9 +50,7 @@ repositories {
 }
 
 repositories {
-
     maven {
-
         url 'http://maven.mcmoddev.com'
     }
 }
