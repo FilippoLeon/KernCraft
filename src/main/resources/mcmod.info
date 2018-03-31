@@ -3,7 +3,7 @@
           "modid": "kerncraft",
           "name": "KernCraft",
           "description": "A simple Chemistry mod.",
-          "version": "1.0",
+          "version": "0.0.1",
           "mcversion": "${mcversion}",
           "url": "https://github.com/FilippoLeon/KernCraft",
           "updateUrl": "",
@@ -11,6 +11,6 @@
           "credits": "",
           "logoFile": "/assets/kerncraft_logo.png",
           "screenshots": [  ],
-          "dependencies": [  ]
+          "dependencies": [ baubles ]
     }
 ]

@@ -19,6 +19,9 @@ public class KernCraftBlocks {
                 "borosilicate_glass_pane", true,
                 new String[]{"paneGlassBorosilicate", "paneGlassReinforced"}
         );
+
+        BasicBlock.create(Material.ROCK, "ore_fluorite",
+                1.0f, 1.0f, new String[]{"oreFluorite"});
     }
 
     @SideOnly(Side.CLIENT)

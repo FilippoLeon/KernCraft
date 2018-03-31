@@ -81,6 +81,9 @@ public class KernCraftItems {
         MoleculeItem.create("potassium_chloride", "potassiumChloride");
         MoleculeItem.create("sodium_chloride", new String[]{"sodiumChloride", "dustSalt"});
 
+        MoleculeItem.create("hydrofluoric_acid", "acidHydrofluoric");
+        MoleculeItem.create("potassium_bifluoride", "potassiumBifluoride");
+
         new AlloyItem("copper_beryllium",
                 new String[]{"SpringCopper", "BerylliumCopper"}
         );

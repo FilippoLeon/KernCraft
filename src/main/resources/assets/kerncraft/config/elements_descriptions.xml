@@ -198,5 +198,21 @@
             Oxygen.
         </Description>
     </Element>
+    <Element symbol="F">
+        <Description lang="en_us">
+            [b][black]Fluorine[reset] is the 9th element of the periodic table. It is a very reactive element and
+            generally it forms a bond with itself producing F_2. In this form, it is a very toxic, very reactive
+            yellow-ish compound.
+            [p/]
+            By itself it is not that useful, but it forms many useful compounds when bonding with other elements.
+            [u]Uses:[u/][br/]
+            [li] Teflon[br/]
+            [li] Refrigerant compounds[br/]
+            [li] Uranium refinement[br/]
+            [li] Global warming (some say)[br/]
+            [u]Obtained from:[u/][br/]
+            [li] Fluorite[br/]
+        </Description>
+    </Element>
 
 </Elements>

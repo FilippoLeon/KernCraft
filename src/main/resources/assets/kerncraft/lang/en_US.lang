@@ -26,6 +26,8 @@ item.lithium_chloride.name=Lithium Chloride (LiCL)
 item.potassium_chloride.name=Potassium Chloride (KCL)
 item.calcium_chloride.name=Calcium Chloride (CaCl)
 item.sodium_chloride.name=Sodium Chloride (NaCL)
+item.hydrofluoric_acid.name=Hydrofluoric Acid (HF)
+item.potassium_bifluoride.name=Potassium Bifluoride (KHF_2)
 
 item.test_item.name=Placeholder
 
@@ -40,6 +42,8 @@ tile.borosilicate_glass_pane.name=Borosilicate Glass Pane
 item.copper_beryllium_nugget.name=Copper Beryllium Nugget
 item.copper_beryllium_ingot.name=Copper Beryllium Ingot
 tile.copper_beryllium_block.name=Copper Beryllium Block
+
+tile.ore_fluorite.name=Fluorite Ore
 
 tile.test_block.name=Test Block
 tile.extractor.name=Extractor
@@ -103,6 +107,8 @@ element.C.name=Carbon
 element.C.description=Carbon is the basis of all life we know of. It is so important for us, that there is an entire branch of chemistry dedicated to the study of this element.
 
 element.N.name=Nitrogen
+element.N.description=The most abundant element in the atmosphere, Nitrogen is an inert noble gas, which we breath every day.
+
 element.O.name=Oxygen
 element.F.name=Fluorine
 element.Ne.name=Neon
