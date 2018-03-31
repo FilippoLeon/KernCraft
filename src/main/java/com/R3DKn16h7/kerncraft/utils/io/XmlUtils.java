@@ -17,6 +17,7 @@ public class XmlUtils {
                 .replace("[s/]", "§r")
                 .replace("[u]", "§n")
                 .replace("[u/]", "§r")
+                .replace("[black]", "§0")
                 .replace("[blue]", "§1")
                 .replace("[red]", "§4")
                 .replace("[reset]", "§r")
