@@ -97,13 +97,13 @@ public class TyrociniumChymicumPeriodicTableGui extends TyrociniumChymicumGui {
     } // "of Elements"
 
     @Override
-    public void drawScreen(int par1, int par2, float par3) {
-        super.drawScreen(par1, par2, par3);
+    public void drawScreen(int par1, int mouseY, float par3) {
+        super.drawScreen(par1, mouseY, par3);
 
         List<String> str = new ArrayList<String>();
         for (GuiButton btn : periodicButtonList) {
             if (par1 > btn.x && par1 < btn.x + btn.width &&
-                    par2 > btn.y && par2 < btn.y + btn.height) {
+                    mouseY > btn.y && mouseY < btn.y + btn.height) {
                 Element elem = ElementRegistry.getElement(btn.id - STARTING_ID + 1);
 
 
@@ -114,7 +114,7 @@ public class TyrociniumChymicumPeriodicTableGui extends TyrociniumChymicumGui {
                 break;
             }
         }
-        drawHoveringText(str, par1, par2);
+        drawHoveringText(str, par1, mouseY);
     }
 
 }

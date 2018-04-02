@@ -72,8 +72,8 @@ public class TyrociniumChymicumXmlGui extends TyrociniumChymicumGui {
     }
 
     @Override
-    public final void drawScreen(int par1, int par2, float par3) {
-        super.drawScreen(par1, par2, par3);
+    public final void drawScreen(int par1, int mouseY, float par3) {
+        super.drawScreen(par1, mouseY, par3);
 
         if (listOfStringToDisplay == null) return;
         int ix = currentStartIndex;

@@ -27,6 +27,7 @@ import java.util.List;
  * Created by Filippo on 20-Apr-17.
  */
 public class KernCraftRecipes {
+    public static List<RockAnalyzerRecipe> ROCK_ANALYZER_RECIPES = new ArrayList<>();
     // Static itemRenderRegister of recipes
     static public List<ExtractorRecipe> EXTRACTOR_RECIPES = new ArrayList<>();
     public static List<ChemicalFurnaceRecipe> CHEMICAL_FURNACE_RECIPES = new ArrayList<>();

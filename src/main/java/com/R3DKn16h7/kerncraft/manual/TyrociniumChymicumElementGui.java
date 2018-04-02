@@ -106,8 +106,8 @@ public class TyrociniumChymicumElementGui extends TyrociniumChymicumGui {
     }
 
     @Override
-    public final void drawScreen(int par1, int par2, float par3) {
-        super.drawScreen(par1, par2, par3);
+    public final void drawScreen(int par1, int mouseY, float par3) {
+        super.drawScreen(par1, mouseY, par3);
 
         GL11.glPushMatrix();
         GL11.glScalef(3, 3, 3);

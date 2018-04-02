@@ -3,11 +3,21 @@
     <Chapter name="Frist Steps" unlockedWith="first_steps">
         <Entry name="Beginner Chemist">
             [red]Chemical elements[reset] are the building block of everything you
-            see. Currently we know 118 chemical elements, but it is quite possible
-            we will be able to observe many more elements.
+            see. Currently we know of 118 chemical elements, but it is quite possible
+            we will be able to observe many more elements in the future.
             [p/]
             The [b]first step[b/] of the aspiring chemist is to obtain suitable
             containers for chemical elements.
+            [p/]
+            One of the simplest chemical element is Hydrogen. Let's try and produce some
+            of it, shall we?
+            [p/]
+            Water has the chemical formula H_2O. That means, it is made out of two atoms of
+            Hydrogen and one of Oxygen. To separate the Hydrogen from the Oxygen, all we need
+            is to apply a strong electrical current to liquid water.
+            [p/]
+            The first step is to build a source of electricity. To do so, we will use a potato
+            battery: let's stick two metals into a potato to obtain a makeshift battery.
         </Entry>
         <Entry name="The next step...">
             Sed ut perspiciatis unde omnis iste natus error sit voluptatem
@@ -45,6 +55,18 @@
         </Entry>
         <Entry name="Crafting with elements">
             Description d
+        </Entry>
+    </Chapter>
+    <Chapter name="Artifacts">
+        <Entry name="Portable b(e)acon">
+            Helium: lightness[br/]
+            -NON-FINAL EFFECTS-[br/]
+            Plutonium: poison[br/]
+            Uranium: wither hit entities[br/]
+            Carbon: regen[br/]
+            Hydrogen: teleportation[br/]
+            Oxygen: water breathing[br/]
+            Nitrogen: invisibility
         </Entry>
     </Chapter>
 </Manual>

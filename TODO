@@ -3,7 +3,7 @@ Super high priority:
     - Waila support
 
 High priority:
-    - FIX: exctractor taking way too long to process
+    - FIX: extractor taking way too long to process
     - FIX: extractor progress not syncing
     - FIX: time machine find way to activate/deactivate
     - More XMl recipes? improvements
@@ -16,6 +16,8 @@ High priority:
     - ADD: images into manual? mhhhh we'll see
     - ADD: extractor fluids usage, production
     - ADD: bauble to generic battery
+    - FIX: icons in manual should have tooltip
+    - ADD: rock analyzer (ore from cobble).
 
 Soon:
     - Unify energy, wrapper around forge energy with tesla, possibly cofh?

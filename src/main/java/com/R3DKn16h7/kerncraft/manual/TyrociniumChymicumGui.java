@@ -1,6 +1,7 @@
 package com.R3DKn16h7.kerncraft.manual;
 
 import com.R3DKn16h7.kerncraft.client.gui.widgets.BetterButton;
+import com.R3DKn16h7.kerncraft.client.gui.widgets.IWidget;
 import com.R3DKn16h7.kerncraft.client.gui.widgets.Text;
 import com.R3DKn16h7.kerncraft.client.gui.widgets.Widget;
 import com.R3DKn16h7.kerncraft.manual.data.Manual;
@@ -11,6 +12,8 @@ import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Filippo on 08/12/2016.
@@ -195,7 +198,7 @@ public abstract class TyrociniumChymicumGui extends ManualEntryGui {
     }
 
     @Override
-    public void drawScreen(int par1, int par2, float par3) {
+    public void drawScreen(int mouseX, int mouseY, float par3) {
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         // Draw manual background
         this.mc.getTextureManager().bindTexture(
@@ -207,19 +210,35 @@ public abstract class TyrociniumChymicumGui extends ManualEntryGui {
         this.mc.getTextureManager().bindTexture(
                 new ResourceLocation("kerncraft:textures/gui/title_paper.png")
         );
-        this.drawTexturedModalRect(guiLeft + (xSize - 184) / 2, guiTop - 40, 0, 0, 184, 60);
+        this.drawTexturedModalRect(guiLeft + (xSize - 184) / 2, guiTop - 40,
+                0, 0, 184, 60);
 
         // Fall back to super background
-        this.drawBackground(par1, par2, par3);
+        this.drawBackground(mouseX, mouseY, par3);
 
         // Fall back to super
-        super.drawScreen(par1, par2, par3);
+        super.drawScreen(mouseX, mouseY, par3);
 
         GL11.glPushMatrix();
         GL11.glScalef(1.5f, 1.5f, 1.5f);
         title.setText(getTitle());
         if (title != null) title.draw();
         GL11.glPopMatrix();
+
+        List<String> hoveringText = new ArrayList<String>();
+        for (GuiButton btn : buttonList) {
+            if (btn instanceof IWidget) {
+                IWidget widget = (IWidget) btn;
+
+                if (widget.isMouseInArea(mouseX, mouseY)) {
+                    widget.addHoveringText(hoveringText);
+                }
+            }
+        }
+
+        if (!hoveringText.isEmpty()) {
+            drawHoveringText(hoveringText, mouseX, mouseY, fontRenderer);
+        }
     }
 
 }

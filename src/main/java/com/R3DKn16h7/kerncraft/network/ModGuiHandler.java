@@ -20,6 +20,7 @@ public class ModGuiHandler implements IGuiHandler {
     public static final int FILLER_TILE_ENTITY_GUI = 5;
     public static final int CENTRIFUGE_TILE_ENTITY_GUI = 6;
     public static final int ELECTROLYZER_TILE_ENTITY_GUI = 7;
+    public static final int ROCK_ANALYZER_TILE_ENTITY_GUI = 8;
 
     @Override
     public Object getServerGuiElement(int ID, EntityPlayer player,
@@ -49,6 +50,11 @@ public class ModGuiHandler implements IGuiHandler {
             case CENTRIFUGE_TILE_ENTITY_GUI:
                 return new CentrifugeContainer(player.inventory,
                         (CentrifugeTileEntity) world.getTileEntity(
+                                new BlockPos(x, y, z))
+                );
+            case ROCK_ANALYZER_TILE_ENTITY_GUI:
+                return new RockAnalyzerContainer(player.inventory,
+                        (RockAnalyzerTileEntity) world.getTileEntity(
                                 new BlockPos(x, y, z))
                 );
         }
@@ -85,6 +91,10 @@ public class ModGuiHandler implements IGuiHandler {
             case ELECTROLYZER_TILE_ENTITY_GUI:
                 return new ElectrolyzerGuiContainer(player.inventory,
                         (ElectrolyzerTileEntity) world.getTileEntity(
+                                new BlockPos(x, y, z)));
+            case ROCK_ANALYZER_TILE_ENTITY_GUI:
+                return new RockAnalyzerGuiContainer(player.inventory,
+                        (RockAnalyzerTileEntity) world.getTileEntity(
                                 new BlockPos(x, y, z)));
         }
 

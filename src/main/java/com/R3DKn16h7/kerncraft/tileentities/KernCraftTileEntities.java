@@ -1,13 +1,11 @@
 package com.R3DKn16h7.kerncraft.tileentities;
 
-import com.R3DKn16h7.kerncraft.KernCraft;
 import com.R3DKn16h7.kerncraft.tileentities.machines.*;
 import com.R3DKn16h7.kerncraft.tileentities.utilities.*;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -42,6 +40,9 @@ public class KernCraftTileEntities {
     public static ElectrolyzerBlockEntity ELECTROLYZER_MACHINE;
     public static ElectrolyzerTileEntity ELECTROLYZER_MACHINE_TE;
 
+    public static RockAnalyzerBlockEntity ROCK_ANALYZER_MACHINE;
+    public static RockAnalyzerTileEntity ROCK_ANALYZER_MACHINE_TE;
+
     public static void createEntities() {
         EXTRACTOR = new ExtractorBlockEntity("extractor");
         EXTRACTOR_TE = new ExtractorTileEntity();
@@ -70,6 +71,9 @@ public class KernCraftTileEntities {
         ELECTROLYZER_MACHINE = new ElectrolyzerBlockEntity("electrolyzer");
         ELECTROLYZER_MACHINE_TE = new ElectrolyzerTileEntity();
 
+        ROCK_ANALYZER_MACHINE = new RockAnalyzerBlockEntity("rock_analyzer");
+        ROCK_ANALYZER_MACHINE_TE = new RockAnalyzerTileEntity();
+
         registerEntities();
     }
 
@@ -83,6 +87,7 @@ public class KernCraftTileEntities {
         register(FILLER_MACHINE, FillerTileEntity.class);
         register(CENTRIFUGE_MACHINE, CentrifugeTileEntity.class);
         register(ELECTROLYZER_MACHINE, ElectrolyzerTileEntity.class);
+        register(ROCK_ANALYZER_MACHINE, RockAnalyzerTileEntity.class);
     }
 
     @SideOnly(Side.CLIENT)
@@ -96,6 +101,7 @@ public class KernCraftTileEntities {
         initModel(FILLER_MACHINE);
         initModel(CENTRIFUGE_MACHINE);
         initModel(ELECTROLYZER_MACHINE);
+        initModel(ROCK_ANALYZER_MACHINE);
     }
 
     /**
